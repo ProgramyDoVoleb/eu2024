@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/homepage/do.vue'
 import Parties from '../views/strany/do.vue'
+import Candidates from '../views/kandidati/do.vue'
 import About from '../views/about/do.vue'
 import Polls from '../views/polls/do.vue'
 import NewsList from '../views/news/list/do.vue'
@@ -22,6 +23,11 @@ const router = createRouter({
       path: '/strany',
       name: 'Parties',
       component: Parties
+    },
+    {
+      path: '/kandidati',
+      name: 'Candidates',
+      component: Candidates
     },
     {
       path: '/strana/:tableID/volebni-program/:programID',

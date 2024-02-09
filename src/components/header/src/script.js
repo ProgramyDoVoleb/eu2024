@@ -14,7 +14,7 @@ export default {
 			list: [
 				{label: 'Přehled', to: '/'},
 				{label: 'Strany', to: '/strany'},
-				{label: 'Lidé', to: '/kandidáti'},
+				{label: 'Lidé', to: '/kandidati'},
 				{label: 'Průzkumy', to: '/volebni-pruzkumy'},
 				{label: 'Novinky', to: '/novinky'},
 				{label: 'Pro kandidáty', to: '/pro-kandidaty', class: 'strong'}
