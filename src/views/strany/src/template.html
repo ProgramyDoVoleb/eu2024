@@ -1,0 +1,244 @@
+<div class="layout-homepage">
+	<p-layout-divided>
+		<template #main>
+			<p-block headline="Strany a hnutí ve volbách do evropského parlamentu 2024" anchor="Přehled stran" :level="1">
+				<p>Zde jsou uvedeny všechny strany a hnutí, které se jakýmkoli registrovatelným způsobem zapojují do voleb. Ať formou samostatné kandidátky, koalice nebo jen že mají na nějaké jiné kandidátce své členy.</p>
+				<p-loader :rule="elections">
+					<div v-if="elections">
+						<p-list class="invisible">
+							<template v-for="(party, index) in sortBy(elections.cis.strany.filter(x => x.POCET === 1), 'NAZEV', '', true)">
+								<div>
+									<p-area class="_container">
+										<div class="party-header">
+											<div>
+												<p-logo :data="{logo: logoByItem(party, elections)}" size="3em"></p-logo>
+											</div>
+											<div>
+												<strong>
+													<p-link :href="'https://programydovoleb.cz/rejstrik/' + party.VSTRANA">{{ party.NAZEV }}</p-link>
+												</strong>
+												<div class="smallest dimm">{{ party.ZKRATKA }}</div>
+											</div>
+											<div class="text-right">
+												<div class="dimm" v-if="elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA)">
+													<router-link class="strong" :to="'/strana/' + elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA).id">samostatně</router-link>
+												</div>
+												<div class="dimm" v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && findInParties(party.VSTRANA)">
+													v koalici <router-link class="strong" :to="'/strana/' + findInParties(party.VSTRANA).id">{{ findInParties(party.VSTRANA).NAZEV }}</router-link>
+												</div>
+												<div class="dimm" v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && !findInParties(party.VSTRANA)">
+													na kandidátce <router-link class="strong" :to="'/strana/' + findInCandidates(party.VSTRANA).id">{{ findInCandidates(party.VSTRANA).NAZEV }}</router-link>
+												</div>
+												<div class="smaller">
+													<p-lang :value="elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA || x.PSTRANA === party.VSTRANA).length" :end="['žádný kandidát', '1 kandidát', '%% kandidáti', '%% kandidátů']"></p-lang>
+												</div>
+											</div>
+										</div>
+									</p-area>
+								</div>
+							</template>
+						</p-list>
+					</div>
+				</p-loader>
+			</p-block>
+			<p-block headline="Koalice">
+				<p-loader :rule="elections">
+					<div v-if="elections" class="_container">
+						<div class="_columns">
+							<template v-for="(coal, index) in elections.cis.strany.filter(x => x.$coalition && elections.list[0].$strany.find(y => y.VSTRANA === x.VSTRANA))">
+								<div>
+									<p-area>
+										<div class="party-header">
+											<div>
+												<p-logo :data="{logo: logoByItem(elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA), elections)}" size="3em"></p-logo>
+											</div>
+											<div>
+												<strong>
+													<router-link :to="'/strana/' + elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).id">{{ elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).NAZEV }}</router-link>
+												</strong>
+											</div>
+										</div>
+										<p-line></p-line>
+										<p-list height=".25">
+											<template v-for="(party, index2) in coal.$coalition">
+												<div>
+													<p-offset class="reserve balanced">
+														<div>
+															<p-label :color="colorByItem(party, elections)">
+																<p-modal>
+																	<template #init>
+																		<span class="smaller">
+																			<button tabindex="-1" class="inline">{{ party.NAZEV }}</button>
+																		</span>																		
+																	</template>
+																	<template #content>
+																		<div class="party-header">
+																			<div>
+																				<p-logo :data="{logo: logoByItem(party, elections)}" size="3em"></p-logo>
+																			</div>
+																			<div>
+																				<strong>
+																					{{ party.NAZEV }}
+																				</strong>
+																				<div class="smallest dimm">{{ party.ZKRATKA }}</div>
+																			</div>
+																		</div>
+																		<h5>Kandidáti a pořadí na kandidátce</h5>
+																		<p-list class="smaller">
+																			<div v-for="(cand, index3) in elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA)">
+																				<p-offset class="balanced">
+																					<div class="smallest dimm">{{ cand.PORCISLO }}</div>
+																					<div>
+																						<router-link :to="'/kandidat/' + cand.id">{{ cand.JMENO }} {{ cand.PRIJMENI }}</router-link>
+																					</div>
+																				</p-offset>
+																			</div>
+																		</p-list>
+																		<p-gap></p-gap>
+																		<p-link :href="'https://programydovoleb.cz/rejstrik/' + party.VSTRANA" class="smallest strong">Detail strany</p-link>
+																	</template>
+																</p-modal>
+															</p-label>
+														</div>
+														<div class="smallest dimm text-right">
+															{{ elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA).length }}
+														</div>
+													</p-offset>
+												</div>
+											</template>
+											<div v-if="elections.list[0].$kandidati.filter(x => !x.NSTRANA && x.ESTRANA === elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).ESTRANA).length > 0">
+												<p-modal>
+													<template #init>
+														<span class="smallest"><button tabindex="-1" class="inline dimm"><p-lang :value="elections.list[0].$kandidati.filter(x => !x.NSTRANA && x.ESTRANA === elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).ESTRANA).length" :end="['', '1 nezařazený kandidát', '%% nezařazení kandidáti', '%% nezařazených kandidátů']"></p-lang></button></span>
+													</template>
+													<template #content>
+														<h3>Kandidáti bez určené nominace</h3>
+														<p-list class="smaller">
+															<div v-for="(cand, index3) in elections.list[0].$kandidati.filter(x => !x.NSTRANA && x.ESTRANA === elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).ESTRANA)">
+																<p-offset class="balanced">
+																	<div class="smallest dimm">{{ cand.PORCISLO }}</div>
+																	<div>
+																		<router-link :to="'/kandidat/' + cand.id">{{ cand.JMENO }} {{ cand.PRIJMENI }}</router-link>
+																	</div>
+																</p-offset>
+															</div>
+														</p-list>
+													</template>
+												</p-modal>												
+											</div>
+										</p-list>
+										<p-gap height=".5"></p-gap>
+										<p-link :href="'https://programydovoleb.cz/rejstrik/' + coal.VSTRANA" class="smallest strong">Historické záznamy koalice</p-link>
+									</p-area>
+								</div>
+							</template>
+						</div>
+					</div>
+				</p-loader>
+			</p-block>
+			<p-block headline="Novinky">
+				<p-loader :rule="news">
+					<div v-if="news" class="smaller">
+						<p-list padding="1">
+							<template v-for="(news, index) in news.list">
+								<div v-if="index < 5">
+									<news-item :data="news" :noSource="true"></news-item>
+								</div>
+							</template>
+							<div class="smallest strong">
+								<p-offset class="reverse">
+									<div>
+										<router-link to="/novinky">Všechny novinky</router-link> &rarr;
+									</div>
+									<div>
+										<p-label :after="true" color="var(--red)">
+											<p-link href="https://programydovoleb.cz/rss">RSS</p-link>
+										</p-label>						
+									</div>
+								</p-offset>
+							</div>
+						</p-list>
+					</div>					
+				</p-loader>
+			</p-block>
+			<p-grid>
+				<div>
+					<p-area icon="plus-green" background="var(--greyish)">
+						<p-modal>
+							<template #init> <button class="inline green strong">Poslat tip na novinku</button> </template>
+							<template #content>
+								<div class="strong">Odkaz na článek</div>
+								<report-form part="Přidat média"></report-form>
+							</template>
+						</p-modal>
+						<div class="smallest dimm">Stačí poslat odkaz</div>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="email" background="var(--greyish)">
+						<p-modal>
+							<template #init>
+								<button class="inline strong">Chcete novinky e-mailem?</button>
+							</template>
+							<template #content>
+								<mailchimp-signup></mailchimp-signup>
+							</template>
+						</p-modal>
+						<div class="smallest dimm">Souhrn vždy na konci měsíce</div>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="warning" background="var(--greyish)">
+						<p-modal>
+							<template #init>
+								<button class="inline strong red">Nahlásit chybu</button>
+							</template>
+							<template #content>
+								<strong>Nahlásit chybu</strong>
+								<report-form part="Homepage"></report-form>
+							</template>
+						</p-modal>
+						<div class="smallest dimm">Nefunguje odkaz? Chyba ve jméně?</div>
+					</p-area>
+				</div>
+			</p-grid>			
+		</template>
+		<template #anchors>
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'"></p-logo>
+			<p-gap></p-gap>
+			<p-anchors></p-anchors>
+		</template>
+		<template #aside>
+			<p-list height="1.25">
+				<div>
+					<strong class="smaller">Novinky</strong>
+					<p-gap></p-gap>
+					<p-loader :rule="news">
+						<div v-if="news" class="smallest">
+							<p-list height=".5">
+								<template v-for="(news, index) in news.list">
+									<div v-if="index < 3">
+										<news-item :data="news" :noSource="true"></news-item>
+									</div>
+								</template>
+							</p-list>
+						</div>
+					</p-loader>
+				</div>
+				<div class="smallest b">
+					<p-offset class="reverse">
+						<div>
+							<router-link to="/novinky">Archiv novinek</router-link> &rarr;
+						</div>
+						<div>
+							<p-label :after="true" color="var(--red)">
+								<p-link href="https://programydovoleb.cz/rss">RSS</p-link>
+							</p-label>						
+						</div>
+					</p-offset>
+					
+				</div>
+			</p-list>
+		</template>
+	</p-layout-divided>
+</div>

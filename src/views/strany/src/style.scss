@@ -1,0 +1,56 @@
+._container {
+	container-type: inline-size;
+}
+
+.party-header {
+	display: flex;
+	align-items: center;
+
+	> div:nth-child(2) {
+		margin: 0 1em;
+		flex: 1
+	}
+
+	@container (max-width: 800px) {
+		flex-wrap: wrap;
+		font-size: .9em;
+
+		> div:nth-child(3) {
+			width: 100%;
+			text-align: left;
+			border-top: var(--border);
+			padding-top: .5em;
+			margin-top: 1em;
+			color: var(--grey);
+
+			a {
+				color: var(--grey)
+			}
+		}
+	}
+}
+
+.p-logo {
+	display: block !important;
+}
+
+._columns {
+	> div {
+		margin-bottom: .5em;
+		break-inside: avoid;
+	}
+
+	@container (min-width: 600px) {
+		columns: 2;
+		columns-gap: 2em;
+
+		> div {
+			margin-bottom: 1em;
+		}
+	}
+
+	@container (min-width: 900px) {
+		columns: 3;
+		columns-gap: 2em;
+	}
+}

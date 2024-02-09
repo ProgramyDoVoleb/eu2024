@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/homepage/do.vue'
-import NewsList from '../views/news/list/do.vue'
-import NewsDetail from '../views/news/detail/do.vue'
+import Parties from '../views/strany/do.vue'
 import About from '../views/about/do.vue'
 import Polls from '../views/polls/do.vue'
+import NewsList from '../views/news/list/do.vue'
+import NewsDetail from '../views/news/detail/do.vue'
 import PointerParty from '../views/pointer/strana/do.vue'
 import PointerCandidate from '../views/pointer/kandidat/do.vue'
 import PointerQA from '../views/pointer/qa/do.vue'
@@ -16,6 +17,11 @@ const router = createRouter({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/strany',
+      name: 'Parties',
+      component: Parties
     },
     {
       path: '/strana/:tableID/volebni-program/:programID',
