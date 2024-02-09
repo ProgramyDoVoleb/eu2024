@@ -1,0 +1,93 @@
+<div class="layout-homepage">
+	<p-layout-divided>
+		<template #main>
+			<p-block :level="1" headline="Pro strany a kandidáty">
+				<p class="lead">Pokud kandidujete v evropských volbách 2024, můžete zažádat o přístup do Adminu Programů do voleb. Jedná se o jednoduchý online nástroj, ve kterém můžete snadno spravovat údaje, které se zobrazují k vaší kandidátní listině nebo vám osobně.</p>
+				<p-gap></p-gap>
+				<p-block headline="Jak získáte přístup do Adminu?">
+					<p-area background="var(--blue11)">
+						<ol>
+							<li>Přejděte na <router-link to="/strany">detail volební strany</router-link> nebo <router-link to="/kandidati">svůj profil kandidáta</router-link>.</li>
+							<li>Dole na stránce najdete tlačítko "<em>Admin - správa údajů</em>"</li>
+							<li>Klikněte na "<em>Vyplnit žádost</em>"</li>
+							<li>Zobrazí se formulář se žádostí na stránce <p-link href="https://admin.programydovoleb.cz">admin.programydovoleb.cz</p-link></li>
+							<li>Vyplníte vaše jméno, kontakt (e-mail nebo odkaz na sociální sítě)</li>
+							<li>A také vztah k profilu - zda to jste vy osobně, zda jste tiskový mluvčí, správce sítí, apod</li>
+							<li>Během 24 dojde k posouzení žádosti a přijde vám unikátní přístup do Adminu</li>
+						</ol>
+					</p-area>
+					<p class="strong">Můžete také požádat o přístup k vybrané skupině kandidátů, což se hodí například u koalic nebo v případě mládežnických organizací stran.</p>
+					<p class="smaller"><span class="red strong">Doporučení: </span> E-mail by měl být ze stranického účtu nebo by měl být uveden na vašem webu nebo sociálních sítích. Jen tak lze zarušit autenticitu.</p>
+				</p-block>
+				<p-block headline="Co budete moct upravovat?">
+					<p-area background="var(--greyish)">
+						<ul class="columns">
+							<li>Krátké představení</li>
+							<li>Fotku, logo nebo barvu</li>
+							<li>Odkazy na web, wiki či sociální sítě</li>
+							<li>Adresy, telefony či e-maily</li>
+							<li>Odkazy na volební programy, priority, desatera, teze...</li>
+							<li>Volební priority</li>
+							<li>Volební slogany</li>
+							<li>Hodnoty</li>
+							<li>Podporu od jiných stran či kandidátů</li>
+							<li>Nahrávat zálohy volebních programů jako PDF</li>
+							<li>Odkazy na články, rozhovory v médiích</li>
+							<li>Odkazy na tiskové zprávy, dokumenty</li>
+							<li>Akce a události do kalendáře</li>
+							<li>Volební videa z FB nebo Youtube</li>
+							<li>Náhledy volebních materiálů</li>
+							<li>Fotky z kampaně</li>
+							<li>Krátké poznámky</li>
+						</ul>
+					</p-area>
+					<p>V době do registrace na ČSÚ lze také doplňovat povolání, bydliště, věk, tituly apod. Tyto údaje jsou ale poté nahrazeny oficiálními údaji z registru.</p>
+				</p-block>
+				<p-block headline="Podmínky">
+					<p>Protože přístup je udělen pouze k relevantním stranám nebo kandidátům, lze předpokládám, že není zájem zadávat nepravdivé či očerňující údaje.</p>
+					<p>Všechny vložené údaje jsou označené autorem, je tedy vždy jasně rozpoznatelné, kdo a kdy jakou úpravu udělal. Žádné údaje se nemažou, jsou leda skryté - a i ty jsou vidět v Adminu, abyste je bylo možné obnovit.</p>
+					<p>Použití Admina je dostupné kandidátovi jakékoli strany. Všichni mají k dispozici stejnou sadu nástrojů i sekcí, které mohou upravovat nebo doplňovat.</p>
+					<p>Kde je možné, tak mohou uživatelé Adminu doplnit zdroj informace. Je to jistota pro návštěvníky webu i pro ně, jedna z forem podpory důvěryhodnosti sdělení.</p>
+					<p>Programy do voleb, stejně tak i Admin, jsou součástí neziskového projektu s cílem poskytovat přehledné informace.</p>
+					<p>Použití Programů do voleb i Admina je bezplatné.</p>
+				</p-block>
+				<p-line></p-line>
+				<p-box-group>
+					<p-box href="https://admin.programydovoleb.cz">
+						<p-box-button color="var(--blue)">Kompletní informace</p-box-button>
+					</p-box>
+				</p-box-group>
+				<p-line></p-line>
+				<p>Můžete samozřejmě napsat také přímo na <a href="mailto:admin@programydovoleb.cz">admin@programydovoleb.cz</a> nebo skrze nějakou sociální síť: TW/X, Instagram, Threads, Facebook, Reddit, Mastodon, Bluesky, LinkedIn...</p>
+			</p-block>
+		</template>
+		<template #aside>
+			<h3 class="serif w400">Programy do voleb, z. s.</h3>
+			<p-gap height=".2"></p-gap>
+			<p-list class="smaller">
+				<p-stats :vertical="true" label="Zapsaný spolek">
+					Nestranný neziskový projekt, díky kterému si můžete snadno, pohodlně a bez hledání přečíst a
+					porovnat volební programy všech stran či kandidátů.
+				</p-stats>
+				<p-stats :vertical="true" label="IČO">
+					10906380 (<p-link class="as-span"
+						href="https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=1126297&typ=PLATNY">rejstřík</p-link>)
+				</p-stats>
+				<p-stats :vertical="true" label="Datovka">
+					vhwmpce
+				</p-stats>
+				<p-stats :vertical="true" label="Sídlo">
+					Jana Palacha 1413, Turnov
+				</p-stats>
+				<p-stats :vertical="true" label="Kontakt" class="smallest">
+					<a href="mailto:info@programydovoleb.cz">info@programydovoleb.cz</a>
+				</p-stats>
+			</p-list>
+		</template>
+		<template #anchors>
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'"></p-logo>
+			<p-gap></p-gap>
+			<p-anchors></p-anchors>
+		</template>
+	</p-layout-divided>
+</div>

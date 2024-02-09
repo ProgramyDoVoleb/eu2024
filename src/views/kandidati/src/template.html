@@ -6,15 +6,17 @@
 				<p-loader :rule="elections">
 					<div v-if="elections">
 						<p-collapsible label="Filtr podle volebních stran">
-							<div class="columns-4 smaller">
-								<div v-for="(party, index) in sortBy(elections.list[0].$strany, 'NAZEV', '', true)">
-									<p-label :color="selected.find(x => x === party.ESTRANA) ? 'var(--green)' : 'var(--greyish)'">
-										<button class="inline" @click.prevent="filterMe(party.ESTRANA)">
-											{{ party.NAZEV }}
-										</button>
-									</p-label>
+							<p-area background="var(--blue11)">
+								<div class="columns-4 smaller">
+									<div v-for="(party, index) in sortBy(elections.list[0].$strany, 'NAZEV', '', true)">
+										<p-label :color="selected.find(x => x === party.ESTRANA) ? 'var(--green)' : 'var(--greyish)'">
+											<button class="inline" @click.prevent="filterMe(party.ESTRANA)">
+												{{ party.NAZEV }}
+											</button>
+										</p-label>
+									</div>
 								</div>
-							</div>
+							</p-area>
 						</p-collapsible>
 						<p-gap height="4"></p-gap>
 						<div class="columns-4">

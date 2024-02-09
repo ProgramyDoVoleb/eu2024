@@ -139,6 +139,6 @@ export default {
   },
   mounted: function () {
     window.scrollTo(0, 1);
-    ga();
+    ga("Přehled stran a hnutí");
   }
 };
