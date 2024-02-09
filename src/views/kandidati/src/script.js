@@ -56,7 +56,7 @@ export default {
 		sortBy,
 		filterMe: function (id) {
 			if (this.selected.find(x => x === id)) {
-				this.selected.splice(this.selected.find(x => x === id), 1)
+				this.selected.splice(this.selected.findIndex(x => x === id), 1)
 			} else {
 				this.selected.push(id);
 			}
