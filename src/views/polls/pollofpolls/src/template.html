@@ -1,0 +1,14 @@
+<div class="poll-of-polls">
+	<p-loader :rule="polls">
+		<div v-if="polls">
+			<h3>Poll of polls</h3>
+			<div class="smallest">
+				Výpočet vychází <p-lang :value="polls.length" :end="['', 'z jednoho průzkumu, není tak moc vypovídající.', 'ze %% průzkumů.', 'z %% průzkumů.']"></p-lang>
+			</div>
+			<p-gap></p-gap>
+			<polls-preview :poll="latest.graph" :both="true"></polls-preview>
+			<p-line></p-line>
+			<div class="smallest dimm">Poll of Polls jsou vážený průměr volebních modelů stran (bez koalic) podle středního data sběru.</div>
+		</div>
+	</p-loader>
+</div>

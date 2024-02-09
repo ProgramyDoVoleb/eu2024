@@ -1,0 +1,30 @@
+<div class="profile-preview">
+	<p-area padding="1em">
+		<p-loader :rule="data">
+			<div v-if="data">
+				<p-offset>
+					<div>
+						<p-image :src="photo" :rounded="true" :border="true" width="7rem"></p-image>
+					</div>
+					<div>
+						<div class="strong">
+							<p-link :href="'https://programydovoleb.cz/lide/profil/' + id">{{ data.profile.display }}</p-link>
+						</div>
+						<div class="">
+							{{ data.profile.popis }}
+								<p-gap height=".25"></p-gap>
+								<p-box-group>
+									<template v-for="(link, index) in links">
+										<p-box :href="link" background="transparent">
+											<p-box-icon :type="type(link)"></p-box-icon>
+										</p-box>
+									</template>
+								</p-box-group>
+							<p-gap height=".25"></p-gap>
+						</div>
+					</div>
+				</p-offset>
+			</div>
+		</p-loader>
+	</p-area>
+</div>

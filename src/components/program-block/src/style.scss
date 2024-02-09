@@ -1,0 +1,24 @@
+blockquote {
+  font-size: 2rem;
+}
+
+p {
+  max-width: 70rem;
+  font-size: 1em;
+}
+
+h4, h5, h6 {
+  margin-top: 2em;
+}
+
+ul {
+  list-style: circle;
+}
+
+li {
+  margin-left: 1em;
+}
+
+.program-block---holder + .program-block---holder {
+  margin-top: 6rem;
+}

@@ -1,0 +1,60 @@
+<div class="polls-preview" :class="{'has-previous': !!previous}">
+	<p-loader :rule="parties">
+		<div v-if="parties">
+			<!-- <p-area :class="{cancel: both}"> -->
+				<div class="text-center">
+					<strong>{{ poll.agency }}</strong>, {{ date(poll.datum) }}
+					<div v-if="poll.type === 1 && poll.id > 227 && !both" class="smallest">
+						<button class="inline" @click="showMandates = false" :class="{active: !showMandates}">Průzkum</button> &rarr; <button class="inline" @click="showMandates = true" :class="{active: showMandates}">Mandáty</button>
+					</div>
+				</div>								
+				<p-gap></p-gap>
+				<div :class="{both}">
+					<div v-if="!showMandates || both">
+						<template v-for="(entry, indexE) in poll.entries">
+							<div class="polls-preview---split smaller" v-if="(indexE < 8 || both)">
+								<div v-if="parties.list.find(x => x.VSTRANA === entry.party)">
+									<span :class="{dimm: entry.value < 5}">{{ parties.list.find(x => x.VSTRANA === entry.party) ? parties.list.find(x => x.VSTRANA === entry.party).ZKRATKA || 'xxx' : entry.party }}</span>
+								</div>
+								<div v-if="!parties.list.find(x => x.VSTRANA === entry.party)">
+									{{entry.name}}
+								</div>
+								<div>
+									<p-line-graph :label="entry.value < 1 ? '~ 1 %' : number(entry.value, 1) + ' %'" :value="entry.value < 1 ? 1 : entry.value * 2.25" :color="entry.value < 5 ? '#aaaaaa88' : (parties.list.find(x => x.VSTRANA === entry.party) && con(parties.list.find(x => x.VSTRANA === entry.party).$data, 'color', color(entry.party || entry.name)))"></p-line-graph>
+								</div>
+								<div v-if="previous && previous.entries.find(x => x.party === entry.party)" class="text-right smallest" :class="indicator(entry.value, previous.entries.find(x => x.party === entry.party).value)">
+									{{ number(entry.value - previous.entries.find(x => x.party === entry.party).value, 1, true) }}
+								</div>
+								<div v-if="previous && !previous.entries.find(x => x.party === entry.party)" class="text-right smallest dimm">
+									
+								</div>
+							</div>
+						</template>
+						<template v-if="!both">
+							<p-line>.5</p-line>
+							<div class="polls-preview---split tiny dimm">
+								<div><p-lang :value="poll.entries.length - 8" :end="['', 'další jedna strana', 'další %% strany', 'dalších %% stran']"></p-lang></div>
+								<div><p-line-graph :value="(poll.entries.filter((x, i) => i > 7).reduce((a, b) => a + b.value, 0)) * 2.25" :label="number(poll.entries.filter((x, i) => i > 7).reduce((a, b) => a + b.value, 0), 1) + ' %'" :color="'#ccc'"></p-line-graph></div>
+								<div></div>
+							</div>
+						</template>
+					</div>
+				</div>
+				<template v-if="!showMandates && !both">
+					<p-line>.5</p-line>
+					<div class="tiny dimm">
+						<p-list-linear class="or">
+							<li v-if="poll.amount > -1">{{ poll.amount }} resp.</li>
+							<li v-if="poll.from && poll.to">{{ date(poll.from, 2) }}–{{ date(poll.to, 2) }}</li>
+							<li v-if="poll.error">{{ poll.error }}</li>
+							<li v-if="poll.attendance">účast {{ poll.attendance }} %</li>
+							<li v-if="previous">porovnání vs {{ previous.agency }}, {{ date(previous.datum )}}</li>
+							<li v-if="poll.link"><p-link :href="poll.link">zdroj {{ poll.agency }}</p-link></li>
+						</p-list-linear>
+					</div>
+		
+				</template>
+			<!-- </p-area> -->
+		</div>
+	</p-loader>
+</div>

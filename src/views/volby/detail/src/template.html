@@ -1,0 +1,17 @@
+<div class="layout-volby">
+	<p-area>
+		<p-loader :rule="data">
+			<div v-if="data">
+				<component :is="type.hash" :data="data" :local="local" :label="label || 'Výsledky'"></component>		
+			</div>
+		</p-loader>	
+		<p-line></p-line>
+		<div class="smaller dimm">
+			<span class="strong">
+				<router-link to="/">{{ type.name }}</router-link>
+			</span>
+			&middot;
+			{{ date(election.datum) }}
+		</div>
+	</p-area>	
+</div>

@@ -1,0 +1,54 @@
+<div class="layout-polls">
+	<p-layout-divided>
+		<template #main>
+			<p-block headline="Přehled průzkumů" :level="1">
+				<p-loader :rule="polls">
+					<div v-if="polls">
+						<div class="hide-60rem">
+							<p-area>
+								<poll-of-polls :polls="polls.list.filter(x => x.priority === 1)"></poll-of-polls>
+							</p-area>							
+						</div>
+						<p-area background="var(--blue11)">
+							<div class="serif"><button class="inline" @click="type = 1" :class="{'active': type === 1}">Průzkumy</button> / <button class="inline" @click="type = 2" :class="{'active': type === 2}">další výstupy</button> / <button class="inline" @click="type = 5" :class="{'active': type === 5}">ostatní</button></div>
+						</p-area>	
+						<p-gap></p-gap>					
+						<template v-for="(year, index) in [2025, 2024, 2023, 2022, 2021, 2020, 2018, 2017]">
+							<p-block :headline="'Rok ' + year" v-if="polls.list.filter(x => x.datum > year + '-01-00' && x.datum < year + '-13-01').filter(x => x.priority === type).length > 0" :hide="true">
+								<template v-for="(poll, index2) in polls.list.filter(x => x.datum > year + '-01-00' && x.datum < year + '-13-01').filter(x => x.priority === type)">
+									<p-collapsible :label="poll.agency + ', ' + poll.title" :status="date(poll.datum)" :open="year === 2024 && index2 === 0">
+										<p-area>
+											<graph-parties :data="poll" :previous="polls.list.find(x => x.id === poll.previous)"></graph-parties>										
+										</p-area>										
+										<p-gap>.25em</p-gap>
+										<div class="smallest dimm">
+											<p-list-linear class="or">
+												<li v-if="poll.amount > -1">{{ poll.amount }} resp.</li>
+												<li v-if="poll.from && poll.to">{{ date(poll.from, 2) }}–{{ date(poll.to, 2) }}</li>
+												<li v-if="poll.error">{{ poll.error }}</li>
+												<li v-if="poll.attendance">účast {{ poll.attendance }} %</li>
+												<li v-if="poll.previous">porovnání vs {{ polls.list.find(x => x.id === poll.previous).agency }}, {{ date(polls.list.find(x => x.id === poll.previous).datum )}}</li>
+												<li v-if="poll.link"><p-link :href="poll.link">zdroj {{ poll.agency }}</p-link></li>
+											</p-list-linear>
+										</div>
+									</p-collapsible>
+								</template>
+							</p-block>
+						</template>
+					</div>
+				</p-loader>
+			</p-block>			
+		</template>
+		<template #anchors>
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'"></p-logo>
+			<p-gap></p-gap>
+			<p-anchors></p-anchors>
+		</template>
+		<template #aside>
+			<!-- <p-anchors></p-anchors> -->
+			<template v-if="polls">
+				<poll-of-polls :polls="polls.list.filter(x => x.priority === 1)"></poll-of-polls>
+			</template>			
+		</template>
+	</p-layout-divided>
+</div>

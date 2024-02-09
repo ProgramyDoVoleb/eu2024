@@ -1,0 +1,49 @@
+<header class="header">
+	<div class="fixed-content">
+		<div class="row">
+			<div class="row-logo-flex">
+				<div class="row-logo row-logo-pdv">
+					<router-link to="/" class="no-link serif">
+						<span class="blue">EU 2024</span> &middot; Programy do voleb
+					</router-link>
+					<div class="row-logo---loader"></div>
+				</div>
+			</div>
+			<div class="row-menu">
+				<div class="row-menu-button">
+					<button @click="showMenu = !showMenu" class="button-plain">
+						<span v-if="!showMenu">=</span>
+						<span v-if="showMenu" class="red">&times;</span>
+					</button>
+				</div>
+				<div class="row-menu-list" :class="{showMenu}">
+					<div class="hide-60rem">
+						<p-gap></p-gap>
+						<div class="columns" @click="showMenu = false">
+							<div v-for="(item, index) in list">
+								<router-link :to="item.to" :class="item.class">{{ item.label }}</router-link>
+							</div>
+							<div><p-link href="https://darujme.cz/programydovoleb" class="strong green">Podpořit</p-link></div>
+						</div>
+						<p-line></p-line>
+						<p-label :color="core.dark ? '#fff' : '#000'"><button class="inline strong" @click="core.change(!core.dark)">Noční režim</button></p-label>
+
+						<p-gap></p-gap>
+					</div>
+					<div class="show-60rem">
+						<ul>
+							<li v-for="(item, index) in list">
+								<router-link :to="item.to" :class="item.class">{{ item.label }}</router-link>
+							</li>
+							<li>&middot;</li>
+							<li><p-link href="https://darujme.cz/programydovoleb" class="strong green"><span class="green">Podpořit</span></p-link></li>
+							<li>
+								<button class="micro" @click="core.change(!core.dark)">&#x25D0;</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

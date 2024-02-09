@@ -1,0 +1,115 @@
+.p-list {
+    margin: 0 -1rem;
+  
+    & > :is(div, li) {
+      padding: 1rem;
+      position: relative;
+      // background: #fff;
+  
+      &:first-child {
+        padding-top: 0;
+      }
+  
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  
+    & > div:not(:first-child),
+    & > li:not(:first-child) {
+      border-top: var(--border);
+  
+      .dark & {
+        border-color: #000;
+      }
+    }
+  }
+  
+  .p-list.padding---4rem > :is(div, li) {
+    &:not(:first-child) {
+      padding-top: 4rem;
+    }
+    &:not(:last-child) {
+      padding-bottom: 4rem;
+    }
+  }
+  
+  .p-list.padding---3rem > :is(div, li) {
+    &:not(:first-child) {
+      padding-top: 3rem;
+    }
+    &:not(:last-child) {
+      padding-bottom: 3rem;
+    }
+  }
+  
+  .p-list.padding---2rem > :is(div, li) {
+    &:not(:first-child) {
+      padding-top: 2rem;
+    }
+    &:not(:last-child) {
+      padding-bottom: 2rem;
+    }
+  }
+  
+  .p-list.padding---05rem > :is(div, li) {
+    &:not(:first-child) {
+      padding-top: .5rem;
+    }
+    &:not(:last-child) {
+      padding-bottom: .5rem;
+    }
+  }
+  
+  .p-list.padding---0 > :is(div, li) {
+    &:not(:first-child) {
+      padding-top: 0;
+    }
+    &:not(:last-child) {
+      padding-bottom: 0;
+    }
+  }
+  
+  .p-list.p-list---invisible {
+    & > :is(div, li) {
+      border-top: none !important;
+    }
+  }
+
+  .p-list.tight > :is(div, li) {
+    &:not(:first-child) {
+      padding-top: .25em;
+    }
+    &:not(:last-child) {
+      padding-bottom: .25em;
+    }
+  }
+
+  .p-list.spacey > :is(div, li) {
+    &:not(:first-child) {
+      padding-top: 1.5em;
+    }
+    &:not(:last-child) {
+      padding-bottom: 1.5em;
+    }
+  }
+
+  .p-list.p-list---invisible, 
+  .p-list.invisible {
+    & > :is(div, li) {
+      border-top: none !important;
+
+      &:not(:first-child) {
+        padding-top: .1em;
+      }
+      &:not(:last-child) {
+        padding-bottom: .1em;
+      }
+    }
+  }
+
+  .p-list-linear > li,
+  .p-list-linear > span,
+  .p-list-linear > div {
+    display: inline;
+  }

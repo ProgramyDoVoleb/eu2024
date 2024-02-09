@@ -1,0 +1,19 @@
+.news-item {
+  container: news / inline-size;
+}
+
+@container news (min-width: 320px) {
+  .news-item---holder {
+    display: flex;
+  }
+
+  .news-item---date {
+    width: 4em;
+    text-align: right;
+    padding-right: 1em;
+  }
+
+  .news-item---domain {
+    display: none;
+  }
+}

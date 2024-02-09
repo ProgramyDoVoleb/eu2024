@@ -1,0 +1,65 @@
+<div class="layout-polls">
+	<p-layout-divided>
+		<template #main>
+			<p-block headline="Novinka" :level="1" :hide="true">
+				<p-loader :rule="item">
+					<div v-if="item">
+						<p-grid class="max">
+							<div>
+								<p-area>
+									<h3 class="red smaller">{{ date(item.datum) }} &middot; {{ domain(item.source) }}</h3>
+									<!-- <p class="red">{{ date(item.datum) }} &middot; {{ domain(item.source) }}</p> -->
+									<p-headline :level="2">{{ item.title }}</p-headline>
+									<p-block headline="Podrobnosti" :hide="true">
+										<div v-html="item.content" class="wsw"></div>
+									</p-block>
+									<p-block headline="Zdroj" :hide="true">
+										<p-link :href="item.source" class="btn">{{ item.label || 'Více zde' }}</p-link>
+									</p-block>
+								</p-area>
+							</div>
+							<div v-if="item.$relates && item.$relates.length > 1">
+								<p-area background="var(--blue11)">
+									<p-block headline="Týká se" v-if="item.$relates.length > 0 || item.$volby.length > 0" :hide="true">
+										<h3 class="smaller">Zobrazit podrobnosti:</h3>
+										<p-list height=".5" class="smaller">
+											<template v-if="item.$relates">
+												<li class="strong smallest">Volební strany</li>
+												<template v-for="(item2, index) in item.$relates.filter(x => x.$id[0].split('_')[2] === 'rkl')">
+													<li><router-link :to="'/strana/' + item2.id">{{ item2.NAZEV }}</router-link></li>
+												</template>
+												<li class="strong smallest">Kandidáti</li>
+												<template v-for="(item2, index) in item.$relates.filter(x => x.$id[0].split('_')[2] === 'rk')">
+													<li><router-link :to="'/kandidat/' + item2.id">{{ item2.JMENO }} {{ item2.PRIJMENI }}</router-link></li>
+												</template>
+												<li class="strong smallest">Registr stran</li>
+												<template v-for="(item2, index) in item.$relates.filter(x => x.$id[0].split('_')[1] === 'cvs')">
+													<li><p-link :href="'https://programydovoleb.cz/rejstrik/' + item2.VSTRANA">{{ item2.NAZEV }}</p-link></li>
+												</template>
+											</template>
+										</p-list>
+									</p-block>
+								</p-area>
+							</div>
+						</p-grid>
+					</div>
+				</p-loader>
+			</p-block>			
+		</template>
+		<template #anchors>
+			<p-logo :data="{logo: cdn + 'el/generic-2023.png'}" :size="'12rem'"></p-logo>
+			<p-gap></p-gap>
+			<p-anchors></p-anchors>
+		</template>
+		<template #aside>
+			<h3 class="serif">Novinky</h3>
+			<p-list v-if="news" class="smallest">
+				<template v-for="(item, index) in news.list">
+					<news-item :data="item" v-if="index < 5"></news-item>
+				</template>
+			</p-list>	
+			<!-- <p-anchors></p-anchors> -->	
+						
+		</template>
+	</p-layout-divided>
+</div>

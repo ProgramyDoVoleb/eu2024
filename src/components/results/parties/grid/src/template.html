@@ -1,0 +1,82 @@
+<div class="results-parties-grid">
+	<div class="columns columns---no-gap">
+		<div v-for="(item, index) in list">
+			<p-area :borderColor="item.color" padding="0 1em 0 1.25em" background="Transparent">
+				<div class="strong">
+					<router-link :to="item.link">
+						{{ item.name }}
+					</router-link>
+				</div>
+				<p-logo :data="item" v-if="item.logo && item.logo.split('empty.png').length === 1"></p-logo>
+
+				<div class="p-logo _mpl" v-if="!item.logo && item.coal.length > 1">
+					<template v-for="(coal, indexC) in item.coal">
+						<template v-if="coal.logo">
+							<p-logo :data="coal"></p-logo>
+						</template>						
+					</template>
+				</div>
+				
+				<div v-if="item.program && item.program.length === 1">
+					<p-gap height=".5"></p-gap>
+					<p-link class="strong smallest _pg" :href="item.program[0].label || item.program[0].source" :style="{background: item.color}" :title="item.program[0].value">program &rarr;</p-link>
+					<p-gap height=".25"></p-gap>
+				</div>
+				<div v-if="item.program && item.program.length > 1">
+					<p-gap height=".5"></p-gap>
+					<p-modal>
+						<template #init>
+							<span class="strong smallest _pg" :style="{background: item.color}"><p-lang :value="item.program.length" :end="['', '', '%% programy', '%% programů']"></p-lang></span>
+						</template>
+						<template #content>
+							<p-label :color="item.color" :after="true"><p-link :href="'https://programydovoleb.cz/volby/evropske-volby/161/strana/' + item.id" class="strong">{{ item.name }}</p-link></p-label>
+							<h5>Programové dokumenty</h5>
+							<p-list>
+								<div v-for="(program, indexP) in item.program">
+									<p-offset class="balanced reverse">
+										<div>
+											<p-link :href="program.source">{{ program.value }}</p-link>
+											<div class="dimm tiny">vloženo {{ date(program.updated) }}</div>
+										</div>
+										<div v-if="program.label">
+											<p-link class="dimm smallest" :href="program.label">záloha</p-link>
+										</div>
+									</p-offset>
+								</div>
+							</p-list>
+						</template>
+					</p-modal>
+					<!-- <p-link class="strong smallest _pg" :href="item.program[0].source" :style="{background: colorByItem(party, elections)}" :title="item.program[0].value">program</p-link> -->
+					<p-gap height=".25"></p-gap>
+				</div>
+
+					<p-gap height=".55"></p-gap>
+					<p-list class="smaller invisible" v-if="item.party != 80">
+						<div v-for="(person, indexP) in sortByPorCislo(item.list).filter(x => leaders && item.list.find(y => y.POR) ? x.PORCISLO === 1 : true)">
+							<component :is="item.coal ? 'p-label' : 'span'" :color="person.color || 'var(--greyish)'">
+								<span class="dimm strong smallest _pc" :style="{color: !person.PORCISLO ? 'var(--greyish)' : null}">{{ person.PORCISLO ? person.PORCISLO + '.' : '? ' }}</span>
+								<router-link :to="person.link">
+									{{ person.name }} {{ person.family }}
+								</router-link> 
+							</component><span class="dimm smallest" v-if="person.region"> &middot; {{ person.region }}</span>
+						</div>
+						<div class="dimm smallest" v-if="item.list.length === 0"><i>Žádní známí kandidáti</i></div>
+					</p-list>
+					<div class="smallest" v-if="item.party === 80">
+						<router-link :to="item.list[0].link">
+							Více o kandidátovi
+						</router-link>
+					</div>
+				
+				<template v-if="item.coal">
+					<p-line height=".5"></p-line>
+					<div class="smallest">
+						<div v-for="(member, i2) in item.coal">
+							<p-label :color="member.color">{{ member.short }}</p-label> – <p-lang :value="member.size" :end="['nikdo', '1 člověk', '%% lidé', '%% lidí']"></p-lang>
+						</div>
+					</div>
+				</template>
+			</p-area>
+		</div>
+	</div>
+</div>

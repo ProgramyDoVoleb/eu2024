@@ -1,0 +1,25 @@
+._columns-container {
+	container-type: inline-size;
+}
+
+._columns > div {
+	break-inside: avoid;
+	margin-bottom: .5em;
+}
+
+@container (min-width: 640px) {
+	._columns {
+		columns: 2;
+		column-gap: 2em;
+	}
+
+	._columns > div {
+		margin-bottom: 2em;
+	}
+}
+
+@container (min-width: 960px) {
+	._columns {
+		columns: 3;
+	}
+}

@@ -1,0 +1,15 @@
+<div class="modal" :class="{inline}">
+	<div class="modal-initiator">
+		<button class="inline" @click="show"><slot name="init"></slot></button>
+	</div>
+	<div class="modal-element" v-if="opened">
+		<div class="box">
+			<div class="modal-content">
+				<slot v-on:close="hide" name="content"></slot>
+			</div>
+			<span class="icon red">
+				<button class="inline icon red" @click="hide">&times;</button>
+			</span>
+		</div>
+	</div>
+</div>
