@@ -342,11 +342,11 @@
 						<div class="strong blue">Jak můžete také pomoct?</div>
 						<p-gap height=".75"></p-gap>
 						<p-list height=".5" class="smaller">
-							<div>Posílejte tipy na zprávy v médiích</div>
-							<div>Dejte vědět, když někdo oznámí záměr kandidovat.</div>
-							<div>Sledujte, sdílejte a lajkujte Programy na sociálních sítích.</div>
-							<div>Doporučujte Programy všem zájemcům o přehlednější volby.</div>
-							<div>Odhalte a <p-modal :inline="true">
+							<li>Posílejte tipy na zprávy v médiích</li>
+							<li>Dejte vědět, když někdo oznámí záměr kandidovat.</li>
+							<li>Sledujte, sdílejte a lajkujte Programy na sociálních sítích.</li>
+							<li>Doporučujte Programy všem zájemcům o přehlednější volby.</li>
+							<li>Odhalte a <p-modal :inline="true">
 								<template #init>
 									<button class="inline red">nahlašte</button>
 								</template>
@@ -358,7 +358,7 @@
 										<p>Můžete také napsat na <p-link href="mailto:opravte@programydovoleb.cz">opravte@programydovoleb.cz</p-link></p>
 									</div>
 								</template>
-							</p-modal> chyby.</div>
+							</p-modal> chyby.</li>
 						</p-list>
 					</div>
 				</p-grid>
@@ -379,9 +379,9 @@
 						<div v-if="news" class="smallest">
 							<p-list height=".5">
 								<template v-for="(news, index) in news.list">
-									<div v-if="index < 3">
+									<li v-if="index < 3">
 										<news-item :data="news" :noSource="true"></news-item>
-									</div>
+									</li>
 								</template>
 							</p-list>
 						</div>
@@ -409,10 +409,10 @@
 						<div v-if="news" class="smallest">
 							<p-list-linear>
 								<template v-for="(item, index) in news.log">
-									<span v-if="index < 5">
+									<li v-if="index < 5">
 										<router-link v-if="item.node.JMENO" :to="'/bod/' + item.pointer.split(':').join('/')">{{ item.node.JMENO }} {{ item.node.PRIJMENI }}</router-link>
 										<router-link v-if="item.node.NAZEV" :to="'/bod/' + item.pointer.split(':').join('/')">{{ item.node.NAZEV }}</router-link>
-									</span>
+									</li>
 								</template>
 							</p-list-linear>
 						</div>
