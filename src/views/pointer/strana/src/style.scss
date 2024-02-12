@@ -48,6 +48,11 @@
 ._float-right {
 	float: right;
 	margin: 0 0 1em 1em;
+	text-align: center;
+
+	> div {
+		margin: 0 auto;
+	}
 }
 
 ._floar-clear {
@@ -103,4 +108,16 @@
 
 ._vab td {
 	vertical-align: baseline;
+}
+
+.logos {
+	display: flex;
+	flex-wrap: wrap;
+	margin: -.25em;
+	max-width: 10em;
+}
+
+.logos .p-logo {
+	display: block;
+	margin: .25em;
 }

@@ -1,10 +1,1 @@
-<span class="p-logo" :style="{'width': size}">
-	<span class="logo-outer">
-		<img v-if="data && data.logo && data.logo[1] === 't'" :src="data.logo" class="logo-circle">
-		<img v-if="data && data.logo && data.logo[1] === 'b'" :src="'https://data.programydovoleb.cz/' + data.logo" class="logo-circle">
-		<img v-if="data && data.logo && data.logo[1] === 'o'" :src="'https://data.programydovoleb.cz' + data.logo" class="logo-circle">
-		<img v-if="data && data.logo && data.logo[1] === 's'" :src="data.logo" class="logo-circle">
-		<img v-if="data && !data.logo" :src="party" class="logo-circle">
-		<img :src="party" v-if="!data && party" class="logo-circle">
-	</span>
-</span>
+<img class="p-logo" :style="{'width': size, 'aspect-ratio': ar}" :alt="alt" :src="data.logo || data"></img>

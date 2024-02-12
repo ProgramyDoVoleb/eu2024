@@ -21,7 +21,8 @@
   box-shadow: 1.6rem 1.6rem 4.8rem rgba(0,0,0,.1);
 }
 
-.dark img[src*="missing.png"] {
+.dark img[src*="missing.png"],
+.dark img[src*="empty.png"] {
   opacity: .03;
 }
 

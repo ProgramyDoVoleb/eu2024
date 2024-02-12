@@ -6,12 +6,32 @@
 					Přehledně o volbách do Evropského parlamentu: volební programy, <router-link to="/kandidati">kandidáti</router-link>, <router-link to="/strany">politické strany</router-link>, <router-link to="/volebni-pruzkumy">průzkumy</router-link> a další statistiky a přehledy. <strong>Volby budou 7. a 8. června.</strong>
 				</p>
 			</p-block>
-			<p-block headline="Rychlý přehled" class="p-block---up">
-				<p-loader :rule="elections">
+			<p-block headline="Rychlý přehled" class="p-block---up" :hide="true">
+				<p-offset class="reverse balanced">
+					<div>
+						<p-headline :level="2">Rychlý přehled</p-headline>		
+					</div>
+					<div v-if="elections && elections.list[0].status === 1">
+						<p-area class="_note" background="var(--blue11)">
+							<p-label color="var(--red)">
+								<p-modal>
+									<template #init><button class="inline red">Předběžný seznam</button></template>
+									<template #content>
+										<div class="reset">
+											<h2>Předběžné informace</h2>
+											<p>Zde najdete přehled stran a kandidátů, kteří už nějakou formou oznámili záměr nebo odhodlání kandidovat. Kandidáti uvedeni modře již byli představeni včetně pozice na kandidátce. Ostatní jsou řazeni dle abecedy a nemusí být součástí finální podoby kandidátky. Pořadí a složení se může měnit. Tento přehled bude nahrazen za oficiální přehled, který vydává Český statistický úřad, cca 45 dní před volbami.</p>
+										</div>
+									</template>
+								</p-modal>
+							</p-label>
+						</p-area>
+					</div>	
+				</p-offset>	
+				<p-loader :rule="elections" reserve="100vh">
 					<div v-if="elections">
 						<div v-for="(election, index) in [elections.list[0]]">
 								<!-- <p-area> -->
-									<p v-if="election.status === 1">Zde najdete přehled stran a kandidátů, kteří už nějakou formou oznámili záměr nebo odhodlání kandidovat. Kandidáti uvedeni modře již byli představeni včetně pozice na kandidátce. Ostatní jsou řazeni dle abecedy a nemusí být součástí finální podoby kandidátky. Pořadí a složení se může měnit. Tento přehled bude nahrazen za oficiální přehled, který vydává Český statistický úřad, cca 45 dní před volbami.</p>
+									<!-- <p v-if="election.status === 1">Zde najdete přehled stran a kandidátů, kteří už nějakou formou oznámili záměr nebo odhodlání kandidovat. Kandidáti uvedeni modře již byli představeni včetně pozice na kandidátce. Ostatní jsou řazeni dle abecedy a nemusí být součástí finální podoby kandidátky. Pořadí a složení se může měnit. Tento přehled bude nahrazen za oficiální přehled, který vydává Český statistický úřad, cca 45 dní před volbami.</p> -->
 									<div v-if="election.typ === 'EP' && election.$strany.length > 0">
 										<p-gap height=".75"></p-gap>
 										<div class="smaller" v-if="parties">
@@ -21,16 +41,16 @@
 														<div class="_aig">
 															<p-offset class="_b">
 																<div v-if="!logoByItem(party, elections).includes('empty')">
-																	<p-logo :data="{logo: logoByItem(party, elections)}" size="4rem" class="_logo"></p-logo>
+																	<p-logo :data="{logo: logoByItem(party, elections)}" size="4rem" class="_logo" :alt="'logo ' + party.NAZEV"></p-logo>
 																</div>
 																<div v-if="logoByItem(party, elections).includes('empty')">
 																	<div class="_logos" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET > 1">
 																		<template v-for="(coal, indexC) in elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).$coalition">
-																			<p-logo :data="{logo: logoByItem(coal, elections)}" size="4rem" class="_logo"></p-logo>
+																			<p-logo :data="{logo: logoByItem(coal, elections)}" size="4rem" class="_logo" :alt="'Logo ' + coal.NAZEV"></p-logo>
 																		</template>
 																	</div>
 																	<div class="_logos" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET === 1">
-																		<p-logo :data="{logo: logoByItem(party, elections)}" size="4rem" class="_logo"></p-logo>
+																		<p-logo :data="{logo: logoByItem(party, elections)}" size="4rem" class="_logo" alt="Logo chybí"></p-logo>
 																	</div>
 																</div>
 																<div>
@@ -63,7 +83,7 @@
 															<div v-if="(party.$data.program && party.$data.program.length > 0) || (party.$priorit || party.$priorit > 0)">
 																<p-gap></p-gap>
 																<span v-if="(party.$data.program && party.$data.program.length === 1)">
-																	<p-link class="strong smallest _pg" :href="party.$data.program[0].label || party.$data.program[0].source" :style="{background: colorByItem(party, elections)}" :title="party.$data.program[0].value">program</p-link> 
+																	<p-link class="strong smallest _pg" :href="party.$data.program[0].label || party.$data.program[0].source" :style="{background: colorByItem(party, elections)}" :alt="party.$data.program[0].value">program</p-link> 
 																</span>
 																<span v-if="party.$data.program && party.$data.program.length > 1">
 																	<p-modal class="inline">
@@ -123,7 +143,7 @@
 			<p-block headline="Průzkumy a odhady">
 				<p>Ve volbách do Evropského parlamentu se používá d'Hondtova metoda pro přepočet na mandáty. Celá republika je pro tyto účely brána jako jeden volební obvod. U průzkumů proto najdete také orientační přepočet na mandáty. <router-link to="/volebni-pruzkumy">Seznam průzkumů a odhadů.</router-link></p>
 				<h4>Nejnovější průzkumy:</h4>
-				<p-loader :rule="polls">
+				<p-loader :rule="polls" reserve="300px">
 					<div v-if="polls">
 						<p-grid>
 							<template v-for="(poll, index) in polls.list.filter(x => x.priority === 1)">
@@ -137,7 +157,7 @@
 					</div>
 				</p-loader>
 			</p-block>
-			<p-block headline="V médiích">
+			<p-block headline="V médiích" reserve="450px">
 				<p-loader :rule="news">
 					<div v-if="news" class="smaller">
 						<div class="columns _gap">
@@ -167,7 +187,7 @@
 				</p-loader>
 			</p-block>
 			<p-block headline="Novinky">
-				<p-loader :rule="news">
+				<p-loader :rule="news" reserve="300px">
 					<div v-if="news" class="smaller">
 						<p-list padding="1">
 							<template v-for="(news, index) in news.list">
@@ -222,7 +242,7 @@
 			</p-grid>
 			<p-gap height="2"></p-gap>
 			<p-block-expandable headline="Nově přidáno">
-				<p-loader :rule="news">
+				<p-loader :rule="news" reserve="200px">
 					<div v-if="news">
 						<div class="columns" v-if="news">
 							<div v-for="(item, index) in news.auto">
@@ -252,7 +272,7 @@
 				</p-loader>
 			</p-block-expandable>
 			<p-block-expandable headline="Poslední úpravy">
-				<p-loader :rule="news">
+				<p-loader :rule="news" reserve="200px">
 					<div v-if="news" class="smaller">
 						<p-list class="columns">
 							<div v-for="(item, index) in news.log">
@@ -366,7 +386,7 @@
 			
 		</template>
 		<template #anchors>
-			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'"></p-logo>
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" alt="Evropské volby 2024"></p-logo>
 			<p-gap></p-gap>
 			<p-anchors></p-anchors>
 		</template>
@@ -375,7 +395,7 @@
 				<div>
 					<strong class="smaller">Novinky</strong>
 					<p-gap></p-gap>
-					<p-loader :rule="news">
+					<p-loader :rule="news" reserve="205px">
 						<div v-if="news" class="smallest">
 							<p-list height=".5">
 								<template v-for="(news, index) in news.list">
@@ -390,7 +410,7 @@
 				<div>
 					<strong class="smaller">Nově přidáni</strong>
 					<p-gap></p-gap>
-					<p-loader :rule="news">
+					<p-loader :rule="news" reserve="66px">
 						<div v-if="news" class="smallest">
 							<p-list-linear>
 								<template v-for="(item, index) in news.auto">
@@ -405,7 +425,7 @@
 				<div>
 					<strong class="smaller">Poslední úpravy</strong>
 					<p-gap></p-gap>
-					<p-loader :rule="news">
+					<p-loader :rule="news" reserve="66px">
 						<div v-if="news" class="smallest">
 							<p-list-linear>
 								<template v-for="(item, index) in news.log">

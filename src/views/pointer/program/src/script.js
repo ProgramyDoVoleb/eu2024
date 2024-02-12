@@ -10,7 +10,7 @@ import NewsItem from '@/components/news-item/do.vue'
 import ElectionResults from '@/views/volby/detail/do.vue';
 import ProgramBlock from '@/components/program-block-dynamic/do.vue';
 import ProfilePreview from '@/components/profile-preview/do.vue';
-import ReportModal from '@/components/report-modal/do.vue';
+import ReportForm from '@/components/report-form/do.vue';
 import LogItem from '@/components/log-item/do.vue';
 import PartyQuicklook from '@/components/party-quicklook/do.vue';
 import CandidateStats from '@/components/candidate-stats/do.vue';
@@ -35,7 +35,7 @@ export default {
 	ElectionResults,
 	ProgramBlock,
 	ProfilePreview,
-	ReportModal,
+	ReportForm,
 	LogItem,
 	PartyQuicklook,
 	CandidateStats
@@ -197,6 +197,9 @@ export default {
 		},
 		$strana: function () {
 			return this.current && this.current.$strana ? this.current.$strana[0] : null
+		},
+		$coalition: function () {
+			return this.current && this.data.cis.strany.find(x => x.VSTRANA === this.current.VSTRANA).$coalition ? this.data.cis.strany.find(x => x.VSTRANA === this.current.VSTRANA).$coalition : null
 		},
 		specs: function () {
 			var res = null;

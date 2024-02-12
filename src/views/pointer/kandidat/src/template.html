@@ -2,7 +2,7 @@
 	<p-layout-divided>
 		<template #main>
 			<p-block :headline="headline" :level="1" :hide="true">
-				<p-loader :rule="data">
+				<p-loader :rule="data" reserve="100vh">
 					<div v-if="data">
 						<div v-if="data.list[0]">
 							<div class="_float">

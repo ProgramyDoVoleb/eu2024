@@ -19,11 +19,6 @@
   animation-iteration-count: infinite;
 }
 
-.anim-1 {animation-delay: .15s}
-.anim-2 {animation-delay: .30s}
-.anim-3 {animation-delay: .45s}
-.anim-4 {animation-delay: .60s}
-
 @keyframes fadein {
   0% {
     opacity: 0;
@@ -33,83 +28,13 @@
   }
 }
 
+.loader-progress {
+  background: var(--blue11);
+}
+
 .loader-content {
-  animation: fadein .5s forwards 1;
+  animation: fadein .25s forwards 1;
   animation-fill-mode: initial;
   position: relative;
   z-index: 2;
-}
-
-.loader-table {
-  div {
-    background: var(--greyish);
-    height: 1rem;
-    width: 80%;
-  }
-
-  td {
-  }
-
-  td:nth-child(1) {
-    width: 5rem;
-
-    div {
-      width: 3rem;
-      height: 3rem;
-      border-radius: 4px;
-    }
-  }
-
-  td:nth-child(2) {
-    width: 20%;
-  }
-
-  td:nth-child(3) {
-    width: 50%;
-  }
-
-  td:nth-child(4) {
-    width: auto;
-  }
-}
-
-.m {
-  > * {
-    margin: auto;
-  }
-}
-
-.c-3 {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 1.5rem;
-  background: var(--greyish);
-}
-
-.c-6 {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 3rem;
-  background: var(--greyish);
-}
-
-.p {
-  margin-top: 1rem;
-
-  > * {
-    margin-bottom: .5rem;
-  }
-}
-
-.l {
-  height: 1rem;
-  background: var(--greyish);
-}
-
-.w-30 {
-  max-width: 30rem;
-}
-
-.w-75p {
-  width: 75%;
 }

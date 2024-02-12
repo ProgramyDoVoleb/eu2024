@@ -197,6 +197,9 @@ export default {
 		$strana: function () {
 			return this.current && this.current.$strana ? this.current.$strana[0] : null
 		},
+		$coalition: function () {
+			return this.current && this.data.cis.strany.find(x => x.VSTRANA === this.current.VSTRANA).$coalition ? this.data.cis.strany.find(x => x.VSTRANA === this.current.VSTRANA).$coalition : null
+		},
 		specs: function () {
 			var res = null;
 

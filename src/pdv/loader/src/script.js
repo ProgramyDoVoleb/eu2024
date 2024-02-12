@@ -7,6 +7,9 @@ export default {
 	computed: {
 		_w: function () {
 			return this.width || 3;
+		},
+		_r: function () {
+			return this.reserve || '200px'
 		}
 	},
 	methods: {},

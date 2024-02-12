@@ -53,7 +53,7 @@ export default {
 			})
 		},
 		trigger: function (hash) {
-			console.log(hash);
+			// console.log(hash);
 			this.scrollIntoView(this.list.find(x => x.hash === hash));
 		}
 	},
@@ -61,7 +61,7 @@ export default {
 		window.addEventListener("resize", () => this.scroll());
 		window.addEventListener("scroll", () => this.scroll());
 
-		setInterval(() => this.getAnchors(), 1000);
+		setInterval(() => this.getAnchors(), 100);
 
 		if (location.hash) {
 			setTimeout(() => {
@@ -72,5 +72,7 @@ export default {
 				}
 			}, 250);
 		}
+
+		this.getAnchors();
 	}
 };

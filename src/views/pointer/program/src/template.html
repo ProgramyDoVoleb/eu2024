@@ -7,8 +7,13 @@
 						<div v-if="data.list[0]">
 							<div class="_float">
 								<div v-if="data" class="hide-40rem _float-right">
-									<p-logo v-if="data && current.NAZEV && logoByItem(current, data)" :data="{logo: logoByItem(current, data) || null}" :size="'12rem'"></p-logo>
-									<p-image v-if="data && current.JMENO && con(current.$data, 'photo')" :src="con(current.$data, 'photo') || cdn + 'missing.png'" width="12rem" :rounded="true" :border="true"></p-image>
+									<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" v-if="!data" alt="Evropské volby 2024"></p-logo>
+									<p-logo v-if="data && logoByItem(current, data, null, true)" :data="{logo: logoByItem(current, data)}" :size="'12rem'" :alt="'Logo ' + current.NAZEV"></p-logo>
+									<div class="logos" v-if="data && $coalition">
+										<template v-for="(coal, index) in $coalition">
+											<p-logo :data="logoByItem(coal, data)" :size="logoByItem(current, data, null, true) ? '3rem' : '6rem'" :alt="'Logo ' + coal.NAZEV"></p-logo>
+										</template>
+									</div>
 									<!-- <p-gap></p-gap> -->
 								</div>
 								<div>
@@ -236,10 +241,14 @@
 			</p-block>
 			
 		</template>
-		<template #anchors>
-			<p-logo :data="{logo: cdn + 'el/generic-2023.png'}" :size="'12rem'" v-if="!data"></p-logo>
-			<p-logo v-if="data && current.NAZEV" :data="{logo: logoByItem(current, data) || cdn + 'el/generic-2023.png'}" :size="'12rem'"></p-logo>
-			<p-image v-if="data && current.JMENO" :src="con(current.$data, 'photo') || (($strana ? logoByItem($strana, data) : null) || logoByItem(current, data, 'NSTRANA'))" width="12rem" :rounded="true"></p-image>
+		<template #anchors>		
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" v-if="!data" alt="Evropské volby 2024"></p-logo>
+			<p-logo v-if="data && logoByItem(current, data, null, true)" :data="{logo: logoByItem(current, data)}" :size="'12rem'" :alt="'Logo ' + current.NAZEV"></p-logo>
+			<div class="logos" v-if="data && $coalition">
+				<template v-for="(coal, index) in $coalition">
+					<p-logo :data="logoByItem(coal, data)" :size="logoByItem(current, data, null, true) ? '4rem' : '8rem'" :alt="'Logo ' + coal.NAZEV"></p-logo>
+				</template>
+			</div>
 			<p-gap></p-gap>
 			<p-anchors></p-anchors>
 		</template>

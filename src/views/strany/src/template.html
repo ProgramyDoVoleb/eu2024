@@ -3,7 +3,7 @@
 		<template #main>
 			<p-block headline="Strany a hnutí ve volbách do evropského parlamentu 2024" anchor="Přehled stran" :level="1">
 				<p>Zde jsou uvedeny všechny strany a hnutí, které se jakýmkoli registrovatelným způsobem zapojují do voleb. Ať formou samostatné kandidátky, koalice nebo jen že mají na nějaké jiné kandidátce své členy.</p>
-				<p-loader :rule="elections">
+				<p-loader :rule="elections" reserve="100vh">
 					<div v-if="elections">
 						<p-list class="invisible">
 							<template v-for="(party, index) in sortBy(elections.cis.strany.filter(x => x.POCET === 1), 'NAZEV', '', true)">
@@ -11,7 +11,7 @@
 									<p-area class="_container">
 										<div class="party-header">
 											<div>
-												<p-logo :data="{logo: logoByItem(party, elections)}" size="3em"></p-logo>
+												<p-logo :data="{logo: logoByItem(party, elections)}" size="3em" :alt="'Logo ' + party.NAZEV"></p-logo>
 											</div>
 											<div>
 												<strong>
@@ -42,7 +42,7 @@
 				</p-loader>
 			</p-block>
 			<p-block headline="Koalice">
-				<p-loader :rule="elections">
+				<p-loader :rule="elections" reserve="500px">
 					<div v-if="elections" class="_container">
 						<div class="_columns">
 							<template v-for="(coal, index) in elections.cis.strany.filter(x => x.$coalition && elections.list[0].$strany.find(y => y.VSTRANA === x.VSTRANA))">
@@ -50,7 +50,7 @@
 									<p-area>
 										<div class="party-header">
 											<div>
-												<p-logo :data="{logo: logoByItem(elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA), elections)}" size="3em"></p-logo>
+												<p-logo :alt="'Logo ' + coal.NAZEV" :data="{logo: logoByItem(elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA), elections)}" size="3em"></p-logo>
 											</div>
 											<div>
 												<strong>
@@ -204,7 +204,7 @@
 			</p-grid>			
 		</template>
 		<template #anchors>
-			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'"></p-logo>
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" alt="Evropské volby 2024"></p-logo>
 			<p-gap></p-gap>
 			<p-anchors></p-anchors>
 		</template>

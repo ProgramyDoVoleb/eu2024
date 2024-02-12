@@ -40,7 +40,7 @@ export function colorByItem (item, data, _key, _flat) {
     return res || '#f959e7';
 }
 
-export function logoByItem (item, data, _key) {
+export function logoByItem (item, data, _key, _canBeNull) {
 
     var key = _key || 'VSTRANA';
 
@@ -51,7 +51,7 @@ export function logoByItem (item, data, _key) {
         res = con(s.$data, 'logo');
     }
 
-    if (!res) res = cdn + 'empty.png';
+    if (!res && !_canBeNull) res = cdn + 'empty.png';
 
     return res;
 }
