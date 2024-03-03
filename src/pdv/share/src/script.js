@@ -6,7 +6,8 @@ export default {
 	props: ['copy', 'title', 'middle', 'link'],
 	data: function () {
 		return {
-			copied: false
+			copied: false,
+			_backupCopy: 'Podívejte se na web k evropským volbám od Programů do voleb'
 		}
 	},
 	computed: {
