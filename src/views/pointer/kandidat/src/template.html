@@ -43,6 +43,16 @@
 												</p-box-label>
 											</p-box>
 										</template>
+										<template v-if="current.$data.web && current.$data.web.length > 0">
+											<p-box :href="current.$data.web[0].value">
+												<p-box-button color="var(--blue)">Web</p-box-button>
+											</p-box>
+										</template>
+										<template v-if="current.$odpovedi.length > 0">
+											<p-box :to="'/kandidat/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'">
+												<p-box-button icon="answers-mini.svg">{{ current.$odpovedi.length }}</p-box-button>
+											</p-box>
+										</template>
 										<template v-if="current.$data.social && current.$data.social.length > 0">
 												<p-box-gap></p-box-gap>
 												<template v-for="(item, index) in links">
@@ -184,7 +194,7 @@
 							<p-block headline="Profil" v-if="current.$profil.length" :hide="true">
 								<profile-preview :id="current.$profil[0].profil"></profile-preview>
 							</p-block>
-							<p-block headline="Odkazy" v-if="links.length > 0">
+							<p-block headline="Odkazy" v-if="linksAll.length > 0">
 								<p-list height=".25">
 									<div v-for="(item, index) in linksAll">
 										<p-box-group>

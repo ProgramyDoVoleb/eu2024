@@ -41,7 +41,7 @@
 												<p-box-button color="var(--blue)"><p-lang :value="current.$data.program.length" :end="['', '', '%% programy', '%% programů']"></p-lang></p-box-button>
 											</p-box>
 										</template>
-										<template v-if="current.$program.length === 0 && current.$data.web && current.$data.web.length > 0">
+										<template v-if="current.$data.web && current.$data.web.length > 0">
 											<p-box :href="current.$data.web[0].value">
 												<p-box-button color="var(--blue)">Web</p-box-button>
 											</p-box>
@@ -348,7 +348,7 @@
 									
 								</template>
 							</p-block>
-							<p-block headline="Odkazy" v-if="links.length > 0">
+							<p-block headline="Odkazy" v-if="linksAll.length > 0">
 								<p-list height=".25">
 									<div v-for="(item, index) in linksAll">
 										<p-box-group>
