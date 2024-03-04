@@ -32,10 +32,24 @@ export default {
 							parts: item
 						})
 					} else if (typeof item === 'object' && !item.length && !item.type) {
-						list.push({
-							type: 'block',
-							parts: item
-						})
+
+						var key = 'block';
+
+						if (item.headline) key = 'headline';
+
+						if (key === 'block') {
+							list.push({
+								type: key,
+								parts: item
+							})
+						} else {
+							list.push({
+								type: key,
+								content: item[key],
+								level: 3
+							})
+						}
+
 					} else {
 						list.push(item);
 					}

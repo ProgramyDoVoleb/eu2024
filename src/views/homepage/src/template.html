@@ -114,7 +114,7 @@
 																			<p-list>
 																				<div v-for="(program, indexP) in party.$program">
 																					<p-area class="inline" icon="icon-party">
-																						<p-link :href="'https://eu2024.programydovoleb.cz/strana/' + program.csu_id + '/volebni-program/' + program.id + '#plne-zneni'" class="strong">Plné znění volebního programu</p-link>
+																						<router-link :to="'/strana/' + program.csu_id + '/volebni-program/' + program.id + '#plne-zneni'" class="strong">Plné znění volebního programu</router-link>
 																						<div class="smallest dimm">{{ date(program.updated) }}</div>
 																					</p-area>
 																				</div>
