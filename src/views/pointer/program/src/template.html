@@ -37,21 +37,6 @@
 								</div>
 							</div>
 							<p-gap class="_floar-clear"></p-gap>
-							<p-block headline="Programové dokumenty" v-if="current.$data.program" :hide="true">
-								<p-grid>
-									<div v-for="(item, index) in current.$data.program">
-										<p-area icon="link">
-											<p-link :href="item.source" class="strong">{{ item.value }}</p-link>
-											<div class="smallest dimm">
-												{{ date(item.updated) }}
-												<span v-if="item.label">
-													&middot; <p-link :href="item.label" class="dimm">Záloha</p-link>
-												</span>
-											</div>
-										</p-area>
-									</div>
-								</p-grid>
-							</p-block>
 							<p-block-expandable headline="Volební priority" v-if="current.$priority.length > 0">
 									<!-- <p-list height="1"> -->
 										<!-- <p-area background="transparent" padding="0 0 0 .66em" class="serif"> -->
@@ -68,6 +53,9 @@
 															<!-- <template v-for="(part, index) in JSON.parse(priority.content)"> -->
 																<program-block :parts="{parts: JSON.parse(priority.content)}" :hash="url(priority.headline)" :headline="priority.headline" :color="colorByItem(current, data)"></program-block>
 															<!-- </template>														 -->
+														</template>
+														<template v-if="!priority.content && priority.headline">
+															<div class="serif" v-html="priority.headline"></div>
 														</template>
 														<!-- </div> -->
 													</div>
@@ -133,6 +121,21 @@
 							<div class="smallest dimm">Volební program je zveřejněn jako čistá kopie textu, bez úprav, pokud to jeho forma dovoluje. A je platný ke dni uveřejnění. Pro pohled na formátování, doprovodné fotky, grafy, apod si prosím otevřete originál nebo v případě, že již není dostupný, jeho zálohu. Pokud je dostupná novější verze, prosím dejte vědět na opravte@programydovoleb.cz</div>
 							<p-line></p-line>
 							<p-gap height="3"></p-gap>
+							<p-block headline="Programové dokumenty" v-if="current.$data.program" :level="1">
+								<p-grid>
+									<div v-for="(item, index) in current.$data.program">
+										<p-area icon="link">
+											<p-link :href="item.source" class="strong">{{ item.value }}</p-link>
+											<div class="smallest dimm">
+												{{ date(item.updated) }}
+												<span v-if="item.label">
+													&middot; <p-link :href="item.label" class="dimm">Záloha</p-link>
+												</span>
+											</div>
+										</p-area>
+									</div>
+								</p-grid>
+							</p-block>
 							<p-block :level="1" :headline="headline">
 								<p-grid>
 									<div>

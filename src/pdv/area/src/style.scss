@@ -6,9 +6,8 @@
   border-radius: 1.6rem;
 
   &.p-area---has-border {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
     padding: 1.5em 1.5em;
+    overflow: hidden;
   }
 
   & > :first-child {
