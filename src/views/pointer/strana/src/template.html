@@ -109,14 +109,14 @@
 											<p-stats label="Zkratka">
 												<p-offset class="reverse balanced">
 													<div>{{ current.ZKRATKA }}</div>
-													<div class="dimm smallest"><p-link :to="'https://programydovoleb.cz/rejstrik/' + current.VSTRANA" class="dimm is-span">{{ current.VSTRANA }}</p-link></div>
+													<div class="dimm smallest"><p-link :href="'https://programydovoleb.cz/rejstrik/' + current.VSTRANA" class="dimm is-span">{{ current.VSTRANA }}</p-link></div>
 												</p-offset>
 											</p-stats>
 											<p-stats label="Koalice" v-if="typeof current.SLOZENI === 'string' || (typeof current.SLOZENI === 'undefined' && data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition)">
 												<p-list height="0" class="invisible">
 													<div v-for="(member, index) in data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition">
 														<p-label :color="colorByItem(member, data)">
-															<p-link :to="'https://programydovoleb.cz/rejstrik/' + member.VSTRANA">{{ member.NAZEV }}</p-link>
+															<p-link :href="'https://programydovoleb.cz/rejstrik/' + member.VSTRANA">{{ member.NAZEV }}</p-link>
 														</p-label> 
 														<template v-if="$volby.status > 1">
 															&middot;
