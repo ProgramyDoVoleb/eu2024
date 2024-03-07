@@ -35,18 +35,32 @@ export default {
 
 						var key = 'block';
 
-						if (item.headline) key = 'headline';
+						if (item.headline) {
+							key = 'headline';
 
-						if (key === 'block') {
-							list.push({
-								type: key,
-								parts: item
-							})
-						} else {
 							list.push({
 								type: key,
 								content: item[key],
-								level: 3
+								level: this.depth
+							})
+						} 
+
+						if (item.quote) {
+							key = 'quote';
+							
+							list.push({
+								type: key,
+								content: item[key]
+							})
+						} 
+
+						if (item.parts) {
+							key = 'parts';
+							
+							list.push({
+								type: key,
+								parts: item.parts,
+								depth: this.depth + 1
 							})
 						}
 

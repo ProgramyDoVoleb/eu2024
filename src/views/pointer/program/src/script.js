@@ -269,6 +269,14 @@ export default {
 			arr.sort((a, b) => a.type.localeCompare(b.type, 'cs'));
 
 			return arr;
+		},
+		fullType5: function () {
+			if (!this.current) return;
+			if (this.current.$program[0].type != 5) return;
+
+			return this.$store.getters.json(this.current.$program[0].content);
+
+			// return d ? JSON.parse(d) : null;
 		}
 	},
   methods: {

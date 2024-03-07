@@ -47,7 +47,12 @@
 		</template>
 		<template v-if="item.type === 'block'">
 				<div v-for="(part, index2) in item.parts" class="program-block---holder">
-					<program-block :parts="part"></program-block>
+					<program-block :parts="part" :depth="depth + 1"></program-block>
+				</div>
+		</template>
+		<template v-if="item.type === 'parts'">
+				<div v-for="(part, index2) in item.parts">
+					<program-block :parts="part" :depth="depth + 1"></program-block>
 				</div>
 		</template>
 		<template v-if="item.type === 'section'">
