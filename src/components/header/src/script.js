@@ -1,10 +1,12 @@
 import { useCore } from '@/stores/core'
+import { useNotifications } from '@/stores/notifications'
 
 export default {
 	name: 'main-header',
 	props: ['logo', 'name', 'tipsPrimator', 'placeholder'],
 	data: function () {
 		return {
+			notifications: useNotifications(),
 			core: useCore(),
 			pass: null,
 			showMenu: false,
@@ -38,6 +40,9 @@ export default {
 		}
 	},
 	methods: {
+		remove: function (item) {
+			this.notifications.update(item, 'Akce zrušena', 'red')
+		}
 	},
 	mounted: function () {
 		// if (this.$route.query.dnt) {

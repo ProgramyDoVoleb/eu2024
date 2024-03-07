@@ -3,7 +3,7 @@
 		<p v-if="hint" v-html="hint"></p>
 		<div class="form stats">
 			<ul>
-				<li>
+				<li v-if="!noLink">
 					<!-- <label>Kontakt</label> -->
 					<div>
 						<div class="form-item">

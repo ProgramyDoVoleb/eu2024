@@ -9,11 +9,11 @@
   left: 0;
   padding: 2rem 4rem;
   z-index: 10000;
-  background: rgba(255, 255, 255, .8);
+  background: var(--blue11);
   backdrop-filter: blur(6px);
 
   .dark & {
-    background: rgba(0,0,0, .8);
+    // background: rgba(0,0,0, .8);
   }
 }
 

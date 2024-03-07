@@ -49,6 +49,10 @@ button {
   font-size: 1.2rem;
 }
 
+button:not([disabled]) {
+  background: var(--blue);
+}
+
 .compact .stats li {
   display: block;
 }
