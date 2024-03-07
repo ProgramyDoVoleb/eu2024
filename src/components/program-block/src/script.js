@@ -45,6 +45,33 @@ export default {
 							})
 						} 
 
+						if (item.copy) {
+							key = 'copy';
+							
+							list.push({
+								type: key,
+								content: item[key]
+							})
+						} 
+
+						if (item.list) {
+							key = 'list';
+							
+							list.push({
+								type: key,
+								content: item[key]
+							})
+						} 
+
+						if (item.ol) {
+							key = 'ol';
+							
+							list.push({
+								type: key,
+								content: item[key]
+							})
+						} 
+
 						if (item.quote) {
 							key = 'quote';
 							
