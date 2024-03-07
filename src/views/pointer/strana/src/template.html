@@ -196,8 +196,9 @@
 										<p-area background="transparent" padding="0 0 0 .66em" class="serif _aw">
 
 											<template v-for="(priority, indexP) in current.$priority">
-												<component :is="priority.content && current.$priority.length === 1 ? 'div' : 'p-collapsible'" :label="(priority.headline || truncate(priority.content, 90, true))" :color="colorByItem(current, data)" :empty="!priority.content || priority.content === truncate(priority.content, 90, true)" :open="priority.content && current.$priority.length === 1">
+												<component :is="priority.content && current.$priority.length === 1 ? 'div' : 'p-collapsible'" :label="(priority.headline || truncate(priority.content, 90, true))" :color="colorByItem(current, data)" :empty="!priority.content || (!priority.headline && priority.content === truncate(priority.content, 90, true))" :open="priority.content && current.$priority.length === 1">
 													<!-- <div class="serif"> -->
+													
 													<template v-if="priority.content && priority.content.charAt(0) != '['">
 														<div class="serif" v-html="priority.content.split('\n').join('<br>')"></div>
 														<p-gap height="2"></p-gap>

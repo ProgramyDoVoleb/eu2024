@@ -106,7 +106,7 @@
 																					</div>
 																				</div>
 																				<div>
-																					<p-label :color="colorByItem(party, elections)" :after="true"><p-link :href="eu2024 + '/strana/' + party.id" class="strong">{{ party.ZKRATKA }}</p-link></p-label>
+																					<p-label :color="colorByItem(party, elections)" :after="true"><router-link :to="'/strana/' + party.id" class="strong">{{ party.ZKRATKA }}</router-link></p-label>
 																					<div class="strong smaller">Programové dokumenty</div>
 																				</div>
 																			</p-offset>
@@ -130,7 +130,7 @@
 																					</p-offset>
 																				</div>
 																				<div v-if="party.$priorit">
-																					<p-link :href="eu2024 + '/strana/' + party.id + '#volebni-priority'" v-if="party.$priorit"><p-lang :value="party.$priorit" :end="['', '1 volební priorita', '%% volební priority', '%% volební priorit']"></p-lang></p-link>
+																					<router-link :to="'/strana/' + party.id + '#volebni-priority'" v-if="party.$priorit"><p-lang :value="party.$priorit" :end="['', '1 volební priorita', '%% volební priority', '%% volební priorit']"></p-lang></router-link>
 																				</div>
 																			</p-list>
 																		</template>
