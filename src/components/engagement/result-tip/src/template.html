@@ -2,7 +2,7 @@
 	<p-area borderColor="var(--blue)">
 		<p-loader :rule="data">
 			<div v-if="data && !used && !fetch">
-				<strong class="blue">Jaký výsledek voleb odhadujete?</strong>
+				<strong>Jaký výsledek voleb odhadujete?</strong>
 				<p-gap></p-gap>
 				<p-columns class="-tight">
 					<div v-for="(party, index) in form.parties">

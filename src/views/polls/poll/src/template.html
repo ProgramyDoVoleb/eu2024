@@ -30,7 +30,7 @@
 			<template #content>
 				<a :href="imagedata" :download="'graf-' + (new Date().getTime()) + '.png'" class="strong">Stáhnout obrázek</a>
 				<p-line></p-line>
-				<div class="canvas"></div>
+				<div class="canvas" ref="canvas"></div>
 				<p-line></p-line>
 				
 			</template>
