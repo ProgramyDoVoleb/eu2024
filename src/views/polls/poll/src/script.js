@@ -40,7 +40,7 @@ export default {
 			if (list.length === 1) {
 				list[0].mandates = 21;
 			} else {
-				list.forEach(item => {
+				list.filter(x => x.value >= 5).forEach(item => {
 					for (var i = 1; i < mandates; i++) {
 						arr.push({
 							value: item.value / i,
