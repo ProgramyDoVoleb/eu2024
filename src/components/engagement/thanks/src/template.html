@@ -1,7 +1,7 @@
 <div class="engagement-thanks">
-	<h4>Pomohla vám tato stránka?</h4>
+	<h4>{{ used ? 'Díky za Vaši zpětnou vazbu.' : 'Pomohla vám tato stránka?' }}</h4>
 	<div class="_fi">
-		<button @click="() => click(1)" v-if="!used">{{ used ? 'Díky za díky' : 'Ano, díky' }}</button>
+		<button @click="() => click(1)" v-if="!used">Ano, díky</button>
 		<button @click="() => click(-1)" v-if="!used">Ne</button>
 		
 		<p-modal v-if="used" class="text-left">

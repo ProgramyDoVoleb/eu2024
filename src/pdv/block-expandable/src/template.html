@@ -1,7 +1,6 @@
-<div class="p-block p-block---expandable" :class="{opened}">
+<div class="p-block p-block---expandable" :class="{opened}" :name="hash">
 	<div @click="opened = !opened">
 		<p-headline :level="level || 2" :anchor="anchor" :alert="alert" :collapsed="true">
-			<a :name="hash"></a>
 			<button class="inline"><span class="p-headline---label" :data-label="anchor || headline">{{ !opened && label ? label : headline }}</span></button>
 			<div class="p-headline---sublabel" v-if="opened">{{ subheadline }}</div>
 		</p-headline>

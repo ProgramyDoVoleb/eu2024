@@ -106,7 +106,7 @@ export default {
 		
 				setTimeout(() => {
 					if (location.hash != '') {
-						this.$el.querySelector("a[name=" + location.hash.split('#')[1] + "]").scrollIntoView({behavior: "smooth", block: "center"});
+						this.$el.querySelector("[name=" + location.hash.split('#')[1] + "]").scrollIntoView({behavior: "smooth", block: "center"});
 					}
 				}, 500);
 			}
@@ -310,7 +310,7 @@ export default {
 			return list;
 		},
 		anchorTo: function (hash) {
-			this.$el.querySelector("a[name=" + hash + "]").scrollIntoView({behavior: "smooth", block: "center"});
+			this.$el.querySelector("[name=" + hash + "]").scrollIntoView({behavior: "smooth", block: "center"});
 		}
   },
   mounted: function () {

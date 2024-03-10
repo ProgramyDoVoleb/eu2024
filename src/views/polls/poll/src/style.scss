@@ -17,3 +17,18 @@ th:last-child {
     text-align: right;
     font-weight: 600;
 }
+
+.election-poll {
+    position: relative;
+}
+
+._area {
+    margin: -1em;
+    padding: 1em;
+}
+
+._action {
+    position: absolute;
+    top: 0em;
+    right: -.5em;
+}

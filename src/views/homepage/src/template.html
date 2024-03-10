@@ -37,114 +37,7 @@
 										<div class="smaller" v-if="parties">
 											<div class="columns _gap">
 												<div v-for="(party, index) in sortBy(election.$strany, 'ZKRATKA', '', true)">
-													<p-area>
-														<div class="_aig">
-															<p-offset class="_b">
-																<div v-if="!logoByItem(party, elections).includes('empty')">
-																	<p-logo :data="{logo: logoByItem(party, elections)}" size="4rem" class="_logo" :alt="'logo ' + party.NAZEV"></p-logo>
-																</div>
-																<div v-if="logoByItem(party, elections).includes('empty')">
-																	<div class="_logos" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET > 1">
-																		<template v-for="(coal, indexC) in elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).$coalition">
-																			<p-logo :data="{logo: logoByItem(coal, elections)}" size="4rem" class="_logo" :alt="'Logo ' + coal.NAZEV" :style="{'z-index': 10 - indexC}"></p-logo>
-																		</template>
-																	</div>
-																	<div class="_logos" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET === 1">
-																		<p-logo :data="{logo: logoByItem(party, elections)}" size="4rem" class="_logo" alt="Logo chybí"></p-logo>
-																	</div>
-																</div>
-																<div>
-																	<p-offset class="reverse balanced">
-																		<div>
-																			<router-link :to="'/strana/' + party.id" class="strong">{{ party.ZKRATKA }}</router-link>
-																			<div v-if="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length === 0" class="dimm smallest"><em>zatím bez dalších informací</em></div>
-																		</div>
-																		<div class="smallest dimm" v-if="party.ESTRANA > 0">
-																			{{ party.ESTRANA }}
-																		</div>
-																	</p-offset>
-																</div>
-															</p-offset>
-															<div v-if="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length > 0">
-																<p-gap></p-gap>
-																<p-list-linear class="">
-																	<template v-for="(cand, index2) in sortByPorCislo(election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA))">
-																		<li v-if="index2 < 5">
-																			<router-link :to="'/kandidat/' + cand.id" :class="{'is-span': !cand.PORCISLO}">{{ cand.PRIJMENI }}</router-link>
-																		</li>
-																	</template>
-																	<li v-if="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length > 5">
-																		<router-link :to="'/strana/' + party.id" class="dimm">
-																			<p-lang :value="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length - 5" :end="['', 'jeden další', 'další %%', 'dalších %%']"></p-lang>
-																		</router-link>
-																	</li>
-																</p-list-linear>
-															</div>
-															<div v-if="(party.$data.program && party.$data.program.length > 0) || (party.$priorit || party.$priorit > 0) || (party.$program)">
-																<p-gap></p-gap>
-																<template v-if="(party.$data.program && party.$data.program.length > 0) || party.$program.length > 0">
-																	<div class="p-gap_05"></div>
-																	<p-modal class="inline">
-																		<template #init>
-																			<span class="strong smallest _pg" :style="{background: colorByItem(party, elections)}"><p-lang :value="party.$data.program.length" :end="['priority', 'program', '%% programy', '%% programů']"></p-lang></span>
-																		</template>
-																		<template #content>
-																			<p-offset>
-																				<div>
-																					<div v-if="!logoByItem(party, elections).includes('empty')">
-																						<p-logo :data="{logo: logoByItem(party, elections)}" size="4rem" class="_logo" :alt="'logo ' + party.NAZEV"></p-logo>
-																					</div>
-																					<div v-if="logoByItem(party, elections).includes('empty')">
-																						<div class="_logos" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET > 1">
-																							<template v-for="(coal, indexC) in elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).$coalition">
-																								<p-logo :data="{logo: logoByItem(coal, elections)}" size="4rem" class="_logo" :alt="'Logo ' + coal.NAZEV"></p-logo>
-																							</template>
-																						</div>
-																						<div class="_logos" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET === 1">
-																							<p-logo :data="{logo: logoByItem(party, elections)}" size="4rem" class="_logo" alt="Logo chybí"></p-logo>
-																						</div>
-																					</div>
-																				</div>
-																				<div>
-																					<p-label :color="colorByItem(party, elections)" :after="true"><router-link :to="'/strana/' + party.id" class="strong">{{ party.ZKRATKA }}</router-link></p-label>
-																					<div class="strong smaller">Programové dokumenty</div>
-																				</div>
-																			</p-offset>
-																			<p-gap></p-gap>
-																			<p-list>
-																				<div v-for="(program, indexP) in party.$program">
-																					<p-area class="inline" icon="icon-party">
-																						<router-link :to="'/strana/' + program.csu_id + '/volebni-program/' + program.id + '#plne-zneni'" class="strong">Plné znění volebního programu</router-link>
-																						<div class="smallest dimm">{{ date(program.updated) }}</div>
-																					</p-area>
-																				</div>
-																				<div v-for="(program, indexP) in party.$data.program">
-																					<p-offset class="reverse balanced">
-																						<div>
-																							<p-link :href="program.source">{{ program.value }}</p-link>
-																							<div class="dimm tiny">vloženo {{ date(program.updated) }}</div>
-																						</div>
-																						<div v-if="program.label">
-																							<p-link class="dimm smallest" :href="program.label">záloha</p-link>
-																						</div>
-																					</p-offset>
-																				</div>
-																				<div v-if="party.$priorit">
-																					<router-link :to="'/strana/' + party.id + '#volebni-priority'" v-if="party.$priorit"><p-lang :value="party.$priorit" :end="['', '1 volební priorita', '%% volební priority', '%% volební priorit']"></p-lang></router-link>
-																				</div>
-																			</p-list>
-																		</template>
-																	</p-modal> 
-																</template>
-																<span v-if="party.$priorit">
-																	<router-link class="strong smallest _pg _pgb" :to="'/strana/' + party.id + '#volebni-priority'"><p-lang :value="party.$priorit" :end="['', '1 priorita', '%% priority', '%% priorit']"></p-lang></router-link> 
-																</span>	
-																<span v-if="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length > 0">
-																	<router-link class="strong smallest _pg _pgb" :to="'/strana/' + party.id"><p-lang :value="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length" :end="['', '1 kandidát', '%% kandidáti', '%% kandidátů']"></p-lang></router-link>
-																</span>																
-															</div>
-														</div>
-													</p-area>
+													<party-preview :party="party" :election="election" :elections="elections"></party-preview>
 												</div>
 
 												<div v-if="election.status === 1">
@@ -356,8 +249,11 @@
 				</p-offset>
 			</div>
 			<p-gap height="4"></p-gap>
-			<p-line></p-line>
-			<p-gap height="4"></p-gap>
+			<p-block headline="Váš odhad výsledku" :hide="true">
+				<engagement-result-tip :data="elections"></engagement-result-tip>
+			</p-block>
+			<!-- <p-line></p-line> -->
+			<p-gap height="2"></p-gap>
 			<p-block headline="O tomto projektu">
 				<p-grid>
 					<div>

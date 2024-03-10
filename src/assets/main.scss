@@ -94,7 +94,6 @@ strong, b, .strong, .b, .bold {
 button, .button, .btn {
 	position: static;
 	display: inline-block;
-	font-size: 1.2rem;
 	border-radius: 2px;
 	color: var(--blue);
 	font-weight: bold;
@@ -103,6 +102,10 @@ button, .button, .btn {
 	border: 1px solid var(--blue);
 	background: transparent;
   text-decoration: none;
+
+  &:not(.small):not(.smallest) {
+	font-size: 1.2rem;
+  }
 
   .dark & {
 	// background: var(--darker);
@@ -218,7 +221,6 @@ button.inline {
 	margin: 0;
 	padding: 0;
 	border: 0 none;
-	font-size: inherit;
 	font-family: inherit;
 	font-weight: inherit;
 	background: none;
@@ -228,6 +230,10 @@ button.inline {
     text-decoration-color: #aaa;
 	text-align: left;
 	line-height: 1.5;
+
+	&:not(.small):not(.smallest) {
+		font-size: inherit;
+	}
 
 	&.strong,
 	&.b {

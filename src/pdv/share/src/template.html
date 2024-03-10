@@ -2,8 +2,9 @@
 	<!-- <h3>{{title || 'Sdílejte tuto stránku' }}</h3> -->
 	<p-box-group :class="{middle}">
 		<p-box :click="() => copyLink()" class="_blockAside" title="Kliknutím si zkopírujete odkaz na stránku do schránky">
-			<p-box-label v-if="!copied" icon="link.svg">Sdílet tuto stránku</p-box-label>
+			<p-box-label v-if="!copied" icon="link.svg">{{ cta || 'Sdílet tuto stránku'}}</p-box-label>
 			<p-box-label v-if="copied" class="green">Kopie</p-box-label>
+			<p-box-icon type="link" v-if="cta"></p-box-icon>
 		</p-box>
 		<p-box :href="'https://www.facebook.com/sharer/sharer.php?u=' + path" title="Kliknutím se otevře okno pro sdílení na Facebooku">
 			<p-box-icon type="fb" class="dark-invert"></p-box-icon>

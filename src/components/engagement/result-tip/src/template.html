@@ -1,0 +1,48 @@
+<div class="engagement-result-tip">
+	<p-area borderColor="var(--blue)">
+		<p-loader :rule="data">
+			<div v-if="data && !used && !fetch">
+				<strong class="blue">Jaký výsledek voleb odhadujete?</strong>
+				<p-gap></p-gap>
+				<p-columns class="-tight">
+					<div v-for="(party, index) in form.parties">
+						<p-offset class="reverse balanced _lb">
+							<div class="smaller">
+								<p-label :color="party.color">{{ party.short }}</p-label>
+							</div>
+							<div class="_w5">	
+								<input type="number" min="0" max="100" v-model.number="party.pct" class="_ni" placeholder="0">
+							</div>
+						</p-offset>
+					</div>
+				</p-columns>
+				<p-gap></p-gap>
+				<div class="strong" :class="{red: form.parties.reduce((a, b) => a + (b.pct || 0), 0) > 100}">Součet je {{ form.parties.reduce((a, b) => a + (b.pct || 0), 0) }} %</div>
+				<p-gap></p-gap>
+				<p class="smallest">Tipy se v prvotní fázi budou ukládat, od května nebo dosažení 100 tipů se bude zobrazovat také jejich průměr. Po uložení tipu se zobrazí graf, který můžete uložit či sdílet.</p>
+				<div>
+					<input type="text" class="secondary" placeholder="volitelně, vaše jméno nebo přezdívka nebo @handle" v-model="form.name">
+				</div>
+				<p-gap></p-gap>
+				<div>
+					<button @click="submit" :disabled="form.parties.reduce((a, b) => a + (b.pct || 0), 0) === 0">Odeslat</button>
+				</div>
+			</div>
+			<div v-if="data && (used || fetch)">
+				<strong>Odhad výsledku eurovoleb</strong>
+				<p-gap></p-gap>
+				<election-poll :data="resultsAsPoll"></election-poll>
+				<p-gap></p-gap>
+				<p-offset class="reverse">
+					<div>
+						<p-share copy="Podívejte se na tenhle odhad výsledku eurovoleb" :link="resultsAsPoll.share" cta="Sdílet odhad"></p-share>
+					</div>
+					<div>
+						<button class="inline red smallest" @click="() => clear(resultsAsPoll.token)">Smazat</button>
+					</div>
+				</p-offset>
+				
+			</div>
+		</p-loader>
+	</p-area>
+</div>

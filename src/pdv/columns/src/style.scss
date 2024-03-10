@@ -19,7 +19,7 @@
 	}
 }
 
-.p-columns---tight {
+.p-columns---tight, .-tight {
 	container-type: inline-size;
 
 	@container (min-width: 360px) {

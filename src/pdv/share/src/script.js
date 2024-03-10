@@ -3,7 +3,7 @@ import {ge} from '@/pdv/analytics'
 
 export default {
 	name: 'share-block',
-	props: ['copy', 'title', 'middle', 'link'],
+	props: ['copy', 'title', 'middle', 'link', 'cta'],
 	data: function () {
 		return {
 			copied: false,

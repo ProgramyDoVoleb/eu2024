@@ -8,6 +8,8 @@ import NewsItem from '@/components/news-item/do.vue'
 import MailchimpSignup from '@/components/mailchimp/do.vue';
 import ReportForm from '@/components/report-form/do.vue';
 import ElectionPoll from '@/views/polls/poll/do.vue';
+import EngagementResultTip from '@/components/engagement/result-tip/do.vue';
+import PartyPreview from '@/components/party-preview/do.vue';
 
 export default {
 	name: 'layout-homepage',
@@ -53,7 +55,7 @@ export default {
 		}
 	},
   components: {
-	NewsItem, MailchimpSignup, ReportForm, ElectionPoll
+	NewsItem, MailchimpSignup, ReportForm, ElectionPoll, EngagementResultTip, PartyPreview
   },
 	computed: {
 		$store: function () {
@@ -114,5 +116,12 @@ export default {
   mounted: function () {
     window.scrollTo(0, 1);
     ga();
+		
+	setTimeout(() => {
+		if (location.hash != '') {
+			// console.log(123, this.$el.querySelector("[name=" + location.hash.split('#')[1] + "]"));
+			this.$el.querySelector("[name=" + location.hash.split('#')[1] + "]").scrollIntoView({behavior: "smooth", block: "center"});
+		}
+	}, 1000);
   }
 };

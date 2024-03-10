@@ -2,12 +2,14 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { api } from '@/stores/core'
 import { useNotifications } from '@/stores/notifications'
+import { useData } from '@/stores/data'
 import axios from 'axios'
 
 export const useEngagement = defineStore('engagement', () => {
     const start = ref(new Date().getTime());
     const list = ref([]);
     const notify = useNotifications();
+    const $store = useData();
   
     function add (path, hash, value, msg, cb) {
         var now = new Date().getTime();
@@ -29,6 +31,7 @@ export const useEngagement = defineStore('engagement', () => {
                     value,
                     now,
                     ttc,
+                    token: response.data.token,
                     response: response.data
                 })
 
@@ -42,9 +45,27 @@ export const useEngagement = defineStore('engagement', () => {
 
     }
 
+    function silent (path, hash, value, date, token, cb) {
+        list.value.push({
+            path,
+            hash,
+            value,
+            now: date,
+            ttc: -1,
+            token,
+            response: null
+        })
+
+        if (cb) cb(token);
+    }
+
     function used (path, hash) {
-        return !!list.value.find(x => x.path === path && hash === hash);
+        return !!list.value.find(x => (x.path === path || !path) && hash === hash);
+    }
+
+    function remove (eid) {
+        list.value.splice(list.value.findIndex(x => x.token === eid), 1);
     }
   
-    return { add, used, list, start }
+    return { add, silent, fetch, remove, used, list, start }
   })

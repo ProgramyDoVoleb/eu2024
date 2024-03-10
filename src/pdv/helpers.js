@@ -92,7 +92,7 @@ export function date (input, generic) {
     return new Date(input).toLocaleString('cs-CZ', {month: "long", year: "numeric"});
   } else if (generic && generic === 2) {
     return (new Date(input).toLocaleString('cs-CZ', {month: "numeric", day: "numeric"})).split(' ').join(' ');
-  } else if (Number(input.split('-')[0]) != new Date().getFullYear()) {
+  } else if (typeof input === 'string' && Number(input.split('-')[0]) != new Date().getFullYear()) {
     return new Date(input).toLocaleString('cs-CZ', {month: "long", year: "numeric", day: "numeric"});
   } else {
     return new Date(input).toLocaleString('cs-CZ', {month: "long", day: "numeric"});
@@ -245,5 +245,5 @@ export function reverse (arr) {
 }
 
 export function slide (hash) {
-  this.$el.querySelector("a[name=" + hash + "]").scrollIntoView({behavior: "smooth", block: "center"});
+  this.$el.querySelector("[name=" + hash + "]").scrollIntoView({behavior: "smooth", block: "center"});
 }
