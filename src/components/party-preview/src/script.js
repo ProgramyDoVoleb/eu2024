@@ -1,6 +1,6 @@
 import {useData} from '@/stores/data';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
-import { type, domain } from '@/pdv/helpers';
+import { type, domain, date } from '@/pdv/helpers';
 import { useCore, cdn } from '@/stores/core';
 
 export default {
@@ -15,7 +15,7 @@ export default {
 
 	},
 	methods: {
-		colorByItem, logoByItem,
+		colorByItem, logoByItem, date,
 		sortByPorCislo: function (list) {
 			list.sort((a, b) => (a.PORCISLO || 1000) - (b.PORCISLO || 1000));
 
