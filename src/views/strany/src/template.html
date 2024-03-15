@@ -3,138 +3,202 @@
 		<template #main>
 			<p-block headline="Strany a hnutí ve volbách do evropského parlamentu 2024" anchor="Přehled stran" :level="1">
 				<p>Zde jsou uvedeny všechny strany a hnutí, které se jakýmkoli registrovatelným způsobem zapojují do voleb. Ať formou samostatné kandidátky, koalice nebo jen že mají na nějaké jiné kandidátce své členy.</p>
-				<p-loader :rule="elections" reserve="100vh">
-					<div v-if="elections">
-						<p-list class="invisible">
-							<template v-for="(party, index) in sortBy(elections.cis.strany.filter(x => x.POCET === 1), 'NAZEV', '', true)">
-								<div>
-									<p-area class="_container">
-										<div class="party-header">
-											<div>
-												<p-logo :data="{logo: logoByItem(party, elections)}" size="3em" :alt="'Logo ' + party.NAZEV"></p-logo>
-											</div>
-											<div>
-												<strong>
-													<p-link :href="'https://programydovoleb.cz/rejstrik/' + party.VSTRANA">{{ party.NAZEV }}</p-link>
-												</strong>
-												<div class="smallest dimm">{{ party.ZKRATKA }}</div>
-											</div>
-											<div class="text-right">
-												<div class="dimm" v-if="elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA)">
-													<router-link class="strong" :to="'/strana/' + elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA).id">samostatně</router-link>
-												</div>
-												<div class="dimm" v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && findInParties(party.VSTRANA)">
-													v koalici <router-link class="strong" :to="'/strana/' + findInParties(party.VSTRANA).id">{{ findInParties(party.VSTRANA).NAZEV }}</router-link>
-												</div>
-												<div class="dimm" v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && !findInParties(party.VSTRANA)">
-													na kandidátce <router-link class="strong" :to="'/strana/' + findInCandidates(party.VSTRANA).id">{{ findInCandidates(party.VSTRANA).NAZEV }}</router-link>
-												</div>
-												<div class="smaller">
-													<p-lang :value="elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA || x.PSTRANA === party.VSTRANA).length" :end="['žádný kandidát', '1 kandidát', '%% kandidáti', '%% kandidátů']"></p-lang>
-												</div>
-											</div>
-										</div>
-									</p-area>
-								</div>
-							</template>
-						</p-list>
-					</div>
-				</p-loader>
-			</p-block>
-			<p-block headline="Koalice">
-				<p-loader :rule="elections" reserve="500px">
-					<div v-if="elections" class="_container">
-						<div class="_columns">
-							<template v-for="(coal, index) in elections.cis.strany.filter(x => x.$coalition && elections.list[0].$strany.find(y => y.VSTRANA === x.VSTRANA))">
-								<div>
-									<p-area>
-										<div class="party-header">
-											<div>
-												<p-logo :alt="'Logo ' + coal.NAZEV" :data="{logo: logoByItem(elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA), elections)}" size="3em"></p-logo>
-											</div>
-											<div>
-												<strong>
-													<router-link :to="'/strana/' + elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).id">{{ elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).NAZEV }}</router-link>
-												</strong>
-											</div>
-										</div>
-										<p-line></p-line>
-										<p-list height=".25">
-											<template v-for="(party, index2) in coal.$coalition">
+				<p-block headline="Přehled stran a hnutí" :hide="true">
+					<p-loader :rule="elections" reserve="100vh">
+						<div v-if="elections">
+							<p-list class="invisible">
+								<template v-for="(party, index) in sortBy(elections.cis.strany.filter(x => x.POCET === 1), 'NAZEV', '', true)">
+									<div>
+										<p-area class="_container">
+											<div class="party-header">
 												<div>
-													<p-offset class="reserve balanced">
-														<div>
-															<p-label :color="colorByItem(party, elections)">
-																<p-modal>
-																	<template #init>
-																		<span class="smaller">
-																			<button tabindex="-1" class="inline">{{ party.NAZEV }}</button>
-																		</span>																		
-																	</template>
-																	<template #content>
-																		<div class="party-header">
-																			<div>
-																				<p-logo :data="{logo: logoByItem(party, elections)}" size="3em"></p-logo>
-																			</div>
-																			<div>
-																				<strong>
-																					{{ party.NAZEV }}
-																				</strong>
-																				<div class="smallest dimm">{{ party.ZKRATKA }}</div>
-																			</div>
-																		</div>
-																		<h5>Kandidáti a pořadí na kandidátce</h5>
-																		<p-list class="smaller">
-																			<div v-for="(cand, index3) in elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA)">
-																				<p-offset class="balanced">
-																					<div class="smallest dimm">{{ cand.PORCISLO }}</div>
-																					<div>
-																						<router-link :to="'/kandidat/' + cand.id">{{ cand.JMENO }} {{ cand.PRIJMENI }}</router-link>
-																					</div>
-																				</p-offset>
-																			</div>
-																		</p-list>
-																		<p-gap></p-gap>
-																		<p-link :href="'https://programydovoleb.cz/rejstrik/' + party.VSTRANA" class="smallest strong">Detail strany</p-link>
-																	</template>
-																</p-modal>
-															</p-label>
-														</div>
-														<div class="smallest dimm text-right">
-															{{ elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA).length }}
-														</div>
-													</p-offset>
+													<p-logo :data="{logo: logoByItem(party, elections)}" size="3em" :alt="'Logo ' + party.NAZEV"></p-logo>
 												</div>
-											</template>
-											<div v-if="elections.list[0].$kandidati.filter(x => !x.NSTRANA && x.ESTRANA === elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).ESTRANA).length > 0">
-												<p-modal>
-													<template #init>
-														<span class="smallest"><button tabindex="-1" class="inline dimm"><p-lang :value="elections.list[0].$kandidati.filter(x => !x.NSTRANA && x.ESTRANA === elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).ESTRANA).length" :end="['', '1 nezařazený kandidát', '%% nezařazení kandidáti', '%% nezařazených kandidátů']"></p-lang></button></span>
-													</template>
-													<template #content>
-														<h3>Kandidáti bez určené nominace</h3>
-														<p-list class="smaller">
-															<div v-for="(cand, index3) in elections.list[0].$kandidati.filter(x => !x.NSTRANA && x.ESTRANA === elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).ESTRANA)">
-																<p-offset class="balanced">
-																	<div class="smallest dimm">{{ cand.PORCISLO }}</div>
-																	<div>
-																		<router-link :to="'/kandidat/' + cand.id">{{ cand.JMENO }} {{ cand.PRIJMENI }}</router-link>
-																	</div>
-																</p-offset>
+												<div>
+													<strong>
+														{{ party.NAZEV }}
+													</strong>
+													<div class="smaller" v-if="elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA)">
+														<router-link class="strong" :to="'/strana/' + elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA).id">samostatně</router-link>
+													</div>
+													<div class="smaller" v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && findInParties(party.VSTRANA)">
+														v koalici <router-link class="strong" :to="'/strana/' + findInParties(party.VSTRANA).id">{{ findInParties(party.VSTRANA).NAZEV }}</router-link>
+													</div>
+													<div class="smaller" v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && !findInParties(party.VSTRANA)">
+														na kandidátce <router-link class="strong" :to="'/strana/' + findInCandidates(party.VSTRANA).id">{{ findInCandidates(party.VSTRANA).NAZEV }}</router-link>
+													</div>
+												</div>
+												<div class="text-right">
+													<!-- <div class="smaller">
+														<p-lang :value="elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA || x.PSTRANA === party.VSTRANA).length" :end="['žádný kandidát', '1 kandidát', '%% kandidáti', '%% kandidátů']"></p-lang>
+													</div> -->
+													<p-modal>
+														<template #init>
+															<!-- <span class="smaller"> -->
+																<p-lang class="smaller" :class="elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA || x.PSTRANA === party.VSTRANA).length === 0 ? 'dimm' : 'strong'" :value="elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA || x.PSTRANA === party.VSTRANA).length" :end="['žádný kandidát', '1 kandidát', '%% kandidáti', '%% kandidátů']"></p-lang>
+															<!-- </span>																		 -->
+														</template>
+														<template #content>
+															<div class="party-header">
+																<div>
+																	<p-logo :data="{logo: logoByItem(party, elections)}" size="3em"></p-logo>
+																</div>
+																<div>
+																	<strong>
+																		{{ party.NAZEV }}
+																	</strong>
+																	<div class="smallest dimm">{{ party.ZKRATKA }}</div>
+																</div>
 															</div>
-														</p-list>
-													</template>
-												</p-modal>												
+															<h5>
+																Kandidáti a pořadí na kandidátce
+																<div class="smaller" v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && findInParties(party.VSTRANA)">
+																	v koalici <router-link class="strong" :to="'/strana/' + findInParties(party.VSTRANA).id">{{ findInParties(party.VSTRANA).NAZEV }}</router-link>
+																</div>
+																<div class="smaller" v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && !findInParties(party.VSTRANA)">
+																	na kandidátce <router-link class="strong" :to="'/strana/' + findInCandidates(party.VSTRANA).id">{{ findInCandidates(party.VSTRANA).NAZEV }}</router-link>
+																</div>
+															</h5>
+															<p-list class="smaller">
+																<div v-for="(cand, index3) in sortByPorCislo(elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA || x.PSTRANA === party.VSTRANA))">
+																	<p-offset class="balanced">
+																		<div class="smallest dimm">{{ cand.PORCISLO || '?' }}</div>
+																		<div>
+																			<router-link :to="'/kandidat/' + cand.id" :class="{strong: cand.PSTRANA === party.VSTRANA}">{{ cand.JMENO }} {{ cand.PRIJMENI }}</router-link>
+																		</div>
+																	</p-offset>
+																</div>
+															</p-list>
+															<p-line></p-line>
+															<div>
+																<template v-if="elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA)">
+																	<router-link class="btn" :to="'/strana/' + elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA).id">Zobrazit kandidátku</router-link>
+																</template>
+																<template v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && findInParties(party.VSTRANA)">
+																	<router-link class="btn" :to="'/strana/' + findInParties(party.VSTRANA).id">Zobrazit kandidátku</router-link>
+																</template>
+																<template v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && !findInParties(party.VSTRANA)">
+																	<router-link class="btn" :to="'/strana/' + findInCandidates(party.VSTRANA).id">Zobrazit kandidátku</router-link>
+																</template> 
+																<p-link class="btn button-plain" :href="'https://programydovoleb.cz/rejstrik/' + party.VSTRANA"><em>{{ party.ZKRATKA }}</em> v rejstříku stran</p-link>
+															</div>														
+														</template>
+													</p-modal>
+												</div>
 											</div>
-										</p-list>
-										<p-gap height=".5"></p-gap>
-										<p-link :href="'https://programydovoleb.cz/rejstrik/' + coal.VSTRANA" class="smallest strong">Historické záznamy koalice</p-link>
-									</p-area>
-								</div>
-							</template>
+										</p-area>
+									</div>
+								</template>
+							</p-list>
 						</div>
-					</div>
-				</p-loader>
+					</p-loader>
+				</p-block>
+				<p-block headline="Koalice">
+					<p-loader :rule="elections" reserve="500px">
+						<div v-if="elections" class="_container">
+							<div class="_columns">
+								<template v-for="(coal, index) in elections.cis.strany.filter(x => x.$coalition && elections.list[0].$strany.find(y => y.VSTRANA === x.VSTRANA))">
+									<div>
+										<p-area :borderColor="colorByItem(coal, elections)">
+											<div class="party-header">
+												<div v-if="logoByItem(elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA), elections, null, true)">
+													<p-logo :alt="'Logo ' + coal.NAZEV" :data="{logo: logoByItem(elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA), elections)}" size="3em"></p-logo>
+												</div>
+												<div>
+													<strong>
+														<router-link :to="'/strana/' + elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).id">{{ truncate(elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).NAZEV, 12) }}</router-link>
+													</strong>
+												</div>
+											</div>
+											<p-line></p-line>
+											<p-list height=".25">
+												<template v-for="(party, index2) in coal.$coalition">
+													<div>
+														<p-offset class="reserve balanced">
+															<div>
+																<p-label :color="colorByItem(party, elections)">
+																	<p-modal>
+																		<template #init>
+																			<span class="smaller">
+																				<button tabindex="-1" class="inline">{{ party.NAZEV }}</button>
+																			</span>																		
+																		</template>
+																		<template #content>
+																			<div class="party-header">
+																				<div>
+																					<p-logo :data="{logo: logoByItem(party, elections)}" size="3em"></p-logo>
+																				</div>
+																				<div>
+																					<strong>
+																						{{ party.NAZEV }}
+																					</strong>
+																					<div class="smallest dimm">{{ party.ZKRATKA }}</div>
+																				</div>
+																			</div>
+																			<h5>Kandidáti a pořadí na kandidátce</h5>
+																			<p-list class="smaller">
+																				<div v-for="(cand, index3) in elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA)">
+																					<p-offset class="balanced">
+																						<div class="smallest dimm">{{ cand.PORCISLO }}</div>
+																						<div>
+																							<router-link :to="'/kandidat/' + cand.id" :class="{strong: cand.PSTRANA === party.VSTRANA}">{{ cand.JMENO }} {{ cand.PRIJMENI }}</router-link>
+																						</div>
+																					</p-offset>
+																				</div>
+																			</p-list>
+																			<p-line></p-line>
+																			<div>
+																				<template v-if="elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA)">
+																					<router-link class="btn" :to="'/strana/' + elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA).id">Zobrazit kandidátku</router-link>
+																				</template>
+																				<template v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && findInParties(party.VSTRANA)">
+																					<router-link class="btn" :to="'/strana/' + findInParties(party.VSTRANA).id">Zobrazit kandidátku</router-link>
+																				</template>
+																				<template v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && !findInParties(party.VSTRANA)">
+																					<router-link class="btn" :to="'/strana/' + findInCandidates(party.VSTRANA).id">Zobrazit kandidátku</router-link>
+																				</template> 
+																				<p-link class="btn button-plain" :href="'https://programydovoleb.cz/rejstrik/' + party.VSTRANA"><em>{{ party.ZKRATKA }}</em> v rejstříku stran</p-link>
+																			</div>	
+																		</template>
+																	</p-modal>
+																</p-label>
+															</div>
+															<div class="smallest dimm text-right">
+																{{ elections.list[0].$kandidati.filter(x => x.NSTRANA === party.VSTRANA).length }}
+															</div>
+														</p-offset>
+													</div>
+												</template>
+												<div v-if="elections.list[0].$kandidati.filter(x => !x.NSTRANA && x.ESTRANA === elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).ESTRANA).length > 0">
+													<p-modal>
+														<template #init>
+															<span class="smallest"><button tabindex="-1" class="inline dimm"><p-lang :value="elections.list[0].$kandidati.filter(x => !x.NSTRANA && x.ESTRANA === elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).ESTRANA).length" :end="['', '1 nezařazený kandidát', '%% nezařazení kandidáti', '%% nezařazených kandidátů']"></p-lang></button></span>
+														</template>
+														<template #content>
+															<h3>Kandidáti bez určené nominace</h3>
+															<p-list class="smaller">
+																<div v-for="(cand, index3) in elections.list[0].$kandidati.filter(x => !x.NSTRANA && x.ESTRANA === elections.list[0].$strany.find(y => y.VSTRANA === coal.VSTRANA).ESTRANA)">
+																	<p-offset class="balanced">
+																		<div class="smallest dimm">{{ cand.PORCISLO }}</div>
+																		<div>
+																			<router-link :to="'/kandidat/' + cand.id">{{ cand.JMENO }} {{ cand.PRIJMENI }}</router-link>
+																		</div>
+																	</p-offset>
+																</div>
+															</p-list>
+														</template>
+													</p-modal>												
+												</div>
+											</p-list>
+											<p-gap height=".75"></p-gap>
+											<p-link :href="'https://programydovoleb.cz/rejstrik/' + coal.VSTRANA" class="smallest strong">Historické záznamy koalice</p-link>
+										</p-area>
+									</div>
+								</template>
+							</div>
+						</div>
+					</p-loader>
+				</p-block>
 			</p-block>
 			<p-block headline="Novinky">
 				<p-loader :rule="news">
