@@ -1,0 +1,38 @@
+._cand {
+	display: flex;
+	position: relative;
+}
+
+._cand-mandat {
+	position: absolute;
+	top: -1em;
+	bottom: -1em;
+	left: -.5em;
+	width: .25em;
+	background: var(--green);
+}
+
+._cand-no {
+	width: 1.5em;
+	text-align: right;
+	margin-right: .5em;
+	margin-top: .4em;
+}
+
+._cand-img {
+	margin-right: 1em;
+}
+
+._cand-flex {
+	flex: 1;
+}
+
+._soc {
+	max-width: 6em;
+	text-align: right;
+	margin-top: -.3em;
+
+	@media (min-width: 640px) {
+		max-width: 14em;
+	}
+}

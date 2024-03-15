@@ -1,7 +1,7 @@
-<div class="p-area" :style="{padding, background, color, border}" :class="{'p-area---has-icon': !!icon, 'p-area---has-border': !!borderColor, 'p-area---has-background': !!background}">
-	<div class="p-area---content">
+<div class="p-area" :style="{padding, background, color, border}" :class="{'_has-icon': !!icon, '_has-border': !!borderColor, '_has-background': !!background}">
+	<div class="_content">
 		<p-box-icon :type="icon" v-if="icon"></p-box-icon>
 		<slot />
 	</div>
-	<div class="border-color" v-if="borderColor" :style="{background: borderColor}"></div>
+	<div class="_color" v-if="borderColor" :style="{background: borderColor}"></div>
 </div>

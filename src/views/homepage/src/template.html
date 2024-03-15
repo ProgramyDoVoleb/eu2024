@@ -119,48 +119,6 @@
 					</div>
 				</p-loader>
 			</p-block>
-			<p-grid>
-				<div>
-					<p-area icon="plus-green" background="var(--greyish)">
-						<p-modal>
-							<template #init> <button class="inline green strong">Poslat tip na novinku</button> </template>
-							<template #content>
-								<div class="strong">Odkaz na článek</div>
-								<report-form part="Přidat média"></report-form>
-							</template>
-						</p-modal>
-						<div class="smallest dimm">Stačí poslat odkaz</div>
-					</p-area>
-				</div>
-				<div>
-					<p-area icon="email" background="var(--greyish)">
-						<p-modal>
-							<template #init>
-								<button class="inline strong">Chcete novinky e-mailem?</button>
-							</template>
-							<template #content>
-								<mailchimp-signup></mailchimp-signup>
-							</template>
-						</p-modal>
-						<div class="smallest dimm">Souhrn vždy na konci měsíce</div>
-					</p-area>
-				</div>
-				<div>
-					<p-area icon="warning" background="var(--greyish)">
-						<p-modal>
-							<template #init>
-								<button class="inline strong red">Nahlásit chybu</button>
-							</template>
-							<template #content>
-								<strong>Nahlásit chybu</strong>
-								<report-form part="Homepage"></report-form>
-							</template>
-						</p-modal>
-						<div class="smallest dimm">Nefunguje odkaz? Chyba ve jméně?</div>
-					</p-area>
-				</div>
-			</p-grid>
-			<p-gap height="2"></p-gap>
 			<p-block-expandable headline="Nově přidáno">
 				<p-loader :rule="news" reserve="200px">
 					<div v-if="news">
@@ -248,6 +206,49 @@
 					</div>
 				</p-offset>
 			</div>
+			<p-gap></p-gap>
+			<p-grid>
+				<div>
+					<p-area icon="plus-green" background="var(--greyish)">
+						<p-modal>
+							<template #init> <button class="inline green strong">Poslat tip na novinku</button> </template>
+							<template #content>
+								<div class="strong">Odkaz na článek</div>
+								<report-form part="Přidat média"></report-form>
+							</template>
+						</p-modal>
+						<div class="smallest dimm">Stačí poslat odkaz</div>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="email" background="var(--greyish)">
+						<p-modal>
+							<template #init>
+								<button class="inline strong">Chcete novinky e-mailem?</button>
+							</template>
+							<template #content>
+								<mailchimp-signup></mailchimp-signup>
+							</template>
+						</p-modal>
+						<div class="smallest dimm">Souhrn vždy na konci měsíce</div>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="warning" background="var(--greyish)">
+						<p-modal>
+							<template #init>
+								<button class="inline strong red">Nahlásit chybu</button>
+							</template>
+							<template #content>
+								<strong>Nahlásit chybu</strong>
+								<report-form part="Homepage"></report-form>
+							</template>
+						</p-modal>
+						<div class="smallest dimm">Nefunguje odkaz? Chyba ve jméně?</div>
+					</p-area>
+				</div>
+			</p-grid>
+			<p-gap height="2"></p-gap>
 			<p-gap height="4"></p-gap>
 			<p-block headline="Váš odhad výsledku" :hide="true">
 				<engagement-result-tip :data="elections"></engagement-result-tip>

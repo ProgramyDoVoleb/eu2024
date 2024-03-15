@@ -5,7 +5,7 @@
   margin-bottom: 0;
   border-radius: 1.6rem;
 
-  &.p-area---has-border {
+  &._has-border {
     padding: 1.5em 1.5em;
     overflow: hidden;
   }
@@ -22,14 +22,14 @@
   .dark &[style] {
     &:not([style*="background-image"]),
     &[style*="missing"] {
-      &:not(.p-area---has-background) {
+      &:not(._has-background) {
         background: rgba(255,255,255,.07) !important;
         box-shadow: 0 1em 2em rgba(0,0,0,.25);
       }      
     }
   }
 
-  &.p-area---has-icon:not(.p-area---icon-top) {
+  &._has-icon:not(._icon-top) {
     padding: .75em 1em .75em 4em;
   
     .p-box-icon {
@@ -50,7 +50,7 @@
   background: none;
 }
 
-.p-area .border-color {
+._color {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -58,7 +58,7 @@
   width: 4px;
 }
 
-.p-area---content {
+._content {
   position: relative;
 }
 
@@ -66,7 +66,7 @@
   margin-top: 1rem;
 }
 
-.p-area---icon-top {
+._icon-top {
 
   .p-box-icon {
     position: absolute;
@@ -86,7 +86,7 @@
 
 }
 
-.p-area---inline,
+._inline,
 .inline {
   display: inline-block
 }

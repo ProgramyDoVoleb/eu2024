@@ -82,7 +82,7 @@
 							<p-block headline="Plné znění" v-if="current.$program.length > 0" :open="!current.$program[0].content" :hide="true">
 								<p-area :borderColor="colorByItem(current, data)">
 									<h2 class="_m0">{{ current.$program[0].headline || 'Plné znění' }}</h2>
-									<div class="smallest dimm">Vloženo {{ date(current.$program[0].updated) }}</div>
+									<div class="smallest">Vloženo {{ date(current.$program[0].updated) }}</div>
 									<p-gap></p-gap>
 									<p-box-group class="_spaced">
 										<p-box :href="current.$program[0].source" v-if="current.$program[0].source">
@@ -128,7 +128,7 @@
 									</template>
 								
 							</p-block>
-							<div class="smallest dimm">Volební program je zveřejněn jako čistá kopie textu, bez úprav, pokud to jeho forma dovoluje. A je platný ke dni uveřejnění. Pro pohled na formátování, doprovodné fotky, grafy, apod si prosím otevřete originál nebo v případě, že již není dostupný, jeho zálohu. Pokud je dostupná novější verze, prosím dejte vědět na opravte@programydovoleb.cz</div>
+							<div class="smallest dimm">Volební program je zveřejněn jako čistá kopie textu, bez úprav, pokud to jeho forma dovoluje. A je platný ke dni {{ date(current.$program[0].updated, 3) }}. Pro pohled na formátování, doprovodné fotky, grafy, apod si prosím otevřete originál nebo v případě, že již není dostupný, jeho zálohu. Pokud je dostupná novější verze, prosím dejte vědět na opravte@programydovoleb.cz</div>
 							<p-line></p-line>
 							<p-gap height="3"></p-gap>
 							<p-block headline="Programové dokumenty" v-if="current.$data.program" :level="1">

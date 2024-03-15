@@ -1,0 +1,28 @@
+.person-preview-block {
+	position: relative;
+	container-type: inline-size;
+}
+
+._photo {
+	margin-right: 1em;
+
+	img {
+		width: 4em;
+		display: block;
+		border-radius: .5em;
+		border: var(--border);
+	}
+	
+	@container (min-width: 320px) {
+		img {
+			width: 8em;
+		}		
+	}
+}
+
+._no {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+

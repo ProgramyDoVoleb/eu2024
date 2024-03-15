@@ -1,0 +1,60 @@
+<p-area class="person-preview-block">
+	<p-offset>
+		<div class="_photo" v-if="current.$kandidati.find(x => x.$data.photo.length > 0)">
+			<img :src="con(cand.$data, 'photo') || missing" :alt="cand.PRIJMENI">
+		</div>
+		<div class="_content">
+			<router-link class="strong" :to="'/kandidat/' + cand.id">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link>
+			<div v-if="cand.$data.social && cand.$data.social.length > 0" class="_soc">
+				<p-gap height=".33"></p-gap>
+				<template v-for="(soc, indexS) in checkDuplicates(cand.$data.social)">
+					<p-link :href="soc.value">
+						<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
+					</p-link>
+				</template>
+			</div>
+			<template v-if="cand.VEK || cand.POVOLANI">
+				<p-gap height=".33"></p-gap>
+				<div class="smaller">
+					<div>
+						<p-list-linear class="or">
+							<li v-if="cand.POVOLANI">{{ cand.POVOLANI }}</li>
+							<li v-if="cand.VEK">{{ cand.VEK }} let</li>
+						</p-list-linear>
+					</div>
+				</div>
+			</template>
+			<div class="smallest" v-if="cand.NSTRANA && !current.PSTRANA && cand.NSTRANA != current.VSTRANA">
+				nominace od 
+				<p-label :color="colorByItem(cand, data, 'NSTRANA')" :after="true">
+					<p-link :href="'https://programydovoleb.cz/rejstrik/' + cand.NSTRANA" class="is-span">
+						{{ data.cis.strany.find(x => x.VSTRANA === cand.NSTRANA).ZKRATKA }}
+					</p-link>
+				</p-label>
+				
+			</div>
+			<div class="smallest" v-if="cand.PSTRANA && current.VSTRANA != 80 && current.VSTRANA != 90 && cand.PSTRANA != 99">
+				člen
+				<p-label :after="true" :color="colorByItem(cand, data, 'PSTRANA')">
+					<p-link :href="'https://programydovoleb.cz/rejstrik/' + cand.PSTRANA" class="is-span">
+						{{ data.cis.strany.find(x => x.VSTRANA === cand.PSTRANA).ZKRATKA }}
+					</p-link>
+				</p-label><span class="dimm" v-if="cand.PSTRANA != cand.NSTRANA">
+					&middot; nominace od <p-link :href="'https://programydovoleb.cz/rejstrik/' + cand.NSTRANA" class="is-span dimm">
+						{{ data.cis.strany.find(x => x.VSTRANA === cand.NSTRANA).ZKRATKA }}
+					</p-link>
+				</span>
+			</div>
+			<div v-if="cand.PSTRANA && cand.PSTRANA === 99">nestraník</div>
+			<div class="serif smaller" v-if="cand.$data.about[0]">
+				<p-gap height="1"></p-gap>
+				<p-truncated :size="24" :content="cand.$data.about[0].value" :compact="'/kandidat/' + cand.id"></p-truncated>
+			</div>	
+			<p-gap></p-gap>
+			<router-link class="btn" :to="'/kandidat/' + cand.id">Detail kandidáta</router-link>
+		</div>
+		<div class="_no smallest dimm">
+			{{ cand.PORCISLO }}
+		</div>
+	</p-offset>
+</p-area>

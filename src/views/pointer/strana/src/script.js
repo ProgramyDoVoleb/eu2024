@@ -14,6 +14,8 @@ import ReportModal from '@/components/report-modal/do.vue';
 import LogItem from '@/components/log-item/do.vue';
 import PartyQuicklook from '@/components/party-quicklook/do.vue';
 import CandidateStats from '@/components/candidate-stats/do.vue';
+import PersonPreviewLinear from '@/components/person-preview-linear/do.vue';
+import PersonPreviewBlock from '@/components/person-preview-block/do.vue';
 
 export default {
 	name: 'layout-pointer',
@@ -21,7 +23,7 @@ export default {
 	data: function () {
 		return {
 			cdn,
-			limit: 10,
+			limit: 4,
 			limitOff: false,
 			questionLimit: 5,
 			questionLimitOff: false,
@@ -38,7 +40,9 @@ export default {
 	ReportModal,
 	LogItem,
 	PartyQuicklook,
-	CandidateStats
+	CandidateStats,
+	PersonPreviewLinear,
+	PersonPreviewBlock
   },
 	computed: {
 		$store: function () {

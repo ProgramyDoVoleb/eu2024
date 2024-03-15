@@ -1,0 +1,71 @@
+<div class="_cand">
+	<div class="_cand-mandat" v-if="cand.MANDAT === 'A'"></div>
+	<div class="dimm smallest _cand-no" v-if="cand.PORCISLO"> {{ cand.PORCISLO }}.
+
+	</div>
+	<div class="_cand-img" v-if="current.$kandidati.find(x => x.$data.photo.length > 0)">
+		<p-image :src="con(cand.$data, 'photo')" width="3em" :rounded="true" :border="true"></p-image>
+	</div>
+	<div class="_cand-flex">
+		<p-offset class="reverse">
+			<div>
+				<!-- <p-label :after="true" :color="cand.MANDAT === 'A' ? 'var(--green)' : null"> -->
+					<router-link class="strong" :to="'/kandidat/' + cand.id" :style="{color: cand.MANDAT === 'A' ? 'var(--green)' : null}">
+						{{ cand.JMENO }} {{ cand.PRIJMENI }}
+					</router-link>
+				<!-- </p-label> -->
+				<template v-if="cand.VEK || cand.POVOLANI || cand.$profil.length > 0">
+					<p-gap height=".33"></p-gap>
+					<div class="smaller">
+						<div>
+							<p-list-linear class="or">
+								<li v-if="cand.POVOLANI">{{ cand.POVOLANI }}</li>
+								<li v-if="cand.VEK">{{ cand.VEK }} let</li>
+							</p-list-linear>
+						</div>
+					</div>
+				</template>
+			</div>
+			<div v-if="cand.$data.social && cand.$data.social.length > 0" class="_soc">
+				<template v-for="(soc, indexS) in checkDuplicates(cand.$data.social)">
+					<p-link :href="soc.value">
+						<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
+					</p-link>
+				</template>
+			</div>
+		</p-offset>
+		<div class="smallest" v-if="cand.NSTRANA && !current.PSTRANA && cand.NSTRANA != current.VSTRANA">
+			nominace od 
+			<p-label :color="colorByItem(cand, data, 'NSTRANA')" :after="true">
+				<p-link :href="'https://programydovoleb.cz/rejstrik/' + cand.NSTRANA" class="is-span">
+					{{ data.cis.strany.find(x => x.VSTRANA === cand.NSTRANA).ZKRATKA }}
+				</p-link>
+			</p-label>
+			
+		</div>
+		<div class="smallest" v-if="cand.PSTRANA && current.VSTRANA != 80 && current.VSTRANA != 90 && cand.PSTRANA != 99">
+			člen
+			<p-label :after="true" :color="colorByItem(cand, data, 'PSTRANA')">
+				<p-link :href="'https://programydovoleb.cz/rejstrik/' + cand.PSTRANA" class="is-span">
+					{{ data.cis.strany.find(x => x.VSTRANA === cand.PSTRANA).ZKRATKA }}
+				</p-link>
+			</p-label><span class="dimm" v-if="cand.PSTRANA != cand.NSTRANA">
+				&middot; nominace od <p-link :href="'https://programydovoleb.cz/rejstrik/' + cand.NSTRANA" class="is-span dimm">
+					{{ data.cis.strany.find(x => x.VSTRANA === cand.NSTRANA).ZKRATKA }}
+				</p-link>
+			</span>
+		</div>
+		<div class="smallest dimm" v-if="cand.PSTRANA && current.VSTRANA != 80 && current.VSTRANA != 90 && cand.PSTRANA === 99">
+			bez politické příslušnosti
+		</div>
+		<div class="smaller" v-if="cand.$data.about.length > 0">
+			<p-gap height="1" v-if="cand.PSTRANA || cand.NSTRANA != current.VSTRANA"></p-gap>
+			<div class="serif">
+				<p-truncated :size="30" :content="cand.$data.about[0].value" :compact="'/kandidat/' + cand.id"></p-truncated>
+			</div>																	
+		</div>
+		<div class="smallest strong" v-if="cand.$profil.length > 0">
+			<p-link class="strong" :href="'https://programydovoleb.cz/lide/profil/' + cand.$profil[0].profil">Profil</p-link>
+		</div>
+	</div>
+</div>

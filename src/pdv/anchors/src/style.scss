@@ -1,10 +1,10 @@
-.p-anchors---list {
+._list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.p-anchors---link {
+._link {
   text-decoration: none;
   border: none;
 
@@ -13,11 +13,11 @@
   }
 }
 
-.p-anchors---level-1 {
+._level-1 {
   font-size: 1.6rem;
   font-weight: 700;
 
-  .p-anchors---link {
+  ._link {
     color: #000000;
 
     .dark & {
@@ -26,30 +26,30 @@
   }
 }
 
-.p-anchors---level-1 + .p-anchors---level-1 {
+._level-1 + ._level-1 {
   margin-top: 2rem;
 }
 
-.p-anchors---level-2 {
+._level-2 {
   font-size: 1.3rem;
   line-height: 2rem;
   border-left: var(--border);
   padding-left: 1.6rem;
 
-  .p-anchors---link {
+  ._link {
     color: #666;
   }
 }
 
-.p-anchors---level-1 + .p-anchors---level-2 {
+._level-1 + ._level-2 {
   margin-top: 1rem;
 }
 
-.p-anchors---level-2 + .p-anchors---level-1 {
+._level-2 + ._level-1 {
   margin-top: 3rem;
 }
 
-.p-anchors---level {
+li {
   position: relative;
 
   &:before {
@@ -67,16 +67,16 @@
   }
 }
 
-.p-anchors---level-1.p-anchors---level:before {
+._level-1._level:before {
   top: .5em;
 }
 
-.p-anchors---level---visible {
+._visible {
   &:before {
     background: #066ed2;
   }
 
-  .p-anchors---link {
+  ._link {
     color: #066ed2;
   }
 }
