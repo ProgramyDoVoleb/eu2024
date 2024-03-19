@@ -1,7 +1,7 @@
 <p-area class="person-preview-block">
 	<p-offset>
 		<div class="_photo" v-if="current.$kandidati.find(x => x.$data.photo.length > 0)">
-			<img :src="con(cand.$data, 'photo') || missing" :alt="cand.PRIJMENI">
+			<img loading="lazy" :src="con(cand.$data, 'photo') || missing" :alt="cand.PRIJMENI">
 		</div>
 		<div class="_content">
 			<router-link class="strong" :to="'/kandidat/' + cand.id">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link>

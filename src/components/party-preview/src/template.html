@@ -3,22 +3,29 @@
 		<!-- <div class="_aig"> -->
 			<div class="_b">
 				<div v-if="!logoByItem(party, elections).includes('empty')">
-					<img :src="logoByItem(party, elections)" :alt="'logo ' + party.NAZEV" class="_logo">
+					<img loading="lazy" :src="logoByItem(party, elections)" :alt="'logo ' + party.NAZEV" class="_logo">
 				</div>
 				<div v-if="logoByItem(party, elections).includes('empty')">
 					<div class="_logos" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET > 1">
 						<template v-for="(coal, indexC) in elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).$coalition">
-							<img :src="logoByItem(coal, elections)" :alt="'logo ' + coal.NAZEV" class="_logo" :style="{'z-index': 10 - indexC}">
+							<img loading="lazy" :src="logoByItem(coal, elections)" :alt="'logo ' + coal.NAZEV" class="_logo" :style="{'z-index': 10 - indexC}">
 						</template>
 					</div>
 					<div class="_logos" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET === 1">
-						<img :src="logoByItem(party, elections)" :alt="'logo ' + party.NAZEV + ' chybí'" class="_logo">
+						<img loading="lazy" :src="logoByItem(party, elections)" :alt="'logo ' + party.NAZEV + ' chybí'" class="_logo">
 					</div>
 				</div>
 				<div>
 					<div class="_por">
 						<div>
 							<router-link :to="'/strana/' + party.id" class="strong">{{ party.ZKRATKA }}</router-link>
+							<div class="dimm smallest" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET > 1">
+								<p-list-linear>
+									<template v-for="(coal, indexC) in elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).$coalition">
+										<span>{{ coal.ZKRATKA }}</span>
+									</template>
+								</p-list-linear>
+							</div>
 							<div v-if="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length === 0" class="dimm smallest"><em>zatím bez dalších informací</em></div>
 						</div>
 						<div class="smallest dimm" v-if="party.ESTRANA > 0">
