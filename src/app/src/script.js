@@ -1,12 +1,14 @@
 import { useCore } from '@/stores/core';
 import MainHeader from '@/components/header/do.vue';
 import MainFooter from '@/components/footer/do.vue';
+import { useNotifications } from '@/stores/notifications'
 
 export default {
 	name: 'app',
     data: function () {
       return {
-        core: useCore()
+        core: useCore(),
+			  notifications: useNotifications(),
       }
     },
     components: {

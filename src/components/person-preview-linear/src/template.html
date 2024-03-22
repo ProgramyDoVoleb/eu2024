@@ -7,14 +7,21 @@
 		<p-image :src="con(cand.$data, 'photo')" width="3em" :rounded="true" :border="true"></p-image>
 	</div>
 	<div class="_cand-flex">
-		<p-offset class="reverse">
+		<div>
+			<div v-if="cand.$data.social && cand.$data.social.length > 0" class="_soc">
+				<template v-for="(soc, indexS) in checkDuplicates(cand.$data.social)">
+					<p-link :href="soc.value">
+						<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
+					</p-link>
+				</template>
+			</div>
 			<div>
 				<!-- <p-label :after="true" :color="cand.MANDAT === 'A' ? 'var(--green)' : null"> -->
 					<router-link class="strong" :to="'/kandidat/' + cand.id" :style="{color: cand.MANDAT === 'A' ? 'var(--green)' : null}">
 						{{ cand.JMENO }} {{ cand.PRIJMENI }}
 					</router-link>
 				<!-- </p-label> -->
-				<template v-if="cand.VEK || cand.POVOLANI || cand.$profil.length > 0">
+				<template v-if="cand.VEK || cand.POVOLANI">
 					<p-gap height=".33"></p-gap>
 					<div class="smaller">
 						<div>
@@ -26,14 +33,7 @@
 					</div>
 				</template>
 			</div>
-			<div v-if="cand.$data.social && cand.$data.social.length > 0" class="_soc">
-				<template v-for="(soc, indexS) in checkDuplicates(cand.$data.social)">
-					<p-link :href="soc.value">
-						<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
-					</p-link>
-				</template>
-			</div>
-		</p-offset>
+		</div>
 		<div class="smallest" v-if="cand.NSTRANA && !current.PSTRANA && cand.NSTRANA != current.VSTRANA">
 			nominace od 
 			<p-label :color="colorByItem(cand, data, 'NSTRANA')" :after="true">

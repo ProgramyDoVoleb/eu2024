@@ -3,17 +3,18 @@ import { useCore, cdn } from '@/stores/core';
 import { useRoute } from 'vue-router';
 import { regions } from '@/stores/enums';
 import elections from '@/stores/enums/elections';
-import {url, date, number, truncate, con, type, domain, sortByPorCislo, slide} from '@/pdv/helpers';
+import {url, date, number, truncate, con, type, domain, sortByPorCislo, slide, unique} from '@/pdv/helpers';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
 import {ga} from '@/pdv/analytics';
-import NewsItem from '@/components/news-item/do.vue'
 import ElectionResults from '@/views/volby/detail/do.vue';
 import ProgramBlock from '@/components/program-block-dynamic/do.vue';
 import ProfilePreview from '@/components/profile-preview/do.vue';
 import ReportModal from '@/components/report-modal/do.vue';
+import NewsItem from '@/components/news-item/do.vue'
 import LogItem from '@/components/log-item/do.vue';
 import PartyQuicklook from '@/components/party-quicklook/do.vue';
 import CandidateStats from '@/components/candidate-stats/do.vue';
+import NewsBlock from '@/components/news-block/do.vue'
 
 export default {
 	name: 'layout-pointer',
@@ -38,7 +39,8 @@ export default {
 	ReportModal,
 	LogItem,
 	PartyQuicklook,
-	CandidateStats
+	CandidateStats,
+	NewsBlock
   },
 	computed: {
 		$store: function () {
@@ -265,6 +267,36 @@ export default {
 			arr.sort((a, b) => a.type.localeCompare(b.type, 'cs'));
 
 			return arr;
+		},
+		consolidatedNews: function () {
+			var list = [];
+
+			if (this.news) {
+				var datelist = [];
+
+				this.news.list.forEach(x => datelist.push(x));
+				this.news.auto.forEach(x => datelist.push(x));
+				this.news.log.forEach(x => datelist.push(x));
+
+				datelist.forEach(x => x.datum = x.date || x.datum);
+
+				var dates = unique(datelist, 'datum');
+
+				dates.forEach(datum => {
+					var o = {
+						datum,
+						list: this.news.list.filter(x => x.datum === datum),
+						auto: this.news.auto.filter(x => x.datum === datum),
+						log: this.news.log.filter(x => x.date === datum),
+					}
+
+					list.push(o);
+				})
+			}
+
+			list.sort((a, b) => b.datum.localeCompare(a.datum, 'cs'));
+
+			return list;
 		}
 	},
   methods: {

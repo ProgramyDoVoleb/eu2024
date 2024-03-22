@@ -3,7 +3,8 @@ import { useCore, cdn } from '@/stores/core';
 import { useRoute } from 'vue-router';
 import { regions } from '@/stores/enums';
 import elections from '@/stores/enums/elections';
-import {url, date, number, truncate, con, type, domain, sortByPorCislo, slide} from '@/pdv/helpers';
+import logtypes from '@/stores/enums/log';
+import {url, date, number, truncate, con, type, domain, sortByPorCislo, slide, unique} from '@/pdv/helpers';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
 import {ga} from '@/pdv/analytics';
 import NewsItem from '@/components/news-item/do.vue'
@@ -16,6 +17,7 @@ import PartyQuicklook from '@/components/party-quicklook/do.vue';
 import CandidateStats from '@/components/candidate-stats/do.vue';
 import PersonPreviewLinear from '@/components/person-preview-linear/do.vue';
 import PersonPreviewBlock from '@/components/person-preview-block/do.vue';
+import NewsBlock from '@/components/news-block/do.vue'
 
 export default {
 	name: 'layout-pointer',
@@ -42,20 +44,21 @@ export default {
 	PartyQuicklook,
 	CandidateStats,
 	PersonPreviewLinear,
-	PersonPreviewBlock
+	PersonPreviewBlock,
+	NewsBlock
   },
 	computed: {
 		$store: function () {
 			return useData()
 		},
-		$route: function () {
-			return useRoute()
-		},
+		// $route: function () {
+		// 	return useRoute()
+		// },
 		core: function () {
 			return useCore()
 		},
 		enums: function () {
-			return {elections}
+			return {elections, logtypes}
 		},
 		table: function () {
 			if (this.tableName) return this.tableName;
@@ -272,6 +275,36 @@ export default {
 			arr.sort((a, b) => a.type.localeCompare(b.type, 'cs'));
 
 			return arr;
+		},
+		consolidatedNews: function () {
+			var list = [];
+
+			if (this.news) {
+				var datelist = [];
+
+				this.news.list.forEach(x => datelist.push(x));
+				this.news.auto.forEach(x => datelist.push(x));
+				this.news.log.forEach(x => datelist.push(x));
+
+				datelist.forEach(x => x.datum = x.date || x.datum);
+
+				var dates = unique(datelist, 'datum');
+
+				dates.forEach(datum => {
+					var o = {
+						datum,
+						list: this.news.list.filter(x => x.datum === datum),
+						auto: this.news.auto.filter(x => x.datum === datum),
+						log: this.news.log.filter(x => x.date === datum),
+					}
+
+					list.push(o);
+				})
+			}
+
+			list.sort((a, b) => b.datum.localeCompare(a.datum, 'cs'));
+
+			return list;
 		}
 	},
   methods: {

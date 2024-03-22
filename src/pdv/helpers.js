@@ -247,3 +247,24 @@ export function reverse (arr) {
 export function slide (hash) {
   this.$el.querySelector("[name=" + hash + "]").scrollIntoView({behavior: "smooth", block: "center"});
 }
+
+export function lang (_value, _end) {
+  var s;
+
+  var end = ['', '', '', ''];
+
+  if (_end && _end.sort) {
+    _end.forEach((x, i) => end[i] = x);
+  }
+
+  if (_value === 0) s = end[0];
+  if (_value === 1) s = end[1];
+  if (_value > 1 && _value < 5) s = end[2];
+  if (_value > 4) s = end[3];
+
+  return s;
+}
+
+export function unique (_list, _key) {
+  return [...new Set(_list.map(x => x[_key]))];
+}

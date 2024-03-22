@@ -14,6 +14,7 @@ import ReportForm from '@/components/report-form/do.vue';
 import LogItem from '@/components/log-item/do.vue';
 import PartyQuicklook from '@/components/party-quicklook/do.vue';
 import CandidateStats from '@/components/candidate-stats/do.vue';
+import NewsBlock from '@/components/news-block/do.vue'
 
 export default {
 	name: 'layout-pointer',
@@ -38,7 +39,8 @@ export default {
 	ReportForm,
 	LogItem,
 	PartyQuicklook,
-	CandidateStats
+	CandidateStats,
+	NewsBlock
   },
 	computed: {
 		$store: function () {

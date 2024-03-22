@@ -1,10 +1,25 @@
 <div id="app" :class="{dark: core.dark}">
-	<div class="upper">
-		<main class="block">
-			<router-view></router-view>
-		</main>
-		<main-header />
-		<main-footer></main-footer>
-		<div id="modal"></div>
+	<main class="block">
+		<router-view></router-view>
+	</main>
+	<main-header />
+	<main-footer></main-footer>
+	<div id="modal"></div>
+	<div id="nofify">
+		<div class="notifications">
+			<div v-for="(item, index) in notifications.list.filter(x => x.active)" :data-tick="notifications.tick">
+				<p-area>
+					<p-offset class="reverse balanced">
+						<div>
+							<p-label :color="item.color">{{ item.msg }}</p-label>
+						</div>
+						<div>
+							<a @click="remove(item)" class="red strong">&times;</a>
+						</div>
+					</p-offset>
+					
+				</p-area>
+			</div>
+		</div>
 	</div>
 </div>

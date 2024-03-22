@@ -107,106 +107,27 @@
 				</p-loader>
 			</p-block>
 			<p-block headline="Novinky">
-				<p-loader :rule="news" reserve="300px">
-					<div v-if="news" class="smaller">
-						<p-list padding="1">
-							<template v-for="(news, index) in news.list">
-								<div v-if="index < 5">
-									<news-item :data="news" :noSource="true"></news-item>
-								</div>
-							</template>
-						</p-list>
-					</div>
-				</p-loader>
-			</p-block>
-			<p-block-expandable headline="Nově přidáno">
-				<p-loader :rule="news" reserve="200px">
-					<div v-if="news">
-						<div class="columns" v-if="news">
-							<div v-for="(item, index) in news.auto">
-								<p-offset class="balanced">
-									<div class="text-right _w3">
-										<span class="strong smallest">{{date(item.datum, 2) }}</span>	
-									</div>
-									<div>
-										<p-offset class="reverse balanced">
-											<div>
-												<router-link class="smaller" :to="'/bod/' + item.relates.split(',')[1].split(':').join('/')">{{ item.title }}</router-link>
-												<div class="dimm smallest" v-if="item.content">
-													{{ item.content }}
-												</div>
-											</div>
-											<div class="smallest show-60rem">
-												<p-link :href="item.source" class="dimm">zdroj</p-link>
-												<!-- <p-link :href="item.source" class="dimm">{{ domain(item.source) }} &rarr;</p-link> -->
-											</div>
-										</p-offset>
-										
-									</div>		
-								</p-offset>
-							</div>
+				<p-area borderColor="var(--blue)">
+					<p-loader :rule="news" reserve="300px">
+						<div v-if="news" class="smaller">
+							<news-block :news="news" :limit="8"></news-block>
 						</div>
-					</div>
-				</p-loader>
-			</p-block-expandable>
-			<p-block-expandable headline="Poslední úpravy">
-				<p-loader :rule="news" reserve="200px">
-					<div v-if="news" class="smaller">
-						<p-list class="columns">
-							<div v-for="(item, index) in news.log">
-								<p-offset class="balance">
-									<div class="text-right _w3">
-										<span class="strong smallest">{{date(item.date, 2) }}</span>	
-									</div>
-									<div>
-										<p-offset class="reverse balanced">
-											<div>
-												<router-link v-if="item.node.JMENO" :to="'/bod/' + item.pointer.split(':').join('/')">{{ item.node.JMENO }} {{ item.node.PRIJMENI }}</router-link>
-												<router-link v-if="item.node.NAZEV" :to="'/bod/' + item.pointer.split(':').join('/')">{{ item.node.NAZEV }}</router-link>
-											</div>
-											<div>
-												<p-modal>
-													<template #init>
-														<button class="inline">
-															{{ item.data.length }}&times;
-															<!-- <p-lang :value="item.data.length" :end="['', '1 úprava', '%% úpravy', '%% úprav']"></p-lang> -->
-														</button>
-													</template>
-													<template #content>
-														<div>
-															<router-link v-if="item.node.JMENO" :to="'/bod/' + item.pointer.split(':').join('/')">{{ item.node.JMENO }} {{ item.node.PRIJMENI }}</router-link>
-															<router-link v-if="item.node.NAZEV" :to="'/bod/' + item.pointer.split(':').join('/')">{{ item.node.NAZEV }}</router-link>
-														</div>
-														<div class="smaller">
-															<div v-for="(entry, index2) in item.data">
-																{{ log.action[entry.action] }} <em>{{ log.types[entry.type] }}</em>
-															</div>
-														</div>
-													</template>
-												</p-modal>
-											</div>
-										</p-offset>
-									</div>		
-								</p-offset>
-							</div>
-						</p-list>
-					</div>
-				</p-loader>
-			</p-block-expandable>
-			<p-gap></p-gap>
-			<div class="smallest strong">
-				<p-offset class="reverse">
-					<div>
-						<router-link to="/novinky">Všechny novinky</router-link> &rarr;
-					</div>
-					<div>
-						<p-label :after="true" color="var(--red)">
-							<p-link href="https://programydovoleb.cz/rss">RSS</p-link>
-						</p-label>						
-					</div>
-				</p-offset>
-			</div>
-			<p-gap></p-gap>
+						<p-line></p-line>
+						<div class="smallest strong">
+							<p-offset class="reverse">
+								<div>
+									<router-link to="/novinky">Všechny novinky</router-link> &rarr;
+								</div>
+								<div>
+									<p-label :after="true" color="var(--red)">
+										<p-link href="https://programydovoleb.cz/rss">RSS</p-link>
+									</p-label>						
+								</div>
+							</p-offset>
+						</div>
+					</p-loader>
+				</p-area>
+			</p-block>
 			<p-grid>
 				<div>
 					<p-area icon="plus-green" background="var(--greyish)">
@@ -321,44 +242,7 @@
 					<p-gap></p-gap>
 					<p-loader :rule="news" reserve="205px">
 						<div v-if="news" class="smallest">
-							<p-list height=".5">
-								<template v-for="(news, index) in news.list">
-									<li v-if="index < 3">
-										<news-item :data="news" :noSource="true"></news-item>
-									</li>
-								</template>
-							</p-list>
-						</div>
-					</p-loader>
-				</div>
-				<div>
-					<strong class="smaller">Nově přidáni</strong>
-					<p-gap></p-gap>
-					<p-loader :rule="news" reserve="66px">
-						<div v-if="news" class="smallest">
-							<p-list-linear>
-								<template v-for="(item, index) in news.auto">
-									<li v-if="index < 8">
-										<router-link :to="'/bod/' + item.relates.split(',')[1].split(':').join('/')">{{ item.title }}</router-link>
-									</li>
-								</template>
-							</p-list-linear>
-						</div>
-					</p-loader>
-				</div>
-				<div>
-					<strong class="smaller">Poslední úpravy</strong>
-					<p-gap></p-gap>
-					<p-loader :rule="news" reserve="66px">
-						<div v-if="news" class="smallest">
-							<p-list-linear>
-								<template v-for="(item, index) in news.log">
-									<li v-if="index < 5">
-										<router-link v-if="item.node.JMENO" :to="'/bod/' + item.pointer.split(':').join('/')">{{ item.node.JMENO }} {{ item.node.PRIJMENI }}</router-link>
-										<router-link v-if="item.node.NAZEV" :to="'/bod/' + item.pointer.split(':').join('/')">{{ item.node.NAZEV }}</router-link>
-									</li>
-								</template>
-							</p-list-linear>
+							<news-block :news="news" :limit="4"></news-block>
 						</div>
 					</p-loader>
 				</div>

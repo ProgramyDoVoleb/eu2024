@@ -193,14 +193,16 @@
 							</p-block>
 							<p-block headline="Volební priority" v-if="current.$priority.length > 0">
 									<!-- <p-list height="1"> -->
-										<p-area background="transparent" padding="0 0 0 .66em" class="serif _aw">
+										<div class="serif">
 
 											<template v-for="(priority, indexP) in current.$priority">
-												<component :is="priority.content && current.$priority.length === 1 ? 'div' : 'p-collapsible'" :label="(priority.headline || truncate(priority.content, 90, true))" :color="colorByItem(current, data)" :empty="!priority.content || (!priority.headline && priority.content === truncate(priority.content, 90, true))" :open="priority.content && current.$priority.length === 1">
+												<component :is="priority.content && current.$priority.length === 1 ? 'div' : 'p-collapsible'" :label="(priority.headline || truncate(priority.content, 90, true))" :empty="!priority.content || (!priority.headline && priority.content === truncate(priority.content, 90, true))" :open="priority.content && (current.$priority.length === 1)">
 													<!-- <div class="serif"> -->
 													
 													<template v-if="priority.content && priority.content.charAt(0) != '['">
-														<div class="serif" v-html="priority.content.split('\n').join('<br>')"></div>
+														<!-- <div class="serif"> -->
+															<p-truncated :content="priority.content.split('\n').join('<br>')" :size="40"></p-truncated>
+														<!-- </div> -->
 														<p-gap height="2"></p-gap>
 													</template>
 													<template v-if="priority.content && priority.content.charAt(0) === '['">
@@ -211,7 +213,7 @@
 													<!-- </div> -->
 												</component>
 											</template>
-										</p-area>
+										</div>
 									<!-- </p-list> -->
 							</p-block>
 							<p-block headline="Program podrobněji" :hide="true">
@@ -395,27 +397,26 @@
 								</p-grid>
 							</p-block>
 							<p-block headline="Volební materiály" v-if="current.$data.graphics">
-								<p-grid>
+								<p-grid class="p-grid---tiny">
 									<div v-for="(item, index) in current.$data.graphics">
 										<p-area>
-											<p-offset>
-												<div>
-													<div class="_ar" :style="{'background-image': 'url(' + item.value + ')'}"></div>
-												</div>
-												<div>
-													<p-modal>
-														<template #init>
-															<div class="smaller">{{ item.label }}</div>
-														</template>
-														<template #content>
-															<p-image width="100%" :src="item.value"></p-image>
-															<p-line></p-line>
-															<div class="smallest dimm">{{ item.label }} &middot; Přidáno {{ date(item.updated) }} &middot; <p-link :href="item.source">Zdroj</p-link></div>
-														</template>
-													</p-modal>
-													<div class="smallest dimm">{{ date(item.updated) }}</div>
-												</div>
-											</p-offset>
+											<!-- <p-image :src="item.value" :rounded="true" width="100%"></p-image> -->
+											<div class="_ar" :style="{'background-image': 'url(' + item.value + ')'}"></div>
+
+											<p-gap></p-gap>
+
+											<p-modal>
+												<template #init>
+													<div class="smaller">{{ item.label }}</div>
+												</template>
+												<template #content>
+													<p-image width="100%" :src="item.value"></p-image>
+													<p-line></p-line>
+													<div class="smallest dimm">{{ item.label }} &middot; Přidáno {{ date(item.updated) }} &middot; <p-link :href="item.source">Zdroj</p-link></div>
+												</template>
+											</p-modal>
+
+											<div class="smallest dimm">{{ date(item.updated) }}</div>
 										</p-area>
 									</div>
 								</p-grid>
@@ -447,7 +448,7 @@
 								</p-grid>
 							</p-block>
 							<p-block headline="Poznámky" v-if="current.$data.note">
-								<p-list height=".25">
+								<p-list height="1.5">
 									<div v-for="(item, index) in current.$data.note">
 										<div class="serif">
 											{{ item.value }}
@@ -462,26 +463,7 @@
 							<p-block headline="Novinky">
 								<p-loader :rule="news">
 									<div v-if="news" class="smaller">
-										<p-list padding="1">
-											<template v-for="(news, index) in news.list">
-												<div>
-													<news-item :data="news" :noSource="true"></news-item>
-												</div>
-											</template>
-										</p-list>
-										<template v-if="news.auto && news.auto.length > 0">
-											<p-gap></p-gap>
-											<p-collapsible label="Další zdroje informací">
-												<p-area>
-													<div class="columns">
-														<div v-for="(item, index) in news.auto">
-															<strong>{{ item.title }}</strong>
-															<div class="smallest dimm">Zdroj: <p-link :href="item.source">{{ domain(item.source)}}</p-link></div>
-														</div>
-													</div>
-												</p-area>
-											</p-collapsible>
-										</template>
+										<news-block :news="news" :data="current.$data"></news-block>
 									</div>
 								</p-loader>
 							</p-block>
@@ -581,41 +563,7 @@
 					<p-gap></p-gap>
 					<p-loader :rule="news">
 						<div v-if="news" class="smallest">
-							<p-list padding="1">
-								<template v-for="(news, index) in news.list">
-									<div v-if="index < 5">
-										<news-item :data="news" :noSource="true"></news-item>
-									</div>
-								</template>
-							</p-list>
-						</div>
-					</p-loader>
-				</div>
-				<div v-if="news && news.log && news.log.length > 0">
-					<strong>Poslední úpravy</strong>
-					<p-gap></p-gap>
-					<p-loader :rule="news">
-						<div v-if="news" class="smallest">
-							<p-list padding="1">
-								<template v-for="(item, index) in news.log">
-									<div v-if="index < 5">
-										<log-item :data="item" :small="true"></log-item>
-									</div>									
-								</template>
-							</p-list>
-						</div>
-					</p-loader>
-				</div>
-				<div v-if="news && news.auto && news.auto.length > 0">
-					<strong>Poslední přidání</strong>
-					<p-gap></p-gap>
-					<p-loader :rule="news">
-						<div v-if="news" class="smallest">
-							<p-list-linear>
-								<li v-for="(item, index) in news.auto">
-									<router-link :to="'/bod/' + item.relates.split(',')[1].split(':').join('/')">{{ item.title }}</router-link>
-								</li>
-							</p-list-linear>
+							<news-block :news="news" :limit="4" :data="current.$data"></news-block>
 						</div>
 					</p-loader>
 				</div>

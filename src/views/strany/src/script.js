@@ -8,6 +8,7 @@ import NewsItem from '@/components/news-item/do.vue'
 import MailchimpSignup from '@/components/mailchimp/do.vue';
 import ReportForm from '@/components/report-form/do.vue';
 import ElectionPoll from '@/views/polls/poll/do.vue';
+import NewsBlock from '@/components/news-block/do.vue'
 
 export default {
 	name: 'layout-homepage',
@@ -53,7 +54,7 @@ export default {
 		}
 	},
   components: {
-	NewsItem, MailchimpSignup, ReportForm, ElectionPoll
+	NewsItem, MailchimpSignup, ReportForm, ElectionPoll, NewsBlock
   },
 	computed: {
 		$store: function () {

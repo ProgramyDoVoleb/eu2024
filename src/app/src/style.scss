@@ -30,3 +30,29 @@
     margin: -4rem auto 0;
   }
 }
+
+.notifications {
+
+  position: absolute;
+  top: 3em;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+
+  & > div {
+    margin: 1rem auto 0;
+    max-width: 480px;
+  }
+
+  .p-area {
+    box-shadow: 4px 16px 48px #00000044;
+    background: #fff !important;
+    font-size: 14px;
+    font-weight: 600;
+    padding: .35em 1em !important;
+
+    .dark &:not(.cancel):not([style*=background-image]):not(.p-area---has-background) {
+      background: #000 !important;
+    }
+  }
+}

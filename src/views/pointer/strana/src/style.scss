@@ -84,9 +84,9 @@
 	display: block;
 	background-size: cover;
 	background-position: center center;
-	width: 4em;
+	width: 100%;
 	border-radius: .5em;
-	margin: -.5em .25em -.5em -1em;
+	// margin: -.5em .25em -.5em -1em;
 
 }
 
@@ -120,4 +120,8 @@
 .logos .p-logo {
 	display: block;
 	margin: .25em;
+}
+
+._i + ._cni {
+	padding-top: .5em;
 }
