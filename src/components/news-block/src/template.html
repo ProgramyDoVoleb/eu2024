@@ -21,6 +21,16 @@
 						</li>
 					</template>
 				</p-list-linear>
+				<div class="dimm smallest _md">
+					Zdroj: 
+					<p-list-linear>
+						<template v-for="(src, index) in unique(item.auto, 'source')">
+							<li>
+								<p-link :href="src" class="dimm">{{ domain(src) }}</p-link>
+							</li>
+						</template>
+					</p-list-linear>
+				</div>
 			</div>
 			<div class="_i"></div>
 			<div v-if="item.log.length > 0 && data" class="_cni">

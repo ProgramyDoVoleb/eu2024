@@ -1,3 +1,17 @@
 ._i + ._cni {
 	padding-top: .5em;
 }
+
+._md {
+	display: none;
+}
+
+.news-block {
+	container-type: inline-size;
+}
+
+@container (min-width: 320px) {
+	._md {
+		display: block;
+	}
+}

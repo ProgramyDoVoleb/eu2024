@@ -7,7 +7,7 @@ export default {
 	name: 'NewsBlock',
 	props: ['news', 'limit', 'data'],
 	methods: {
-		url, date, domain
+		url, date, domain, unique
 	},
 	components: {
 		NewsItem, LogItem
