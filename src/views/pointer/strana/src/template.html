@@ -7,11 +7,11 @@
 						<div v-if="data.list[0]">
 							<div class="_float">
 								<div v-if="data" class="hide-40rem _float-right">
-									<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" v-if="!data" alt="Evropské volby 2024"></p-logo>
-									<p-logo v-if="data && logoByItem(current, data, null, true)" :data="{logo: logoByItem(current, data)}" :size="'12rem'" :alt="'Logo ' + current.NAZEV"></p-logo>
+									<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'8rem'" v-if="!data" alt="Evropské volby 2024"></p-logo>
+									<p-logo v-if="data && logoByItem(current, data, null, true)" :data="{logo: logoByItem(current, data)}" :size="'8rem'" :alt="'Logo ' + current.NAZEV"></p-logo>
 									<div class="logos" v-if="data && $coalition">
 										<template v-for="(coal, index) in $coalition">
-											<p-logo :data="logoByItem(coal, data)" :size="logoByItem(current, data, null, true) ? '3rem' : '6rem'" :alt="'Logo ' + coal.NAZEV"></p-logo>
+											<p-logo :data="logoByItem(coal, data)" :size="logoByItem(current, data, null, true) ? '3rem' : '5rem'" :alt="'Logo ' + coal.NAZEV"></p-logo>
 										</template>
 									</div>
 								</div>
@@ -550,7 +550,7 @@
 			<p-logo v-if="data && logoByItem(current, data, null, true)" :data="{logo: logoByItem(current, data)}" :size="'12rem'" :alt="'Logo ' + current.NAZEV"></p-logo>
 			<div class="logos" v-if="data && $coalition">
 				<template v-for="(coal, index) in $coalition">
-					<p-logo :data="logoByItem(coal, data)" :size="logoByItem(current, data, null, true) ? '4rem' : '8rem'" :alt="'Logo ' + coal.NAZEV"></p-logo>
+					<p-logo :data="logoByItem(coal, data)" :size="logoByItem(current, data, null, true) ? '4rem' : '7rem'" :alt="'Logo ' + coal.NAZEV"></p-logo>
 				</template>
 			</div>
 			<div class="p-gap"></div>
