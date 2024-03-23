@@ -1,6 +1,6 @@
 <div class="p-quote" :style="{color, 'font-size': size, 'border-color': color}">
 	<slot />
-	<div class="small p-quote---source" v-if="source">
+	<div class="small _source" v-if="source">
 		<p-line></p-line>
 		Původně uveřejněno <p-link :href="source">zde</p-link>, poslední aktualizace {{ date }}
 	</div>

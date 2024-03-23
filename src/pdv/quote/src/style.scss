@@ -29,7 +29,7 @@
 	margin-top: 1rem;
 }
 
-.p-quote---long {
+._long {
 	font-size: 2rem;
 
 	@media (min-width: 1440px) {
@@ -37,6 +37,6 @@
 	}
 }
 
-.p-quote---source {
+._source {
 	font-family: Roboto, sans-serif
 }

@@ -13,7 +13,7 @@
   }
 }
 
-.p-layout---main {
+._main {
   position: relative;
 
   @media (min-width: 640px) {
@@ -42,11 +42,11 @@
   // }
 }
 
-.p-layout---no-aside .p-layout---main {
+._no-aside ._main {
   padding-right: 0 !important;
 }
 
-.p-layout---aside {
+._aside {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   z-index: 2;
@@ -89,7 +89,7 @@
   }
 }
 
-.p-layout---nav {
+._nav {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 
@@ -119,7 +119,7 @@
   }
 }
 
-.p-layout---main-limit {
+._main-limit {
   max-width: 1440px;
   // background: #fff;
 
@@ -147,7 +147,7 @@
   }
 }
 
-.p-layout---nav-aside {
+._nav-aside {
   display: none;
 
   @media (min-width: 640px) {
@@ -159,12 +159,12 @@
   }
 }
 
-.p-layout---nav > div + div {
+._nav > div + div {
   margin-top: 2rem;
 }
 
 @media (min-width: 640px) {
-  .p-layout---nav.down {
+  ._nav.down {
     position: absolute;
     bottom: 0;
     top: auto;
@@ -173,7 +173,7 @@
 
 @media (min-width: 960px) {
 
-  .p-layout---aside.down {
+  ._aside.down {
     position: absolute;
     bottom: 0;
     top: auto;
@@ -188,7 +188,7 @@
   background: #00920605;
 }
 
-.p-layout---share {
+._share {
   color: var(--blue);
   margin-left: -1em;
 }

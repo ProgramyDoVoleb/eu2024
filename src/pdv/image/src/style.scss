@@ -1,18 +1,18 @@
-.p-image---img {
+._img {
   display: block;
 }
 
-.p-image---border {
+._border {
   // box-shadow:0px 0px 0px 1px rgba(0, 0, 0, .1);
   border: 1px solid rgba(0, 0, 0, .05);
 }
 
-.p-image---rounded {
+._rounded {
   border-radius: 6px;
   overflow: hidden;
 }
 
-.p-image---round {
+._round {
   border-radius: 50%;
   overflow: hidden;
 }

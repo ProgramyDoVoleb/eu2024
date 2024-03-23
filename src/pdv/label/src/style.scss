@@ -17,12 +17,12 @@ i + * {
   display: inline-block;
 }
 
-.label-with-dot-flex {
+._flex {
     display: flex;
     align-items: baseline;
 }
 
-.label-with-dot-flex---after i {
+._after i {
   order: 100;
   margin-left: .5em;
 }
