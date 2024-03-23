@@ -22,11 +22,11 @@
 							<div class="dimm smallest" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET > 1">
 								<p-list-linear>
 									<template v-for="(coal, indexC) in elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).$coalition">
-										<span>{{ coal.ZKRATKA }}</span>
+										<li>{{ coal.ZKRATKA }}</li>
 									</template>
 								</p-list-linear>
 							</div>
-							<div v-if="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length === 0" class="dimm smallest"><em>zatím bez dalších informací</em></div>
+							<div v-if="candidates.length === 0" class="dimm smallest"><em>zatím bez dalších informací</em></div>
 						</div>
 						<div class="smallest dimm" v-if="party.ESTRANA > 0">
 							{{ party.ESTRANA }}
@@ -34,17 +34,17 @@
 					</div>
 				</div>
 			</div>
-			<div v-if="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length > 0">
+			<div v-if="candidates.length > 0">
 				<div class="_g"></div>
 				<p-list-linear class="">
-					<template v-for="(cand, index2) in sortByPorCislo(election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA))">
+					<template v-for="(cand, index2) in sortByPorCislo(candidates)">
 						<li v-if="index2 < 5">
 							<router-link :to="'/kandidat/' + cand.id" :class="{'is-span': !cand.PORCISLO}">{{ cand.PRIJMENI }}</router-link>
 						</li>
 					</template>
-					<li v-if="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length > 5">
+					<li v-if="candidates.length > 5">
 						<router-link :to="'/strana/' + party.id" class="dimm">
-							<p-lang :value="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length - 5" :end="['', 'jeden další', 'další %%', 'dalších %%']"></p-lang>
+							<p-lang :value="candidates.length - 5" :end="['', 'jeden další', 'další %%', 'dalších %%']"></p-lang>
 						</router-link>
 					</li>
 				</p-list-linear>
@@ -108,8 +108,8 @@
 				<span v-if="party.$priorit">
 					<router-link class="strong smallest _pg _pgb" :to="'/strana/' + party.id + '#volebni-priority'"><p-lang :value="party.$priorit" :end="['', '1 priorita', '%% priority', '%% priorit']"></p-lang></router-link> 
 				</span>	
-				<span v-if="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length > 0">
-					<router-link class="strong smallest _pg _pgb" :to="'/strana/' + party.id"><p-lang :value="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA).length" :end="['', '1 kandidát', '%% kandidáti', '%% kandidátů']"></p-lang></router-link>
+				<span v-if="candidates.length > 0">
+					<router-link class="strong smallest _pg _pgb" :to="'/strana/' + party.id"><p-lang :value="candidates.length" :end="['', '1 kandidát', '%% kandidáti', '%% kandidátů']"></p-lang></router-link>
 				</span>																
 			</div>
 		<!-- </div> -->

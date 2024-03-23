@@ -5,7 +5,7 @@
 				<p-loader :rule="item">
 					<div v-if="item">
 						<p-grid class="max">
-							<div>
+							<li>
 								<p-area>
 									<h3 class="red smaller">{{ date(item.datum) }} &middot; {{ domain(item.source) }}</h3>
 									<!-- <p class="red">{{ date(item.datum) }} &middot; {{ domain(item.source) }}</p> -->
@@ -17,8 +17,8 @@
 										<p-link :href="item.source" class="btn">{{ item.label || 'Více zde' }}</p-link>
 									</p-block>
 								</p-area>
-							</div>
-							<div v-if="item.$relates && item.$relates.length > 1">
+							</li>
+							<li v-if="item.$relates && item.$relates.length > 1">
 								<p-area background="var(--blue11)">
 									<p-block headline="Týká se" v-if="item.$relates.length > 0 || item.$volby.length > 0" :hide="true">
 										<h3 class="smaller">Zobrazit podrobnosti:</h3>
@@ -40,7 +40,7 @@
 										</p-list>
 									</p-block>
 								</p-area>
-							</div>
+							</li>
 						</p-grid>
 					</div>
 				</p-loader>
@@ -48,7 +48,7 @@
 		</template>
 		<template #anchors>
 			<p-logo :data="{logo: cdn + 'el/generic-2023.png'}" :size="'12rem'"></p-logo>
-			<p-gap></p-gap>
+			<div class="p-gap"></div>
 			<p-anchors></p-anchors>
 		</template>
 		<template #aside>

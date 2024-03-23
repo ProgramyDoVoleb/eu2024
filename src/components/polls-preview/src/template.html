@@ -8,7 +8,7 @@
 						<button class="inline" @click="showMandates = false" :class="{active: !showMandates}">Průzkum</button> &rarr; <button class="inline" @click="showMandates = true" :class="{active: showMandates}">Mandáty</button>
 					</div>
 				</div>								
-				<p-gap></p-gap>
+				<div class="p-gap"></div>
 				<div :class="{both}">
 					<div v-if="!showMandates || both">
 						<template v-for="(entry, indexE) in poll.entries">

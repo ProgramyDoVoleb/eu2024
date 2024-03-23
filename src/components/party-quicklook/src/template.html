@@ -9,7 +9,7 @@
 								<p-link :href="meta.web[0].value" class="is-span dimm smaller">{{ domain(meta.web[0].value, true) }}</p-link>
 							</div>
 							<div v-if="meta.social && meta.social.length > 0" class="_soc">
-								<p-gap height=".5"></p-gap>
+								<div class="p-gap _05"></div>
 								<template v-for="(soc, indexS) in meta.social.filter(x => !x.kraj)">
 									<p-link :href="soc.value">
 										<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
@@ -23,7 +23,7 @@
 					</p-offset>
 					<template v-if="region">
 						<p-line height="0"></p-line>
-						<p-gap height=".5"></p-gap>
+						<div class="p-gap _05"></div>
 						<p-list class="smallest" height=".5">
 							<template v-for="(typ, ityp) in ['web', 'social']">
 								<div v-for="(item, index) in meta[typ].filter(x => x.kraj)">

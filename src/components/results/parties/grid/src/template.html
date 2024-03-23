@@ -18,12 +18,12 @@
 				</div>
 				
 				<div v-if="item.program && item.program.length === 1">
-					<p-gap height=".5"></p-gap>
+					<div class="p-gap _05"></div>
 					<p-link class="strong smallest _pg" :href="item.program[0].label || item.program[0].source" :style="{background: item.color}" :title="item.program[0].value">program &rarr;</p-link>
-					<p-gap height=".25"></p-gap>
+					<div class="p-gap _025"></div>
 				</div>
 				<div v-if="item.program && item.program.length > 1">
-					<p-gap height=".5"></p-gap>
+					<div class="p-gap _05"></div>
 					<p-modal>
 						<template #init>
 							<span class="strong smallest _pg" :style="{background: item.color}"><p-lang :value="item.program.length" :end="['', '', '%% programy', '%% programů']"></p-lang></span>
@@ -47,10 +47,10 @@
 						</template>
 					</p-modal>
 					<!-- <p-link class="strong smallest _pg" :href="item.program[0].source" :style="{background: colorByItem(party, elections)}" :title="item.program[0].value">program</p-link> -->
-					<p-gap height=".25"></p-gap>
+					<div class="p-gap _025"></div>
 				</div>
 
-					<p-gap height=".55"></p-gap>
+					<div class="p-gap _5"></div>
 					<p-list class="smaller invisible" v-if="item.party != 80">
 						<div v-for="(person, indexP) in sortByPorCislo(item.list).filter(x => leaders && item.list.find(y => y.POR) ? x.PORCISLO === 1 : true)">
 							<component :is="item.coal ? 'p-label' : 'span'" :color="person.color || 'var(--greyish)'">

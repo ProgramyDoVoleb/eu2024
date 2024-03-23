@@ -6,7 +6,7 @@
 		<div class="_content">
 			<router-link class="strong" :to="'/kandidat/' + cand.id">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link>
 			<div v-if="cand.$data.social && cand.$data.social.length > 0" class="_soc">
-				<p-gap height=".33"></p-gap>
+				<div class="p-gap _033"></div>
 				<template v-for="(soc, indexS) in checkDuplicates(cand.$data.social)">
 					<p-link :href="soc.value">
 						<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
@@ -14,7 +14,7 @@
 				</template>
 			</div>
 			<template v-if="cand.VEK || cand.POVOLANI">
-				<p-gap height=".33"></p-gap>
+				<div class="p-gap _033"></div>
 				<div class="smaller">
 					<div>
 						<p-list-linear class="or">
@@ -47,10 +47,10 @@
 			</div>
 			<div v-if="cand.PSTRANA && cand.PSTRANA === 99">nestraník</div>
 			<div class="serif smaller" v-if="cand.$data.about[0]">
-				<p-gap height="1"></p-gap>
+				<div class="p-gap"></div>
 				<p-truncated :size="24" :content="cand.$data.about[0].value" :compact="'/kandidat/' + cand.id"></p-truncated>
 			</div>	
-			<p-gap></p-gap>
+			<div class="p-gap"></div>
 			<router-link class="btn" :to="'/kandidat/' + cand.id">Detail kandidáta</router-link>
 		</div>
 		<div class="_no smallest dimm">

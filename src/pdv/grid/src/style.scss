@@ -6,6 +6,9 @@
     width: 100%;
     grid-column-gap: 1em;
     grid-row-gap: 1em;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   @container (min-width: 600px) {

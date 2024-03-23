@@ -1,5 +1,5 @@
 export default {
-	name: 'p-loader',
+	name: 'Loader',
 	props: ['rule', 'reserve'],
 	computed: {
 		_r: function () {

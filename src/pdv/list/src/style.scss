@@ -23,20 +23,10 @@
       border-color: #000;
     }
   }
-
-  // @media (hover:hover) {
-  //   & > * {
-  //     transition: background 1s;
-  //   }
-  //
-  //   & > *:hover {
-  //     background: #fcfcfc;
-  //     transition: background 1s 3s;
-  //   }
-  // }
 }
 
-.p-list.padding---4rem > div {
+.p-list.padding---4rem > div,
+._4 {
   &:not(:first-child) {
     padding-top: 4rem;
   }
@@ -45,7 +35,8 @@
   }
 }
 
-.p-list.padding---3rem > div {
+.p-list.padding---3rem > div,
+._3 {
   &:not(:first-child) {
     padding-top: 3rem;
   }
@@ -54,7 +45,8 @@
   }
 }
 
-.p-list.padding---2rem > div {
+.p-list.padding---2rem > div,
+._2 {
   &:not(:first-child) {
     padding-top: 2rem;
   }
@@ -63,7 +55,8 @@
   }
 }
 
-.p-list.padding---05rem > div {
+.p-list.padding---05rem > div,
+._05 {
   &:not(:first-child) {
     padding-top: .5rem;
   }
@@ -72,7 +65,8 @@
   }
 }
 
-.p-list.padding---0 > div {
+.p-list.padding---0 > div,
+._0 {
   &:not(:first-child) {
     padding-top: 0;
   }

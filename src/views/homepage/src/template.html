@@ -33,11 +33,11 @@
 								<!-- <p-area> -->
 									<!-- <p v-if="election.status === 1">Zde najdete přehled stran a kandidátů, kteří už nějakou formou oznámili záměr nebo odhodlání kandidovat. Kandidáti uvedeni modře již byli představeni včetně pozice na kandidátce. Ostatní jsou řazeni dle abecedy a nemusí být součástí finální podoby kandidátky. Pořadí a složení se může měnit. Tento přehled bude nahrazen za oficiální přehled, který vydává Český statistický úřad, cca 45 dní před volbami.</p> -->
 									<div v-if="election.typ === 'EP' && election.$strany.length > 0">
-										<p-gap height=".75"></p-gap>
+										<div class="p-gap _075"></div>
 										<div class="smaller" v-if="parties">
 											<div class="columns _gap">
 												<div v-for="(party, index) in sortBy(election.$strany, 'ZKRATKA', '', true)">
-													<party-preview :party="party" :election="election" :elections="elections"></party-preview>
+													<party-preview :party="party" :candidates="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA)" :election="election" :elections="elections"></party-preview>
 												</div>
 
 												<div v-if="election.status === 1">
@@ -67,11 +67,11 @@
 					<div v-if="polls">
 						<p-grid>
 							<template v-for="(poll, index) in polls.list.filter(x => x.priority === 1)">
-								<div v-if="index < 3">
+								<li v-if="index < 3">
 									<p-area>
 										<election-poll :data="poll"></election-poll>
 									</p-area>
-								</div>
+								</li>
 							</template>
 						</p-grid>
 					</div>
@@ -87,7 +87,7 @@
 										<div>
 											<p-link class="strong" :href="item.source">{{ item.value }}</p-link>
 										</div>
-										<p-gap height=".5"></p-gap>
+										<div class="p-gap _05"></div>
 										<div class="smallest dimm">
 											<router-link :to="'/bod/' + item.csu_table + '/' + item.csu_id" class="is-span dimm">{{ item.$node[0].NAZEV || item.$node[0].JMENO + ' ' + item.$node[0].PRIJMENI }}</router-link>
 										</div>
@@ -129,7 +129,7 @@
 				</p-area>
 			</p-block>
 			<p-grid>
-				<div>
+				<li>
 					<p-area icon="plus-green" background="var(--greyish)">
 						<p-modal>
 							<template #init> <button class="inline green strong">Poslat tip na novinku</button> </template>
@@ -140,8 +140,8 @@
 						</p-modal>
 						<div class="smallest dimm">Stačí poslat odkaz</div>
 					</p-area>
-				</div>
-				<div>
+				</li>
+				<li>
 					<p-area icon="email" background="var(--greyish)">
 						<p-modal>
 							<template #init>
@@ -153,8 +153,8 @@
 						</p-modal>
 						<div class="smallest dimm">Souhrn vždy na konci měsíce</div>
 					</p-area>
-				</div>
-				<div>
+				</li>
+				<li>
 					<p-area icon="warning" background="var(--greyish)">
 						<p-modal>
 							<template #init>
@@ -167,18 +167,18 @@
 						</p-modal>
 						<div class="smallest dimm">Nefunguje odkaz? Chyba ve jméně?</div>
 					</p-area>
-				</div>
+				</li>
 			</p-grid>
-			<p-gap height="2"></p-gap>
-			<p-gap height="4"></p-gap>
+			<div class="p-gap _2"></div>
+			<div class="p-gap _4"></div>
 			<p-block headline="Váš odhad výsledku" :hide="true">
 				<engagement-result-tip :data="elections"></engagement-result-tip>
 			</p-block>
 			<!-- <p-line></p-line> -->
-			<p-gap height="2"></p-gap>
+			<div class="p-gap _2"></div>
 			<p-block headline="O tomto projektu">
 				<p-grid>
-					<div>
+					<li>
 						<div class="strong blue">Programy do voleb</div>
 						<p class="smaller">
 							<strong>Nestranný neziskový projekt</strong>, jehož cílem je usnadnit každému, kdo se zajímá o volby, kandidáty a volební programy, aby je našel přehledně a na jednom místě.
@@ -186,12 +186,12 @@
 							Žádná strana ani kandidát nejsou jakkoli zvýhodněni, preferováni nebo doporučováni.
 						</p>
 						<p-line height=".25"></p-line>
-						<p-gap height=".75"></p-gap>
+						<div class="p-gap _075"></div>
 						<div class="smaller">
 							<router-link to="/o-projektu">Více o projektu</router-link>
 						</div>						
-					</div>
-					<div>
+					</li>
+					<li>
 						<div class="strong blue">Podpořte tento projekt</div>
 						<p class="smaller">
 							<em>Programy do voleb</em> existují díky letité dobrovolnické práci a jsou financovány výhradně z darů přispěvatelů. Podpořte je také. Dary je možné odepsat z daní.
@@ -202,10 +202,10 @@
 						</p-box-group>
 						<p-line></p-line>
 						<div class="smaller">Programy najdete na <p-link href="https://www.darujme.cz/programydovoleb">Darujme.cz</p-link></div>
-					</div>
-					<div>
+					</li>
+					<li>
 						<div class="strong blue">Jak můžete také pomoct?</div>
-						<p-gap height=".75"></p-gap>
+						<div class="p-gap _075"></div>
 						<p-list height=".5" class="smaller">
 							<li>Posílejte tipy na zprávy v médiích</li>
 							<li>Dejte vědět, když někdo oznámí záměr kandidovat.</li>
@@ -225,21 +225,21 @@
 								</template>
 							</p-modal> chyby.</li>
 						</p-list>
-					</div>
+					</li>
 				</p-grid>
 			</p-block>
 			
 		</template>
 		<template #anchors>
 			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" alt="Evropské volby 2024"></p-logo>
-			<p-gap></p-gap>
+			<div class="p-gap"></div>
 			<p-anchors></p-anchors>
 		</template>
 		<template #aside>
 			<p-list height="1.25">
 				<div>
 					<strong class="smaller">Novinky</strong>
-					<p-gap></p-gap>
+					<div class="p-gap"></div>
 					<p-loader :rule="news" reserve="205px">
 						<div v-if="news" class="smallest">
 							<news-block :news="news" :limit="4"></news-block>

@@ -16,9 +16,9 @@
 				<!-- </div> -->
 				<p-list-linear>
 					<template v-for="(news, index) in item.auto">
-						<span>
+						<li>
 							<router-link :to="'/kandidat/' + news.relates.split(',')[1].split(':')[1]">{{ news.title }}</router-link>
-						</span>
+						</li>
 					</template>
 				</p-list-linear>
 			</div>
@@ -45,16 +45,16 @@
 					</template>
 					<template #content>
 						<strong>Položky upravené dne {{ date(item.datum) }}</strong>
-						<p-gap></p-gap>
+						<div class="p-gap"></div>
 						<p-list>
 							<div v-for="(x, index) in item.log2">
 								<strong v-if="x.node.JMENO"><router-link :to="'/kandidat/' + x.node.id">{{ x.node.JMENO + ' ' + x.node.PRIJMENI }}</router-link></strong>
 								<strong v-if="x.node.NAZEV"><router-link :to="'/strana/' + x.node.id">{{ x.node.NAZEV }}</router-link></strong>
 								<div class="smallest">
 									<p-list-linear>
-										<span v-for="(y, indexy) in x.data">
+										<li v-for="(y, indexy) in x.data">
 											{{ enums.logtypes[y.type] }}
-										</span>
+										</li>
 									</p-list-linear>
 								</div>
 							</div>
@@ -63,8 +63,8 @@
 				</p-modal>:
 				<p-list-linear>
 					<template v-for="(x, index) in item.log2">
-						<span v-if="x.node.JMENO"><router-link :to="'/kandidat/' + x.node.id" class="is-span">{{ x.node.PRIJMENI }}</router-link></span>
-						<span v-if="x.node.NAZEV"><router-link :to="'/strana/' + x.node.id" class="is-span">{{ x.node.ZKRATKA }}</router-link></span>
+						<li v-if="x.node.JMENO"><router-link :to="'/kandidat/' + x.node.id" class="is-span">{{ x.node.PRIJMENI }}</router-link></li>
+						<li v-if="x.node.NAZEV"><router-link :to="'/strana/' + x.node.id" class="is-span">{{ x.node.ZKRATKA }}</router-link></li>
 					</template>
 				</p-list-linear>
 			</div>

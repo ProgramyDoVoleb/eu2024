@@ -3,7 +3,7 @@
 		<!-- <p-block headline="Výsledky"> -->
 			<div class="relative">
 				<election-graph :list="sortByVotes(current.$vysledky, current.$strany)"></election-graph>
-				<p-gap></p-gap>
+				<div class="p-gap"></div>
 				<div class="attendance">
 					<p-line-graph v-if="local" :value="local.$ucast[0].UCAST" color="var(--blue)"></p-line-graph>
 					<p-line-graph :value="current.$ucast[0].UCAST" :color="'var(--' + (local ? 'greyish' : 'blue') + ')'" append="ČR"></p-line-graph>

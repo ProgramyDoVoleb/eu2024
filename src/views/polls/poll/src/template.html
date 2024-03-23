@@ -3,7 +3,7 @@
 		<div class="smaller">
 			<strong><component :is="data.link ? 'p-link' : 'span'" :href="data.link">{{ data.agency }}</component></strong> &middot; {{ date(data.datum) }}</div>
 		<div class="smallest">{{ data.title }}</div>
-		<p-gap height=".5"></p-gap>	
+		<div class="p-gap _05"></div>	
 		<table class="smaller" v-if="data">
 			<thead>
 				<tr>

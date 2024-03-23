@@ -3,7 +3,7 @@
 		<p-loader :rule="data">
 			<div v-if="data && !used && !fetch">
 				<strong>Jaký výsledek voleb odhadujete?</strong>
-				<p-gap></p-gap>
+				<div class="p-gap"></div>
 				<p-columns class="-tight">
 					<div v-for="(party, index) in form.parties">
 						<p-offset class="reverse balanced _lb">
@@ -16,23 +16,23 @@
 						</p-offset>
 					</div>
 				</p-columns>
-				<p-gap></p-gap>
+				<div class="p-gap"></div>
 				<div class="strong" :class="{red: form.parties.reduce((a, b) => a + (b.pct || 0), 0) > 100}">Součet je {{ form.parties.reduce((a, b) => a + (b.pct || 0), 0) }} %</div>
-				<p-gap></p-gap>
+				<div class="p-gap"></div>
 				<p class="smallest">Tipy se v prvotní fázi budou ukládat, od května nebo dosažení 100 tipů se bude zobrazovat také jejich průměr. Po uložení tipu se zobrazí graf, který můžete uložit či sdílet.</p>
 				<div>
 					<input type="text" class="secondary" placeholder="volitelně, vaše jméno nebo přezdívka nebo @handle" v-model="form.name">
 				</div>
-				<p-gap></p-gap>
+				<div class="p-gap"></div>
 				<div>
 					<button @click="submit" :disabled="form.parties.reduce((a, b) => a + (b.pct || 0), 0) === 0">Odeslat</button>
 				</div>
 			</div>
 			<div v-if="data && (used || fetch)">
 				<strong>Odhad výsledku eurovoleb</strong>
-				<p-gap></p-gap>
+				<div class="p-gap"></div>
 				<election-poll :data="resultsAsPoll"></election-poll>
-				<p-gap></p-gap>
+				<div class="p-gap"></div>
 				<p-offset class="reverse">
 					<div>
 						<p-share copy="Podívejte se na tenhle odhad výsledku eurovoleb" :link="resultsAsPoll.share" cta="Sdílet odhad"></p-share>

@@ -23,7 +23,7 @@
 										</router-link> 
 										&middot; {{ $volby.datum ? date($volby.datum) : $volby.cirka }}
 									</div>
-									<p-gap></p-gap>
+									<div class="p-gap"></div>
 									<p-box-group>
 
 										<template v-if="current.$program.length > 0">
@@ -86,7 +86,7 @@
 									</p-box-group>
 								</div>
 							</div>
-							<p-gap class="_floar-clear"></p-gap>
+							<div class="p-gap _floar-clear"></div>
 							<p-block headline="Základní údaje" :subheadline="$volby.status > 1 ? 'podle Českého statistického úřadu' : null" :hide="true">
 								<p-area class="smaller">
 									<p-list height=".5">
@@ -155,7 +155,7 @@
 									<template v-if="current.$data.values">
 										<div class="serif">
 											<p-grid class="tight">
-												<div v-for="(val, indexV) in current.$data.values">
+												<li v-for="(val, indexV) in current.$data.values">
 													<p-area :borderColor="colorByItem(current, data)">
 														<div class="strong">{{ val.value }}</div>
 														<p v-if="val.label"><p-truncated :size="24" :content="val.label"></p-truncated></p>
@@ -167,7 +167,7 @@
 															</template>
 														</p>
 													</p-area>
-												</div>
+												</li>
 											</p-grid>
 										</div>
 									</template>
@@ -178,7 +178,7 @@
 							</p-block>	
 							<p-block headline="Programové dokumenty" v-if="current.$data.program">
 								<p-grid>
-									<div v-for="(item, index) in current.$data.program">
+									<li v-for="(item, index) in current.$data.program">
 										<p-area icon="link">
 											<p-link :href="item.source" class="strong">{{ item.value }}</p-link>
 											<div class="smallest dimm">
@@ -188,7 +188,7 @@
 												</span>
 											</div>
 										</p-area>
-									</div>
+									</li>
 								</p-grid>
 							</p-block>
 							<p-block headline="Volební priority" v-if="current.$priority.length > 0">
@@ -203,7 +203,7 @@
 														<!-- <div class="serif"> -->
 															<p-truncated :content="priority.content.split('\n').join('<br>')" :size="40"></p-truncated>
 														<!-- </div> -->
-														<p-gap height="2"></p-gap>
+														<div class="p-gap _2"></div>
 													</template>
 													<template v-if="priority.content && priority.content.charAt(0) === '['">
 														<!-- <template v-for="(part, index) in JSON.parse(priority.content)"> -->
@@ -218,24 +218,24 @@
 							</p-block>
 							<p-block headline="Program podrobněji" :hide="true">
 								<p-grid>
-									<div v-if="current.$program.length > 0">
+									<li v-if="current.$program.length > 0">
 										<p-area icon="icon-party">
 											<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#plne-zneni'" class="strong">Celý volební program</router-link>
 											<div class="dimm smallest">{{ date(current.$program[0].updated) }}</div>
 										</p-area>
-									</div>
-									<div v-if="current.$otazky.find(x => x.type === 2)">
+									</li>
+									<li v-if="current.$otazky.find(x => x.type === 2)">
 										<p-area icon="detail">
 											<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#vybrana-temata'" class="strong">Vybraná témata</router-link>
 											<div class="dimm smallest"><p-lang :value="current.$otazky.filter(x => x.type === 2).length" :end="['žádné téma', 'jedno téma', '%% témata', '%% témat']"></p-lang></div>
 										</p-area>
-									</div>
-									<div v-if="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length > 0">
+									</li>
+									<li v-if="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length > 0">
 										<p-area icon="answers">
 											<router-link :to="'/strana/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'" class="strong">Otázky a odpovědi</router-link>
 											<div class="dimm smallest"><p-lang :value="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length" :end="['žádná odpověď', 'jedna odpověď', '%% odpovědi', '%% odpovědí']"></p-lang></div>
 										</p-area>
-									</div>
+									</li>
 								</p-grid>
 							</p-block>
 							<p-block headline="Kandidáti" v-if="current.$kandidati" :hide="true">
@@ -261,11 +261,11 @@
 									</p-offset>		
 									<template v-if="current.$kandidati.filter(x => x.PORCISLO).length >= 6">	
 										<p-grid class="p-grid---1-2">
-											<div v-for="(cand, index3) in sortByPorCislo(current.$kandidati).filter((x, i) => i < 6)">
+											<li v-for="(cand, index3) in sortByPorCislo(current.$kandidati).filter((x, i) => i < 6)">
 												<person-preview-block :cand="cand" :data="data" :current="current"></person-preview-block>
-											</div>
+											</li>
 										</p-grid>
-										<p-gap height="2"></p-gap>
+										<div class="p-gap _2"></div>
 									</template>	
 									<p-list height="1" v-if="current.$kandidati.filter(x => x.PORCISLO).length < 6 || current.$kandidati.length > 6">
 										<template v-for="(cand, index3) in sortByPorCislo(current.$kandidati).filter((x, i) => current.$kandidati.filter(x => x.PORCISLO).length < 6 ? true : i >= 6)">
@@ -291,7 +291,7 @@
 							</p-block>
 							<p-block headline="Odkazy" v-if="linksAll.length > 0">
 								<p-list height=".25">
-									<div v-for="(item, index) in linksAll">
+									<li v-for="(item, index) in linksAll">
 										<p-box-group>
 											<p-box :block="true" :href="item.value" class="clean">
 												<p-box-icon :type="type(item.value)"></p-box-icon>
@@ -301,7 +301,7 @@
 												</p-box-label>
 											</p-box>
 										</p-box-group>
-									</div>
+									</li>
 								</p-list>
 							</p-block>
 							<p-block headline="Kontakty" v-if="contacts.length > 0">
@@ -354,18 +354,18 @@
 							<p-block headline="V médiích" v-if="current.$data.media">
 								<p-grid>
 									<template v-for="(item, index) in current.$data.media">
-										<div v-if="index < 6">
+										<li v-if="index < 6">
 											<p-area :borderColor="colorByItem(current, data, current.VSTRANA ? 'VSTRANA' : 'NSTRANA')">
 												<p-link :href="item.source" class="smaller strong">{{ item.value }}</p-link>
-												<p-gap height=".75"></p-gap>
+												<div class="p-gap _075"></div>
 												<div class="smallest dimm">{{ item.label || 'Článek' }} &middot; {{ domain(item.source) }}</div>
 												<div class="smallest dimm"> Přidáno {{ date(item.updated) }}</div>
 											</p-area>
-										</div>
+										</li>
 									</template>
 								</p-grid>
 								<template v-if="current.$data.media.length > 6">
-									<p-gap></p-gap>
+									<div class="p-gap"></div>
 									<p-collapsible label="Starší záznamy" :status="current.$data.media.length - 6">
 										<table class="smaller _vab">
 											<template v-for="(item, index) in current.$data.media">
@@ -387,23 +387,23 @@
 							</p-block>
 							<p-block headline="Tiskové zprávy" v-if="current.$data.pr">
 								<p-grid>
-									<div v-for="(item, index) in current.$data.pr">
+									<li v-for="(item, index) in current.$data.pr">
 										<p-area :borderColor="colorByItem(current, data, current.VSTRANA ? 'VSTRANA' : 'NSTRANA')">
 											<p-link :href="item.source" class="smaller strong">{{ item.value }}</p-link>
-											<p-gap height=".75"></p-gap>
+											<div class="p-gap _075"></div>
 											<div class="smallest dimm">{{ item.label || 'Zpráva' }} &middot; Přidáno {{ date(item.updated) }}</div>
 										</p-area>
-									</div>
+									</li>
 								</p-grid>
 							</p-block>
 							<p-block headline="Volební materiály" v-if="current.$data.graphics">
 								<p-grid class="p-grid---tiny">
-									<div v-for="(item, index) in current.$data.graphics">
+									<li v-for="(item, index) in current.$data.graphics">
 										<p-area>
 											<!-- <p-image :src="item.value" :rounded="true" width="100%"></p-image> -->
 											<div class="_ar" :style="{'background-image': 'url(' + item.value + ')'}"></div>
 
-											<p-gap></p-gap>
+											<div class="p-gap"></div>
 
 											<p-modal>
 												<template #init>
@@ -418,12 +418,12 @@
 
 											<div class="smallest dimm">{{ date(item.updated) }}</div>
 										</p-area>
-									</div>
+									</li>
 								</p-grid>
 							</p-block>
 							<p-block headline="Galerie fotek" v-if="current.$data.gallery">
 								<p-grid>
-									<div v-for="(item, index) in current.$data.gallery">
+									<li v-for="(item, index) in current.$data.gallery">
 										<p-area>
 											<p-offset>
 												<div>
@@ -444,7 +444,7 @@
 												</div>
 											</p-offset>
 										</p-area>
-									</div>
+									</li>
 								</p-grid>
 							</p-block>
 							<p-block headline="Poznámky" v-if="current.$data.note">
@@ -454,7 +454,7 @@
 											{{ item.value }}
 											<div class="smaller" v-if="item.label" v-html="item.label"></div>
 										</div>
-										<p-gap height=".5"></p-gap>
+										<div class="p-gap _05"></div>
 										<!-- <div class="smallest dimm">Vloženo {{ date(item.updated)}}</div> -->
 										<div class="smallest dimm">Vloženo {{ date(item.updated)}}, zdroj <p-link :href="item.source" class="dimm">{{ domain(item.source) }}</p-link></div>
 									</div>
@@ -488,13 +488,13 @@
 				</p-loader>
 				<p-block headline="Data">
 					<p-grid>
-						<div>
+						<li>
 							<p-area icon="link" background="var(--greyish)">
 								<p-modal>
 									<template #init><button class="inline strong">API a Opendata</button></template>
 									<template #content>
 										<strong>Kde je archiv údajů a odkud se tahají data?</strong>
-										<p-gap height=".5"></p-gap>
+										<div class="p-gap _05"></div>
 										<p-list>
 											<p-stats label="Permalink"><p-link :href="'https://programydovoleb.cz/volby/evropske-volby/161' + $route.path"></p-link></p-stats>
 											<p-stats label="API"><p-link :href="'https://api.programydovoleb.cz/pointers/full/' + table + ':' + tableID"></p-link></p-stats>
@@ -503,15 +503,15 @@
 								</p-modal>
 								<div class="smallest dimm">Jednoduché volání, JSON</div>
 							</p-area>
-						</div>
-						<div>
+						</li>
+						<li>
 							<p-area icon="link" background="var(--greyish)">
 								<p-modal>
 									<template #init><button class="inline strong">Historie úprav</button></template>
 									<template #content>
 										<div v-if="news">
 											<strong>Historie úprav</strong>
-											<p-gap height=".5"></p-gap>
+											<div class="p-gap _05"></div>
 											<p-list>
 												<div v-for="(log, index) in news.log">
 													<log-item :data="log" :list="current.$data[log.type]"></log-item>
@@ -522,16 +522,16 @@
 								</p-modal>
 								<div class="smallest dimm">Data v čase</div>
 							</p-area>
-						</div>
-						<div>
+						</li>
+						<li>
 							<p-area icon="link" background="var(--greyish)">
 								<p-modal>
 									<template #init><button class="inline strong">Admin - správa údajů</button></template>
 									<template #content>
 										<strong>Administrace údajů</strong>
-										<p-gap height=".5"></p-gap>
+										<div class="p-gap _05"></div>
 										<div class="smaller">Máte zájem spravovat informace na této stránce? Získejte přístup do Adminu. Stačí poslat žádost a ověřit, že jste oprávněná osoba nebo kancelář strany či hnutí, které se tyto údaje týkají a která bude údaje pravdivě a svědomitě spravovat.</div>
-										<p-gap></p-gap>
+										<div class="p-gap"></div>
 										<div class="strong">
 											<p-link :href="'https://admin.programydovoleb.cz/zadost/' + table + ':' + tableID + '?source=https://eu2024.programydovoleb.cz' + $route.fullPath" class="button">Vyplnit žádost</p-link>
 										</div>
@@ -539,7 +539,7 @@
 								</p-modal>
 								<div class="smallest dimm">Spravujte údaje na této stránce</div>
 							</p-area>
-						</div>
+						</li>
 					</p-grid>
 				</p-block>
 			</p-block>
@@ -553,14 +553,14 @@
 					<p-logo :data="logoByItem(coal, data)" :size="logoByItem(current, data, null, true) ? '4rem' : '8rem'" :alt="'Logo ' + coal.NAZEV"></p-logo>
 				</template>
 			</div>
-			<p-gap></p-gap>
+			<div class="p-gap"></div>
 			<p-anchors></p-anchors>
 		</template>
 		<template #aside>
 			<p-list height="1.25">
 				<div>
 					<strong>Novinky</strong>
-					<p-gap></p-gap>
+					<div class="p-gap"></div>
 					<p-loader :rule="news">
 						<div v-if="news" class="smallest">
 							<news-block :news="news" :limit="4" :data="current.$data"></news-block>

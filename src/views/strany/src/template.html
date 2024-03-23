@@ -190,7 +190,7 @@
 													</p-modal>												
 												</div>
 											</p-list>
-											<p-gap height=".75"></p-gap>
+											<div class="p-gap _075"></div>
 											<p-link :href="'https://programydovoleb.cz/rejstrik/' + coal.VSTRANA" class="smallest strong">Historické záznamy koalice</p-link>
 										</p-area>
 									</div>
@@ -222,7 +222,7 @@
 				</p-loader>
 			</p-block>
 			<p-grid>
-				<div>
+				<li>
 					<p-area icon="plus-green" background="var(--greyish)">
 						<p-modal>
 							<template #init> <button class="inline green strong">Poslat tip na novinku</button> </template>
@@ -233,8 +233,8 @@
 						</p-modal>
 						<div class="smallest dimm">Stačí poslat odkaz</div>
 					</p-area>
-				</div>
-				<div>
+				</li>
+				<li>
 					<p-area icon="email" background="var(--greyish)">
 						<p-modal>
 							<template #init>
@@ -246,8 +246,8 @@
 						</p-modal>
 						<div class="smallest dimm">Souhrn vždy na konci měsíce</div>
 					</p-area>
-				</div>
-				<div>
+				</li>
+				<li>
 					<p-area icon="warning" background="var(--greyish)">
 						<p-modal>
 							<template #init>
@@ -260,19 +260,19 @@
 						</p-modal>
 						<div class="smallest dimm">Nefunguje odkaz? Chyba ve jméně?</div>
 					</p-area>
-				</div>
+				</li>
 			</p-grid>			
 		</template>
 		<template #anchors>
 			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" alt="Evropské volby 2024"></p-logo>
-			<p-gap></p-gap>
+			<div class="p-gap"></div>
 			<p-anchors></p-anchors>
 		</template>
 		<template #aside>
 			<p-list height="1.25">
 				<div>
 					<strong class="smaller">Novinky</strong>
-					<p-gap></p-gap>
+					<div class="p-gap"></div>
 					<p-loader :rule="news">
 						<div v-if="news" class="smallest">
 							<news-block :news="news" :limit="2"></news-block>

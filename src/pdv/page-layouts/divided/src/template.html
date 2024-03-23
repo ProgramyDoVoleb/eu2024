@@ -13,17 +13,17 @@
 		<div class="_aside-holder"  :style="{transform2: 'translateY(' + offset.nav + 'px)'}">
 			<div class="_nav-icon" v-if="$slots.icon">
 				<slot name="icon" />
-				<p-gap></p-gap>
+				<div class="p-gap"></div>
 			</div>
 			<div class="_nav-local">
 				<slot name="anchors" />
-				<p-gap></p-gap>
+				<div class="p-gap"></div>
 			</div>
 			<div class="_nav-main">
 				<slot name="nav" />
 			</div>
 			<div class="_share">
-				<p-gap></p-gap>
+				<div class="p-gap"></div>
 				<p-share class="-aside"></p-share>
 			</div>
 		</div>

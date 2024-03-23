@@ -12,7 +12,7 @@
 						<div>
 							<p-area>
 								<strong class="smaller">ø věk kandidátů {{ results.age }} let <template v-if="status === 3 && data.find(x => x.MANDAT === 'A')"><br>ø věk zvolených {{ electedResults.age }} let</template></strong>
-								<p-gap height=".5"></p-gap>
+								<div class="p-gap _05"></div>
 								<p-line-graph addon=" " :value="results.age" :color="color"></p-line-graph>
 								<p-line-graph v-if="status === 3 && electedResults.count > 0" append="Zvolení" addon=" " :value="electedResults.age" :color="color"></p-line-graph>
 							</p-area>
@@ -20,7 +20,7 @@
 						<div>
 							<p-area>
 									<strong class="smaller">{{ results.woman }} <p-lang :value="results.woman" :end="['žen', 'žena', 'ženy', 'žen']"></p-lang><template v-if="status === 3 && data.find(x => x.MANDAT === 'A')"> &middot; <p-lang :value="electedResults.woman" :end="['žádná nezvolena', 'jedna zvolena', '%% zvoleny', '%% zvoleno']"></p-lang></template></strong>
-									<p-gap height=".5"></p-gap>
+									<div class="p-gap _05"></div>
 									<p-line-graph :value="pct(results.woman, count)" color="var(--red)"></p-line-graph>
 									<p-line-graph v-if="status === 3 && electedResults.count > 0" append="Zvoleno" :value="pct(electedResults.woman, electedResults.count)" color="var(--red)"></p-line-graph>
 							</p-area>
@@ -28,7 +28,7 @@
 						<div>
 							<p-area>
 								<strong class="smaller">{{ number(results.uni) }} <p-lang :value="results.uni" :end="['ků', 'k', 'ci', 'ků']">vysokoškolá</p-lang><template v-if="status === 3 && data.find(x => x.MANDAT === 'A')"> &middot; <p-lang :value="electedResults.uni" :end="['žádný nezvolen', 'jeden zvolen', '%% zvoleni', '%% zvoleno']"></p-lang></template></strong>
-								<p-gap height=".5"></p-gap>
+								<div class="p-gap _05"></div>
 								<p-line-graph :value="pct(results.uni, count)" :color="color"></p-line-graph>
 								<p-line-graph v-if="status === 3 && electedResults.count > 0" append="Zvolení" :value="pct(electedResults.uni, electedResults.count)" :color="color"></p-line-graph>
 							</p-area>
@@ -36,7 +36,7 @@
 						<div>
 							<p-area>
 								<strong class="smaller">{{ results.young }} <p-lang :value="results.young" :end="['', '', '', 'ch']">mladší</p-lang> 30 let<template v-if="status === 3 && data.find(x => x.MANDAT === 'A')"> &middot; <p-lang :value="electedResults.young" :end="['žádný nezvolen', 'jeden zvolen', '%% zvoleni', '%% zvoleno']"></p-lang></template></strong>
-								<p-gap height=".5"></p-gap>
+								<div class="p-gap _05"></div>
 								<p-line-graph :value="pct(results.young, count)" :color="color"></p-line-graph>
 								<p-line-graph v-if="status === 3 && electedResults.count > 0" append="Zvolení" :value="pct(electedResults.young, electedResults.count)" :color="color"></p-line-graph>
 							</p-area>
@@ -44,7 +44,7 @@
 						<div>
 							<p-area>
 									<strong class="smaller">{{ results.old }} <p-lang :value="results.old" :end="['', '', '', 'ch']">starší</p-lang> 65 let<template v-if="status === 3 && data.find(x => x.MANDAT === 'A')"> &middot; <p-lang :value="electedResults.old" :end="['žádný nezvolen', 'jeden zvolen', '%% zvoleni', '%% zvoleno']"></p-lang></template></strong>
-									<p-gap height=".5"></p-gap>
+									<div class="p-gap _05"></div>
 									<p-line-graph :value="pct(results.old, count)" :color="color"></p-line-graph>
 									<p-line-graph v-if="status === 3 && electedResults.count > 0" append="Zvolení" :value="pct(electedResults.old, electedResults.count)" :color="color"></p-line-graph>
 							</p-area>
@@ -81,13 +81,13 @@
 	
 						</div>
 					</div>
-					<p-gap></p-gap>
+					<div class="p-gap"></div>
 				<!-- </p-block-expandable> -->
 			<!-- </p-area> -->
 		<!-- </template> -->
 		<p-block-expandable headline="Nominace a členství" anchor="- nominace, členství" v-if="[...new Set(data.map(item => item.PSTRANA))].length > 1 || [...new Set(data.map(item => item.NSTRANA))].length > 1">
 			<p-grid>
-				<div>
+				<li>
 					<h4>Nominující strany</h4>
 					<p-area>
 						<p-list class="smaller">
@@ -108,10 +108,10 @@
 												</p-box>
 											</template>
 										</p-box-group>
-										<!-- <p-gap height=".25"></p-gap> -->
+										<!-- <div class="p-gap _025"></div> -->
 										<span class="smallest">+ nominující strany úspěšných kandidátů</span>
 									</template>
-									<!-- <p-gap height="1"></p-gap> -->
+									<!-- <div class="p-gap"></div> -->
 								</div>
 								<div>
 									<p-list>
@@ -145,7 +145,7 @@
 											</p-box>
 										
 									</p-box-group>
-									<p-gap height="1"></p-gap>
+									<div class="p-gap"></div>
 								</div>
 								<div>
 									<p-label :color="color">Nezávislí kandidáti či jejich sdružení</p-label>
@@ -153,8 +153,8 @@
 							</template>
 						</p-list>
 					</p-area>
-				</div>
-				<div>
+				</li>
+				<li>
 					<h4>Členství kandidátů</h4>
 					<p-area class="smaller">
 						<p-list>
@@ -177,7 +177,7 @@
 									</p-box-group>
 									<span class="smallest">+ členství úspěšných kandidátů</span>
 								</template>
-								<!-- <p-gap height="1"></p-gap> -->
+								<!-- <div class="p-gap"></div> -->
 							</div>
 							<template v-for="(member, im) in [...new Set(data.map(item => item.PSTRANA))]">
 								<div>
@@ -204,7 +204,7 @@
 							</template>
 						</p-list>
 					</p-area>
-				</div>
+				</li>
 			</p-grid>
 		</p-block-expandable>
 		<p-block-expandable headline="Rozložení na kandidátce" anchor="- rozložení">
@@ -285,5 +285,5 @@
 			</p-area>
 		</p-block-expandable>
 	</p-block>
-	<p-gap height="3"></p-gap>
+	<div class="p-gap _3"></div>
 </div>

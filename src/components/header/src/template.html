@@ -18,7 +18,7 @@
 				</div>
 				<div class="row-menu-list" :class="{showMenu}">
 					<div class="hide-60rem">
-						<p-gap></p-gap>
+						<div class="p-gap"></div>
 						<div class="columns" @click="showMenu = false">
 							<div v-for="(item, index) in list">
 								<router-link :to="item.to" :class="item.class">{{ item.label }}</router-link>
@@ -28,7 +28,7 @@
 						<p-line></p-line>
 						<p-label :color="core.dark ? '#fff' : '#000'"><button class="inline strong" @click="core.change(!core.dark)">Noční režim</button></p-label>
 
-						<p-gap></p-gap>
+						<div class="p-gap"></div>
 					</div>
 					<div class="show-60rem">
 						<ul>

@@ -12,7 +12,7 @@
 							</p-list>
 						</p-loader>
 					</p-area>
-					<p-gap></p-gap>
+					<div class="p-gap"></div>
 					<p-collapsible label="Nové strany nebo kandidáti">
 						<p-area>
 							<p-list v-if="news">
@@ -75,7 +75,7 @@
 							</p-list>
 						</p-area>
 					</p-collapsible>
-					<p-gap></p-gap>
+					<div class="p-gap"></div>
 					<p-label color="var(--red)" class="strong smallest"><p-link href="https://programydovoleb.cz/rss">Odebírat jako RSS</p-link></p-label>
 				</p-block>
 				<template v-for="(year, iyear) in [2024, 2023]">
@@ -90,7 +90,7 @@
 		</template>
 		<template #anchors>
 			<p-logo :data="{logo: cdn + 'el/generic-2023.png'}" :size="'12rem'"></p-logo>
-			<p-gap></p-gap>
+			<div class="p-gap"></div>
 			<p-anchors></p-anchors>
 		</template>
 		<template #aside>

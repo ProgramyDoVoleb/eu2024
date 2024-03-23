@@ -5,7 +5,7 @@ import { useCore, cdn } from '@/stores/core';
 
 export default {
 	name: 'party-preview',
-	props: ['party', 'elections', 'election'],
+	props: ['party', 'candidates', 'elections', 'election'],
 	data: function () {
 		return {
 			cdn
@@ -17,7 +17,11 @@ export default {
 	methods: {
 		colorByItem, logoByItem, date,
 		sortByPorCislo: function (list) {
-			list.sort((a, b) => (a.PORCISLO || 1000) - (b.PORCISLO || 1000));
+			var arr = [];
+
+			list.forEach(x => arr.push(x));
+
+			arr.sort((a, b) => (a.PORCISLO || 1000) - (b.PORCISLO || 1000));
 
 			return list;
 		}
