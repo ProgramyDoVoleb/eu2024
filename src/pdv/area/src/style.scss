@@ -32,10 +32,15 @@
   &._has-icon:not(._icon-top) {
     padding: .75em 1em .75em 4em;
   
-    .p-box-icon {
+    .p-box-icon,
+    .p-box-image {
       position: absolute;
       top: 0;
       left: -5rem;
+    }
+
+    .p-box-image {
+      border-radius: 6px;
     }
   }
 }
@@ -68,7 +73,8 @@
 
 ._icon-top {
 
-  .p-box-icon {
+  .p-box-icon,
+  .p-box-image {
     position: absolute;
     top: -2.5em;
     right: -1.75em;

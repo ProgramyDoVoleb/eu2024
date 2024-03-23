@@ -1,6 +1,7 @@
 <div class="p-area" :style="{padding, background, color, border}" :class="{'_has-icon': !!icon, '_has-border': !!borderColor, '_has-background': !!background}">
 	<div class="_content">
-		<p-box-icon :type="icon" v-if="icon"></p-box-icon>
+		<p-box-icon :type="icon" v-if="icon && !icon.includes('http')"></p-box-icon>
+		<p-box-image :src="icon" v-if="icon && icon.includes('http')"></p-box-image>
 		<slot />
 	</div>
 	<div class="_color" v-if="borderColor" :style="{background: borderColor}"></div>

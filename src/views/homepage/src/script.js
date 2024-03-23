@@ -1,6 +1,7 @@
 import {useData} from '@/stores/data';
 import { useCore, cdn, today } from '@/stores/core';
 import elections from '@/stores/enums/elections';
+import medialinks from '@/stores/enums/links';
 import {url, date, number, truncate, domain, con, sortBy} from '@/pdv/helpers';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
 import {ga} from '@/pdv/analytics';
@@ -18,6 +19,7 @@ export default {
 		return {
 			cdn,
 			today,
+			medialinks,
 			log: {
 				types: {
 					'about': 'Představení',
