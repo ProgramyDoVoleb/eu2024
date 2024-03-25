@@ -401,7 +401,7 @@
 									<li v-for="(item, index) in current.$data.graphics">
 										<p-area>
 											<!-- <p-image :src="item.value" :rounded="true" width="100%"></p-image> -->
-											<div class="_ar" :style="{'background-image': 'url(' + item.value + ')'}"></div>
+											<img class="_ar _of" :src="item.value">
 
 											<div class="p-gap"></div>
 
@@ -427,7 +427,7 @@
 										<p-area>
 											<p-offset>
 												<div>
-													<div class="_ar" :style="{'background-image': 'url(' + item.value + ')'}"></div>
+													<img class="_ar _of" :style="item.value">
 												</div>
 												<div>
 													<p-modal>
