@@ -51,7 +51,7 @@ export default {
 
 			var res = [];
 
-			if (this.data.profile.$data.social.length > 0) res.push(this.data.profile.$data.social.forEach(x => res.push(x.value)));
+			if (this.data.profile.$data.social.length > 0) this.data.profile.$data.social.forEach(x => res.push(x.value));
 
 			this.elections.forEach(el => {
 				this.data.list.filter(x => x.volby === el.id).forEach(item => {
