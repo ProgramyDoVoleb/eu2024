@@ -37,6 +37,7 @@ export default {
             {name: '5:59', source: 'https://www.seznamzpravy.cz/sekce/audio-podcast-5-59-452'},
             {name: 'Bruselský diktát', source: 'https://podcasty.hn.cz/tagy/Podcasty-Bruselsky-diktat-357867'},
             {name: 'Bruselské chlebíčky', source: 'https://radiozurnal.rozhlas.cz/bruselske-chlebicky-8764072'},
+            {name: 'Evropa zblízka', source: 'https://ceskepodcasty.cz/podcast/evropa-zblizka'},
             {name: 'Spotlight', source: 'https://talk.youradio.cz/porady/spotlight-1'},
             {name: 'Studio N', source: 'https://denikn.cz/podcast-studio-n/'},
             {name: 'Vinohradská 12', source: 'https://www.irozhlas.cz/vinohradska12'},

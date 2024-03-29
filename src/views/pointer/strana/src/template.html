@@ -447,6 +447,31 @@
 									</li>
 								</p-grid>
 							</p-block>
+							<p-block headline="Události" v-if="current.$data.event && current.$data.event.length > 0" :editable="true">
+								<p-list>
+									<div v-for="(item, index) in current.$data.event">
+										<p-offset class="p-offset">
+											<div>
+												<p-area class="smaller strong" :borderColor="colorByItem(current, data, current.VSTRANA ? 'VSTRANA' : 'NSTRANA')" padding=".3em .7em .5em 1em">
+													<div class="_cday" v-html="date(JSON.parse(item.label)[0], 0).split(' ')[0]"></div>
+													<div class="smallest" v-html="date(JSON.parse(item.label)[0], 0).split(' ')[1]"></div>
+												</p-area>
+											</div>
+											<div>
+												<component :is="item.source ? 'p-link' : 'span'" :href="item.source"><strong>{{ JSON.parse(item.value)[0] }}</strong></component>
+												<p v-if="JSON.parse(item.value)[1]" v-html="JSON.parse(item.value)[1]" class="serif"></p>
+												<div class="p-gap"></div>
+												<div class="dimm smallest" v-if="JSON.parse(item.label).reduce((a, b) => a + (b != null), 0) > 1">
+													Začátek dne {{ date(JSON.parse(item.label)[0], 2) }}<template v-if="JSON.parse(item.label)[1] != null"> od {{ JSON.parse(item.label)[1] }}</template>
+													<template v-if="JSON.parse(item.label)[2] != null"><br>Konec {{ date(JSON.parse(item.label)[2]) }}</template>
+													<template v-if="JSON.parse(item.label)[3] != null"> do {{ JSON.parse(item.label)[3] }}</template>
+													<div v-if="JSON.parse(item.label)[4] != null" v-html="JSON.parse(item.label)[4]"></div>
+												</div>
+											</div>
+										</p-offset>
+									</div>
+								</p-list>
+							</p-block>
 							<p-block headline="Poznámky" v-if="current.$data.note">
 								<p-list height="1.5">
 									<div v-for="(item, index) in current.$data.note">

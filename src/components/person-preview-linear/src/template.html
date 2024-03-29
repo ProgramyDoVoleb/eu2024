@@ -1,6 +1,6 @@
 <div class="_cand">
 	<div class="_cand-mandat" v-if="cand.MANDAT === 'A'"></div>
-	<div class="dimm smallest _cand-no" v-if="cand.PORCISLO"> {{ cand.PORCISLO }}.
+	<div class="dimm smallest _cand-no"> {{ cand.PORCISLO || '?' }}.
 
 	</div>
 	<div class="_cand-img" v-if="current.$kandidati.find(x => x.$data.photo.length > 0)">
