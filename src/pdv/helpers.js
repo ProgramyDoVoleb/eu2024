@@ -44,6 +44,29 @@ export function sortBy (list, key, fallback, isString, desc) {
   return arr;
 }
 
+export function sortEvents (list) {
+
+  var arr = [];
+  list.forEach(x => arr.push(x));
+
+  arr.sort((a, b) => JSON.parse(a.label)[0].localeCompare(JSON.parse(b.label)[0], 'cs'));
+
+  return arr;
+}
+
+export function firstOfUnique (list, key) {
+  var u = unique(list, key);
+  var arr = [];
+
+  // console.log(u, list);
+
+  u.forEach(x => arr.push(list.find(y => y[key] === x)));
+
+  // console.log(arr);
+
+  return arr;
+}
+
 export function con(item, key, def, index) {
   return item[key] && item[key][index || 0] ? item[key][index || 0].value : (def || null)
 }

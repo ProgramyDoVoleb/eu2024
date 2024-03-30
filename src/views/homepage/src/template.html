@@ -82,14 +82,15 @@
 					<div v-if="news" class="smaller">
 						<div class="columns _gap">
 							<template v-for="(item, index) in news.media">
-								<div v-if="index < 6">
-									<p-area>
+								<div v-if="index < 8">
+									<p-area :borderColor="item.type === 'pr' ? 'var(--blue44)' : null">
 										<div>
 											<p-link class="strong" :href="item.source">{{ item.value }}</p-link>
 										</div>
 										<div class="p-gap _05"></div>
 										<div class="smallest dimm">
 											<router-link :to="'/bod/' + item.csu_table + '/' + item.csu_id" class="is-span dimm">{{ item.$node[0].NAZEV || item.$node[0].JMENO + ' ' + item.$node[0].PRIJMENI }}</router-link>
+											<span class="dimm" v-if="item.type === 'pr'"> &middot; Tisková zpráva</span>
 										</div>
 										<!-- <div class="smallest dimm">
 											
@@ -102,7 +103,125 @@
 									</p-area>
 								</div>
 							</template>
+							<div>
+								<p-area icon="plus-green" background="var(--greyish)">
+									<p-modal>
+										<template #init> <button class="inline green strong">Poslat tip na novinku</button> </template>
+										<template #content>
+											<div class="strong">Odkaz na článek</div>
+											<report-form part="Přidat novinku"></report-form>
+										</template>
+									</p-modal>
+									<div class="smallest dimm">Stačí poslat odkaz</div>
+								</p-area>
+							</div>
 						</div>
+					</div>
+				</p-loader>
+			</p-block>
+			<p-block-expandable headline="Eurovolby v médiích">
+				<p>Evropské volby budou pokrývat mnohá media. Zde najdete odkazy na všechny, které mají pro eurovolby zřízenou sekci nebo tag. Pokud některé chybí, 
+					<p-modal class="inline">
+						<template #init>dejte vědět</template>
+						<template #content>
+							<report-form part="Doplnit média"></report-form>
+						</template>
+					</p-modal>
+				</p>
+				<h3>Veřejnoprávní</h3>
+				<p-grid>
+					<li v-for="(media, index) in medialinks.media.vp">
+						<p-area :icon="media.logo">
+							<strong>{{ media.name }}</strong>
+							<div class="smallest dimm">
+								otevřít <p-link :href="media.source">{{ domain(media.source) }}</p-link>
+							</div>
+						</p-area>
+					</li>
+				</p-grid>
+				<h3>Komerční</h3>
+				<p-grid>
+					<li v-for="(media, index) in medialinks.media.com">
+						<p-area :icon="media.logo">
+							<strong>{{ media.name }}</strong>
+							<div class="smallest dimm">
+								<p-link :href="media.source">{{ domain(media.source) }}</p-link>
+							</div>
+						</p-area>
+					</li>
+				</p-grid>
+				<h3>Mezinárodní</h3>
+				<p-grid>
+					<li v-for="(media, index) in medialinks.media.int">
+						<p-area :icon="media.logo">
+							<strong>{{ media.name }}</strong>
+							<div class="smallest dimm">
+								<p-link :href="media.source">{{ domain(media.source) }}</p-link>
+							</div>
+						</p-area>
+					</li>
+				</p-grid>
+			</p-block-expandable>
+			<p-block-expandable headline="Podcasty">
+				<p>Zpravodajské, odlehčené, rozhovory, nebo čistě stranické podcasty, kde se nejspíše dozvíte něco k eurovolbám. <p-modal class="inline">
+					<template #init>Dejte vědět</template>
+					<template #content>
+						<report-form part="Doplnit média"></report-form>
+					</template>
+					</p-modal>, pokud některý chybí.
+				</p>
+				<p-columns class="-tight">
+					<div>
+						<strong>Zpravodajské</strong>
+						<ul>
+							<li v-for="(media, index) in medialinks.podcasts.news">
+								<p-link :href="media.source">{{ media.name }}</p-link>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<strong>Rozhovory</strong>
+						<ul>
+							<li v-for="(media, index) in medialinks.podcasts.publicis">
+								<p-link :href="media.source">{{ media.name }}</p-link>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<strong>Odlehčené</strong>
+						<ul>
+							<li v-for="(media, index) in medialinks.podcasts.light">
+								<p-link :href="media.source">{{ media.name }}</p-link>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<strong>Stranické</strong>
+						<ul>
+							<li v-for="(media, index) in medialinks.podcasts.party">
+								<p-link :href="media.source">{{ media.name }}</p-link>
+								<div class="smallest dimm">{{ media.party }}</div>
+							</li>
+						</ul>
+					</div>
+				</p-columns>
+			</p-block-expandable>
+			<p-block headline="Události">
+				<p-loader :rule="news && elections">
+					<div v-if="news && elections">
+						<p-list height="1.5">
+							<template v-for="(item, index) in sortEvents(news.events.filter(x => !x.csu_id))">
+								<div v-if="JSON.parse(item.label)[0] >= today">
+									<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
+								</div>
+							</template>
+							<div class="smallest strong">Strany a koalice</div>
+							<template v-for="(item, index) in firstOfUnique(sortEvents(news.events.filter(x => x.csu_id)), 'csu_id')">
+								<div v-if="JSON.parse(item.label)[0] >= today">
+									<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
+								</div>
+							</template>
+						</p-list>
 					</div>
 				</p-loader>
 			</p-block>
@@ -176,93 +295,6 @@
 			</p-block>
 			<!-- <p-line></p-line> -->
 			<div class="p-gap _2"></div>
-			<p-block headline="Eurovolby v médiích">
-				<p>Evropské volby budou pokrývat mnohá media. Zde najdete odkazy na všechny, které mají pro eurovolby zřízenou sekci nebo tag. Pokud některé chybí, 
-					<p-modal class="inline">
-						<template #init>dejte vědět</template>
-						<template #content>
-							<report-form part="Doplnit média"></report-form>
-						</template>
-					</p-modal>
-				</p>
-				<h3>Veřejnoprávní</h3>
-				<p-grid>
-					<li v-for="(media, index) in medialinks.media.vp">
-						<p-area :icon="media.logo">
-							<strong>{{ media.name }}</strong>
-							<div class="smallest dimm">
-								otevřít <p-link :href="media.source">{{ domain(media.source) }}</p-link>
-							</div>
-						</p-area>
-					</li>
-				</p-grid>
-				<h3>Komerční</h3>
-				<p-grid>
-					<li v-for="(media, index) in medialinks.media.com">
-						<p-area :icon="media.logo">
-							<strong>{{ media.name }}</strong>
-							<div class="smallest dimm">
-								<p-link :href="media.source">{{ domain(media.source) }}</p-link>
-							</div>
-						</p-area>
-					</li>
-				</p-grid>
-				<h3>Mezinárodní</h3>
-				<p-grid>
-					<li v-for="(media, index) in medialinks.media.int">
-						<p-area :icon="media.logo">
-							<strong>{{ media.name }}</strong>
-							<div class="smallest dimm">
-								<p-link :href="media.source">{{ domain(media.source) }}</p-link>
-							</div>
-						</p-area>
-					</li>
-				</p-grid>
-			</p-block>
-			<p-block headline="Podcasty">
-				<p>Zpravodajské, odlehčené, rozhovory, nebo čistě stranické podcasty, kde se nejspíše dozvíte něco k eurovolbám. <p-modal class="inline">
-					<template #init>Dejte vědět</template>
-					<template #content>
-						<report-form part="Doplnit média"></report-form>
-					</template>
-					</p-modal>, pokud některý chybí.
-				</p>
-				<p-columns class="-tight">
-					<div>
-						<strong>Zpravodajské</strong>
-						<ul>
-							<li v-for="(media, index) in medialinks.podcasts.news">
-								<p-link :href="media.source">{{ media.name }}</p-link>
-							</li>
-						</ul>
-					</div>
-					<div>
-						<strong>Rozhovory</strong>
-						<ul>
-							<li v-for="(media, index) in medialinks.podcasts.publicis">
-								<p-link :href="media.source">{{ media.name }}</p-link>
-							</li>
-						</ul>
-					</div>
-					<div>
-						<strong>Odlehčené</strong>
-						<ul>
-							<li v-for="(media, index) in medialinks.podcasts.light">
-								<p-link :href="media.source">{{ media.name }}</p-link>
-							</li>
-						</ul>
-					</div>
-					<div>
-						<strong>Stranické</strong>
-						<ul>
-							<li v-for="(media, index) in medialinks.podcasts.party">
-								<p-link :href="media.source">{{ media.name }}</p-link>
-								<div class="smallest dimm">{{ media.party }}</div>
-							</li>
-						</ul>
-					</div>
-				</p-columns>
-			</p-block>
 			<p-block headline="O tomto projektu">
 				<p-grid>
 					<li>

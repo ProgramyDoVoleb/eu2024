@@ -2,10 +2,11 @@ import {useData} from '@/stores/data';
 import { useCore, cdn, today } from '@/stores/core';
 import elections from '@/stores/enums/elections';
 import medialinks from '@/stores/enums/links';
-import {url, date, number, truncate, domain, con, sortBy} from '@/pdv/helpers';
+import {url, date, number, truncate, domain, con, sortBy, sortEvents, firstOfUnique} from '@/pdv/helpers';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
 import {ga} from '@/pdv/analytics';
 import NewsItem from '@/components/news-item/do.vue'
+import EventItem from '@/components/event-item/do.vue'
 import MailchimpSignup from '@/components/mailchimp/do.vue';
 import ReportForm from '@/components/report-form/do.vue';
 import ElectionPoll from '@/views/polls/poll/do.vue';
@@ -58,7 +59,7 @@ export default {
 		}
 	},
   components: {
-	NewsItem, MailchimpSignup, ReportForm, ElectionPoll, EngagementResultTip, PartyPreview, NewsBlock
+	NewsItem, EventItem, MailchimpSignup, ReportForm, ElectionPoll, EngagementResultTip, PartyPreview, NewsBlock
   },
 	computed: {
 		$store: function () {
@@ -92,7 +93,8 @@ export default {
 		con,
 		colorByItem,
 		logoByItem,
-		sortBy,
+		sortBy, sortEvents,
+		firstOfUnique,
 		$getParty: function (hash) {
 			var item = this.parties.list.find(x => x.hash === hash);
 

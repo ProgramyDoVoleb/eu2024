@@ -4,10 +4,11 @@ import { useRoute } from 'vue-router';
 import { regions } from '@/stores/enums';
 import elections from '@/stores/enums/elections';
 import logtypes from '@/stores/enums/log';
-import {url, date, number, truncate, con, type, domain, sortByPorCislo, slide, unique} from '@/pdv/helpers';
+import {url, date, number, truncate, con, type, domain, sortByPorCislo, slide, unique, sortEvents} from '@/pdv/helpers';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
 import {ga} from '@/pdv/analytics';
 import NewsItem from '@/components/news-item/do.vue'
+import EventItem from '@/components/event-item/do.vue'
 import ElectionResults from '@/views/volby/detail/do.vue';
 import ProgramBlock from '@/components/program-block-dynamic/do.vue';
 import ProfilePreview from '@/components/profile-preview/do.vue';
@@ -45,7 +46,7 @@ export default {
 	CandidateStats,
 	PersonPreviewLinear,
 	PersonPreviewBlock,
-	NewsBlock
+	NewsBlock, EventItem
   },
 	computed: {
 		$store: function () {
@@ -317,7 +318,7 @@ export default {
 		truncate,
 		colorByItem,
 		logoByItem,
-		sortByPorCislo,
+		sortByPorCislo, sortEvents,
 		slide,
 		checkDuplicates: function (list) {
 			var arr = [];
