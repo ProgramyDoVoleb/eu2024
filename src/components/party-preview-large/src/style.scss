@@ -2,7 +2,6 @@
 
 ._aig {
 	// padding-bottom: 1.5rem;
-	padding: 1em !important;
 }
 
 ._pg {
@@ -15,11 +14,6 @@
 	&.green {
 		color: var(--green) !important;
 	}
-}
-
-._pg11 {
-	aspect-ratio: 1/1;
-	display: inline-block;
 }
 
 ._pgb {
@@ -52,10 +46,10 @@
     > :first-child {
         margin-right: 1em;
     }
-}
 
-._f {
-	flex: 1
+    > :last-child {
+        flex: 1;
+    }
 }
 
 ._logo {

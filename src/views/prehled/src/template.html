@@ -1,0 +1,160 @@
+<div class="layout-homepage">
+	<p-layout-divided>
+		<template #main>
+			<p-block headline="Přehled stran a koalic" anchor="Strany a koalice" :level="1">
+				<p class="lead">
+					Přehledně o volbách do Evropského parlamentu: volební programy, <router-link to="/kandidati">kandidáti</router-link>, <router-link to="/strany">politické strany</router-link>, <router-link to="/volebni-pruzkumy">průzkumy</router-link> a další statistiky a přehledy. <strong>Volby budou 7. a 8. června.</strong>
+				</p>
+			</p-block>
+			<p-block headline="Přehled" class="p-block---up" :hide="true">
+				<p-offset class="reverse balanced">
+					<div>
+						<p-headline :level="2">Přehled</p-headline>		
+					</div>
+					<div v-if="elections && elections.list[0].status === 1">
+						<p-area class="_note" background="var(--blue11)">
+							<p-label color="var(--red)">
+								<p-modal>
+									<template #init><button class="inline red">Předběžný seznam</button></template>
+									<template #content>
+										<div class="reset">
+											<h2>Předběžné informace</h2>
+											<p>Zde najdete přehled stran a kandidátů, kteří už nějakou formou oznámili záměr nebo odhodlání kandidovat. Kandidáti uvedeni modře již byli představeni včetně pozice na kandidátce. Ostatní jsou řazeni dle abecedy a nemusí být součástí finální podoby kandidátky. Pořadí a složení se může měnit. Tento přehled bude nahrazen za oficiální přehled, který vydává Český statistický úřad, cca 45 dní před volbami.</p>
+										</div>
+									</template>
+								</p-modal>
+							</p-label>
+						</p-area>
+					</div>	
+				</p-offset>	
+				<p-loader :rule="elections" reserve="100vh">
+					<div v-if="elections">
+						<div v-for="(election, index) in [elections.list[0]]">
+								<!-- <p-area> -->
+									<!-- <p v-if="election.status === 1">Zde najdete přehled stran a kandidátů, kteří už nějakou formou oznámili záměr nebo odhodlání kandidovat. Kandidáti uvedeni modře již byli představeni včetně pozice na kandidátce. Ostatní jsou řazeni dle abecedy a nemusí být součástí finální podoby kandidátky. Pořadí a složení se může měnit. Tento přehled bude nahrazen za oficiální přehled, který vydává Český statistický úřad, cca 45 dní před volbami.</p> -->
+									<div v-if="election.typ === 'EP' && election.$strany.length > 0">
+										<div class="p-gap _075"></div>
+										<div class="smaller" v-if="parties">
+											<div class="columns _gap">
+												<div v-for="(party, index) in sortBy(election.$strany, 'ZKRATKA', '', true)">
+													<party-preview :party="party" :candidates="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA)" :election="election" :elections="elections"></party-preview>
+												</div>
+
+												<div v-if="election.status === 1">
+													<p-area icon="plus-green" background="var(--greyish)">
+														<p-modal>
+															<template #init> <button class="inline green strong">Někdo chybí?</button> </template>
+															<template #content>
+																<div class="strong">Odkaz na článek</div>
+																<report-form part="Přidat stranu či kandidáta"></report-form>
+															</template>
+														</p-modal>
+														<div class="smallest dimm">Stačí poslat odkaz</div>
+													</p-area>
+												</div>
+											</div>
+										</div>
+									</div>
+							
+						</div>
+					</div>
+				</p-loader>
+			</p-block>
+			<p-block headline="Novinky">
+				<p-area borderColor="var(--blue)">
+					<p-loader :rule="news" reserve="300px">
+						<div v-if="news" class="smaller">
+							<news-block :news="news" :limit="8"></news-block>
+						</div>
+						<p-line></p-line>
+						<div class="smallest strong">
+							<p-offset class="reverse">
+								<div>
+									<router-link to="/novinky">Všechny novinky</router-link> &rarr;
+								</div>
+								<div>
+									<p-label :after="true" color="var(--red)">
+										<p-link href="https://programydovoleb.cz/rss">RSS</p-link>
+									</p-label>						
+								</div>
+							</p-offset>
+						</div>
+					</p-loader>
+				</p-area>
+			</p-block>
+			<p-grid>
+				<li>
+					<p-area icon="plus-green" background="var(--greyish)">
+						<p-modal>
+							<template #init> <button class="inline green strong">Poslat tip na novinku</button> </template>
+							<template #content>
+								<div class="strong">Odkaz na článek</div>
+								<report-form part="Přidat novinku"></report-form>
+							</template>
+						</p-modal>
+						<div class="smallest dimm">Stačí poslat odkaz</div>
+					</p-area>
+				</li>
+				<li>
+					<p-area icon="email" background="var(--greyish)">
+						<p-modal>
+							<template #init>
+								<button class="inline strong">Chcete novinky e-mailem?</button>
+							</template>
+							<template #content>
+								<mailchimp-signup></mailchimp-signup>
+							</template>
+						</p-modal>
+						<div class="smallest dimm">Souhrn vždy na konci měsíce</div>
+					</p-area>
+				</li>
+				<li>
+					<p-area icon="warning" background="var(--greyish)">
+						<p-modal>
+							<template #init>
+								<button class="inline strong red">Nahlásit chybu</button>
+							</template>
+							<template #content>
+								<strong>Nahlásit chybu</strong>
+								<report-form part="Homepage"></report-form>
+							</template>
+						</p-modal>
+						<div class="smallest dimm">Nefunguje odkaz? Chyba ve jméně?</div>
+					</p-area>
+				</li>
+			</p-grid>
+			
+		</template>
+		<template #anchors>
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" alt="Evropské volby 2024"></p-logo>
+			<div class="p-gap"></div>
+			<p-anchors></p-anchors>
+		</template>
+		<template #aside>
+			<p-list height="1.25">
+				<div>
+					<strong class="smaller">Novinky</strong>
+					<div class="p-gap"></div>
+					<p-loader :rule="news" reserve="205px">
+						<div v-if="news" class="smallest">
+							<news-block :news="news" :limit="4"></news-block>
+						</div>
+					</p-loader>
+				</div>
+				<div class="smallest b">
+					<p-offset class="reverse">
+						<div>
+							<router-link to="/novinky">Archiv novinek</router-link> &rarr;
+						</div>
+						<div>
+							<p-label :after="true" color="var(--red)">
+								<p-link href="https://programydovoleb.cz/rss">RSS</p-link>
+							</p-label>						
+						</div>
+					</p-offset>
+					
+				</div>
+			</p-list>
+		</template>
+	</p-layout-divided>
+</div>

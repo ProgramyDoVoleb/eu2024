@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/homepage/do.vue'
+import Overview from '../views/prehled/do.vue'
 import Parties from '../views/strany/do.vue'
 import Candidates from '../views/kandidati/do.vue'
 import Admin from '../views/admin/do.vue'
@@ -19,6 +20,11 @@ const router = createRouter({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/prehled',
+      name: 'Overview',
+      component: Overview
     },
     {
       path: '/strany',

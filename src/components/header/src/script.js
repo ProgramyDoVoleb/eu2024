@@ -12,7 +12,7 @@ export default {
 			querySearchTown: null,
 			querySearchTownSearching: false,
 			list: [
-				{label: 'Přehled', to: '/'},
+				{label: 'Přehled', to: '/prehled'},
 				{label: 'Strany', to: '/strany'},
 				{label: 'Lidé', to: '/kandidati'},
 				{label: 'Průzkumy', to: '/volebni-pruzkumy'},
