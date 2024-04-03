@@ -40,16 +40,14 @@
 }
 
 ._b {
-    display: flex;
-	align-items: center;
+    padding-right: 4em;
+	position: relative;
+}
 
-    > :first-child {
-        margin-right: 1em;
-    }
-
-    > :last-child {
-        flex: 1;
-    }
+._ba {
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 
 ._logo {
@@ -62,13 +60,14 @@
 
 ._logos {
 	display: flex;
+	flex-direction: column;
 }
 
 ._logos > ._logo {
-	display: inline-block !important;
+	display: block !important;
 
 	&:not(:first-child) {
-		margin-left: -1em;
+		margin-top: -.5em;
 	}
 }
 
@@ -95,4 +94,19 @@
 
 ._g:not(:last-child) {
     height: 1em;
+}
+
+.p-list-linear {
+	display: inline !important;
+}
+
+._con {
+	container-type: inline-size;
+}
+
+@container (min-width: 360px) {
+	._con .p-list {
+		columns: 2;
+		column-gap: 2em;
+	}
 }

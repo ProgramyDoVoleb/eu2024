@@ -3,30 +3,10 @@
 		<template #main>
 			<p-block headline="Přehled stran a koalic" anchor="Strany a koalice" :level="1">
 				<p class="lead">
-					Přehledně o volbách do Evropského parlamentu: volební programy, <router-link to="/kandidati">kandidáti</router-link>, <router-link to="/strany">politické strany</router-link>, <router-link to="/volebni-pruzkumy">průzkumy</router-link> a další statistiky a přehledy. <strong>Volby budou 7. a 8. června.</strong>
+					Zde najdete přehled stran a kandidátů, kteří už nějakou formou oznámili záměr nebo odhodlání kandidovat. Kandidáti uvedeni modře již byli představeni včetně pozice na kandidátce. Ostatní jsou řazeni dle abecedy a nemusí být součástí finální podoby kandidátky. Pořadí a složení se může měnit. Tento přehled bude nahrazen za oficiální přehled, který vydává Český statistický úřad, cca 45 dní před volbami.
 				</p>
 			</p-block>
 			<p-block headline="Přehled" class="p-block---up" :hide="true">
-				<p-offset class="reverse balanced">
-					<div>
-						<p-headline :level="2">Přehled</p-headline>		
-					</div>
-					<div v-if="elections && elections.list[0].status === 1">
-						<p-area class="_note" background="var(--blue11)">
-							<p-label color="var(--red)">
-								<p-modal>
-									<template #init><button class="inline red">Předběžný seznam</button></template>
-									<template #content>
-										<div class="reset">
-											<h2>Předběžné informace</h2>
-											<p>Zde najdete přehled stran a kandidátů, kteří už nějakou formou oznámili záměr nebo odhodlání kandidovat. Kandidáti uvedeni modře již byli představeni včetně pozice na kandidátce. Ostatní jsou řazeni dle abecedy a nemusí být součástí finální podoby kandidátky. Pořadí a složení se může měnit. Tento přehled bude nahrazen za oficiální přehled, který vydává Český statistický úřad, cca 45 dní před volbami.</p>
-										</div>
-									</template>
-								</p-modal>
-							</p-label>
-						</p-area>
-					</div>	
-				</p-offset>	
 				<p-loader :rule="elections" reserve="100vh">
 					<div v-if="elections">
 						<div v-for="(election, index) in [elections.list[0]]">
