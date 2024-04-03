@@ -61,29 +61,14 @@
 						<template #content>
 							<div class="_b">
 								<div>
-									<div v-if="!logoByItem(party, elections).includes('empty')">
-										<p-logo :data="{logo: logoByItem(party, elections)}" size="4rem" class="_logo" :alt="'logo ' + party.NAZEV"></p-logo>
-									</div>
-									<div v-if="logoByItem(party, elections).includes('empty')">
-										<div class="_logos" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET > 1">
-											<template v-for="(coal, indexC) in elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).$coalition">
-												<p-logo :data="{logo: logoByItem(coal, elections)}" size="4rem" class="_logo" :alt="'Logo ' + coal.NAZEV"></p-logo>
-											</template>
-										</div>
-										<div class="_logos" v-if="elections.cis.strany.find(x => x.VSTRANA === party.VSTRANA).POCET === 1">
-											<p-logo :data="{logo: logoByItem(party, elections)}" size="4rem" class="_logo" alt="Logo chybí"></p-logo>
-										</div>
-									</div>
-								</div>
-								<div>
-									<p-label :color="colorByItem(party, elections)" :after="true"><router-link :to="'/strana/' + party.id" class="strong">{{ party.ZKRATKA }}</router-link></p-label>
+									<p-label :color="colorByItem(party, elections)" :after="true"><router-link :to="'/strana/' + party.id" class="strong">{{ party.NAZEV }}</router-link></p-label>
 									<div class="strong smaller">Programové dokumenty</div>
 								</div>
 							</div>
 							<div class="_g"></div>
 							<p-list>
 								<div v-for="(program, indexP) in party.$program">
-									<p-area class="inline" icon="icon-party">
+									<p-area class="inline" icon="icon-party" background="var(--blue11)">
 										<router-link :to="'/strana/' + party.id + '/volebni-program/' + program.id + '#plne-zneni'" class="strong">Plné znění volebního programu</router-link>
 										<div class="smallest dimm">{{ date(program.updated) }}</div>
 									</p-area>

@@ -16,10 +16,10 @@
 				</div>
 				<div class="_f">
 					<router-link :to="'/strana/' + party.id" class="strong">{{ party.ZKRATKA }}</router-link>
-					<div v-if="candidates.length > 0" class="smallest">
+					<div v-if="candidates.length > 0" class="smaller">
 						<template v-for="(cand, index2) in [sortByPorCislo(candidates)[0]]">
 							<template v-if="index2 < 5">
-								<router-link :to="'/kandidat/' + cand.id" :class="{'is-span': !cand.PORCISLO}">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link>
+								<router-link :to="'/kandidat/' + cand.id" class="is-span">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link>
 							</template>
 						</template>
 						<span v-if="candidates.length > 1" class="dimm"> + {{ candidates.length - 1 }}</span>
@@ -57,7 +57,7 @@
 								<div class="_g"></div>
 								<p-list>
 									<div v-for="(program, indexP) in party.$program">
-										<p-area class="inline" icon="icon-party">
+										<p-area class="inline" icon="icon-party" background="var(--blue11)">
 											<router-link :to="'/strana/' + party.id + '/volebni-program/' + program.id + '#plne-zneni'" class="strong">Plné znění volebního programu</router-link>
 											<div class="smallest dimm">{{ date(program.updated) }}</div>
 										</p-area>

@@ -15,6 +15,7 @@ export default {
 				{label: 'Přehled', to: '/prehled'},
 				{label: 'Strany', to: '/strany'},
 				{label: 'Lidé', to: '/kandidati'},
+				{label: 'Události', to: '/udalosti'},
 				{label: 'Průzkumy', to: '/volebni-pruzkumy'},
 				{label: 'Novinky', to: '/novinky'},
 				{label: 'Pro kandidáty', to: '/pro-kandidaty', class: 'strong'}

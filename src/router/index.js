@@ -6,6 +6,7 @@ import Candidates from '../views/kandidati/do.vue'
 import Admin from '../views/admin/do.vue'
 import About from '../views/about/do.vue'
 import Polls from '../views/polls/do.vue'
+import Events from '../views/udalosti/do.vue'
 import NewsList from '../views/news/list/do.vue'
 import NewsDetail from '../views/news/detail/do.vue'
 import PointerParty from '../views/pointer/strana/do.vue'
@@ -25,6 +26,11 @@ const router = createRouter({
       path: '/prehled',
       name: 'Overview',
       component: Overview
+    },
+    {
+      path: '/udalosti',
+      name: 'Events',
+      component: Events
     },
     {
       path: '/strany',

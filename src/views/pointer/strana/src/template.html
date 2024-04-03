@@ -176,17 +176,24 @@
 							<p-block headline="Profil" v-if="current.$profil.length" :hide="true">
 								<profile-preview :id="current.$profil[0].profil"></profile-preview>
 							</p-block>	
-							<p-block headline="Programové dokumenty" v-if="current.$data.program">
+							<p-block headline="Program podrobněji" :hide="true">
 								<p-grid>
-									<li v-for="(item, index) in current.$data.program">
-										<p-area icon="link">
-											<p-link :href="item.source" class="strong">{{ item.value }}</p-link>
-											<div class="smallest dimm">
-												Přidáno {{ date(item.updated) }}
-												<span v-if="item.label">
-													&middot; <p-link :href="item.label">Záloha</p-link>
-												</span>
-											</div>
+									<li v-if="current.$program.length > 0">
+										<p-area icon="icon-party">
+											<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#plne-zneni'" class="strong">Celý volební program</router-link>
+											<div class="dimm smallest">{{ date(current.$program[0].updated) }}</div>
+										</p-area>
+									</li>
+									<li v-if="current.$otazky.find(x => x.type === 2)">
+										<p-area icon="detail">
+											<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#vybrana-temata'" class="strong">Vybraná témata</router-link>
+											<div class="dimm smallest"><p-lang :value="current.$otazky.filter(x => x.type === 2).length" :end="['žádné téma', 'jedno téma', '%% témata', '%% témat']"></p-lang></div>
+										</p-area>
+									</li>
+									<li v-if="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length > 0">
+										<p-area icon="answers">
+											<router-link :to="'/strana/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'" class="strong">Otázky a odpovědi</router-link>
+											<div class="dimm smallest"><p-lang :value="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length" :end="['žádná odpověď', 'jedna odpověď', '%% odpovědi', '%% odpovědí']"></p-lang></div>
 										</p-area>
 									</li>
 								</p-grid>
@@ -216,24 +223,17 @@
 										</div>
 									<!-- </p-list> -->
 							</p-block>
-							<p-block headline="Program podrobněji" :hide="true">
+							<p-block headline="Programové dokumenty" v-if="current.$data.program">
 								<p-grid>
-									<li v-if="current.$program.length > 0">
-										<p-area icon="icon-party">
-											<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#plne-zneni'" class="strong">Celý volební program</router-link>
-											<div class="dimm smallest">{{ date(current.$program[0].updated) }}</div>
-										</p-area>
-									</li>
-									<li v-if="current.$otazky.find(x => x.type === 2)">
-										<p-area icon="detail">
-											<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#vybrana-temata'" class="strong">Vybraná témata</router-link>
-											<div class="dimm smallest"><p-lang :value="current.$otazky.filter(x => x.type === 2).length" :end="['žádné téma', 'jedno téma', '%% témata', '%% témat']"></p-lang></div>
-										</p-area>
-									</li>
-									<li v-if="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length > 0">
-										<p-area icon="answers">
-											<router-link :to="'/strana/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'" class="strong">Otázky a odpovědi</router-link>
-											<div class="dimm smallest"><p-lang :value="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length" :end="['žádná odpověď', 'jedna odpověď', '%% odpovědi', '%% odpovědí']"></p-lang></div>
+									<li v-for="(item, index) in current.$data.program">
+										<p-area icon="link">
+											<p-link :href="item.source" class="strong">{{ item.value }}</p-link>
+											<div class="smallest dimm">
+												Přidáno {{ date(item.updated) }}
+												<span v-if="item.label">
+													&middot; <p-link :href="item.label">Záloha</p-link>
+												</span>
+											</div>
 										</p-area>
 									</li>
 								</p-grid>

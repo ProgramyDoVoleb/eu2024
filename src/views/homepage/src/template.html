@@ -40,6 +40,13 @@
 													<party-preview :party="party" :candidates="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA)" :election="election" :elections="elections"></party-preview>
 												</div>
 
+												<div>
+													<p-area icon="detail" background="var(--blue11)">
+														<router-link to="/prehled" class="strong">Kompletní přehled</router-link>
+														<div class="smallest dimm">Strany, kandidáti, koalice</div>
+													</p-area>
+												</div>
+
 												<div v-if="election.status === 1">
 													<p-area icon="plus-green" background="var(--greyish)">
 														<p-modal>
@@ -216,8 +223,8 @@
 								</div>
 							</template>
 							<div class="smallest strong">Strany a koalice</div>
-							<template v-for="(item, index) in firstOfUnique(sortEvents(news.events.filter(x => x.csu_id)), 'csu_id')">
-								<div v-if="JSON.parse(item.label)[0] >= today">
+							<template v-for="(item, index) in firstOfUnique(sortEvents(news.events.filter(x => x.csu_id && JSON.parse(x.label)[0] >= today)), 'csu_id')">
+								<div v-if="index < 2 || JSON.parse(item.label)[0] === today">
 									<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
 								</div>
 							</template>
@@ -229,7 +236,7 @@
 				<p-area borderColor="var(--blue)">
 					<p-loader :rule="news" reserve="300px">
 						<div v-if="news" class="smaller">
-							<news-block :news="news" :limit="8"></news-block>
+							<news-block :news="news" :limit="3"></news-block>
 						</div>
 						<p-line></p-line>
 						<div class="smallest strong">
@@ -361,7 +368,7 @@
 					<div class="p-gap"></div>
 					<p-loader :rule="news" reserve="205px">
 						<div v-if="news" class="smallest">
-							<news-block :news="news" :limit="4"></news-block>
+							<news-block :news="news" :limit="2"></news-block>
 						</div>
 					</p-loader>
 				</div>
