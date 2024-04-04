@@ -13,7 +13,7 @@ export default {
 	},
 	computed: {
 		nominee: function () {
-			return this.data.cis.strany.find(x => x.VSTRANA === this.cand.NSTRANA)
+			return this.data.cis.strany.find(x => x.VSTRANA === this.cand.NSTRANA) || this.current
 		},
 		member: function () {
 			return this.data.cis.strany.find(x => x.VSTRANA === this.cand.PSTRANA)
