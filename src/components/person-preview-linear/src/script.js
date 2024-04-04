@@ -11,7 +11,12 @@ export default {
 		}
 	},
 	computed: {
-
+		nominee: function () {
+			return this.data.cis.strany.find(x => x.VSTRANA === this.cand.NSTRANA)
+		},
+		member: function () {
+			return this.data.cis.strany.find(x => x.VSTRANA === this.cand.PSTRANA)
+		}
 	},
 	methods: {
 		colorByItem, logoByItem, con, type,

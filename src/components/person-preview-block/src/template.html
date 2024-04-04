@@ -1,7 +1,17 @@
 <p-area class="person-preview-block">
 	<p-offset>
 		<div class="_photo" v-if="current.$kandidati.find(x => x.$data.photo.length > 0)">
-			<img loading="lazy" :src="con(cand.$data, 'photo') || missing" :alt="cand.PRIJMENI">
+			<img class="_person" loading="lazy" :src="con(cand.$data, 'photo') || missing" :alt="cand.PRIJMENI">
+			<img class="_party" loading="lazy" :src="logoByItem(nominee, data)" v-if="nominee.VSTRANA != current.VSTRANA" :alt="'Logo ' + nominee.ZKRATKA">
+			<template v-if="member && member.VSTRANA !== nominee.VSTRANA">
+				<img class="_party" loading="lazy" :src="logoByItem(member, data)" :alt="'Logo ' + member.ZKRATKA">
+			</template>	
+		</div>
+		<div class="_photo" v-if="!current.$kandidati.find(x => x.$data.photo.length > 0)">
+			<template v-if="member && member.VSTRANA !== nominee.VSTRANA">
+				<img class="_partyAlone" loading="lazy" :src="logoByItem(member, data)" :alt="'Logo ' + member.ZKRATKA">
+			</template>	
+			<img :class="member && member.VSTRANA !== nominee.VSTRANA ? '_party' : '_partyAlone'" loading="lazy" :src="logoByItem(nominee, data)">	
 		</div>
 		<div class="_content">
 			<router-link class="strong" :to="'/kandidat/' + cand.id">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link>
@@ -28,7 +38,7 @@
 				nominace od 
 				<p-label :color="colorByItem(cand, data, 'NSTRANA')" :after="true">
 					<p-link :href="'https://programydovoleb.cz/rejstrik/' + cand.NSTRANA" class="is-span">
-						{{ data.cis.strany.find(x => x.VSTRANA === cand.NSTRANA).ZKRATKA }}
+						{{ nominee.ZKRATKA }}
 					</p-link>
 				</p-label>
 				
@@ -37,11 +47,11 @@
 				člen
 				<p-label :after="true" :color="colorByItem(cand, data, 'PSTRANA')">
 					<p-link :href="'https://programydovoleb.cz/rejstrik/' + cand.PSTRANA" class="is-span">
-						{{ data.cis.strany.find(x => x.VSTRANA === cand.PSTRANA).ZKRATKA }}
+						{{ member.ZKRATKA }}
 					</p-link>
 				</p-label><span class="dimm" v-if="cand.PSTRANA != cand.NSTRANA">
 					&middot; nominace od <p-link :href="'https://programydovoleb.cz/rejstrik/' + cand.NSTRANA" class="is-span dimm">
-						{{ data.cis.strany.find(x => x.VSTRANA === cand.NSTRANA).ZKRATKA }}
+						{{ nominee.ZKRATKA }}
 					</p-link>
 				</span>
 			</div>
@@ -54,7 +64,7 @@
 			<router-link class="btn" :to="'/kandidat/' + cand.id">Detail kandidáta</router-link> -->
 		</div>
 		<div class="_no smallest dimm">
-			{{ cand.PORCISLO }}
+			{{ cand.PORCISLO }}.
 		</div>
 	</p-offset>
 </p-area>

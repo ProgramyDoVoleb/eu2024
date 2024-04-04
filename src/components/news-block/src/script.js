@@ -5,7 +5,12 @@ import logtypes from '@/stores/enums/log';
 
 export default {
 	name: 'NewsBlock',
-	props: ['news', 'limit', 'data'],
+	props: ['news', 'limit', 'data', 'expandable'],
+	data: function () {
+		return {
+			_limit: 1000000
+		}
+	},
 	methods: {
 		url, date, domain, unique
 	},
@@ -47,5 +52,8 @@ export default {
 
 			return list;
 		}
+	},
+	mounted: function () {
+		this._limit = this.limit || 1000000;
 	}
 };

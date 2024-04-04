@@ -55,6 +55,10 @@ label {
   }
 }
 
+.p-stats---vertical {
+  flex-direction: column;
+}
+
 .p-list .p-stats---flex {
   padding: 0;
   border-top: none;

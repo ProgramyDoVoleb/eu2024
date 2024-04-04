@@ -21,6 +21,36 @@
 
 ._cand-img {
 	margin-right: 1em;
+	position: relative;
+
+	._person, 
+	._partyAlone {
+		width: 2.75em;
+		display: block;
+		border-radius: .5em;
+		border: var(--border);
+		// background: #fff;
+	}
+
+	._party {
+		position: absolute;
+		width: 1.5em;
+		border-radius: 50%;
+		aspect-ratio: 1;
+		top: -.5em;
+		left: -.5em;
+		// background: #fff;
+		border: var(--border);
+
+		+ ._party {
+			top: .5em;
+		}
+	}
+
+	._party,
+	._partyAlone {
+		background: #fff;
+	}
 }
 
 ._cand-flex {

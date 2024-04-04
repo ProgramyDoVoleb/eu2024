@@ -5,16 +5,39 @@
 
 ._photo {
 	margin-right: 1em;
+	position: relative;
 
-	img {
+	._person, 
+	._partyAlone {
 		width: 4em;
 		display: block;
 		border-radius: .5em;
 		border: var(--border);
+		// background: #fff;
+	}
+
+	._party {
+		position: absolute;
+		width: 2em;
+		border-radius: 50%;
+		aspect-ratio: 1;
+		top: -.5em;
+		left: -.5em;
+		// background: #fff;
+		border: var(--border);
+
+		+ ._party {
+			top: .5em;
+		}
+	}
+
+	._party,
+	._partyAlone {
+		background: #fff;
 	}
 	
 	@container (min-width: 320px) {
-		img {
+		._person {
 			width: 8em;
 		}		
 	}
@@ -22,7 +45,7 @@
 
 ._no {
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: -1em;
+	right: -1em;
 }
 

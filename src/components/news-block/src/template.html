@@ -1,6 +1,6 @@
 <div class="news-block">
 	<p-list height="1.5">
-		<div v-for="(item, index) in consolidatedNews.filter((x, i) => i < (limit || 1000000))">
+		<div v-for="(item, index) in consolidatedNews.filter((x, i) => i < _limit)">
 			<strong>{{ date(item.datum) }}</strong>
 			<div v-if="item.list.length > 0" class="_cni">
 				<p-list height=".33" class="invisible">
@@ -78,6 +78,9 @@
 					</template>
 				</p-list-linear>
 			</div>
+		</div>
+		<div v-if="expandable">
+			<button @click="_limit = _limit === (limit || 4) ? 100000 : (limit || 4)">Zobrazit {{ _limit === 100000 ? 'méně' : 'více' }}</button>
 		</div>
 	</p-list>
 </div>

@@ -470,7 +470,7 @@
 							<p-block headline="Novinky">
 								<p-loader :rule="news">
 									<div v-if="news" class="smaller">
-										<news-block :news="news" :data="current.$data"></news-block>
+										<news-block :news="news" :data="current.$data" :limit="4" :expandable="true"></news-block>
 									</div>
 								</p-loader>
 							</p-block>

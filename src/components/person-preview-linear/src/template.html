@@ -3,8 +3,18 @@
 	<div class="dimm smallest _cand-no"> {{ cand.PORCISLO || '?' }}.
 
 	</div>
-	<div class="_cand-img" v-if="current.$kandidati.find(x => x.$data.photo.length > 0)">
-		<p-image :src="con(cand.$data, 'photo')" width="3em" :rounded="true" :border="true"></p-image>
+	<div class="_cand-img" v-if="current.$kandidati.find(x => x.$data.photo.length > 0) && con(cand.$data, 'photo')">
+		<p-image :src="con(cand.$data, 'photo')" width="4em" :rounded="true" :border="true" :alt="cand.PRIJMENI"></p-image>
+		<img class="_party" loading="lazy" :src="logoByItem(nominee, data)" v-if="nominee.VSTRANA != current.VSTRANA" :alt="'Logo ' + nominee.ZKRATKA">
+		<template v-if="member && member.VSTRANA !== nominee.VSTRANA">
+			<img class="_party" loading="lazy" :src="logoByItem(member, data)" :alt="'Logo ' + member.ZKRATKA">
+		</template>		
+	</div>
+	<div class="_cand-img" v-if="!(current.$kandidati.find(x => x.$data.photo.length > 0) && con(cand.$data, 'photo'))">
+		<template v-if="member && member.VSTRANA !== nominee.VSTRANA">
+			<img class="_partyAlone" loading="lazy" :src="logoByItem(member, data)" :alt="'Logo ' + member.ZKRATKA">
+		</template>	
+		<img :class="member && member.VSTRANA !== nominee.VSTRANA ? '_party' : '_partyAlone'" loading="lazy" :src="logoByItem(nominee, data)" :alt="'Logo ' + nominee.ZKRATKA">	
 	</div>
 	<div class="_cand-flex">
 		<div>

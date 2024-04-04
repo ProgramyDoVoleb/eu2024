@@ -7,7 +7,7 @@
 					<p-loader :rule="elections" reserve="100vh">
 						<div v-if="elections">
 							<p-list class="invisible">
-								<template v-for="(party, index) in sortBy(elections.cis.strany.filter(x => x.POCET === 1), 'NAZEV', '', true)">
+								<template v-for="(party, index) in sortBy(elections.cis.strany.filter(x => x.POCET === 1 && x.VSTRANA !== 99), 'NAZEV', '', true)">
 									<div>
 										<p-area class="_container">
 											<div class="party-header">
