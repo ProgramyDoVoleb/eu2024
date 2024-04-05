@@ -71,11 +71,11 @@
 		<div class="smaller" v-if="cand.$data.about.length > 0">
 			<div class="p-gap" v-if="cand.PSTRANA || cand.NSTRANA != current.VSTRANA"></div>
 			<div class="serif">
-				<p-truncated :size="30" :content="cand.$data.about[0].value" :compact="'/kandidat/' + cand.id"></p-truncated>
+				<p-truncated :size="30" :content="cand.$data.about[0].value" :compact="'/kandidat/' + cand.id" :unbreak="true"></p-truncated>
 			</div>																	
 		</div>
-		<div class="smallest strong" v-if="cand.$profil.length > 0">
-			<p-link class="strong" :href="'https://programydovoleb.cz/lide/profil/' + cand.$profil[0].profil">Profil</p-link>
+		<div class="smallest" v-if="cand.$profil.length > 0">
+			<p-link class="dimm" :href="'https://programydovoleb.cz/lide/profil/' + cand.$profil[0].profil">Volební historie</p-link>
 		</div>
 	</div>
 </div>

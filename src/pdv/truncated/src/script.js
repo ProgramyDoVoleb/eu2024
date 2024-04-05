@@ -2,7 +2,7 @@ import {truncate} from '@/pdv/helpers';
 
 export default {
 	name: 'TruncatedText',
-	props: ['content', 'compact', 'size'],
+	props: ['content', 'compact', 'size', 'unbreak'],
 	data: function () {
 		return {
 			full: false,
@@ -12,15 +12,11 @@ export default {
 	},
 	computed: {
 		txt: function () {
-			if (this.hideable) {
-				if (this.full) {
-					return this.content;
-				} else {
-					return this.truncated;
-				}
-			} else {
-				return this.content;
-			}
+			var txt = (!this.hideable || this.full) ? this.content : this.truncated;
+
+			if (this.unbreak) txt = txt.split('<br>').join(' ');
+
+			return txt;
 		}
 	},
 	methods: {

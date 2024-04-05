@@ -8,10 +8,10 @@
 						<p-collapsible label="Filtr podle volebních stran">
 							<p-area background="var(--blue11)">
 								<div class="columns-4 smaller">
-									<div v-for="(party, index) in sortBy(elections.list[0].$strany, 'NAZEV', '', true)">
+									<div v-for="(party, index) in sortBy(elections.list[0].$strany, 'ZKRATKA', '', true)">
 										<p-label :color="selected.find(x => x === party.ESTRANA) ? 'var(--green)' : 'var(--greyish)'">
 											<button class="inline" @click.prevent="filterMe(party.ESTRANA)">
-												{{ party.NAZEV }}
+												{{ party.ZKRATKA }}
 											</button>
 										</p-label>
 									</div>
@@ -37,10 +37,10 @@
 						</div>
 						<p-line height="4"></p-line>
 						<div class="columns-4 smaller">
-							<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'NAZEV', '', true)">
+							<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ZKRATKA', '', true)">
 								<div v-if="selected.length === 0 || selected.find(x => x === party.ESTRANA)">
 									<p-label :color="colorByItem(party, elections)">
-										<router-link :to="'/strana/' + party.id">{{ party.NAZEV }}</router-link>
+										<router-link :to="'/strana/' + party.id">{{ party.ZKRATKA }}</router-link>
 									</p-label>
 								</div>
 							</template>
@@ -122,8 +122,8 @@
 					<strong class="smaller">Novinky</strong>
 					<div class="p-gap"></div>
 					<p-loader :rule="news">
-						<div v-if="news" class="smallest">
-							<news-block :news="news" :limit="4"></news-block>
+						<div v-if="news" class="small">
+							<news-block :news="news" :limit="1"></news-block>
 						</div>
 					</p-loader>
 				</div>

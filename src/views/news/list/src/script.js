@@ -1,6 +1,7 @@
 import {date, domain} from '@/pdv/helpers';
 import NewsItem from '@/components/news-item/do.vue'
 import NewsYear from '@/views/news/year/do.vue'
+import NewsBlock from '@/components/news-block/do.vue'
 import MailchimpSignup from '@/components/mailchimp/do.vue';
 import {useData} from '@/stores/data';
 import { useCore, cdn } from '@/stores/core';
@@ -54,18 +55,25 @@ export default {
 					hide: '–',
 					show: '+',
 				}
-			}
+			},
+			patterns: [
+				{pattern: '2024-04', title: 'Duben 2024'},
+				{pattern: '2024-03', title: 'Březen 2024'},
+				{pattern: '2024-02', title: 'Únor 2024'},
+				{pattern: '2024-01', title: 'Leden 2024'},
+				{pattern: '2023', title: '2023'}
+			]
 		}
 	},
 	components: {
-		NewsYear, MailchimpSignup, NewsItem
+		NewsYear, MailchimpSignup, NewsItem, NewsBlock
 	},
 	computed: {
 		$store: function () {
 			return useData()
 		},
 		news: function () {
-			return this.$store.getters.pdv('news/election/161')
+			return this.$store.getters.pdv('news/election-all/161')
 		}
 	},
   methods: {

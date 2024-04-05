@@ -58,8 +58,11 @@
 			<div v-if="cand.PSTRANA && cand.PSTRANA === 99">nestraník</div>
 			<div class="serif smaller" v-if="cand.$data.about[0]">
 				<div class="p-gap"></div>
-				<p-truncated :size="24" :content="cand.$data.about[0].value" :compact="'/kandidat/' + cand.id"></p-truncated>
+				<p-truncated :size="24" :content="cand.$data.about[0].value" :compact="'/kandidat/' + cand.id" :unbreak="true"></p-truncated>
 			</div>	
+			<div class="smallest" v-if="cand.$profil.length > 0">
+				<p-link class="is-span" :href="'https://programydovoleb.cz/lide/profil/' + cand.$profil[0].profil">Volební historie</p-link>
+			</div>
 			<!-- <div class="p-gap"></div>
 			<router-link class="btn" :to="'/kandidat/' + cand.id">Detail kandidáta</router-link> -->
 		</div>

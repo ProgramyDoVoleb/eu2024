@@ -14,11 +14,7 @@ export default {
 			var l = this.data ? this.data.value : null;
 
 			if (!l || l === "/static/missing.png") {
-				if (!!this.missing) {
-					return cdn + 'empty.png'; // https://data.programydovoleb.cz/obecne/strany/loga/missing.png
-				} else {
-					return cdn + 'missing.png';
-				}				
+				return cdn + 'missing.png';				
 			}
 
 			return l;

@@ -1,5 +1,9 @@
-._i + ._cni {
+._cni {
 	padding-top: .5em;
+
+	.-fancy & {
+		padding-top: 1.5em;
+	}
 }
 
 ._md {
@@ -14,4 +18,34 @@
 	._md {
 		display: block;
 	}
+}
+
+.-fancy ._date {
+	text-align: center;
+	font-size: 2rem;
+	// margin: 0 0 1em 0 !important;
+	display: inline-block;
+
+	.dark & {
+		color: #ddd;
+	}
+}
+
+.-fancy ._fancy {
+	padding: 1em 1.5em;
+	border-radius: 1em;
+	background: var(--white);
+	margin-bottom: 1em;
+
+	.dark & {
+		background: var(--blue11);
+	}
+}
+
+.-fancy > .p-list {
+	margin: 0;
+}
+
+.p-list-linear {
+	display: inline !important;
 }

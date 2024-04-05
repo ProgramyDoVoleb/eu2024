@@ -44,7 +44,7 @@
 				<p-area borderColor="var(--blue)">
 					<p-loader :rule="news" reserve="300px">
 						<div v-if="news" class="smaller">
-							<news-block :news="news" :limit="8"></news-block>
+							<news-block :news="news" :limit="4"></news-block>
 						</div>
 						<p-line></p-line>
 						<div class="smallest strong">
@@ -116,8 +116,8 @@
 					<strong class="smaller">Novinky</strong>
 					<div class="p-gap"></div>
 					<p-loader :rule="news" reserve="205px">
-						<div v-if="news" class="smallest">
-							<news-block :news="news" :limit="4"></news-block>
+						<div v-if="news" class="small">
+							<news-block :news="news" :limit="2"></news-block>
 						</div>
 					</p-loader>
 				</div>

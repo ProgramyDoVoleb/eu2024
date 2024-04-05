@@ -1,11 +1,14 @@
 <div class="news-block">
 	<p-list height="1.5">
-		<div v-for="(item, index) in consolidatedNews.filter((x, i) => i < _limit)">
-			<strong>{{ date(item.datum) }}</strong>
-			<div v-if="item.list.length > 0" class="_cni">
+		<div v-for="(item, index) in consolidatedNews.filter((x, i) => i < _limit)" class="_fancy">
+			<strong class="_date">{{ date(item.datum) }}</strong>
+			<div v-if="item.list.length > 0 || item.sys.length > 0" class="_cni">
 				<p-list height=".33" class="invisible">
 					<div v-for="(news, index) in item.list">
-						<p-link :href="news.source">{{ news.title }}</p-link>
+						<p-link :href="news.source" class="strong">{{ news.title }}</p-link>
+					</div>
+					<div v-for="(news, index) in item.sys">
+						<p-link :href="'https://programydovoleb.cz/novinky/' + news.id" class="strong black">{{ news.title }}</p-link>
 					</div>
 				</p-list>
 			</div>
@@ -62,8 +65,8 @@
 								<strong v-if="x.node.NAZEV"><router-link :to="'/strana/' + x.node.id">{{ x.node.NAZEV }}</router-link></strong>
 								<div class="smallest">
 									<p-list-linear>
-										<li v-for="(y, indexy) in x.data">
-											{{ enums.logtypes[y.type] }}
+										<li v-for="(y, indexy) in unique(x.data, 'type')">
+											{{ enums.logtypes[y] }}
 										</li>
 									</p-list-linear>
 								</div>

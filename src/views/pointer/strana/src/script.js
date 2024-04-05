@@ -264,7 +264,7 @@ export default {
 			var arr = [];
 
 			if (this.current) {
-				['web', 'link', 'wiki', 'social'].forEach(type => {
+				['web', 'social', 'link', 'wiki'].forEach(type => {
 					if (this.current.$data[type]) {
 						this.current.$data[type].forEach(x => {
 							if (!arr.find(y => y.value === x.value || domain(y.value) === domain(x.value))) arr.push(x);
@@ -273,7 +273,7 @@ export default {
 				});
 			}
 
-			arr.sort((a, b) => a.type.localeCompare(b.type, 'cs'));
+			// arr.sort((a, b) => a.type.localeCompare(b.type, 'cs'));
 
 			return arr;
 		},

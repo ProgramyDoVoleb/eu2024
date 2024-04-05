@@ -31,16 +31,6 @@
 												<p-box-button color="var(--blue)">Program</p-box-button>
 											</p-box>
 										</template>
-										<template v-if="current.$program.length === 0 && current.$data.program && current.$data.program.length === 1">
-											<p-box :href="current.$data.program[0].source">
-												<p-box-button color="var(--blue)">Program</p-box-button>
-											</p-box>
-										</template>
-										<template v-if="current.$program.length === 0 && current.$data.program && current.$data.program.length > 1">
-											<p-box :click="() => slide('programove-dokumenty')">
-												<p-box-button color="var(--blue)"><p-lang :value="current.$data.program.length" :end="['', '', '%% programy', '%% programů']"></p-lang></p-box-button>
-											</p-box>
-										</template>
 										<template v-if="current.$data.web && current.$data.web.length > 0">
 											<p-box :href="current.$data.web[0].value">
 												<p-box-button color="var(--blue)">Web</p-box-button>
@@ -352,18 +342,18 @@
 								</template>
 							</p-block-expandable>
 							<p-block headline="V médiích" v-if="current.$data.media">
-								<p-grid>
+								<p-columns>
 									<template v-for="(item, index) in current.$data.media">
-										<li v-if="index < 6">
+										<div v-if="index < 6">
 											<p-area :borderColor="colorByItem(current, data, current.VSTRANA ? 'VSTRANA' : 'NSTRANA')">
 												<p-link :href="item.source" class="smaller strong">{{ item.value }}</p-link>
 												<div class="p-gap _075"></div>
 												<div class="smallest dimm">{{ item.label || 'Článek' }} &middot; {{ domain(item.source) }}</div>
 												<div class="smallest dimm"> Přidáno {{ date(item.updated) }}</div>
 											</p-area>
-										</li>
+										</div>
 									</template>
-								</p-grid>
+								</p-columns>
 								<template v-if="current.$data.media.length > 6">
 									<div class="p-gap"></div>
 									<p-collapsible label="Starší záznamy" :status="current.$data.media.length - 6">
@@ -386,15 +376,15 @@
 								</template>
 							</p-block>
 							<p-block headline="Tiskové zprávy" v-if="current.$data.pr">
-								<p-grid>
-									<li v-for="(item, index) in current.$data.pr">
+								<p-columns>
+									<div v-for="(item, index) in current.$data.pr">
 										<p-area :borderColor="colorByItem(current, data, current.VSTRANA ? 'VSTRANA' : 'NSTRANA')">
 											<p-link :href="item.source" class="smaller strong">{{ item.value }}</p-link>
 											<div class="p-gap _075"></div>
-											<div class="smallest dimm">{{ item.label || 'Zpráva' }} &middot; Přidáno {{ date(item.updated) }}</div>
+											<div class="smallest dimm">Přidáno {{ date(item.updated) }}</div>
 										</p-area>
-									</li>
-								</p-grid>
+									</div>
+								</p-columns>
 							</p-block>
 							<p-block headline="Volební materiály" v-if="current.$data.graphics">
 								<p-grid class="p-grid---tiny">
@@ -469,7 +459,7 @@
 							</p-block>
 							<p-block headline="Novinky">
 								<p-loader :rule="news">
-									<div v-if="news" class="smaller">
+									<div v-if="news" class="">
 										<news-block :news="news" :data="current.$data" :limit="4" :expandable="true"></news-block>
 									</div>
 								</p-loader>
@@ -569,8 +559,8 @@
 					<strong>Novinky</strong>
 					<div class="p-gap"></div>
 					<p-loader :rule="news">
-						<div v-if="news" class="smallest">
-							<news-block :news="news" :limit="4" :data="current.$data"></news-block>
+						<div v-if="news" class="small">
+							<news-block :news="news" :limit="2" :data="current.$data"></news-block>
 						</div>
 					</p-loader>
 				</div>

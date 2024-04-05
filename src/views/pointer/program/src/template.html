@@ -149,17 +149,15 @@
 							<p-block :level="1" :headline="headline">
 								<p-grid>
 									<li>
-										<p-box-group>
-											<p-box :to="'/strana/' + current.$program[0].csu_id">
-												<p-box-button color="var(--blue)">Volební profil</p-box-button>
-											</p-box>
-										</p-box-group>
+										<p-area :borderColor="colorByItem(current, data)">
+											<router-link :to="'/strana/' + current.$program[0].csu_id" class="strong">Přejít na volební profil</router-link>
+										</p-area>
 									</li>
 								</p-grid>
 								<div class="p-gap _2"></div>
-								<p-block headline="Novinky" :hide="true">
+								<p-block headline="Novinky">
 									<p-loader :rule="news">
-										<div v-if="news" class="smaller">
+										<div v-if="news" class="">
 											<news-block :news="news" :limit="4" :data="current.$data"></news-block>
 										</div>
 									</p-loader>
@@ -252,7 +250,7 @@
 					<strong>Novinky</strong>
 					<div class="p-gap"></div>
 					<p-loader :rule="news">
-						<div v-if="news" class="smallest">
+						<div v-if="news" class="small">
 							<news-block :news="news" :limit="4" :data="current.$data"></news-block>
 						</div>
 					</p-loader>
