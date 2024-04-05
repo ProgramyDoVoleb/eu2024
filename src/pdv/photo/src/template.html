@@ -1,0 +1,39 @@
+<div class="p-photo">
+    <img loading="lazy" :src="_src" :alt="alt" class="_img">
+    <p-modal class="smallest" v-if="data">
+        <template #init> <span class="dimm">licence</span> </template>
+        <template #content>
+            <strong>{{ alt }}</strong>
+            <div class="p-gap"></div>
+            <p-grid>
+                <div>
+                    <img loading="lazy" :src="_src" :alt="alt" class="_img _full">
+                </div>
+                <div>
+                    <p-list>
+                        <li>
+                            <p-stats label="Popis">{{ _licence && _licence[0] || 'fotografie' }}</p-stats>
+                        </li>
+                        <li v-if="_licence && _licence[1]">
+                            <p-stats label="Autor">{{ _licence[1] }}</p-stats>
+                        </li>
+                        <li v-if="_licence && _licence[2]">
+                            <p-stats label="Licence">{{ _licence[2] }}</p-stats>
+                        </li>
+                        <li>
+                            <p-stats label="Vloženo">{{ date(data.updated) }}</p-stats>
+                        </li>
+                        <li>
+                            <p-stats label="Vložil">{{ data.author === 1 ? 'správce Programů' : 'strana nebo kandidát pomocí Adminu' }}</p-stats>
+                        </li>
+                        <li v-if="data.source">
+                            <p-stats label="Zdroj"><p-link :href="data.source">{{ domain(data.source) }}</p-link></p-stats>
+                        </li>
+                    </p-list>
+                </div>
+            </p-grid>
+        </template>
+    </p-modal>
+</div>
+
+

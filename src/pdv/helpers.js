@@ -67,8 +67,8 @@ export function firstOfUnique (list, key) {
   return arr;
 }
 
-export function con(item, key, def, index) {
-  return item[key] && item[key][index || 0] ? item[key][index || 0].value : (def || null)
+export function con(item, key, def, index, whole) {
+  return item[key] && item[key][index || 0] ? (whole ? item[key][index || 0] : item[key][index || 0].value) : (def || null)
 }
 
 export function clear(value, fallback) {

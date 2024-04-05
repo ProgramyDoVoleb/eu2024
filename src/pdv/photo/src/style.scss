@@ -1,0 +1,20 @@
+.p-photo {
+  display: inline-block;
+}
+
+._img {
+  display: block;
+  border: 1px solid rgba(0, 0, 0, .05);
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
+}
+
+._full {
+  max-width: 12em;
+}
+
+.dark img[src*="missing.png"],
+.dark img[src*="empty.png"] {
+  opacity: .03;
+}

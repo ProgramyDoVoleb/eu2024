@@ -25,11 +25,8 @@
 
 	._person, 
 	._partyAlone {
-		width: 2.75em;
 		display: block;
 		border-radius: .5em;
-		border: var(--border);
-		// background: #fff;
 	}
 
 	._party {
@@ -39,17 +36,24 @@
 		aspect-ratio: 1;
 		top: -.5em;
 		left: -.5em;
-		// background: #fff;
-		border: var(--border);
 
 		+ ._party {
 			top: .5em;
 		}
 	}
 
+	._person {
+		width: 4em;
+	}
+
+	._partyAlone {
+		width: 2.75em;
+	}
+
 	._party,
 	._partyAlone {
 		background: #fff;
+		border: var(--border);
 	}
 }
 

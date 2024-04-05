@@ -12,7 +12,6 @@
 		width: 4em;
 		display: block;
 		border-radius: .5em;
-		border: var(--border);
 		// background: #fff;
 	}
 
@@ -24,7 +23,6 @@
 		top: -.5em;
 		left: -.5em;
 		// background: #fff;
-		border: var(--border);
 
 		+ ._party {
 			top: .5em;
@@ -34,6 +32,7 @@
 	._party,
 	._partyAlone {
 		background: #fff;
+		border: var(--border);
 	}
 	
 	@container (min-width: 320px) {

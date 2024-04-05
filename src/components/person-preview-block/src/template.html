@@ -1,7 +1,7 @@
 <p-area class="person-preview-block">
 	<p-offset>
 		<div class="_photo" v-if="current.$kandidati.find(x => x.$data.photo.length > 0)">
-			<img class="_person" loading="lazy" :src="con(cand.$data, 'photo') || missing" :alt="cand.PRIJMENI">
+			<p-photo class="_person" :data="con(cand.$data, 'photo', null, null, true)" :alt="cand.JMENO + ' ' + cand.PRIJMENI"></p-photo>
 			<img class="_party" loading="lazy" :src="logoByItem(nominee, data)" v-if="nominee.VSTRANA != current.VSTRANA" :alt="'Logo ' + nominee.ZKRATKA">
 			<template v-if="member && member.VSTRANA !== nominee.VSTRANA">
 				<img class="_party" loading="lazy" :src="logoByItem(member, data)" :alt="'Logo ' + member.ZKRATKA">
