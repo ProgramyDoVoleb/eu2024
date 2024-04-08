@@ -140,3 +140,20 @@
 	line-height: 1.2;
 	margin-bottom: -.1em;
 }
+
+._p0 {
+	padding: 0;
+	margin: 0;
+
+	.p-headline + .truncated-text {
+		margin-top: -.5em !important;
+	}
+
+	.p-headline:last-child {
+		margin-bottom: -.5em !important;
+	}
+}
+
+._cw a {
+	color: #fff !important;
+}

@@ -125,16 +125,6 @@
 							</p-block>
 							<p-block headline="Představení" v-if="!current.$data.length && (current.$data.about || current.$data.motto || current.$data.values)" :hide="true">
 								<p-list height="1" class="invisible">
-									<div v-if="current.$data.about">
-										<div class="serif">
-											<p-truncated :size="40" :content="(current.$data.about.find(x => x.type === 'about').value || '').split('\n').join('<br>')"></p-truncated>
-										</div>	
-										<div class="smallest dimm">
-											<p-line></p-line>
-											Vloženo {{ date(current.$data.about.find(x => x.type === 'about').updated) }}
-											<span v-if="current.$data.about.find(x => x.type === 'about').source"> &middot; zdroj <p-link :href="current.$data.about.find(x => x.type === 'about').source" class="dimm">{{ domain(current.$data.about.find(x => x.type === 'about').source) }}</p-link></span>
-										</div>									
-									</div>
 									<template v-if="current.$data.motto">
 										<div>
 											<template v-for="(item, index) in current.$data.motto">
@@ -142,6 +132,16 @@
 											</template>
 										</div>
 									</template>
+									<div v-if="current.$data.about">
+										<div class="serif">
+											<p-truncated :size="60" :content="(current.$data.about.find(x => x.type === 'about').value || '').split('\n').join('<br>')"></p-truncated>
+										</div>	
+										<div class="smallest dimm">
+											<p-line></p-line>
+											Vloženo {{ date(current.$data.about.find(x => x.type === 'about').updated) }}
+											<span v-if="current.$data.about.find(x => x.type === 'about').source"> &middot; zdroj <p-link :href="current.$data.about.find(x => x.type === 'about').source" class="dimm">{{ domain(current.$data.about.find(x => x.type === 'about').source) }}</p-link></span>
+										</div>									
+									</div>
 									<template v-if="current.$data.values">
 										<div class="serif">
 											<p-grid class="tight">
@@ -166,7 +166,7 @@
 							<p-block headline="Profil" v-if="current.$profil.length" :hide="true">
 								<profile-preview :id="current.$profil[0].profil"></profile-preview>
 							</p-block>	
-							<p-block headline="Program podrobněji" :hide="true">
+							<p-block headline="Volební program" :hide="true">
 								<p-grid>
 									<li v-if="current.$program.length > 0">
 										<p-area icon="icon-party">
@@ -186,35 +186,6 @@
 											<div class="dimm smallest"><p-lang :value="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length" :end="['žádná odpověď', 'jedna odpověď', '%% odpovědi', '%% odpovědí']"></p-lang></div>
 										</p-area>
 									</li>
-								</p-grid>
-							</p-block>
-							<p-block headline="Volební priority" v-if="current.$priority.length > 0">
-									<!-- <p-list height="1"> -->
-										<div class="serif">
-
-											<template v-for="(priority, indexP) in current.$priority">
-												<component :is="priority.content && current.$priority.length === 1 ? 'div' : 'p-collapsible'" :label="(priority.headline || truncate(priority.content, 90, true))" :empty="!priority.content || (!priority.headline && priority.content === truncate(priority.content, 90, true))" :open="priority.content && (current.$priority.length === 1)">
-													<!-- <div class="serif"> -->
-													
-													<template v-if="priority.content && priority.content.charAt(0) != '['">
-														<!-- <div class="serif"> -->
-															<p-truncated :content="priority.content.split('\n').join('<br>')" :size="40"></p-truncated>
-														<!-- </div> -->
-														<div class="p-gap _2"></div>
-													</template>
-													<template v-if="priority.content && priority.content.charAt(0) === '['">
-														<!-- <template v-for="(part, index) in JSON.parse(priority.content)"> -->
-															<program-block :parts="{parts: JSON.parse(priority.content)}" :hash="url(priority.headline)" :headline="priority.headline" :color="colorByItem(current, data)"></program-block>
-														<!-- </template>														 -->
-													</template>
-													<!-- </div> -->
-												</component>
-											</template>
-										</div>
-									<!-- </p-list> -->
-							</p-block>
-							<p-block headline="Programové dokumenty" v-if="current.$data.program">
-								<p-grid>
 									<li v-for="(item, index) in current.$data.program">
 										<p-area icon="link">
 											<p-link :href="item.source" class="strong">{{ item.value }}</p-link>
@@ -227,6 +198,23 @@
 										</p-area>
 									</li>
 								</p-grid>
+							</p-block>
+							<p-block headline="Volební priority" v-if="current.$priority.length > 0">
+										<p-list class="_p0 invisible">
+											<div v-for="(priority, indexP) in current.$priority">
+												<p-area :borderColor="colorByItem(current, data)" padding="1em 0 1em 1.5em">
+													<strong v-if="priority.headline">{{ priority.headline }}</strong>
+													<template v-if="priority.content && priority.content.charAt(0) != '['">
+															<p-truncated class="serif" :content="priority.content.split('\n').join('<br>')" :size="40"></p-truncated>
+													</template>
+													<template v-if="priority.content && priority.content.charAt(0) === '['">
+															<program-block class="serif" :parts="{parts: JSON.parse(priority.content)}" :hash="url(priority.headline)" :headline="priority.headline" :color="colorByItem(current, data)"></program-block>
+													</template>
+												</p-area>
+											</div>
+										</p-list>
+
+									<!-- </p-list> -->
 							</p-block>
 							<p-block headline="Kandidáti" v-if="current.$kandidati" :hide="true">
 									<p-offset class="reverse balanced">
@@ -415,31 +403,28 @@
 								<p-grid>
 									<li v-for="(item, index) in current.$data.gallery">
 										<p-area>
-											<p-offset>
-												<div>
-													<img class="_ar _of" :style="item.value">
-												</div>
-												<div>
-													<p-modal>
-														<template #init>
-															<div class="smaller">{{ item.label }}</div>
-														</template>
-														<template #content>
-															<p-image width="100%" :src="item.value"></p-image>
-															<p-line></p-line>
-															<div class="smallest dimm">{{ item.label }} &middot; Přidáno {{ date(item.updated) }} &middot; <p-link :href="item.source">Zdroj</p-link></div>
-														</template>
-													</p-modal>
-													<div class="smallest dimm">{{ date(item.updated) }}</div>
-												</div>
-											</p-offset>
+											<img class="_ar _of" :src="item.value">
+
+											<div class="p-gap"></div>
+
+											<p-modal>
+												<template #init>
+													<div class="smaller">{{ item.label }}</div>
+												</template>
+												<template #content>
+													<p-image width="100%" :src="item.value"></p-image>
+													<p-line></p-line>
+													<div class="smallest dimm">{{ item.label }} &middot; Přidáno {{ date(item.updated) }} &middot; <p-link :href="item.source">Zdroj</p-link></div>
+												</template>
+											</p-modal>
+											<div class="smallest dimm">{{ date(item.updated) }}</div>
 										</p-area>
 									</li>
 								</p-grid>
 							</p-block>
-							<p-block headline="Události" v-if="current.$data.event && current.$data.event.length > 0" :editable="true">
+							<p-block headline="Události" v-if="current.$data.event && current.$data.event.length > 0 && current.$data.event.find(x => JSON.parse(x.label)[0] >= today)">
 								<p-list height="1.5">
-									<div v-for="(item, index) in sortEvents(current.$data.event)">
+									<div v-for="(item, index) in sortEvents(current.$data.event.filter(x => JSON.parse(x.label)[0] >= today))">
 										<event-item :item="item" :party="current" :data="data" :noTag="true"></event-item>
 									</div>
 								</p-list>

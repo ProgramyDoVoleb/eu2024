@@ -14,7 +14,8 @@ export default {
 		txt: function () {
 			var txt = (!this.hideable || this.full) ? this.content : this.truncated;
 
-			if (this.unbreak) txt = txt.split('<br>').join(' ');
+			if (this.hideable && !this.full) txt = this.removeBreaks(txt); 
+			if (this.unbreak) txt = this.removeBreaks(txt);
 
 			return txt;
 		}
@@ -33,6 +34,9 @@ export default {
 			} else {
 				this.full = true;
 			}
+		},
+		removeBreaks: function (txt) {
+			return txt.split('<br>').join(' ');
 		}
 	},
 	mounted: function () {

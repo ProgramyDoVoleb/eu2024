@@ -7,7 +7,9 @@ img {
   background: #fff;
 
   .dark & {
-    border-color: #000 !important;
+    // border-color: #000 !important;
+    filter: invert(1);
+    background: none;
   }
 }
 

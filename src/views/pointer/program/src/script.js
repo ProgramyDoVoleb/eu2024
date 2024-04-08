@@ -314,7 +314,9 @@ export default {
 			return list;
 		},
 		anchorTo: function (hash) {
-			this.$el.querySelector("[name=" + hash + "]").scrollIntoView({behavior: "smooth", block: "center"});
+			var element = this.$el.querySelector("[name=" + hash + "]");
+			var y = element.getBoundingClientRect().top - 100;
+			window.scrollTo({behavior: "smooth", top: y});
 		}
   },
   mounted: function () {

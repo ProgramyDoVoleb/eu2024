@@ -269,8 +269,11 @@ button.inline {
 
 @keyframes focus {
 	0% {background: var(--blue11);}
-	50% {background: var(--blue44);}
-	100% {background: var(--blue11);}
+	20% {background: var(--blue44);}
+	40% {background: var(--blue11);}
+	60% {background: var(--blue44);}
+	// 80% {background: var(--blue11);}
+	100% {background: #2395ff00;}
 }
 
 a:focus, button:focus, .btn:focus {
@@ -287,7 +290,7 @@ a:focus, button:focus, .btn:focus {
 		bottom: -.5em;
 		background: var(--blue11);
 		z-index: 2;
-		animation: focus 2s 5 !important;
+		animation: focus 2s 1 forwards !important;
 		border-radius: .5em;
 	}
 }

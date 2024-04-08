@@ -24,7 +24,7 @@
                             <p-stats label="Vloženo">{{ date(data.updated) }}</p-stats>
                         </li>
                         <li>
-                            <p-stats label="Vložil">{{ data.author === 1 ? 'správce Programů' : 'strana nebo kandidát pomocí Adminu' }}</p-stats>
+                            <p-stats label="Vložil">{{ data.author === 1 ? 'admin' : 'strana nebo kandidát pomocí Adminu' }}</p-stats>
                         </li>
                         <li v-if="data.source">
                             <p-stats label="Zdroj"><p-link :href="data.source">{{ domain(data.source) }}</p-link></p-stats>
