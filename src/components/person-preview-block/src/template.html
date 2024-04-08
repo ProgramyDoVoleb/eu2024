@@ -3,15 +3,15 @@
 		<div class="_photo" v-if="current.$kandidati.find(x => x.$data.photo.length > 0)">
 			<p-photo class="_person" :data="con(cand.$data, 'photo', null, null, true)" :alt="cand.JMENO + ' ' + cand.PRIJMENI"></p-photo>
 			<img class="_party" loading="lazy" :src="logoByItem(nominee, data)" v-if="nominee.VSTRANA != current.VSTRANA" :alt="'Logo ' + nominee.ZKRATKA">
-			<template v-if="member && member.VSTRANA !== nominee.VSTRANA">
+			<template v-if="member && member.VSTRANA !== nominee.VSTRANA && member.VSTRANA != 99">
 				<img class="_party" loading="lazy" :src="logoByItem(member, data)" :alt="'Logo ' + member.ZKRATKA">
 			</template>	
 		</div>
 		<div class="_photo" v-if="!current.$kandidati.find(x => x.$data.photo.length > 0)">
-			<template v-if="member && member.VSTRANA !== nominee.VSTRANA">
+			<template v-if="member && member.VSTRANA !== nominee.VSTRANA && member.VSTRANA != 99">
 				<img class="_partyAlone" loading="lazy" :src="logoByItem(member, data)" :alt="'Logo ' + member.ZKRATKA">
 			</template>	
-			<img :class="member && member.VSTRANA !== nominee.VSTRANA ? '_party' : '_partyAlone'" loading="lazy" :src="logoByItem(nominee, data)">	
+			<img :class="member && member.VSTRANA !== nominee.VSTRANA && member.VSTRANA != 99 ? '_party' : '_partyAlone'" loading="lazy" :src="logoByItem(nominee, data)">	
 		</div>
 		<div class="_content">
 			<router-link class="strong" :to="'/kandidat/' + cand.id">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link>
