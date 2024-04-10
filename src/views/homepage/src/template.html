@@ -217,17 +217,28 @@
 				<p-loader :rule="news && elections">
 					<div v-if="news && elections">
 						<p-list height="1.5">
+							<div class="smallest strong">Nejbližší debaty</div>
 							<template v-for="(item, index) in sortEvents(news.events.filter(x => !x.csu_id))">
-								<div v-if="JSON.parse(item.label)[0] >= today">
+								<div v-if="JSON.parse(item.label)[0] >= today && index < 3">
 									<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
 								</div>
 							</template>
-							<div class="smallest strong">Strany a koalice</div>
+							<div class="smallest strong">Nejbližší akce stran a koalic</div>
 							<template v-for="(item, index) in firstOfUnique(sortEvents(news.events.filter(x => x.csu_id && JSON.parse(x.label)[0] >= today)), 'csu_id')">
-								<div v-if="index < 2 || JSON.parse(item.label)[0] === today">
+								<div v-if="index < 3 || JSON.parse(item.label)[0] === today">
 									<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
 								</div>
 							</template>
+							<div class="smallest strong">
+								Všechny události, budoucí i již proběhlé, <router-link to="/udalosti">najdete zde</router-link>. Chcete nějakou přidat, stačí 
+								<p-modal class="inline">
+									<template #init><span class="green">kliknout zde</span></template>
+									<template #content>
+										<strong>Přidat událost</strong>
+										<report-form part="Přidat událost"></report-form>
+									</template>
+								</p-modal>
+							</div>
 						</p-list>
 					</div>
 				</p-loader>
