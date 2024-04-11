@@ -424,8 +424,19 @@
 							</p-block>
 							<p-block headline="Události" v-if="current.$data.event && current.$data.event.length > 0 && current.$data.event.find(x => JSON.parse(x.label)[0] >= today)">
 								<p-list height="1.5">
-									<div v-for="(item, index) in sortEvents(current.$data.event.filter(x => JSON.parse(x.label)[0] >= today))">
+									<div v-for="(item, index) in sortEvents(current.$data.event.filter(x => JSON.parse(x.label)[0] >= today)).filter((x, i) => i < (eventsOff ? 1000000 : eventsLimit))">
 										<event-item :item="item" :party="current" :data="data" :noTag="true"></event-item>
+									</div>
+									<div>
+										<button @click="eventsOff = !eventsOff">{{ eventsOff ? 'Zobrazit méně' : 'Zobrazit vše' }}</button> 
+										<p-modal class="inline">
+											<template #init><button>Přidat další</button></template>
+											<template #content>
+												<strong>Víte o další události, která by neměla chybět? Stačí poslat odkaz.</strong>
+												<div class="p-gap"></div>
+												<report-form part="Událost"></report-form>
+											</template>
+										</p-modal>
 									</div>
 								</p-list>
 							</p-block>
@@ -443,11 +454,13 @@
 								</p-list>
 							</p-block>
 							<p-block headline="Novinky">
-								<p-loader :rule="news">
-									<div v-if="news" class="">
-										<news-block :news="news" :data="current.$data" :limit="4" :expandable="true"></news-block>
-									</div>
-								</p-loader>
+								<p-area background="var(--greyish)">
+									<p-loader :rule="news">
+										<div v-if="news" class="">
+											<news-block :news="news" :data="current.$data" :limit="2" :expandable="true"></news-block>
+										</div>
+									</p-loader>
+								</p-area>
 							</p-block>
 							<candidate-stats v-if="$volby.status > 1 && current.$kandidati && current.$kandidati.length > 1" :data="current.$kandidati" :slozeni="String(data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).SLOZENI)" :cis="data.cis" :color="colorByItem(current, data, current.VSTRANA ? 'VSTRANA' : 'NSTRANA')" :status="$volby.status"></candidate-stats>
 							<p-block headline="Koalice" v-if="current.VSTRANA && data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition">

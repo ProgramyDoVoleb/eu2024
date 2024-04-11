@@ -1,5 +1,5 @@
 import {useData} from '@/stores/data';
-import { useCore, cdn } from '@/stores/core';
+import { useCore, cdn, today } from '@/stores/core';
 import { useRoute } from 'vue-router';
 import { regions } from '@/stores/enums';
 import elections from '@/stores/enums/elections';
@@ -13,6 +13,7 @@ import ElectionResults from '@/views/volby/detail/do.vue';
 import ProgramBlock from '@/components/program-block-dynamic/do.vue';
 import ProfilePreview from '@/components/profile-preview/do.vue';
 import ReportModal from '@/components/report-modal/do.vue';
+import ReportForm from '@/components/report-form/do.vue';
 import LogItem from '@/components/log-item/do.vue';
 import PartyQuicklook from '@/components/party-quicklook/do.vue';
 import CandidateStats from '@/components/candidate-stats/do.vue';
@@ -25,6 +26,7 @@ export default {
 	props: ['page', 'tableID'],
 	data: function () {
 		return {
+			today,
 			cdn,
 			limit: 4,
 			limitOff: false,
@@ -32,7 +34,9 @@ export default {
 			questionLimitOff: false,
 			volbyType: 'evropske-volby',
 			volbyID: 161,
-			tableName: 'csu_ep_rkl'
+			tableName: 'csu_ep_rkl',
+			eventsLimit: 3,
+			eventsOff: false
 		}
 	},
   components: {
@@ -40,7 +44,7 @@ export default {
 	ElectionResults,
 	ProgramBlock,
 	ProfilePreview,
-	ReportModal,
+	ReportModal, ReportForm,
 	LogItem,
 	PartyQuicklook,
 	CandidateStats,
