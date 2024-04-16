@@ -37,48 +37,6 @@
 								</div>
 							</div>
 							<div class="p-gap _floar-clear"></div>
-							<p-block-expandable headline="Volební priority" v-if="current.$priority.length > 0">
-									<!-- <p-list height="1"> -->
-										<!-- <p-area background="transparent" padding="0 0 0 .66em" class="serif"> -->
-										<p-area>
-											<p-list>
-												<template v-for="(priority, indexP) in current.$priority">
-													<div>
-														<!-- <div class="serif"> -->
-														<template v-if="priority.headline">
-															<div class="serif strong" v-html="priority.headline"></div>
-														</template>
-														<template v-if="priority.content && priority.content.charAt(0) != '['">
-															<div class="serif" v-html="priority.content.split('\n').join('<br>')"></div>
-															<div class="p-gap _2 _nlc"></div>
-														</template>
-														<template v-if="priority.content && priority.content.charAt(0) === '['">
-															<!-- <template v-for="(part, index) in JSON.parse(priority.content)"> -->
-																<program-block :parts="{parts: JSON.parse(priority.content)}" :hash="url(priority.headline)" :headline="priority.headline" :color="colorByItem(current, data)"></program-block>
-															<!-- </template>														 -->
-														</template>
-														<!-- </div> -->
-													</div>
-												</template>
-											</p-list>
-										</p-area>
-										<!-- </p-area> -->
-									<!-- </p-list> -->
-							</p-block-expandable>
-							<p-block-expandable headline="Rejstřík" v-if="current.$program.length > 0">
-								<!-- <p-area> -->
-									<div class="columns smaller" v-if="current.$program[0].type != 5">
-										<div v-for="(part, index) in JSON.parse(current.$program[0].content)">
-											<a @click.prevent="anchorTo('--' + url(truncate((current.$program[0].type === 2 ? part.name : part.headline), 16, true)))" :href="'#--' + url(truncate((current.$program[0].type === 2 ? part.name : part.headline), 16, true))">{{ (current.$program[0].type === 2 ? part.name : part.headline) }}</a>
-										</div>
-									</div>
-									<div class="columns smaller" v-if="current.$program[0].type === 5">
-										<div v-for="(part, index) in fullType5">
-											<a @click.prevent="anchorTo('--' + url(truncate((current.$program[0].type === 2 ? part.name : part.headline), 16, true)))" :href="'#--' + url(truncate((current.$program[0].type === 2 ? part.name : part.headline), 16, true))">{{ (current.$program[0].type === 2 ? part.name : part.headline) }}</a>
-										</div>
-									</div>
-								<!-- </p-area> -->
-							</p-block-expandable>
 							<p-block headline="Plné znění" v-if="current.$program.length > 0" :open="!current.$program[0].content" :hide="true">
 								<p-area :borderColor="colorByItem(current, data)">
 									<h2 class="_m0">{{ current.$program[0].headline || 'Plné znění' }}</h2>
@@ -92,6 +50,21 @@
 											<p-box-button class="dimm">Záloha</p-box-button>
 										</p-box>
 									</p-box-group>
+									<div class="p-gap"></div>
+									<p-collapsible label="Rejstřík" v-if="current.$program.length > 0">
+										<!-- <p-area> -->
+											<div class="columns smaller" v-if="current.$program[0].type != 5">
+												<div v-for="(part, index) in JSON.parse(current.$program[0].content)">
+													<a @click.prevent="anchorTo('--' + url(truncate((current.$program[0].type === 2 ? part.name : part.headline), 16, true)))" :href="'#--' + url(truncate((current.$program[0].type === 2 ? part.name : part.headline), 16, true))">{{ (current.$program[0].type === 2 ? part.name : part.headline) }}</a>
+												</div>
+											</div>
+											<div class="columns smaller" v-if="current.$program[0].type === 5">
+												<div v-for="(part, index) in fullType5">
+													<a @click.prevent="anchorTo('--' + url(truncate((current.$program[0].type === 2 ? part.name : part.headline), 16, true)))" :href="'#--' + url(truncate((current.$program[0].type === 2 ? part.name : part.headline), 16, true))">{{ (current.$program[0].type === 2 ? part.name : part.headline) }}</a>
+												</div>
+											</div>
+										<!-- </p-area> -->
+									</p-collapsible>
 								</p-area>
 								<div class="p-gap _3"></div>
 								<template v-if="current.$program[0].content && current.$program[0].type === 5">
@@ -118,12 +91,14 @@
 							<p-block headline="Vybraná témata a otázky k volebnímu programu" anchor="Vybraná témata" :level="1" v-if="current.$otazky.find(x => x.type === 2)">
 								
 									<template v-for="(question, index) in current.$otazky.filter(x => x.type === 2)">
-										<p-collapsible :label="question.question" class="smaller">
+										<p-collapsible :label="question.question" class="">
 											<p-list class="invisible" height=".5">
 												<template v-for="(answer, indexA) in current.$odpovedi.filter(x => x.question === question.id)">
-													<div v-html="answer.answer" class="normal serif"></div>
+													<div v-html="answer.answer" class="serif"></div>
 												</template>
 											</p-list>
+											<p-gap></p-gap>
+											<router-link :to="'/tema/' + question.id" class="btn">Porovnat s ostatními</router-link>
 										</p-collapsible>
 									</template>
 								
@@ -131,55 +106,85 @@
 							<div class="smallest dimm">Volební program je zveřejněn jako čistá kopie textu, bez úprav, pokud to jeho forma dovoluje. A je platný ke dni {{ date(current.$program[0].updated, 3) }}. Pro pohled na formátování, doprovodné fotky, grafy, apod si prosím otevřete originál nebo v případě, že již není dostupný, jeho zálohu. Pokud je dostupná novější verze, prosím dejte vědět na opravte@programydovoleb.cz</div>
 							<p-line></p-line>
 							<div class="p-gap _3"></div>
-							<p-block headline="Programové dokumenty" v-if="current.$data.program" :level="1">
-								<p-grid>
-									<li v-for="(item, index) in current.$data.program">
-										<p-area icon="link">
-											<p-link :href="item.source" class="strong">{{ item.value }}</p-link>
-											<div class="smallest dimm">
-												{{ date(item.updated) }}
-												<span v-if="item.label">
-													&middot; <p-link :href="item.label" class="dimm">Záloha</p-link>
-												</span>
-											</div>
-										</p-area>
-									</li>
-								</p-grid>
-							</p-block>
-							<p-block :level="1" :headline="headline">
+							<p-block :level="1" :headline="headline" :hide="true">
 								<p-grid>
 									<li>
-										<p-area :borderColor="colorByItem(current, data)">
-											<router-link :to="'/strana/' + current.$program[0].csu_id" class="strong">Přejít na volební profil</router-link>
+										<p-area :borderColor="colorByItem(current, data)" padding=".75em 1.5em">
+											<router-link :to="'/strana/' + current.$program[0].csu_id" class="strong">{{ headline }}</router-link>
+											<div class="smallest dimm">Přejít na volební profil</div>
 										</p-area>
 									</li>
 								</p-grid>
 								<div class="p-gap _2"></div>
-								<p-block headline="Novinky">
+								<p-block-expandable headline="Volební priority" v-if="current.$priority.length > 0">
+										<!-- <p-list height="1"> -->
+											<!-- <p-area background="transparent" padding="0 0 0 .66em" class="serif"> -->
+											<p-area>
+												<p-list>
+													<template v-for="(priority, indexP) in current.$priority">
+														<div>
+															<!-- <div class="serif"> -->
+															<template v-if="priority.headline">
+																<div class="serif strong" v-html="priority.headline"></div>
+															</template>
+															<template v-if="priority.content && priority.content.charAt(0) != '['">
+																<div class="serif" v-html="priority.content.split('\n').join('<br>')"></div>
+																<div class="p-gap _2 _nlc"></div>
+															</template>
+															<template v-if="priority.content && priority.content.charAt(0) === '['">
+																<!-- <template v-for="(part, index) in JSON.parse(priority.content)"> -->
+																	<program-block :parts="{parts: JSON.parse(priority.content)}" :hash="url(priority.headline)" :headline="priority.headline" :color="colorByItem(current, data)"></program-block>
+																<!-- </template>														 -->
+															</template>
+															<!-- </div> -->
+														</div>
+													</template>
+												</p-list>
+											</p-area>
+											<!-- </p-area> -->
+										<!-- </p-list> -->
+								</p-block-expandable>
+								<p-block-expandable headline="Programové dokumenty" v-if="current.$data.program">
+									<p-grid>
+										<li v-for="(item, index) in current.$data.program">
+											<p-area icon="link">
+												<p-link :href="item.source" class="strong">{{ item.value }}</p-link>
+												<div class="smallest dimm">
+													{{ date(item.updated) }}
+													<span v-if="item.label">
+														&middot; <p-link :href="item.label" class="dimm">Záloha</p-link>
+													</span>
+												</div>
+											</p-area>
+										</li>
+									</p-grid>
+								</p-block-expandable>
+								<p-block-expandable headline="Novinky">
 									<p-loader :rule="news">
 										<div v-if="news" class="">
 											<news-block :news="news" :limit="4" :data="current.$data"></news-block>
 										</div>
 									</p-loader>
-								</p-block>
-								<p-block headline="Koalice" v-if="current.VSTRANA && data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition">
+								</p-block-expandable>
+								<p-block-expandable headline="Koalice" v-if="current.VSTRANA && data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition">
 									<div class="columns _c">
 										<div v-for="(member, index) in data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition">
 											<party-quicklook :VSTRANA="member.VSTRANA" :datum="$volby.datum" :region="current.KRZAST"></party-quicklook>
 										</div>
 									</div>
-								</p-block>
-								<p-block headline="Strana" v-if="current.VSTRANA && !data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition">
+								</p-block-expandable>
+								<p-block-expandable headline="Strana" v-if="current.VSTRANA && !data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition">
 									<party-quicklook :VSTRANA="current.VSTRANA" :datum="$volby.datum" :region="current.KRZAST"></party-quicklook>
-								</p-block>
-								<p-block headline="Výsledky" v-if="$volby.status === 3">
+								</p-block-expandable>
+								<p-block-expandable headline="Výsledky" v-if="$volby.status === 3">
 									<election-results :type="$volby.$about" :id="$volby.id" :election="$volby" :spec="specs" :label="label"></election-results>
-								</p-block>
+								</p-block-expandable>
 							</p-block>
 						</div>
 					</div>
 				</p-loader>
-				<p-block headline="Data">
+				<div class="p-gap _2"></div>
+				<p-block headline="Data" :hide="true">
 					<p-grid>
 						<li>
 							<p-area icon="warning" background="var(--greyish)">
@@ -230,8 +235,7 @@
 						</li>
 					</p-grid>
 				</p-block>
-			</p-block>
-			
+			</p-block>			
 		</template>
 		<template #anchors>		
 			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" v-if="!data" alt="Evropské volby 2024"></p-logo>

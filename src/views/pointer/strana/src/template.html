@@ -36,11 +36,11 @@
 												<p-box-button color="var(--blue)">Web</p-box-button>
 											</p-box>
 										</template>
-										<template v-if="current.$odpovedi.length > 0">
+										<!-- <template v-if="current.$odpovedi.length > 0">
 											<p-box :to="'/strana/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'">
 												<p-box-button icon="answers-mini.svg">{{ current.$odpovedi.length }}</p-box-button>
 											</p-box>
-										</template>
+										</template> -->
 										<template v-if="typeof current.MANDAT === 'undefined'">
 											<template v-if="null === current.ESTRANA || current.ESTRANA < 0">
 												<p-box>
@@ -177,7 +177,7 @@
 									<li v-if="current.$otazky.find(x => x.type === 2)">
 										<p-area icon="detail">
 											<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#vybrana-temata'" class="strong">Vybraná témata</router-link>
-											<div class="dimm smallest"><p-lang :value="current.$otazky.filter(x => x.type === 2).length" :end="['žádné téma', 'jedno téma', '%% témata', '%% témat']"></p-lang></div>
+											<div class="dimm smallest">Zobrazit a porovnat</div>
 										</p-area>
 									</li>
 									<li v-if="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length > 0">

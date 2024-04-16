@@ -6,7 +6,18 @@
 					Přehledně o volbách do Evropského parlamentu: volební programy, <router-link to="/kandidati">kandidáti</router-link>, <router-link to="/strany">politické strany</router-link>, <router-link to="/volebni-pruzkumy">průzkumy</router-link> a další statistiky a přehledy. <strong>Volby budou 7. a 8. června.</strong>
 				</p>
 			</p-block>
-			<p-block headline="Rychlý přehled" class="p-block---up" :hide="true">
+			<p-block headline="Hlavní témata" class="p-block---up">
+				<p-loader :rule="elections" reserve="10em">
+					<div v-if="elections">
+						<p-columns class="smaller strong">
+							<div v-for="(topic, index) in elections.list[0].$otazky.filter(x => x.type === 2)">
+								<router-link :to="'/tema/' + topic.id">{{ topic.question }}</router-link>
+							</div>
+						</p-columns>
+					</div>
+				</p-loader>
+			</p-block>
+			<p-block headline="Rychlý přehled" :hide="true">
 				<p-offset class="reverse balanced">
 					<div>
 						<p-headline :level="2">Rychlý přehled</p-headline>		

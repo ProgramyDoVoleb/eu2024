@@ -1,0 +1,87 @@
+<div class="layout-volby-questions">
+	<p-layout-divided>
+		<template #main>
+			<p-block :hide="true" :level="1" :headline="data ? data.list[0].question : 'Načítám téma...'">
+				<p-loader :rule="data">
+					<div v-if="data">
+						<p-headline :level="1">{{ data ? data.list[0].question : 'Načítám otázku' }}</p-headline>
+						<p class="lead" v-if="data.list[0].comment">Patří mezi vybraná témata ve volebních programech pro evropské volby 7. a 8. června 2024. {{ data.list[0].comment }}</p>
+						<p-area v-if="$strany">
+							<div class="columns columns-4 smaller">
+								<div v-for="(party, index) in $strany">
+									<button class="inline" @click="() => slide(url(party.ZKRATKA || party.NAZEV))">{{ party.ZKRATKA || party.NAZEV }}</button>
+								</div>
+							</div>
+						</p-area>
+						<div class="p-gap _2"></div>
+						<!-- <template v-if="['evropske-volby', 'snemovni-volby', 'komunalni-volby', 'krajske-volby'].indexOf(hash) > -1"> -->
+							<template v-if="$strany">
+								<template v-for="(party, index) in $strany">
+									<p-block :headline="party.NAZEV" :anchor="party.ZKRATKA || party.NAZEV">
+										<!-- <p-collapsible :label="party.NAZEV" :logo="logoByItem(party, data)"> -->
+											<p-area :borderColor="colorByItem(party, data)">
+												<template v-if="data.list[0].$odpovedi.filter(x => x.csu_id === party.id).length > 0">
+													<p-list>
+														<template v-for="(content, indexC) in data.list[0].$odpovedi.filter(x => x.csu_id === party.id)">
+															<div>
+																<p-truncated :content="content.answer" :size="60" class="serif"></p-truncated>
+															</div>
+														</template>
+														<div class="smaller strong">
+															<router-link  :to="'/strana/' + party.id + '/volebni-program/' + data.list[0].$body.find(x => x.csu_table === party.csu_table && x.csu_id === party.id).$program[0].id">Zobrazit volební program</router-link>
+															<!-- <p-box>
+																<p-box-button color="var(--blue)">Zobrazit volební program</p-box-button>
+															</p-box> -->
+														</div>
+													</p-list>
+												</template>
+											</p-area>
+										<!-- </p-collapsible> -->
+
+									</p-block>
+								</template>
+								
+							</template>
+							<template v-else>
+								<p class="smallest dimm">Téma ještě nebylo zpracované, nebo se k němu žádná strana v programu nevyjádřila.</p>
+							</template>
+						<!-- </template> -->
+					</div>
+				</p-loader>
+			</p-block>
+			<p-block headline="Další otázky" :level="1" v-if="data">
+				<template v-for="(qitem, qindex) in qenum.filter(x => x.type === 2)">
+					<!-- <p-collapsible :label="qitem.label" :status="data.cis.otazky.filter(x => x.type === qitem.type).length" v-if="data.cis.otazky.filter(x => x.type === qitem.type).length > 0" :open="true"> -->
+						<p-area>
+							<div :class="qitem.type < 3 ? 'columns' : 'p-list'">
+								<div v-for="(qquestion, qqindex) in data.cis.otazky.filter(x => x.type === qitem.type && x.priority === 1)">
+									<router-link class="strong" :to="'/tema/' + qquestion.id + ($route.query.vyber ? '?vyber=' + $route.query.vyber : '')">{{ qquestion.question }}</router-link>
+									<div class="smaller" v-if="qquestion.comment">{{ truncate(qquestion.comment, 12) }}</div>
+									<p-gap></p-gap>
+								</div>
+							</div>
+							<template v-if="data.cis.otazky.find(x => x.type === qitem.type && x.priority === 2)">
+								<div class="p-gap"></div>
+								<p-collapsible label="Doplňkové otázky">
+									<div :class="qitem.type < 3 ? 'columns' : 'p-list'">
+										<div v-for="(qquestion, qqindex) in data.cis.otazky.filter(x => x.type === qitem.type && x.priority === 2)">
+											<router-link :to="'/volby/' + hash + '/' + id + '/' + qitem.hash + '/' + qquestion.id + ($route.query.vyber ? '?vyber=' + $route.query.vyber : '')">{{ qquestion.question }}</router-link>
+										</div>
+									</div>
+								</p-collapsible>
+							</template>
+						</p-area>
+					<!-- </p-collapsible> -->
+				</template>
+			</p-block>
+		</template>
+		<template #anchors>
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" alt="Evropské volby 2024"></p-logo>
+			<div class="p-gap"></div>
+			<p-anchors></p-anchors>
+		</template>
+		<template #aside>
+			...
+		</template>
+	</p-layout-divided>
+</div>
