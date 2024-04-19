@@ -5,6 +5,8 @@ import { regions } from '@/stores/enums';
 import {url, date, number, truncate, con, type, domain, sortByPorCislo} from '@/pdv/helpers';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
 import {ga} from '@/pdv/analytics';
+import elections from '@/stores/enums/elections';
+import logtypes from '@/stores/enums/log';
 import NewsItem from '@/components/news-item/do.vue'
 import ElectionResults from '@/views/volby/detail/do.vue';
 import ProgramBlock from '@/components/program-block-dynamic/do.vue';
@@ -14,6 +16,7 @@ import LogItem from '@/components/log-item/do.vue';
 import PartyQuicklook from '@/components/party-quicklook/do.vue';
 import CandidateStats from '@/components/candidate-stats/do.vue';
 import NewsBlock from '@/components/news-block/do.vue'
+import ReportForm from '@/components/report-form/do.vue';
 
 export default {
 	name: 'layout-pointer',
@@ -36,7 +39,8 @@ export default {
 	LogItem,
 	PartyQuicklook,
 	CandidateStats,
-	NewsBlock
+	NewsBlock,
+	ReportForm
   },
 	computed: {
 		$store: function () {
@@ -49,27 +53,26 @@ export default {
 			return useCore()
 		},
 		enums: function () {
-			return regions
+			return {elections, logtypes}
 		},
 		table: function () {
 			if (this.tableName) return this.tableName;
 
-			if (this.volbyType) {
-				var el = this.enums.elections.find(x => x.hash === this.volbyType);
+			// if (this.volbyType) {
+				// var el = this.enums.elections.find(x => x.hash === this.volbyType);
 				var name = ['csu'];
 
-				if (el) {
-					name.push(el.key.toLowerCase());
+				// if (el) {
+					name.push('ep');
 
-					if (this.page) {
-						if (this.page === "strana" && el.key === 'KV') name.push('ros');
-						if (this.page === "strana" && el.key != 'KV') name.push('rkl');
-						if (this.page === "kandidat") name.push('rk');
-					}
-				}
+					// if (this.$route.includes) {
+						if (this.$route.fullPath.includes("strana")) name.push('rkl');
+						if (this.$route.fullPath.includes("kandidat")) name.push('rk');
+					// }
+				// }
 
 				return name.join('_');
-			}
+			// }
 		},
 		data: function () {
 			var d = this.$store.getters.pdv('pointers/qa/' + this.table + ':' + this.tableID)

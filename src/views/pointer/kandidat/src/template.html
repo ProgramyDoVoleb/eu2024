@@ -27,10 +27,15 @@
 									</div>
 									<div class="p-gap"></div>
 									<p-box-group>
+										<template v-if="current.$odpovedi.length > 0">
+											<p-box :to="'/kandidat/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'">
+												<p-box-button icon="answers-mini.svg">{{ current.$odpovedi.length }}</p-box-button>
+											</p-box>
+										</template>
 										<template v-if="current.MANDAT === null">
 											<p-box>
-												<p-box-label v-if="!current.PORCISLO">Neznámé umístění na kandidátce</p-box-label>
-												<p-box-label v-if="current.PORCISLO">{{ current.PORCISLO }}. na kandidátce</p-box-label>
+												<p-box-label v-if="!current.PORCISLO" background="var(--blue44)">Neznámé umístění na kandidátce</p-box-label>
+												<p-box-label v-if="current.PORCISLO" background="var(--blue44)">č. {{ current.PORCISLO }}</p-box-label>
 											</p-box>
 										</template>
 										<template v-if="current.MANDAT">
@@ -46,11 +51,6 @@
 										<template v-if="current.$data.web && current.$data.web.length > 0">
 											<p-box :href="current.$data.web[0].value">
 												<p-box-button color="var(--blue)">Web</p-box-button>
-											</p-box>
-										</template>
-										<template v-if="current.$odpovedi.length > 0">
-											<p-box :to="'/kandidat/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'">
-												<p-box-button icon="answers-mini.svg">{{ current.$odpovedi.length }}</p-box-button>
 											</p-box>
 										</template>
 										<template v-if="current.$data.social && current.$data.social.length > 0">
@@ -190,6 +190,24 @@
 										</div>
 									</template>
 								</p-list>							
+							</p-block>
+							<p-block headline="Otázky a odpovědi" v-if="current.$otazky.length > 0">
+								<p-list>
+									<div v-for="(question, index) in current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 2))">
+										<strong>{{ question.question }}</strong>
+										<div class="p-gap _05"></div>
+										<div class="serif">
+											<p-truncated :content="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].answer"></p-truncated>
+											<div class="smallest dimm" v-if="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">Více na <p-link :href="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">{{ domain(current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source) }}</p-link></div>
+										</div>
+									</div>
+									<div v-if="current.$odpovedi.length > 1" class="smaller">
+										<!-- <p-area class="inline"> -->
+											<strong><p-lang :value="current.$odpovedi.length" :end="['', '', 'Všechny %% otázky a odpovědi', 'Všech %% otázek a odpovědí']"></p-lang> <router-link :to="'/kandidat/' + tableID + '/otazky-a-odpovedi'">najdete zde</router-link></strong>
+											<p-icon icon="answers-mini" :border="0"></p-icon>
+										<!-- </p-area>										 -->
+									</div>
+								</p-list>
 							</p-block>
 							<p-block headline="Profil" v-if="current.$profil.length" :hide="true">
 								<profile-preview :id="current.$profil[0].profil"></profile-preview>

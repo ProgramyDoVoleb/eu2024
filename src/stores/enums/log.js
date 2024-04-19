@@ -23,5 +23,6 @@ export default {
     'event': 'Událost',
     'note': 'Poznámka',
     'mfo': 'Pohlaví',
-    'core': 'Registr'
+    'core': 'Registr',
+    'answer': 'Odpověď'
 }

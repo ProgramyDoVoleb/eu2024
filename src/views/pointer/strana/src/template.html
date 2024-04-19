@@ -216,6 +216,24 @@
 
 									<!-- </p-list> -->
 							</p-block>
+							<p-block headline="Otázky a odpovědi" v-if="current.$otazky.length > 0">
+								<p-list>
+									<div v-for="(question, index) in current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 1))">
+										<strong>{{ question.question }}</strong>
+										<div class="p-gap _05"></div>
+										<div class="serif">
+											<p-truncated :content="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].answer"></p-truncated>
+											<div class="smallest dimm" v-if="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">Více na <p-link :href="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">{{ domain(current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source) }}</p-link></div>
+										</div>
+									</div>
+									<div v-if="current.$odpovedi.length > 1" class="smaller">
+										<!-- <p-area class="inline"> -->
+											<strong><p-lang :value="current.$odpovedi.length" :end="['', '', 'Všechny %% otázky a odpovědi', 'Všech %% otázek a odpovědí']"></p-lang> <router-link :to="'/strana/' + tableID + '/otazky-a-odpovedi'">najdete zde</router-link></strong>
+											<p-icon icon="answers-mini" :border="0"></p-icon>
+										<!-- </p-area>										 -->
+									</div>
+								</p-list>
+							</p-block>
 							<p-block headline="Kandidáti" v-if="current.$kandidati" :hide="true">
 									<p-offset class="reverse balanced">
 										<div>

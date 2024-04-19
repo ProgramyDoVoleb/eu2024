@@ -67,6 +67,12 @@ const router = createRouter({
       props: true
     },
     {
+      path: '/kandidat/:tableID/otazky-a-odpovedi',
+      name: 'PointerQA',
+      component: PointerQA,
+      props: true
+    },
+    {
       path: '/kandidat/:tableID',
       name: 'PointerCandidate',
       component: PointerCandidate,

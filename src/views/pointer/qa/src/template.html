@@ -13,7 +13,7 @@
 								<div>
 									<p-headline :level="1">
 										Otázky a odpovědi
-										<div class="small"><router-link :to="'/strana/' + current.$odpovedi[0].csu_id">{{ headline }}</router-link></div>
+										<div class="small"><router-link :to="'/' + (current.JMENO ? 'kandidat' : 'strana') + '/' + current.$odpovedi[0].csu_id">{{ headline }}</router-link></div>
 									</p-headline>
 									<div class="serif">
 										<router-link class="is-span" to="/">
@@ -63,6 +63,7 @@
 												</p-label>
 											</div>
 											<div v-if="answer.answer" v-html="answer.answer" class="serif"></div>
+											<div class="smallest strong blue" v-if="answer.important === 1">Tohle je důležité!</div>
 											<template v-if="answer.source && answer.source.charAt(0) === 'h'">
 												<div class="p-gap"></div>
 												<p-link class="smaller strong" :href="answer.source">Více k tomuto tématu</p-link>
