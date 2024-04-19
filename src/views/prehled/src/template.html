@@ -20,16 +20,11 @@
 													<party-preview :party="party" :candidates="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA)" :election="election" :elections="elections"></party-preview>
 												</div>
 
-												<div v-if="election.status === 1">
-													<p-area icon="plus-green" background="var(--greyish)">
-														<p-modal>
-															<template #init> <button class="inline green strong">Někdo chybí?</button> </template>
-															<template #content>
-																<div class="strong">Odkaz na článek</div>
-																<report-form part="Přidat stranu či kandidáta"></report-form>
-															</template>
-														</p-modal>
-														<div class="smallest dimm">Stačí poslat odkaz</div>
+												
+												<div>
+													<p-area icon="program-white" background="var(--blue)">
+														<router-link to="/pro-kandidaty" class="strong _white">Admin - vyplňte své údaje</router-link>
+														<div class="smallest _white">Spravujte svůj profil, odpovězte na volební otázky</div>
 													</p-area>
 												</div>
 											</div>

@@ -5,6 +5,10 @@
 				<p class="lead">
 					Přehledně o volbách do Evropského parlamentu: volební programy, <router-link to="/kandidati">kandidáti</router-link>, <router-link to="/strany">politické strany</router-link>, <router-link to="/volebni-pruzkumy">průzkumy</router-link> a další statistiky a přehledy. <strong>Volby budou 7. a 8. června.</strong>
 				</p>
+				<p-area icon="warning">
+					<strong>Výzva pro strany a kandidáty</strong>
+					<div class="smaller">Jdete do voleb? Už máte svůj přístup do <router-link to="/pro-kandidaty" class="strong">Adminu</router-link>? Už dnes můžete vyplnit své údaje a také odpovědi na <router-link to="/otazky" class="strong">volební otázky</router-link> a kalkulačku.</div>
+				</p-area>
 			</p-block>
 			<p-block headline="Hlavní témata" class="p-block---up">
 				<p-loader :rule="elections" reserve="10em">
@@ -58,16 +62,10 @@
 													</p-area>
 												</div>
 
-												<div v-if="election.status === 1">
-													<p-area icon="plus-green" background="var(--greyish)">
-														<p-modal>
-															<template #init> <button class="inline green strong">Někdo chybí?</button> </template>
-															<template #content>
-																<div class="strong">Odkaz na článek</div>
-																<report-form part="Přidat stranu či kandidáta"></report-form>
-															</template>
-														</p-modal>
-														<div class="smallest dimm">Stačí poslat odkaz</div>
+												<div>
+													<p-area icon="program-white" background="var(--blue)">
+														<router-link to="/pro-kandidaty" class="strong _white">Admin - vyplňte své údaje</router-link>
+														<div class="smallest _white">Spravujte svůj profil, odpovězte na volební otázky</div>
 													</p-area>
 												</div>
 											</div>
