@@ -36,11 +36,11 @@
 												<p-box-button color="var(--blue)">Web</p-box-button>
 											</p-box>
 										</template>
-										<!-- <template v-if="current.$odpovedi.length > 0">
+										<template v-if="current.$odpovedi.length > 0">
 											<p-box :to="'/strana/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'">
-												<p-box-button icon="answers-mini.svg">{{ current.$odpovedi.length }}</p-box-button>
+												<p-box-button icon="answers-mini.svg">{{ current.$odpovedi.filter(x => x.$otazka[0].type != 2).length }}</p-box-button>
 											</p-box>
-										</template> -->
+										</template>
 										<template v-if="typeof current.MANDAT === 'undefined'">
 											<template v-if="null === current.ESTRANA || current.ESTRANA < 0">
 												<p-box>
@@ -217,7 +217,7 @@
 									<!-- </p-list> -->
 							</p-block>
 							<p-block headline="Otázky a odpovědi" v-if="current.$otazky.length > 0">
-								<p-list>
+								<p-list height="1.5">
 									<div v-for="(question, index) in current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 1))">
 										<strong>{{ question.question }}</strong>
 										<div class="p-gap _05"></div>
@@ -228,7 +228,7 @@
 									</div>
 									<div v-if="current.$odpovedi.length > 1" class="smaller">
 										<!-- <p-area class="inline"> -->
-											<strong><p-lang :value="current.$odpovedi.length" :end="['', '', 'Všechny %% otázky a odpovědi', 'Všech %% otázek a odpovědí']"></p-lang> <router-link :to="'/strana/' + tableID + '/otazky-a-odpovedi'">najdete zde</router-link></strong>
+											<strong><p-lang :value="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length" :end="['', '', 'Všechny %% otázky a odpovědi', 'Všech %% otázek a odpovědí']"></p-lang> <router-link :to="'/strana/' + tableID + '/otazky-a-odpovedi'">najdete zde</router-link></strong>
 											<p-icon icon="answers-mini" :border="0"></p-icon>
 										<!-- </p-area>										 -->
 									</div>

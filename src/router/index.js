@@ -62,7 +62,7 @@ const router = createRouter({
     },
     {
       path: '/strana/:tableID/otazky-a-odpovedi',
-      name: 'PointerQA',
+      name: 'PointerQAP',
       component: PointerQA,
       props: true
     },
@@ -74,7 +74,7 @@ const router = createRouter({
     },
     {
       path: '/kandidat/:tableID/otazky-a-odpovedi',
-      name: 'PointerQA',
+      name: 'PointerQAC',
       component: PointerQA,
       props: true
     },

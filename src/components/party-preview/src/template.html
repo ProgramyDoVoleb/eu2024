@@ -27,6 +27,7 @@
 					<div v-if="candidates.length === 0" class="dimm smallest"><em>zatím bez dalších informací</em></div>
 				</div>
 				<div>
+					<router-link :to="'/strana/' + party.id + '/otazky-a-odpovedi'" class="_icon" v-if="party.$odpovedi && party.$odpovedi > 0"> <img src="https://static.programydovoleb.cz/icon/answers.svg" alt="Odpovědi" class="_icon"> </router-link> 
 					<template v-if="(party.$data.program && party.$data.program.length > 0) || party.$program.length > 0">
 						<p-modal class="inline">
 							<template #init>

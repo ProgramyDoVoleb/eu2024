@@ -107,3 +107,16 @@
 ._g:not(:last-child) {
     height: 1em;
 }
+
+._icon {
+	display: inline-block;
+	width: 1.5em;
+
+	img {
+		display: inline-block;
+		aspect-ratio: 1;
+		width: 100%;
+		position: relative;
+		top: .4em;
+	}
+}

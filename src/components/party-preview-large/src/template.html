@@ -102,7 +102,7 @@
 					</p-modal>
 				</template>		
 				<template v-else>
-					<p-modal>
+					<p-modal class="inline">
 						<template #init>
 							<span class="strong smallest _pg _pg11 green" :style="{background: 'var(--green11)'}">přidat program</span>
 						</template>
@@ -112,7 +112,8 @@
 							<report-form></report-form>
 						</template>
 					</p-modal>
-				</template>													
+				</template>		
+				 <router-link :to="'/strana/' + party.id + '/otazky-a-odpovedi'" class="_icon" v-if="party.$odpovedi && party.$odpovedi > 0"> <img src="https://static.programydovoleb.cz/icon/answers.svg" alt="Odpovědi" class="_icon"> </router-link>											
 			</div>
 		<!-- </div> -->
 	</p-area>
