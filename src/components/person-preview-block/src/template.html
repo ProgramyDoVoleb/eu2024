@@ -15,12 +15,17 @@
 		</div>
 		<div class="_content">
 			<router-link class="strong" :to="'/kandidat/' + cand.id">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link>
-			<div v-if="cand.$data.social && cand.$data.social.length > 0" class="_soc">
+			<div class="_soc" v-if="(cand.$data.social && cand.$data.social.length > 0) || (cand.$odpovedi && cand.$odpovedi > 0)">
 				<div class="p-gap _033"></div>
-				<template v-for="(soc, indexS) in checkDuplicates(cand.$data.social)">
-					<p-link :href="soc.value">
-						<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
-					</p-link>
+				<template v-if="cand.$odpovedi && cand.$odpovedi > 0">
+					<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'"><p-icon :src="cdn + 'icon/answers-mini.svg'" size="2em" border="transparent 1px solid"></p-icon></router-link>
+				</template>
+				<template v-if="cand.$data.social && cand.$data.social.length > 0">
+					<template v-for="(soc, indexS) in checkDuplicates(cand.$data.social)">
+						<p-link :href="soc.value">
+							<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
+						</p-link>
+					</template>
 				</template>
 			</div>
 			<template v-if="cand.VEK || cand.POVOLANI">

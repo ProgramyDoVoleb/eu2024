@@ -36,7 +36,7 @@
 												<p-box-button color="var(--blue)">Web</p-box-button>
 											</p-box>
 										</template>
-										<template v-if="current.$odpovedi.length > 0">
+										<template v-if="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length > 0">
 											<p-box :to="'/strana/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'">
 												<p-box-button icon="answers-mini.svg">{{ current.$odpovedi.filter(x => x.$otazka[0].type != 2).length }}</p-box-button>
 											</p-box>
@@ -216,7 +216,7 @@
 
 									<!-- </p-list> -->
 							</p-block>
-							<p-block headline="Otázky a odpovědi" v-if="current.$otazky.length > 0">
+							<p-block headline="Otázky a odpovědi" v-if="current.$otazky.filter(x => x.type != 2).length > 0">
 								<p-list height="1.5">
 									<div v-for="(question, index) in current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 1))">
 										<strong>{{ question.question }}</strong>
@@ -265,9 +265,9 @@
 									</template>	
 									<p-list height="1" v-if="current.$kandidati.filter(x => x.PORCISLO).length < 6 || current.$kandidati.length > 6">
 										<template v-for="(cand, index3) in sortByPorCislo(current.$kandidati).filter((x, i) => current.$kandidati.filter(x => x.PORCISLO).length < 6 ? true : i >= 6)">
-											<template v-if="(index3 < limit) || limitOff">
+											<div v-if="(index3 < limit) || limitOff">
 												<person-preview-linear :cand="cand" :data="data" :current="current"></person-preview-linear>
-											</template>
+											</div>
 										</template>
 										<div v-if="current.$kandidati.length > limit">
 											<button @click="limitOff = !limitOff">{{ limitOff ? 'Zkrátit seznam' : 'Zobrazit celý seznam : ' + current.$kandidati.length }}</button>

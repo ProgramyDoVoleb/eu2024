@@ -18,11 +18,16 @@
 	</div>
 	<div class="_cand-flex">
 		<div>
-			<div v-if="cand.$data.social && cand.$data.social.length > 0" class="_soc">
-				<template v-for="(soc, indexS) in checkDuplicates(cand.$data.social)">
-					<p-link :href="soc.value">
-						<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
-					</p-link>
+			<div class="_soc">
+				<template v-if="cand.$odpovedi && cand.$odpovedi > 0">
+					<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'"><p-icon :src="cdn + 'icon/answers-mini.svg'" size="2em" border="transparent 1px solid"></p-icon></router-link>
+				</template>
+				<template v-if="cand.$data.social && cand.$data.social.length > 0" class="_soc">
+					<template v-for="(soc, indexS) in checkDuplicates(cand.$data.social)">
+						<p-link :href="soc.value">
+							<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
+						</p-link>
+					</template>
 				</template>
 			</div>
 			<div>

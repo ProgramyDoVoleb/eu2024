@@ -3,7 +3,7 @@
   position: relative;
   width: 100%;
 
-  transition: .4s all;
+  // transition: .4s all;
 
   &.opened {
     // padding-top: 1rem;
@@ -38,7 +38,7 @@
 .p-headline {
   border-top: 1px solid rgba(255,255,255,0);
   border-bottom: var(--border);
-  transition: .4s all;
+  // transition: .4s all;
   margin-bottom: 0rem !important;
 
   .dark & {

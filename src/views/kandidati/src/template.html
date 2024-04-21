@@ -30,6 +30,7 @@
 													{{ cand.PRIJMENI }}, {{ cand.JMENO }}
 												</router-link>
 											</p-label>
+											<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" v-if="cand.$odpovedi && cand.$odpovedi > 0"> <p-icon icon="answers" size="1em" border="none"></p-icon></router-link>
 										</li>
 									</p-list>									
 								</div>

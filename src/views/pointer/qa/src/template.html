@@ -73,7 +73,7 @@
 								</p-list>
 							</p-block>
 							<p-block :level="1" :headline="headline">
-								<p-area class="strong"><router-link :to="'/strana/' + current.$odpovedi[0].csu_id">Volební profil</router-link></p-area>
+								<p-area class="strong"><router-link :to="'/' + (current.JMENO ? 'kandidat': 'strana') + '/' + current.$odpovedi[0].csu_id">Volební profil</router-link></p-area>
 								<div class="p-gap _2"></div>
 								<p-block headline="Novinky" :hide="true">
 									<p-loader :rule="news">
