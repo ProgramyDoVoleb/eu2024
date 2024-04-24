@@ -61,6 +61,85 @@ export default {
 			} else {
 				this.selected.push(id);
 			}
+		},
+		determineColorByAge: function (party, index) {
+			var p = this.elections.list[0].$kandidati.find(x => x.ESTRANA === party.ESTRANA && x.PORCISLO === index);
+
+			var color = 'background: transparent';
+			var opacity = 'opacity: 1';
+
+			if (p) {
+				color = 'background: var(--greyish)';
+				// opacity = 'opacity: ' + Math.round((p.VEK - 15) / 5) / 8; 
+
+				if (p.VEK < 30) {
+					color = 'background: var(--green)';
+					// opacity = 'opacity: ' + (Math.floor(p.VEK - 11) / 3) / 8;
+				} 
+				if (p.VEK > 65) {
+					color = 'background: var(--red)';
+					// opacity = 'opacity: ' + (Math.floor(p.VEK - 55) / 5) / 8;
+				} 
+			}
+
+			return [color, opacity].join(';');
+		},
+		determineColorByTitle: function (party, index) {
+			var p = this.elections.list[0].$kandidati.find(x => x.ESTRANA === party.ESTRANA && x.PORCISLO === index);
+
+			var color = 'background: transparent';
+			var opacity = 'opacity: 1';
+
+			if (p) {
+				color = 'background: var(--greyish)';
+				opacity = 'opacity: 1'; 
+
+				if (p.TITULPRED || p.TITULZA) {
+					color = 'background: var(--blue)';
+					opacity = 'opacity: 1';
+				}
+			}
+
+			return [color, opacity].join(';');
+		},
+		determineColorBySex: function (party, index) {
+			var p = this.elections.list[0].$kandidati.find(x => x.ESTRANA === party.ESTRANA && x.PORCISLO === index);
+
+			var color = 'background: transparent';
+			var opacity = 'opacity: 1';
+
+			if (p) {
+				color = 'background: var(--greyish)';
+				opacity = 'opacity: 1'; 
+
+				if (this.determineWoman(p)) {
+					color = 'background: var(--red)';
+					opacity = 'opacity: 1';
+				}
+			}
+
+			return [color, opacity].join(';');
+		},
+		determineColorByBEZPP: function (party, index) {
+			var p = this.elections.list[0].$kandidati.find(x => x.ESTRANA === party.ESTRANA && x.PORCISLO === index);
+
+			var color = 'background: transparent';
+			var opacity = 'opacity: 1';
+
+			if (p) {
+				color = 'background: var(--greyish)';
+				opacity = 'opacity: 1'; 
+
+				if (p.PSTRANA === 99) {
+					color = 'background: var(--grey)';
+					opacity = 'opacity: 1';
+				}
+			}
+
+			return [color, opacity].join(';');
+		},
+		determineWoman: function (p) {
+			return p.JMENO[p.JMENO.length - 1] === 'a' || p.JMENO[p.JMENO.length - 1] === 'e' || p.PRIJMENI[p.PRIJMENI.length - 1] === 'á';
 		}
   },
   mounted: function () {
