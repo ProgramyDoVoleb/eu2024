@@ -6,6 +6,34 @@
 					Přehled událostí nadcházejících eurovoleb. Debaty, setkání s voliči, tiskové konference. Pokud vám nějaká událost v přehledu chybí, můžete na ni snadno upozornit.
 				</p>
 				<div class="p-gap"></div>
+				<p-block headline="Debata s kandidáty Zavolíme!" anchor="Zavolíme!" :hide="true">
+					<iframe class="_hd" src="https://www.youtube.com/embed/r262TDMmQ3U?si=tMVnqsW4yU3tNHOY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+					<p class="strong">
+						<p-label color="var(--blue)">Sledujte</p-label> debatu <p-link href="https://zavolime.cz">Zavolíme!</p-link> s kandidáty do europarlamentu 26. dubna od 9:00
+					</p>
+					<!-- <h4>Účastní se:</h4> -->
+					<p-grid v-if="elections">
+						<div v-for="(id, index) in [3265,3276,3418,3309,3294,3274]">
+							<p-area>
+								<template v-for="(cand, indexCand) in [elections.list[0].$kandidati.find(x => x.id === id)]">
+									<template v-for="(party, indexParty) in [elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA)]">
+										<p-offset>
+											<div>
+												<p-image class="_square" :src="photos[index]"></p-image>
+											</div>
+											<div>
+												<router-link class="strong" :to="'/kandidat/' + cand.id">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link> <span class="dimm">&middot; {{ cand.PORCISLO }}</span>
+												<div class="smallest">
+													<router-link :to="'/strana/' + party.id" class="is-span">{{ party.ZKRATKA }}</router-link>
+												</div>
+											</div>
+										</p-offset>
+									</template>
+								</template>
+							</p-area>
+						</div>
+					</p-grid>
+				</p-block>
 				<p-block headline="Vybrané události">
 					<p-loader :rule="news && elections">
 						<div v-if="news && elections">

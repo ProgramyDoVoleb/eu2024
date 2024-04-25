@@ -55,7 +55,15 @@ export default {
 					hide: '–',
 					show: '+',
 				}
-			}
+			},
+			photos: [
+				"https://data.programydovoleb.cz/lide/uploads/801e8a3b-8eae-4049-bf2e-c7719c0ff82ajpeg___up_1630391619_93b63614217cc7c36b37c321669e4f2a.jpg",
+				"https://static.programydovoleb.cz/2024/csu_ep_rk/0408/3276/55196a6861.jpg",
+				"https://static.programydovoleb.cz/2024/csu_ep_rk/0412/3418/1596131a76.png",
+				"https://static.programydovoleb.cz/2024/csu_ep_rk/0417/3309/900748f443.jpg",
+				"https://static.programydovoleb.cz/2024/csu_ep_rk/0408/3294/86007539a5.webp",
+				"https://static.programydovoleb.cz/2024/csu_ep_rk/0408/3274/43016bb77f.webp"
+			]
 		}
 	},
   components: {

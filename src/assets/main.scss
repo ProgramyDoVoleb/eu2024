@@ -569,4 +569,11 @@ iframe {
 	display: block;
 }
 
+._hd {
+	display: block;
+	width: 100%;
+	aspect-ratio: 16/9;
+	border: var(--border);
+}
+
 @import "./pdv/_index.scss";

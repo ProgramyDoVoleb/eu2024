@@ -167,3 +167,10 @@
 ._w3 {
 	width: 3em;
 }
+
+._square {
+	display: block;
+	aspect-ratio: 1;
+	object-fit: cover;
+	border-radius: 4px;
+}
