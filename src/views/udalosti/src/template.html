@@ -6,7 +6,33 @@
 					Přehled událostí nadcházejících eurovoleb. Debaty, setkání s voliči, tiskové konference. Pokud vám nějaká událost v přehledu chybí, můžete na ni snadno upozornit.
 				</p>
 				<div class="p-gap"></div>
-				<p-block headline="Debata s kandidáty Zavolíme!" anchor="Zavolíme!" :hide="true">
+				<p-block headline="Vybrané události">
+					<p-loader :rule="news && elections">
+						<div v-if="news && elections">
+							<p-list height="1.5">
+								<template v-for="(item, index) in sortEvents(news.events.filter(x => !x.csu_id))">
+									<div v-if="JSON.parse(item.label)[0] >= today">
+										<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
+									</div>
+								</template>
+							</p-list>
+						</div>
+					</p-loader>
+				</p-block>
+				<p-block headline="Nadcházející události">
+					<p-loader :rule="news && elections">
+						<div v-if="news && elections">
+							<p-list height="1.5">
+								<template v-for="(item, index) in firstOfUnique(sortEvents(news.events.filter(x => x.csu_id && JSON.parse(x.label)[0] >= today)), 'csu_id')">
+									<div>
+										<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
+									</div>
+								</template>
+							</p-list>
+						</div>
+					</p-loader>
+				</p-block>
+				<p-block headline="Záznam debaty Zavolíme!" anchor="Zavolíme!">
 					<iframe class="_hd" src="https://www.youtube.com/embed/r262TDMmQ3U?si=tMVnqsW4yU3tNHOY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 					<p class="strong">
 						<p-label color="var(--blue)">Sledujte</p-label> debatu <p-link href="https://zavolime.cz">Zavolíme!</p-link> s kandidáty do europarlamentu 26. dubna od 9:00
@@ -33,32 +59,6 @@
 							</p-area>
 						</div>
 					</p-grid>
-				</p-block>
-				<p-block headline="Vybrané události">
-					<p-loader :rule="news && elections">
-						<div v-if="news && elections">
-							<p-list height="1.5">
-								<template v-for="(item, index) in sortEvents(news.events.filter(x => !x.csu_id))">
-									<div v-if="JSON.parse(item.label)[0] >= today">
-										<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
-									</div>
-								</template>
-							</p-list>
-						</div>
-					</p-loader>
-				</p-block>
-				<p-block headline="Nadcházející události">
-					<p-loader :rule="news && elections">
-						<div v-if="news && elections">
-							<p-list height="1.5">
-								<template v-for="(item, index) in firstOfUnique(sortEvents(news.events.filter(x => x.csu_id && JSON.parse(x.label)[0] >= today)), 'csu_id')">
-									<div>
-										<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
-									</div>
-								</template>
-							</p-list>
-						</div>
-					</p-loader>
 				</p-block>
 				<p-block-expandable headline="Již proběhlo">
 					<p-loader :rule="news && elections">
