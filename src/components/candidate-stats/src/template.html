@@ -212,7 +212,7 @@
 				<strong v-if="data[0].VOLKRAJ" class="smaller">Podle volebního kraje</strong>
 				<template v-for="(kraj, index) in (data[0].VOLKRAJ ? [1,2,3,4,5,6,7,8,9,10,11,12,13,14] : [-1])">
 					
-					<component :is="data[0].VOLKRAJ ? 'p-collapsible' : 'div'" :label="enums.regions[kraj-1]" :status="data.filter(x => x.VOLKRAJ ? x.VOLKRAJ === kraj : true).length">
+					<component :is="data[0].VOLKRAJ ? 'p-collapsible' : 'div'" :label="null" :status="data.filter(x => x.VOLKRAJ ? x.VOLKRAJ === kraj : true).length">
 						
 							<table :class="{_nm: [...new Set(data.map(item => item.PSTRANA))].length === 1, _nn: [...new Set(data.map(item => item.NSTRANA))].length === 1, _ns: status === 2 || !data.find(x => x.MANDAT === 'A')}">
 								<thead>

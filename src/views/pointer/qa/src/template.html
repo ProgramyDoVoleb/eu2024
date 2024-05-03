@@ -53,17 +53,30 @@
 									<div v-for="(answer, index) in current.$odpovedi.filter(x => x.$otazka[0].type === 3)">
 										<!-- <div v-if="questionLimitOff || index < questionLimit"> -->
 											
-											<div class="strong">
+											<div class="strong _mw">
 												{{ answer.$otazka[0].question }}
 											</div>
 											<div class="p-gap _05"></div>
-											<div v-if="answer.quick" class="serif strong" :style="{color: ['', 'var(--green)', 'var(--red)', null, 'var(--greyish)'][answer.quick]}">
-												<p-label :after="true" :color="['', 'var(--green)', 'var(--red)', 'var(--blue)', 'var(--greyish)'][answer.quick]" title="Rychlá odpověď, např do volební kalkulačky">
-													{{ ['', 'ANO', 'NE', 'je to složitější', 'nechci odpovídat'][answer.quick] }}
-												</p-label>
-											</div>
-											<div v-if="answer.answer" v-html="answer.answer" class="serif"></div>
-											<div class="smallest strong blue" v-if="answer.important === 1">Tohle je důležité!</div>
+											<p-box-group>
+												<p-box>
+													<!-- <p-box-color :color="['', 'var(--green)', 'var(--red)', null, 'var(--greyish)'][answer.quick]"></p-box-color> -->
+													<p-box-label :background="['', 'var(--green)', 'var(--red)', 'var(--grey)', 'var(--greyish)'][answer.quick]" color="#fff">
+														{{ ['', 'ANO', 'NE', 'Je to složitější', 'Nechci odpovídat'][answer.quick] }}
+													</p-box-label>
+												</p-box>
+												<p-box v-if="answer.important === 1">
+													<p-box-label class="" background="var(--greyish)">!!!</p-box-label>
+												</p-box>
+												<p-box-gap></p-box-gap>
+												<!-- <p-box :to="'/kalkulacka/otazka/' + answer.question">
+													<p-box-button color="var(--blue)">Porovnat</p-box-button>
+												</p-box> -->
+											</p-box-group>
+											<template v-if="answer.answer">
+												<div class="p-gap _05"></div>
+												<div v-html="answer.answer" class="serif _mw"></div>
+											</template>
+											<!-- <div class="smallest strong blue" v-if="answer.important === 1">Tohle je důležité!</div> -->
 											<template v-if="answer.source && answer.source.charAt(0) === 'h'">
 												<div class="p-gap"></div>
 												<p-link class="smaller strong" :href="answer.source">Více k tomuto tématu</p-link>

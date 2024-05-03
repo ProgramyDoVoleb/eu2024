@@ -192,7 +192,7 @@
 								</p-list>							
 							</p-block>
 							<p-block headline="Otázky a odpovědi" v-if="current.$otazky.length > 0">
-								<p-list>
+								<p-list height="1.25">
 									<div v-for="(question, index) in current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 2))">
 										<strong>{{ question.question }}</strong>
 										<div class="p-gap _05"></div>

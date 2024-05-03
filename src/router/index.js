@@ -8,6 +8,8 @@ import About from '../views/about/do.vue'
 import Polls from '../views/polls/do.vue'
 import Events from '../views/udalosti/do.vue'
 import Topic from '../views/volby/tema/do.vue'
+import TopicCalc from '../views/volby/kalkulacka/do.vue'
+import TopicQuestions from '../views/volby/otazka/do.vue'
 import Questions from '../views/otazky/do.vue'
 import NewsList from '../views/news/list/do.vue'
 import NewsDetail from '../views/news/detail/do.vue'
@@ -88,6 +90,18 @@ const router = createRouter({
       path: '/tema/:qid',
       name: 'Topic',
       component: Topic,
+      props: true
+    },
+    {
+      path: '/kalkulacka/otazka/:qid',
+      name: 'TopicCalc',
+      component: TopicCalc,
+      props: true
+    },
+    {
+      path: '/otazka/:qid',
+      name: 'TopicQuestions',
+      component: TopicQuestions,
       props: true
     },
     {
