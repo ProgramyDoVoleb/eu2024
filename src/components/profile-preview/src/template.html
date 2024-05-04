@@ -1,30 +1,52 @@
 <div class="profile-preview">
-	<p-area padding="1em">
+	<component :is="compact ? 'p-area' : 'div'" padding="1em">
 		<p-loader :rule="data">
 			<div v-if="data">
-				<p-offset>
-					<div>
-						<p-image :src="photo" :rounded="true" :border="true" width="7rem"></p-image>
-					</div>
-					<div>
-						<div class="strong">
-							<p-link :href="'https://programydovoleb.cz/lide/profil/' + id">{{ data.profile.display }}</p-link>
+					<p-list class="smaller" height=".5">
+						<div v-for="(election, index) in sortBy(data.cis.volby, 'datum', '2099-12-31', true, true).filter((x, i) => limit ? i < limitLength : true)">
+							<div v-for="(cand, index2) in data.list.filter(x => x.volby === election.id)">
+								<p-offset>
+									<div>
+										<p-box-color :color="color(cand, election)"></p-box-color>
+									</div>
+									<div>
+										<strong>
+											<p-link :href="'https://programydovoleb.cz/volby/' + electionList.find(x => x.key === election.typ).hash + '/' + election.id + '/kandidat/' + cand.id" :class="{'is-span': color(cand, election) != 'var(--blue)'}">{{ electionList.find(x => x.key === election.typ).name }} &middot; {{ election.cirka || election.datum.split('-')[0] }}</p-link>
+										</strong>
+										<br>
+										<p-list-linear class="or">
+											<span class="dimm" v-if="election.typ === 'SENAT'">
+												obvod {{ cand.OBVOD }} &middot; {{ cand.$obvod ? cand.$obvod[0].NAZEV : '' }}
+											</span>
+											<span class="dimm" v-if="election.typ === 'KV'">
+												zast. {{ cand.$obec ? cand.$obec[0].NAZEVZAST : '' }}
+											</span>
+											<span class="dimm" v-if="election.typ === 'KZ'">
+												{{ cand.$kraj[0] ? cand.$kraj[0].NAZEV : enums.regions[cand.KRZAST - 1] }}
+											</span>
+											<span class="dimm" v-if="election.typ === 'EP' || election.typ === 'PS' || election.typ === 'KZ' || election.typ === 'KV'">
+												{{ cand.$strana[0].NAZEV }}
+											</span>
+											<span class="dimm" v-if="election.typ === 'PS'">
+												{{ enums.regionsShort[cand.VOLKRAJ - 1] }}
+											</span>
+											<span class="dimm" v-if="election.typ === 'PREZ'">
+												kandidát
+											</span>
+											<span class="dimm" v-if="cand.PORCISLO">
+												{{ cand.PORCISLO }}
+											</span>
+										</p-list-linear>
+									</div>
+								</p-offset>
+							</div>
 						</div>
-						<div class="">
-							{{ data.profile.popis }}
-								<div class="p-gap _025"></div>
-								<p-box-group>
-									<template v-for="(link, index) in links">
-										<p-box :href="link" background="transparent">
-											<p-box-icon :type="type(link)"></p-box-icon>
-										</p-box>
-									</template>
-								</p-box-group>
-							<div class="p-gap _025"></div>
+						<div>
+							<strong v-if="data.cis.volby.length > limitLength"><button class="inline" @click="limit = !limit">{{ limit ? 'Zobrazit celou historii' : 'Zkrátit seznam' }}</button> &middot; </strong>
+							<p-link :href="'https://programydovoleb.cz/lide/profil/' + id">Podrobná historie</p-link>
 						</div>
-					</div>
-				</p-offset>
+					</p-list>
 			</div>
 		</p-loader>
-	</p-area>
+	</component>
 </div>

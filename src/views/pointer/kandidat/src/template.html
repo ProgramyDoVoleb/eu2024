@@ -209,7 +209,7 @@
 									</div>
 								</p-list>
 							</p-block>
-							<p-block headline="Profil" v-if="current.$profil.length" :hide="true">
+							<p-block headline="Volební historie" v-if="current.$profil.length">
 								<profile-preview :id="current.$profil[0].profil"></profile-preview>
 							</p-block>
 							<p-block headline="Odkazy" v-if="linksAll.length > 0">

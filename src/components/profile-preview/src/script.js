@@ -1,15 +1,27 @@
 import {useData} from '@/stores/data';
-import {type, date} from '@/pdv/helpers';
+import {regions, regionsShort} from '@/stores/enums';
+import {type, date, sortBy} from '@/pdv/helpers';
+import electionList from '@/stores/enums/elections';
 
 export default {
 	name: 'profile-preview',
-	props: ['id'],
+	props: ['id', 'compact'],
+	data: function () {
+		return {
+			electionList,
+			limit: true,
+			limitLength: 6
+		}
+	},
 	computed: {
 		$store: function () {
 			return useData()
 		},
+		enums: function () {
+			return {regions, regionsShort}
+		},
 		data: function () {
-			return this.$store.getters.pdv('profile/fetch/' + this.id);
+			return this.$store.getters.pdv('profile/full/' + this.id);
 		},
 		elections: function () {
 			if (!this.data) return null;
@@ -67,6 +79,31 @@ export default {
 		}
 	},
 	methods: {
-		type, date
+		type, date, sortBy,
+		color: function (cand, election) {
+			var c = 'var(--greyish)';
+
+			if (election.status < 3) {
+				c = 'var(--blue)';
+			} else {
+				if (cand.MANDAT) {
+					if (cand.MANDAT === 'A') {
+						c = 'var(--green)';
+					} else {
+						c = 'var(--red)';
+					}
+				} else {
+					if (cand.ZVOLEN_K1 === 1 || cand.ZVOLEN_K2 === 1) {
+						c = 'var(--green)';
+					} else if (cand.ZVOLEN_K1 === 2) {
+						c = 'var(--yellow)';
+					} else {
+						c = 'var(--red)';
+					}
+				}
+			}
+
+			return c;
+		}
 	}
 };
