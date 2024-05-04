@@ -24,7 +24,7 @@
 													<div class="smaller" v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && findInParties(party.VSTRANA)">
 														v koalici <router-link class="strong" :to="'/strana/' + findInParties(party.VSTRANA).id">{{ findInParties(party.VSTRANA).NAZEV }}</router-link>
 													</div>
-													<div class="smaller" v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && !findInParties(party.VSTRANA)">
+													<div class="smaller" v-if="!elections.list[0].$strany.find(x => x.VSTRANA === party.VSTRANA) && !findInParties(party.VSTRANA) && findInCandidates(party.VSTRANA)">
 														na kandidátce <router-link class="strong" :to="'/strana/' + findInCandidates(party.VSTRANA).id">{{ findInCandidates(party.VSTRANA).NAZEV }}</router-link>
 													</div>
 												</div>
