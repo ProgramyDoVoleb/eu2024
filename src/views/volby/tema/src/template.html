@@ -17,25 +17,39 @@
 						<!-- <template v-if="['evropske-volby', 'snemovni-volby', 'komunalni-volby', 'krajske-volby'].indexOf(hash) > -1"> -->
 							<template v-if="$strany">
 								<template v-for="(party, index) in $strany">
-									<p-block :headline="party.NAZEV" :anchor="party.ZKRATKA || party.NAZEV">
+									<p-block :headline="party.NAZEV" :anchor="party.ZKRATKA || party.NAZEV" :hide="true">
+										<p-area class="inline" :borderColor="colorByItem(party, data)">
+											<p-offset>
+												<div>
+													<p-image :src="logoByItem(party, data)" :rounded="true"></p-image>
+												</div>
+												<div>
+													<router-link class="strong" :to="'/strana/' + party.id">{{ truncate(party.NAZEV, 10) }}</router-link>
+													<div class="smallest dimm">Program přidán {{ date(data.list[0].$body.find(x => x.csu_table === party.csu_table && x.csu_id === party.id).$program[0].updated) }}</div>
+												</div>
+											</p-offset>
+										</p-area>
+										<p-gap></p-gap>
 										<!-- <p-collapsible :label="party.NAZEV" :logo="logoByItem(party, data)"> -->
-											<p-area :borderColor="colorByItem(party, data)">
+											<!-- <p-area :borderColor="colorByItem(party, data)"> -->
 												<template v-if="data.list[0].$odpovedi.filter(x => x.csu_id === party.id).length > 0">
-													<p-list>
+													<p-list height="1.25">
 														<template v-for="(content, indexC) in data.list[0].$odpovedi.filter(x => x.csu_id === party.id)">
 															<div>
 																<p-truncated :content="content.answer" :size="60" class="serif"></p-truncated>
 															</div>
 														</template>
 														<div class="smaller strong">
-															<router-link  :to="'/strana/' + party.id + '/volebni-program/' + data.list[0].$body.find(x => x.csu_table === party.csu_table && x.csu_id === party.id).$program[0].id">Zobrazit volební program</router-link>
-															<!-- <p-box>
-																<p-box-button color="var(--blue)">Zobrazit volební program</p-box-button>
-															</p-box> -->
+															<p-box :to="'/strana/' + party.id + '/volebni-program/' + data.list[0].$body.find(x => x.csu_table === party.csu_table && x.csu_id === party.id).$program[0].id">
+																<!-- <p-box-color :color="colorByItem(party, data)"></p-box-color> -->
+																<p-box-button color="var(--blue)">
+																	Zobrazit volební program
+																</p-box-button>
+															</p-box>
 														</div>
 													</p-list>
 												</template>
-											</p-area>
+											<!-- </p-area> -->
 										<!-- </p-collapsible> -->
 
 									</p-block>
@@ -81,7 +95,15 @@
 			<p-anchors></p-anchors>
 		</template>
 		<template #aside>
-			...
+			<p-area borderColor="var(--yellow)" background="transparent" padding=".85em 0 1em 1.5em">
+				<strong>Výzva pro strany a kandidáty</strong>
+				<div class="p-gap _05"></div>
+				<div class="smaller">Jdete do voleb? Už máte svůj přístup do <router-link to="/pro-kandidaty" class="strong">Adminu</router-link>? Už dnes můžete vyplnit své údaje a také odpovědi na <router-link to="/otazky" class="strong">volební otázky</router-link> a kalkulačku.</div>
+				<div class="p-gap _05"></div>
+				<p-box to="/otazky">
+					<p-box-button color="var(--blue)">Zobrazit</p-box-button>
+				</p-box>
+			</p-area>
 		</template>
 	</p-layout-divided>
 </div>

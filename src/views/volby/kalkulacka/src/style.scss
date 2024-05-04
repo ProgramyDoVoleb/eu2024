@@ -1,8 +1,20 @@
 ._npm {
     margin: 0;
-    padding: 0;
+    padding: 0 !important;
 }
 
 .p-headline {
     max-width: 35em;
+}
+
+._mw {
+    max-width: 40em;
+}
+
+._bg {
+    background: var(--greyish);
+}
+
+p {
+    font-size: 1.6rem;
 }

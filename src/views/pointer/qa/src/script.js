@@ -2,7 +2,7 @@ import {useData} from '@/stores/data';
 import { useCore, cdn } from '@/stores/core';
 import { useRoute } from 'vue-router';
 import { regions } from '@/stores/enums';
-import {url, date, number, truncate, con, type, domain, sortByPorCislo} from '@/pdv/helpers';
+import {url, date, number, truncate, con, type, domain, sortByPorCislo, sortBy} from '@/pdv/helpers';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
 import {ga} from '@/pdv/analytics';
 import elections from '@/stores/enums/elections';
@@ -280,6 +280,7 @@ export default {
 		colorByItem,
 		logoByItem,
 		sortByPorCislo,
+		sortBy,
 		checkDuplicates: function (list) {
 			var arr = [];
 

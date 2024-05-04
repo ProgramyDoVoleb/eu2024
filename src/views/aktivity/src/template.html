@@ -1,0 +1,140 @@
+<div class="layout-homepage">
+	<p-layout-divided>
+		<template #main>
+			<p-block headline="Události" anchor="Události" :level="1" :hide="true">
+				<p class="lead">
+					Přehled událostí nadcházejících eurovoleb. Debaty, setkání s voliči, tiskové konference. Pokud vám nějaká událost v přehledu chybí, můžete na ni snadno upozornit.
+				</p>
+				<div class="p-gap"></div>
+				<p-block headline="Vybrané události">
+					<p-loader :rule="news && elections">
+						<div v-if="news && elections">
+							<p-list height="1.5">
+								<template v-for="(item, index) in sortEvents(news.events.filter(x => !x.csu_id))">
+									<div v-if="JSON.parse(item.label)[0] >= today">
+										<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
+									</div>
+								</template>
+							</p-list>
+						</div>
+					</p-loader>
+				</p-block>
+				<p-block headline="Nadcházející události">
+					<p-loader :rule="news && elections">
+						<div v-if="news && elections">
+							<p-list height="1.5">
+								<template v-for="(item, index) in firstOfUnique(sortEvents(news.events.filter(x => x.csu_id && JSON.parse(x.label)[0] >= today)), 'csu_id')">
+									<div>
+										<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
+									</div>
+								</template>
+							</p-list>
+						</div>
+					</p-loader>
+				</p-block>
+				<p-block headline="Záznam debaty Zavolíme!" anchor="Zavolíme!">
+					<iframe class="_hd" src="https://www.youtube.com/embed/r262TDMmQ3U?si=tMVnqsW4yU3tNHOY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+					<p class="strong">
+						<p-label color="var(--blue)">Sledujte</p-label> debatu <p-link href="https://zavolime.cz">Zavolíme!</p-link> s kandidáty do europarlamentu 26. dubna od 9:00
+					</p>
+					<!-- <h4>Účastní se:</h4> -->
+					<p-grid v-if="elections">
+						<div v-for="(id, index) in [3265,3276,3418,3309,3294,3274]">
+							<p-area>
+								<template v-for="(cand, indexCand) in [elections.list[0].$kandidati.find(x => x.id === id)]">
+									<template v-for="(party, indexParty) in [elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA)]">
+										<p-offset>
+											<div>
+												<p-image class="_square" :src="photos[index]"></p-image>
+											</div>
+											<div>
+												<router-link class="strong" :to="'/kandidat/' + cand.id">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link> <span class="dimm">&middot; {{ cand.PORCISLO }}</span>
+												<div class="smallest">
+													<router-link :to="'/strana/' + party.id" class="is-span">{{ party.ZKRATKA }}</router-link>
+												</div>
+											</div>
+										</p-offset>
+									</template>
+								</template>
+							</p-area>
+						</div>
+					</p-grid>
+				</p-block>
+				<p-block-expandable headline="Již proběhlo">
+					<p-loader :rule="news && elections">
+						<div v-if="news && elections">
+							<p-list height="1.5">
+								<template v-for="(item, index) in firstOfUnique(sortEvents(news.events.filter(x => x.csu_id && JSON.parse(x.label)[0] < today)), 'csu_id')">
+									<div>
+										<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
+									</div>
+								</template>
+							</p-list>
+						</div>
+					</p-loader>
+				</p-block-expandable>	
+			</p-block>
+			<p-block headline="Data" :hide="true">
+				<p-grid>
+					<li>
+						<p-area icon="plus-green" background="var(--greyish)">
+							<p-modal>
+								<template #init> <button class="inline green strong">Poslat tip na událost</button> </template>
+								<template #content>
+									<div class="strong">Odkaz na událost</div>
+									<report-form part="Přidat událost"></report-form>
+								</template>
+							</p-modal>
+							<div class="smallest dimm">Stačí poslat odkaz</div>
+						</p-area>
+					</li>
+					<li>
+						<p-area icon="warning" background="var(--greyish)">
+							<p-modal>
+								<template #init>
+									<button class="inline strong red">Nahlásit chybu</button>
+								</template>
+								<template #content>
+									<strong>Nahlásit chybu</strong>
+									<report-form part="Homepage"></report-form>
+								</template>
+							</p-modal>
+							<div class="smallest dimm">Nefunguje odkaz? Chyba ve jméně?</div>
+						</p-area>
+					</li>
+				</p-grid>
+			</p-block>		
+		</template>
+		<template #anchors>
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" alt="Evropské volby 2024"></p-logo>
+			<div class="p-gap"></div>
+			<p-anchors></p-anchors>
+		</template>
+		<template #aside>
+			<p-list height="1.25">
+				<div>
+					<strong class="smaller">Novinky</strong>
+					<div class="p-gap"></div>
+					<p-loader :rule="news">
+						<div v-if="news" class="small">
+							<news-block :news="news" :limit="1"></news-block>
+						</div>
+					</p-loader>
+				</div>
+				<div class="smallest b">
+					<p-offset class="reverse">
+						<div>
+							<router-link to="/novinky">Archiv novinek</router-link> &rarr;
+						</div>
+						<div>
+							<p-label :after="true" color="var(--red)">
+								<p-link href="https://programydovoleb.cz/rss">RSS</p-link>
+							</p-label>						
+						</div>
+					</p-offset>
+					
+				</div>
+			</p-list>
+		</template>
+	</p-layout-divided>
+</div>

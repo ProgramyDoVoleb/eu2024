@@ -1,7 +1,7 @@
 import {useData} from '@/stores/data';
 import { cdn, today } from '@/stores/core';
 // import { useEnums } from '@/stores/enums';
-import {url, date, number, truncate, sortBy, unique} from '@/pdv/helpers';
+import {url, date, number, truncate, sortBy, unique, slide} from '@/pdv/helpers';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
 import {ga} from '@/pdv/analytics';
 
@@ -16,7 +16,7 @@ export default {
 				{type: 1, designee: null, label: 'Otázky', hash: 'otazka'},
 				{type: 1, designee: 1, label: 'Otázky pro strany', hash: 'otazka'},
 				{type: 1, designee: 2, label: 'Otázky pro kandidáty', hash: 'otazka'},
-				{type: 3, designee: null, label: 'Volební kalkulačka', hash: 'kalkulacka'}
+				{type: 3, designee: null, label: 'Volební kalkulačka', hash: 'kalkulacka/otazka'}
 			],
 			hasObvody: this.hash === 'senatni-volby',
 			hasKraje: this.hash === 'krajske-volby',
@@ -68,7 +68,7 @@ export default {
 		}
 	},
 	methods: {
-		date, sortBy, logoByItem, colorByItem,
+		date, sortBy, logoByItem, colorByItem, slide, truncate,
 		sortByDeepPrijmeni: function (list) {
 			var arr = [];
 
@@ -77,6 +77,17 @@ export default {
 			});
 
 			arr.sort((a, b) => a.$kandidat.PRIJMENI.localeCompare(b.$kandidat.PRIJMENI, 'cs'));
+
+			return arr;
+		},
+		sortByDeepZkratka: function (list) {
+			var arr = [];
+
+			list.forEach(x => {
+				if (!arr.find(y => y.pointer === x.pointer)) arr.push(x);
+			});
+
+			arr.sort((a, b) => a.$strana.ZKRATKA.localeCompare(b.$strana.ZKRATKA, 'cs'));
 
 			return arr;
 		},
@@ -103,5 +114,10 @@ export default {
 	},
 	mounted: function () {
 	  window.scrollTo(0, 1);
+	},
+	watch: {
+		qid: function () {
+			window.scrollTo(0, 1);
+		}
 	}
 };

@@ -44,13 +44,22 @@
 							<p-gap height=""></p-gap>
 							<p-list>
 								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 1 && x.designated === 1)">
-									<p-offset class="balanced">
+									<p-offset class="reverse balanced">
 										<div>
-											<p-box-ticker>{{ i + 1 }}</p-box-ticker>
+											<p-offset class="balanced">
+												<div>
+													<p-box-ticker>{{ i + 1 }}</p-box-ticker>
+												</div>
+												<div>
+													{{ q.question }} 
+													<div class="smaller serif" v-if="q.comment">{{ q.comment }}</div>
+												</div>
+											</p-offset>
 										</div>
 										<div>
-											{{ q.question }}
-											<div class="smaller serif" v-if="q.comment">{{ q.comment }}</div>
+											<p-box :to="'/otazka/' + q.id">
+												<p-box-button>Odpovědi</p-box-button>
+											</p-box>
 										</div>
 									</p-offset>
 								</div>
@@ -77,13 +86,22 @@
 							<p-gap height=""></p-gap>
 							<p-list>
 								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 1 && x.designated === 2)">
-									<p-offset class="balanced">
+									<p-offset class="reverse balanced">
 										<div>
-											<p-box-ticker>{{ i + 1 }}</p-box-ticker>
+											<p-offset class="balanced">
+												<div>
+													<p-box-ticker>{{ i + 1 }}</p-box-ticker>
+												</div>
+												<div>
+													{{ q.question }} 
+													<div class="smaller serif" v-if="q.comment">{{ q.comment }}</div>
+												</div>
+											</p-offset>
 										</div>
 										<div>
-											{{ q.question }}
-											<div class="smaller serif" v-if="q.comment">{{ q.comment }}</div>
+											<p-box :to="'/otazka/' + q.id">
+												<p-box-button>Odpovědi</p-box-button>
+											</p-box>
 										</div>
 									</p-offset>
 								</div>
@@ -110,13 +128,22 @@
 							<p-gap height=""></p-gap>
 							<p-list>
 								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 3)">
-									<p-offset class="balanced">
+									<p-offset class="reverse balanced">
 										<div>
-											<p-box-ticker>{{ i + 1 }}</p-box-ticker>
+											<p-offset class="balanced">
+												<div>
+													<p-box-ticker>{{ i + 1 }}</p-box-ticker>
+												</div>
+												<div>
+													{{ q.question }} 
+													<div class="smaller serif" v-if="q.comment">{{ q.comment }}</div>
+												</div>
+											</p-offset>
 										</div>
 										<div>
-											{{ q.question }}
-											<div class="smaller serif" v-if="q.comment">{{ q.comment }}</div>
+											<p-box :to="'/kalkulacka/otazka/' + q.id">
+												<p-box-button>Odpovědi</p-box-button>
+											</p-box>
 										</div>
 									</p-offset>
 								</div>

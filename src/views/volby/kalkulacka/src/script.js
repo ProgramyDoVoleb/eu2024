@@ -1,7 +1,7 @@
 import {useData} from '@/stores/data';
 import { cdn, today } from '@/stores/core';
 // import { useEnums } from '@/stores/enums';
-import {url, date, number, truncate, sortBy, unique} from '@/pdv/helpers';
+import {url, date, number, truncate, sortBy, unique, slide} from '@/pdv/helpers';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
 import {ga} from '@/pdv/analytics';
 
@@ -16,7 +16,7 @@ export default {
 				{type: 1, designee: null, label: 'Otázky', hash: 'otazka'},
 				{type: 1, designee: 1, label: 'Otázky pro strany', hash: 'otazka'},
 				{type: 1, designee: 2, label: 'Otázky pro kandidáty', hash: 'otazka'},
-				{type: 3, designee: null, label: 'Volební kalkulačka', hash: 'kalkulacka'}
+				{type: 3, designee: null, label: 'Volební kalkulačka', hash: 'kalkulacka/otazka'}
 			],
 			hasObvody: this.hash === 'senatni-volby',
 			hasKraje: this.hash === 'krajske-volby',
@@ -58,17 +58,19 @@ export default {
 				this.data.list[0].$body.filter(x => x.$strana).forEach(item => {
 					if (!list.find(x => x.id === item.$strana.id)) {
 						list.push(item.$strana);
+
+						if (!item.$strana.$data) item.$strana.$data = this.data.cis.strany.find(x => x.VSTRANA === item.$strana.VSTRANA).$data;
 					}
 				});
 
-				list = sortBy(list, 'NAZEV', '', true);
+				list = sortBy(list, 'ZKRATKA', '', true);
 			}
 
 			return list;
 		}
 	},
 	methods: {
-		date, sortBy, logoByItem, truncate,
+		date, sortBy, logoByItem, truncate, slide,
 		sortByDeepPrijmeni: function (list) {
 			var arr = [];
 

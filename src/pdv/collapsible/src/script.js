@@ -1,9 +1,12 @@
+import { cdn } from '@/stores/core';
+
 export default {
 	name: 'collapsible-element',
 	props: ['label', 'logo', 'open', 'tick', 'seo', 'skip', 'borderless', 'status', 'party', 'color', 'empty'],
 	data: function () {
 		return {
-			opened: false
+			opened: false,
+			cdn
 		}
 	},
 	methods: {
