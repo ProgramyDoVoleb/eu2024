@@ -29,6 +29,13 @@
 						</p-link>
 					</template>
 				</template>
+				<template v-if="cand.$data.email">
+					<template v-for="(soc, indexS) in checkDuplicates(cand.$data.email)">
+						<p-link :href="'mailto:' + soc.value">
+							<p-icon :src="cdn + 'icon/email.svg'" size="2em" border="transparent 1px solid"></p-icon>
+						</p-link>
+					</template>
+				</template>
 			</div>
 			<div>
 				<!-- <p-label :after="true" :color="cand.MANDAT === 'A' ? 'var(--green)' : null"> -->
@@ -80,7 +87,8 @@
 			</div>																	
 		</div>
 		<div class="smallest" v-if="cand.$profil.length > 0">
-			<p-link class="dimm" :href="'https://programydovoleb.cz/lide/profil/' + cand.$profil[0].profil">Volební historie</p-link>
+			<p-gap></p-gap>
+			<p-link class="strong dimm" :href="'https://programydovoleb.cz/lide/profil/' + cand.$profil[0].profil">Volební historie</p-link>
 		</div>
 	</div>
 </div>

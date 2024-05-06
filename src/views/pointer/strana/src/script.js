@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { regions } from '@/stores/enums';
 import elections from '@/stores/enums/elections';
 import logtypes from '@/stores/enums/log';
-import {url, date, number, truncate, con, type, domain, sortByPorCislo, slide, unique, sortEvents} from '@/pdv/helpers';
+import {url, date, number, truncate, con, type, domain, sortByPorCislo, sortBy, slide, unique, sortEvents} from '@/pdv/helpers';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
 import {ga} from '@/pdv/analytics';
 import NewsItem from '@/components/news-item/do.vue'
@@ -322,7 +322,7 @@ export default {
 		truncate,
 		colorByItem,
 		logoByItem,
-		sortByPorCislo, sortEvents,
+		sortByPorCislo, sortEvents, sortBy,
 		slide,
 		checkDuplicates: function (list) {
 			var arr = [];

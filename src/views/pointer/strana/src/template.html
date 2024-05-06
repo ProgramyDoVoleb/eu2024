@@ -218,7 +218,7 @@
 							</p-block>
 							<p-block headline="Otázky a odpovědi" v-if="current.$otazky.filter(x => x.type != 2).length > 0">
 								<p-list height="1.5">
-									<div v-for="(question, index) in current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 1))">
+									<div v-for="(question, index) in sortBy(current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 1)), 'id')">
 										<strong>{{ question.question }}</strong>
 										<div class="p-gap _05"></div>
 										<div class="serif">

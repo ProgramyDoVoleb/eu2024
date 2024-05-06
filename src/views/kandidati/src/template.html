@@ -5,292 +5,352 @@
 				<p>Zde jsou uvedeny všichni kandidáti, kteří oznámili, avizovali nebo se spekuluje, že se zapojí do voleb. Konečný seznam bude dostupný kolem 23. dubna 2024.</p>
 				<p-loader :rule="elections">
 					<div v-if="elections">
-						<p-collapsible label="Filtr podle volebních stran">
-							<p-area background="var(--blue11)">
-								<div class="columns-4 smaller">
-									<div v-for="(party, index) in sortBy(elections.list[0].$strany, 'ZKRATKA', '', true)">
-										<p-label :color="selected.find(x => x === party.ESTRANA) ? 'var(--green)' : 'var(--greyish)'">
-											<button class="inline" @click.prevent="filterMe(party.ESTRANA)">
-												{{ party.ZKRATKA }}
-											</button>
+						<p-block headline="Odpověděli na otázky" :hide="true" anchor="Odpověděli">
+							<h2>Odpověděli na otázky <p-icon icon="answers-mini"></p-icon></h2>
+							<p>Všichni kandidáti mohou odpovědět na 6 otázek a také vyplnit volební kalkulačku. Níže jsou vypsaní kandidáti, kteří už odpověděli alespoň na některou z otázek.</p>
+							<div class="columns-4">
+									<div v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.$odpovedi), 'PRIJMENI', '', true)">
+										<p-offset class="reverse">
+											<div>
+												<p-label :color="colorByItem(elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA), elections)">
+													<router-link :to="'/kandidat/' + cand.id" :class="{'strong': cand.PORCISLO < 6}">
+														{{ cand.JMENO }} {{ cand.PRIJMENI }}
+													</router-link>
+												</p-label>
+											</div>
+											<div>
+												<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" class="smaller">číst <p-icon icon="answers-mini" size="1em" border="none"></p-icon></router-link>
+											</div>
+										</p-offset>
+									</div>
+							</div>
+							<p-gap height="2"></p-gap>
+							<p-grid>
+								<div>
+									<p-area icon="answers-mini">
+										<router-link to="/otazky" class="strong">Chcete také odpovědět?</router-link>
+										<div class="smallest">Zobrazit otázky a instrukce</div>
+									</p-area>
+								</div>
+								<div>
+									<p-area icon="link">
+										<p-link href="https://docs.google.com/document/d/13Eyrk9u3D7smv6Dm6IeG3-kT14cKm__cvjlWXCu_zDM/edit?usp=sharing" class="strong">Otázky pro kandidáty</p-link>
+										<div class="smallest">Zobrazit na Google Drive</div>
+									</p-area>
+								</div>
+								<div>
+									<p-area icon="link">
+										<p-link href="https://docs.google.com/spreadsheets/d/1DQF_NYK-WaCPir-cp_fDPxQc_9kgxctl1_MTD8WZ7jY/edit#gid=0" class="strong">Otázky z volební kalkulačky</p-link>
+										<div class="smallest">Zobrazit na Google Drive</div>
+									</p-area>
+								</div>
+							</p-grid>
+						</p-block>
+						<p-block headline="Seznam všech kandidátů" anchor="Seznam">
+							<!-- <p-collapsible label="Filtr podle volebních stran"> -->
+								<p-area background="var(--blue11)">
+									<strong>Filtr podle volebních stran</strong>
+									<p-gap></p-gap>
+									<div class="columns-4 smaller">
+										<div v-for="(party, index) in sortBy(elections.list[0].$strany, 'ZKRATKA', '', true)">
+											<p-label :color="selected.find(x => x === party.ESTRANA) ? 'var(--green)' : 'var(--greyish)'">
+												<button class="inline" @click.prevent="filterMe(party.ESTRANA)">
+													{{ party.ZKRATKA }}
+												</button>
+											</p-label>
+										</div>
+									</div>
+								</p-area>
+							<!-- </p-collapsible> -->
+							<div class="p-gap _4"></div>
+							<div class="columns-4">
+								<template v-for="(p, index) in 'AÁBCČDĎEÉFGHIÍJKLĽĹMNŇOÓPQRŘSŠTŤUÚVWXYÝZ'.split('')">
+									<div class="_l" v-if="elections.list[0].$kandidati.filter(x => x.PRIJMENI.charAt(0) === p && (selected.length === 0 || selected.find(y => y === x.ESTRANA))).length > 0">
+										<div class="_b">{{ p }}</div>
+										<p-list class="invisible">
+											<li v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.PRIJMENI.charAt(0) === p && (selected.length === 0 || selected.find(y => y === x.ESTRANA))), 'PRIJMENI', '', true)">
+												<p-label :color="colorByItem(elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA), elections)">
+													<router-link :to="'/kandidat/' + cand.id" :class="{'strong': cand.PORCISLO < 6}">
+														{{ cand.JMENO }} {{ cand.PRIJMENI }}
+													</router-link>
+												</p-label>
+												<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" v-if="cand.$odpovedi && cand.$odpovedi > 0"> <p-icon icon="answers" size="1em" border="none"></p-icon></router-link>
+											</li>
+										</p-list>									
+									</div>
+								</template>
+							</div>
+							<p-line height="4"></p-line>
+							<div class="columns-4 smaller">
+								<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ZKRATKA', '', true)">
+									<div v-if="selected.length === 0 || selected.find(x => x === party.ESTRANA)">
+										<p-label :color="colorByItem(party, elections)">
+											<router-link :to="'/strana/' + party.id">{{ party.ZKRATKA }}</router-link>
 										</p-label>
 									</div>
-								</div>
-							</p-area>
-						</p-collapsible>
-						<div class="p-gap _4"></div>
-						<div class="columns-4">
-							<template v-for="(p, index) in 'AÁBCČDĎEÉFGHIÍJKLĽĹMNŇOÓPQRŘSŠTŤUÚVWXYÝZ'.split('')">
-								<div class="_l" v-if="elections.list[0].$kandidati.filter(x => x.PRIJMENI.charAt(0) === p && (selected.length === 0 || selected.find(y => y === x.ESTRANA))).length > 0">
-									<div class="_b">{{ p }}</div>
-									<p-list class="invisible">
-										<li v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.PRIJMENI.charAt(0) === p && (selected.length === 0 || selected.find(y => y === x.ESTRANA))), 'PRIJMENI', '', true)">
-											<p-label :color="colorByItem(elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA), elections)">
-												<router-link :to="'/kandidat/' + cand.id" :class="{'dimm': !cand.PORCISLO}">
-													{{ cand.PRIJMENI }}, {{ cand.JMENO }}
-												</router-link>
-											</p-label>
-											<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" v-if="cand.$odpovedi && cand.$odpovedi > 0"> <p-icon icon="answers" size="1em" border="none"></p-icon></router-link>
-										</li>
-									</p-list>									
-								</div>
-							</template>
-						</div>
-						<p-line height="4"></p-line>
-						<div class="columns-4 smaller">
-							<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ZKRATKA', '', true)">
-								<div v-if="selected.length === 0 || selected.find(x => x === party.ESTRANA)">
-									<p-label :color="colorByItem(party, elections)">
-										<router-link :to="'/strana/' + party.id">{{ party.ZKRATKA }}</router-link>
-									</p-label>
-								</div>
-							</template>
-						</div>
-						<p-line height="4"></p-line>
-						<p-block headline="Podle věku">
-							<p-area class="_sh">
-								<table class="_t">
-									<thead>
-										<tr>
-											<th>#</th>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<th>
-													<div class="_r">
-														<div class="_ra">
-															{{ party.ZKRATKA }}
-														</div>
-													</div>
-													{{ index + 1 }}
-												</th>
-											</template>
-										</tr>
-									</thead>
-									<tbody>
-										<template v-for="(index, ix) in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]">
-											<tr>
-												<td>{{ index }}</td>
-												<template v-for="(party, indexParty) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-													<td>
-														<div class="_c" :style="determineColorByAge(party, index)"></div>
-													</td>
-												</template> 
-											</tr> 
-										</template>
-									</tbody>
-									<tfoot>
-										<tr class="dimm">
-											<td>—</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													—
-												</td>
-											</template>
-										</tr>
-										<tr class="green strong">
-											<td>&sum;</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.VEK < 30 ? 1 : 0), 0) }}
-												</td>
-											</template>
-										</tr>
-										<tr class="dimm strong">
-											<td class="">&sum;</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.VEK >= 30 && b.VEK <= 65 ? 1 : 0), 0) }}
-												</td>
-											</template>
-										</tr>
-										<tr class="red strong">
-											<td>&sum;</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.VEK > 65 ? 1 : 0), 0) }}
-												</td>
-											</template>
-										</tr>
-									</tfoot>
-								</table>
-							</p-area>
+								</template>
+							</div>
+							<p-line height="4"></p-line>
 						</p-block>
-						<p-block headline="Podle vzdělání">
-							<p-area class="_sh">
-								<table class="_t">
-									<thead>
-										<tr>
-											<th>#</th>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<th>
-													<div class="_r">
-														<div class="_ra">
-															{{ party.ZKRATKA }}
-														</div>
-													</div>
-													{{ index + 1 }}
-												</th>
-											</template>
-										</tr>
-									</thead>
-									<tbody>
-										<template v-for="(index, ix) in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]">
+						<p-block headline="Statistiky" :level="1">
+							<p-block headline="Podle věku">
+								<p-area class="_sh">
+									<table class="_t">
+										<thead>
 											<tr>
-												<td>{{ index }}</td>
-												<template v-for="(party, indexParty) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+												<th>#</th>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<th>
+														<div class="_r">
+															<div class="_ra">
+																{{ party.ZKRATKA }}
+															</div>
+														</div>
+														{{ index + 1 }}
+													</th>
+												</template>
+											</tr>
+										</thead>
+										<tbody>
+											<template v-for="(index, ix) in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]">
+												<tr>
+													<td>{{ index }}</td>
+													<template v-for="(party, indexParty) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+														<td>
+															<div class="_c" :style="determineColorByAge(party, index)"></div>
+														</td>
+													</template> 
+												</tr> 
+											</template>
+										</tbody>
+										<tfoot>
+											<tr class="dimm">
+												<td>—</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
 													<td>
-														<div class="_c" :style="determineColorByTitle(party, index)"></div>
+														—
 													</td>
-												</template> 
-											</tr> 
-										</template>
-									</tbody>
-									<tfoot>
-										<tr class="dimm">
-											<td>—</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													—
-												</td>
+												</template>
+											</tr>
+											<tr class="green strong">
+												<td>&sum;</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<td>
+														{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.VEK < 30 ? 1 : 0), 0) }}
+													</td>
+												</template>
+											</tr>
+											<tr class="dimm strong">
+												<td class="">&sum;</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<td>
+														{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.VEK >= 30 && b.VEK <= 65 ? 1 : 0), 0) }}
+													</td>
+												</template>
+											</tr>
+											<tr class="red strong">
+												<td>&sum;</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<td>
+														{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.VEK > 65 ? 1 : 0), 0) }}
+													</td>
+												</template>
+											</tr>
+										</tfoot>
+									</table>
+									<p-line></p-line>
+									<div class="smallest">
+										<div><p-label color="var(--green)">Mladší 30 let</p-label></div>
+										<div><p-label color="var(--red)">Starší 65 let</p-label></div>
+									</div>
+								</p-area>
+							</p-block>
+							<p-block headline="Podle vzdělání">
+								<p-area class="_sh">
+									<table class="_t">
+										<thead>
+											<tr>
+												<th>#</th>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<th>
+														<div class="_r">
+															<div class="_ra">
+																{{ party.ZKRATKA }}
+															</div>
+														</div>
+														{{ index + 1 }}
+													</th>
+												</template>
+											</tr>
+										</thead>
+										<tbody>
+											<template v-for="(index, ix) in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]">
+												<tr>
+													<td>{{ index }}</td>
+													<template v-for="(party, indexParty) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+														<td>
+															<div class="_c" :style="determineColorByTitle(party, index)"></div>
+														</td>
+													</template> 
+												</tr> 
 											</template>
-										</tr>
-										<tr class="blue strong">
-											<td>&sum;</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.TITULPRED || b.TITULZA ? 1 : 0), 0) }}
-												</td>
-											</template>
-										</tr>
-										<tr class="dimm">
-											<td class="">&sum;</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.TITULPRED || b.TITULZA ? 0 : 1), 0) }}
-												</td>
-											</template>
-										</tr>
-									</tfoot>
-								</table>
-							</p-area>
-						</p-block>
-						<p-block headline="Ženy">
+										</tbody>
+										<tfoot>
+											<tr class="dimm">
+												<td>—</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<td>
+														—
+													</td>
+												</template>
+											</tr>
+											<tr class="blue strong">
+												<td>&sum;</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<td>
+														{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.TITULPRED || b.TITULZA ? 1 : 0), 0) }}
+													</td>
+												</template>
+											</tr>
+											<tr class="dimm">
+												<td class="">&sum;</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<td>
+														{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.TITULPRED || b.TITULZA ? 0 : 1), 0) }}
+													</td>
+												</template>
+											</tr>
+										</tfoot>
+									</table>
+									<p-line></p-line>
+									<div class="smallest">
+										<div><p-label color="var(--blue)">Používají titul</p-label></div>
+									</div>
+								</p-area>
+							</p-block>
+							<p-block headline="Ženy">
 
-							<p-area class="_sh">
-								<table class="_t">
-									<thead>
-										<tr>
-											<th>#</th>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<th>
-													<div class="_r">
-														<div class="_ra">
-															{{ party.ZKRATKA }}
-														</div>
-													</div>
-													{{ index + 1 }}
-												</th>
-											</template>
-										</tr>
-									</thead>
-									<tbody>
-										<template v-for="(index, ix) in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]">
+								<p-area class="_sh">
+									<table class="_t">
+										<thead>
 											<tr>
-												<td>{{ index }}</td>
-												<template v-for="(party, indexParty) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-													<td>
-														<div class="_c" :style="determineColorBySex(party, index)"></div>
-													</td>
-												</template> 
-											</tr> 
-										</template>
-									</tbody>
-									<tfoot>
-										<tr class="dimm">
-											<td>—</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													—
-												</td>
-											</template>
-										</tr>
-										<tr class="red strong">
-											<td>&sum;</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (determineWoman(b) ? 1 : 0), 0) }}
-												</td>
-											</template>
-										</tr>
-										<tr class="dimm">
-											<td class="">&sum;</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (determineWoman(b) ? 0 : 1), 0) }}
-												</td>
-											</template>
-										</tr>
-									</tfoot>
-								</table>
-							</p-area>
-						</p-block>
-						<p-block headline="Nestraníci">
-							<p-area class="_sh">
-								<table class="_t">
-									<thead>
-										<tr>
-											<th>#</th>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<th>
-													<div class="_r">
-														<div class="_ra">
-															{{ party.ZKRATKA }}
+												<th>#</th>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<th>
+														<div class="_r">
+															<div class="_ra">
+																{{ party.ZKRATKA }}
+															</div>
 														</div>
-													</div>
-													{{ index + 1 }}
-												</th>
+														{{ index + 1 }}
+													</th>
+												</template>
+											</tr>
+										</thead>
+										<tbody>
+											<template v-for="(index, ix) in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]">
+												<tr>
+													<td>{{ index }}</td>
+													<template v-for="(party, indexParty) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+														<td>
+															<div class="_c" :style="determineColorBySex(party, index)"></div>
+														</td>
+													</template> 
+												</tr> 
 											</template>
-										</tr>
-									</thead>
-									<tbody>
-										<template v-for="(index, ix) in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]">
-											<tr>
-												<td>{{ index }}</td>
-												<template v-for="(party, indexParty) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+										</tbody>
+										<tfoot>
+											<tr class="dimm">
+												<td>—</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
 													<td>
-														<div class="_c" :style="determineColorByBEZPP(party, index)"></div>
+														—
 													</td>
-												</template> 
-											</tr> 
-										</template>
-									</tbody>
-									<tfoot>
-										<tr class="dimm">
-											<td>—</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													—
-												</td>
+												</template>
+											</tr>
+											<tr class="red strong">
+												<td>&sum;</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<td>
+														{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (determineWoman(b) ? 1 : 0), 0) }}
+													</td>
+												</template>
+											</tr>
+											<tr class="dimm">
+												<td class="">&sum;</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<td>
+														{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (determineWoman(b) ? 0 : 1), 0) }}
+													</td>
+												</template>
+											</tr>
+										</tfoot>
+									</table>
+									<p-line></p-line>
+									<div class="smallest">
+										<div><p-label color="var(--red)">Ženy</p-label></div>
+									</div>
+								</p-area>
+							</p-block>
+							<p-block headline="Nestraníci">
+								<p-area class="_sh">
+									<table class="_t">
+										<thead>
+											<tr>
+												<th>#</th>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<th>
+														<div class="_r">
+															<div class="_ra">
+																{{ party.ZKRATKA }}
+															</div>
+														</div>
+														{{ index + 1 }}
+													</th>
+												</template>
+											</tr>
+										</thead>
+										<tbody>
+											<template v-for="(index, ix) in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]">
+												<tr>
+													<td>{{ index }}</td>
+													<template v-for="(party, indexParty) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+														<td>
+															<div class="_c" :style="determineColorByBEZPP(party, index)"></div>
+														</td>
+													</template> 
+												</tr> 
 											</template>
-										</tr>
-										<tr class="strong">
-											<td>&sum;</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.PSTRANA === 99 ? 1 : 0), 0) }}
-												</td>
-											</template>
-										</tr>
-										<tr class="dimm">
-											<td class="">&sum;</td>
-											<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
-												<td>
-													{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.PSTRANA === 99 ? 0 : 1), 0) }}
-												</td>
-											</template>
-										</tr>
-									</tfoot>
-								</table>
-							</p-area>
+										</tbody>
+										<tfoot>
+											<tr class="dimm">
+												<td>—</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<td>
+														—
+													</td>
+												</template>
+											</tr>
+											<tr class="strong">
+												<td>&sum;</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<td>
+														{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.PSTRANA === 99 ? 1 : 0), 0) }}
+													</td>
+												</template>
+											</tr>
+											<tr class="dimm">
+												<td class="">&sum;</td>
+												<template v-for="(party, index) in sortBy(elections.list[0].$strany, 'ESTRANA')">
+													<td>
+														{{ elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA).reduce((a, b) => a + (b.PSTRANA === 99 ? 0 : 1), 0) }}
+													</td>
+												</template>
+											</tr>
+										</tfoot>
+									</table>
+								</p-area>
+							</p-block>
 						</p-block>
 						<!-- <p-line height="4"></p-line> -->
 					</div>
@@ -365,30 +425,15 @@
 			<p-anchors></p-anchors>
 		</template>
 		<template #aside>
-			<p-list height="1.25">
-				<div>
-					<strong class="smaller">Novinky</strong>
-					<div class="p-gap"></div>
-					<p-loader :rule="news">
-						<div v-if="news" class="small">
-							<news-block :news="news" :limit="1"></news-block>
-						</div>
-					</p-loader>
-				</div>
-				<div class="smallest b">
-					<p-offset class="reverse">
-						<div>
-							<router-link to="/novinky">Archiv novinek</router-link> &rarr;
-						</div>
-						<div>
-							<p-label :after="true" color="var(--red)">
-								<p-link href="https://programydovoleb.cz/rss">RSS</p-link>
-							</p-label>						
-						</div>
-					</p-offset>
-					
-				</div>
-			</p-list>
+			<p-area borderColor="var(--yellow)" background="transparent" padding=".85em 0 1em 1.5em">
+				<strong>Výzva pro strany a kandidáty</strong>
+				<div class="p-gap _05"></div>
+				<div class="smaller">Jdete do voleb? Už máte svůj přístup do <router-link to="/pro-kandidaty" class="strong">Adminu</router-link>? Už dnes můžete vyplnit své údaje a také odpovědi na <router-link to="/otazky" class="strong">volební otázky</router-link> a kalkulačku.</div>
+				<div class="p-gap _05"></div>
+				<p-box to="/otazky">
+					<p-box-button>Zobrazit</p-box-button>
+				</p-box>
+			</p-area>
 		</template>
 	</p-layout-divided>
 </div>

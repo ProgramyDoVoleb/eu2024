@@ -26,6 +26,13 @@
 							<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
 						</p-link>
 					</template>
+					<template v-if="cand.$data.email">
+						<template v-for="(soc, indexS) in checkDuplicates(cand.$data.email)">
+							<p-link :href="'mailto:' + soc.value">
+								<p-icon :src="cdn + 'icon/email.svg'" size="2em" border="transparent 1px solid"></p-icon>
+							</p-link>
+						</template>
+					</template>
 				</template>
 			</div>
 			<template v-if="cand.VEK || cand.POVOLANI">
@@ -66,7 +73,8 @@
 				<p-truncated :size="24" :content="cand.$data.about[0].value" :compact="'/kandidat/' + cand.id" :unbreak="true"></p-truncated>
 			</div>	
 			<div class="smallest" v-if="cand.$profil.length > 0">
-				<p-link class="is-span" :href="'https://programydovoleb.cz/lide/profil/' + cand.$profil[0].profil">Volební historie</p-link>
+				<p-gap></p-gap>
+				<p-link class="is-span strong" :href="'https://programydovoleb.cz/lide/profil/' + cand.$profil[0].profil">Volební historie</p-link>
 			</div>
 			<!-- <div class="p-gap"></div>
 			<router-link class="btn" :to="'/kandidat/' + cand.id">Detail kandidáta</router-link> -->
