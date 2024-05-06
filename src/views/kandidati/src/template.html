@@ -71,7 +71,7 @@
 											<li v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.PRIJMENI.charAt(0) === p && (selected.length === 0 || selected.find(y => y === x.ESTRANA))), 'PRIJMENI', '', true)">
 												<p-label :color="colorByItem(elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA), elections)">
 													<router-link :to="'/kandidat/' + cand.id" :class="{'strong': cand.PORCISLO < 6}">
-														{{ cand.JMENO }} {{ cand.PRIJMENI }}
+														{{ cand.PRIJMENI }}, {{ cand.JMENO }} 
 													</router-link>
 												</p-label>
 												<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" v-if="cand.$odpovedi && cand.$odpovedi > 0"> <p-icon icon="answers" size="1em" border="none"></p-icon></router-link>
