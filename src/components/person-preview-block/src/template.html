@@ -15,26 +15,6 @@
 		</div>
 		<div class="_content">
 			<router-link class="strong" :to="'/kandidat/' + cand.id">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link>
-			<div class="_soc" v-if="(cand.$data.social && cand.$data.social.length > 0) || (cand.$odpovedi && cand.$odpovedi > 0)">
-				<div class="p-gap _033"></div>
-				<template v-if="cand.$odpovedi && cand.$odpovedi > 0">
-					<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'"><p-icon :src="cdn + 'icon/answers-mini.svg'" size="2em" border="transparent 1px solid"></p-icon></router-link>
-				</template>
-				<template v-if="cand.$data.social && cand.$data.social.length > 0">
-					<template v-for="(soc, indexS) in checkDuplicates(cand.$data.social)">
-						<p-link :href="soc.value">
-							<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
-						</p-link>
-					</template>
-					<template v-if="cand.$data.email">
-						<template v-for="(soc, indexS) in checkDuplicates(cand.$data.email)">
-							<p-link :href="'mailto:' + soc.value">
-								<p-icon :src="cdn + 'icon/email.svg'" size="2em" border="transparent 1px solid"></p-icon>
-							</p-link>
-						</template>
-					</template>
-				</template>
-			</div>
 			<template v-if="cand.VEK || cand.POVOLANI">
 				<div class="p-gap _033"></div>
 				<div class="smaller">
@@ -68,8 +48,28 @@
 				</span>
 			</div>
 			<div v-if="cand.PSTRANA && cand.PSTRANA === 99" class="smallest">nestraník</div>
+			<div class="_soc" v-if="(cand.$data.social && cand.$data.social.length > 0) || (cand.$odpovedi && cand.$odpovedi > 0)">
+				<div class="p-gap _075"></div>
+				<template v-if="cand.$odpovedi && cand.$odpovedi > 0">
+					<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'"><p-icon :src="cdn + 'icon/answers-mini.svg'" size="2em" border="transparent 1px solid"></p-icon></router-link>
+				</template>
+				<template v-if="cand.$data.social && cand.$data.social.length > 0">
+					<template v-for="(soc, indexS) in checkDuplicates(cand.$data.social)">
+						<p-link :href="soc.value">
+							<p-icon :src="cdn + 'icon/' + type(soc.value) + '.svg'" size="2em" border="transparent 1px solid"></p-icon>
+						</p-link>
+					</template>
+					<template v-if="cand.$data.email">
+						<template v-for="(soc, indexS) in checkDuplicates(cand.$data.email)">
+							<p-link :href="'mailto:' + soc.value">
+								<p-icon :src="cdn + 'icon/email.svg'" size="2em" border="transparent 1px solid"></p-icon>
+							</p-link>
+						</template>
+					</template>
+				</template>
+			</div>
 			<div class="serif smaller" v-if="cand.$data.about[0]">
-				<div class="p-gap"></div>
+				<div class="p-gap _05"></div>
 				<p-truncated :size="24" :content="cand.$data.about[0].value" :compact="'/kandidat/' + cand.id" :unbreak="true"></p-truncated>
 			</div>	
 			<div class="smallest" v-if="cand.$profil.length > 0">
