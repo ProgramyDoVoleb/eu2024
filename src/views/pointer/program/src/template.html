@@ -31,7 +31,7 @@
 										<router-link class="is-span" to="/">
 											{{ $volby.$about.name }}
 										</router-link> 
-										&middot; {{ $volby.datum ? date($volby.datum) : $volby.cirka }}
+										&middot; {{ $volby.datum_label || ($volby.datum ? date($volby.datum) : $volby.cirka) }}
 									</div>
 									<div class="p-gap"></div>
 								</div>
