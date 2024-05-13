@@ -17,6 +17,7 @@ import PointerParty from '../views/pointer/strana/do.vue'
 import PointerCandidate from '../views/pointer/kandidat/do.vue'
 import PointerQA from '../views/pointer/qa/do.vue'
 import PointerProgram from '../views/pointer/program/do.vue'
+import Activity_Quiz1 from '../views/aktivity/quiz-1/do.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,6 +26,11 @@ const router = createRouter({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/aktivity/kviz-pro-eurovolby',
+      name: 'Activity_Quiz1',
+      component: Activity_Quiz1
     },
     {
       path: '/prehled',

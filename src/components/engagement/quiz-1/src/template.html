@@ -1,0 +1,55 @@
+<div class="engagement-quiz-1">
+	<template v-if="!used">
+		<p>Otestujte své znalosti! Odpovězte na 10 otázek a zjistíte, jak dobře jste připraveni na eurovolby a jak dobře znáte podmínky a odlišnosti od ostatních českých voleb.</p>
+		<p-list height="2">
+			<div v-for="(item, index) in list">
+				<strong>{{ item.question }}</strong>
+				<div class="p-gap"></div>
+				<p-box-group>
+					<template v-for="(option, indexOption) in item.options">
+						<p-box :click="() => item.selected = indexOption">
+							<p-box-button :color="item.selected === indexOption ? 'var(--blue)' : null">{{ option }}</p-box-button>
+						</p-box>
+					</template>
+				</p-box-group>
+			</div>
+			<div v-if="list.find(x => x.selected === null)">
+				<strong class="smallest dimm">Nejprve odpovězte na všechny otázky</strong>
+			</div>
+			<div v-if="!list.find(x => x.selected === null)">
+				<p-box :click="() => click()">
+					<p-box-button color="var(--blue)">Vyhodnotit kvíz</p-box-button>
+				</p-box>
+			</div>
+		</p-list>
+	</template>
+	<template v-else>
+		<p-area icon="evropske-volby">
+			<strong>Správně jste <p-lang :value="result.correct" :end="['neodpověděli na žádnou z', 'odpověděli na jednu', 'odpověděli na %%', 'odpověděli na %%']"></p-lang> z 10 otázek.</strong>
+			<div class="smaller _mw" v-if="result.correct < 4">Na tom by chtělo ještě zapracovat. Ale nemusíte nijak daleko, všechny komentáře a poznámky jsou hned u odpovědí níže. Stačí tomu věnovat minutku.</div>
+			<div class="smaller _mw" v-if="result.correct >= 4 && result.correct < 8">Dobrý základ. Podívejte se ještě na komentáře k jednotlivým odpovědím, a příště to už bude lepší.</div>
+			<div class="smaller _mw" v-if="result.correct > 7 && result.correct < 10">Dost dobrý výsledek, na eurovolby jste připraveni. Těch pár drobností už si po dnešku určitě zapamatujete.</div>
+			<div class="smaller _mw" v-if="result.correct === 10">Skvělý výsledek, všechno správně. Na eurovolby jste výborně připraveni.</div>
+		</p-area>
+		<p-gap height="2"></p-gap>
+		<p-list height="2">
+			<div v-for="(item, index) in list">
+				<strong>{{ item.question }}</strong>
+				<div class="p-gap"></div>
+				<p-box-group>
+					<template v-for="(option, indexOption) in item.options">
+						<p-box>
+							<p-box-button v-if="item.selected != indexOption && item.correct != indexOption">{{ option }}</p-box-button>
+							<p-box-button color="var(--green)" v-if="item.correct === indexOption" :icon="item.selected === indexOption ? 'icon-check.svg' : null">{{ option }}</p-box-button>
+							<p-box-button color="var(--red)" v-if="item.selected === indexOption && item.correct != indexOption" icon="icon-against.svg">{{ option }}</p-box-button>
+						</p-box>
+					</template>
+				</p-box-group>
+				<p v-html="item.comment"></p>
+			</div>
+			<div>
+				<p-share></p-share>
+			</div>
+		</p-list>
+	</template>
+</div>

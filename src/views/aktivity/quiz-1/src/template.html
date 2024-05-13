@@ -1,0 +1,17 @@
+<div class="layout-homepage">
+	<p-layout-divided>
+		<template #main>
+			<p-block headline="Kvíz k eurovolbám" anchor="Kvíz" :level="1">
+				<quiz-1></quiz-1>
+			</p-block>		
+		</template>
+		<template #anchors>
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" alt="Evropské volby 2024"></p-logo>
+			<div class="p-gap"></div>
+			<p-anchors></p-anchors>
+		</template>
+		<template #aside>
+			
+		</template>
+	</p-layout-divided>
+</div>

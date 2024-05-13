@@ -60,7 +60,7 @@ export const useEngagement = defineStore('engagement', () => {
     }
 
     function used (path, hash) {
-        return !!list.value.find(x => (x.path === path || !path) && hash === hash);
+        return typeof list.value.find(x => (x.path === path || !path) && x.hash === hash) !== "undefined";
     }
 
     function remove (eid) {
