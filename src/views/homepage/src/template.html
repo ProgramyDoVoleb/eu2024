@@ -5,10 +5,10 @@
 				<p class="lead">
 					Přehledně o volbách do Evropského parlamentu: volební programy, <router-link to="/kandidati">kandidáti</router-link>, <router-link to="/strany">politické strany</router-link>, <router-link to="/volebni-pruzkumy">průzkumy</router-link> a další statistiky a přehledy. <strong>Volby budou 7. a 8. června.</strong>
 				</p>
-				<p-area icon="answers">
+				<!-- <p-area icon="answers">
 					<strong>Výzva pro strany a kandidáty</strong>
 					<div class="smaller">Jdete do voleb? Už máte svůj přístup do <router-link to="/pro-kandidaty" class="strong">Adminu</router-link>? Už dnes můžete vyplnit své údaje a také odpovědi na <router-link to="/otazky" class="strong">volební otázky</router-link> a kalkulačku.</div>
-				</p-area>
+				</p-area> -->
 			</p-block>
 			<p-block headline="Hlavní témata" class="p-block---up">
 				<p-loader :rule="elections" reserve="10em">
@@ -22,7 +22,26 @@
 				</p-loader>
 			</p-block>
 			<p-block headline="Eurokvíz" :hide="true">
-				<p-area class="inline strong smaller"><p-label color="var(--blue)">Vyzkoušte své znalosti <router-link to="/aktivity/kviz-pro-eurovolby">v rychlém eurokvízu</router-link>.</p-label></p-area>
+				<p-grid>
+					<div>
+						<p-area icon="evropske-volby">
+							<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební eurokvíz</router-link>
+							<div class="smallest">Vyzkoušte své znalosti, čeká vás 10 otázek</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="people-symbol">
+							<router-link to="/kandidati" class="strong">Seznam kandidátů</router-link>
+							<div class="smallest">Abecední seznam všech kandidátů</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="answers">
+							<router-link to="/otazky" class="strong">Výzva pro kandidáty</router-link>
+							<div class="smallest">Odpovězte na 6 otázek, doplňte údaje</div>
+						</p-area>
+					</div>
+				</p-grid>
 			</p-block>
 			<p-block headline="Rychlý přehled" :hide="true">
 				<p-offset class="reverse balanced">
@@ -65,12 +84,12 @@
 													</p-area>
 												</div>
 
-												<div>
+												<!-- <div>
 													<p-area icon="program-white" background="var(--blue)">
 														<router-link to="/pro-kandidaty" class="strong _white">Admin - vyplňte své údaje</router-link>
 														<div class="smallest _white">Spravujte svůj profil, odpovězte na volební otázky</div>
 													</p-area>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</div>
@@ -78,6 +97,41 @@
 						</div>
 					</div>
 				</p-loader>
+			</p-block>
+			<p-block headline="Odpovědi kandidátů" :hide="true" anchor="Odpověděli">
+				<h2>Odpovědi kandidátů <p-icon icon="answers-mini"></p-icon></h2>
+				<p>Všichni kandidáti mohou odpovědět na 6 otázek a také vyplnit volební kalkulačku. Níže jsou vypsaní kandidáti, kteří už odpověděli alespoň na některou z otázek.</p>
+				<div class="columns-4">
+						<div v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.$odpovedi), 'PRIJMENI', '', true)">
+							
+									<p-label :color="colorByItem(elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA), elections)">
+										<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" :class="{'strong': cand.PORCISLO < 6}">
+											{{ cand.JMENO }} {{ cand.PRIJMENI }}
+										</router-link>
+									</p-label>
+						</div>
+				</div>
+				<p-gap height="2"></p-gap>
+				<p-grid>
+					<div>
+						<p-area icon="answers-mini">
+							<router-link to="/otazky" class="strong">Chcete také odpovědět?</router-link>
+							<div class="smallest">Zobrazit otázky a instrukce</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="link">
+							<p-link href="https://docs.google.com/document/d/13Eyrk9u3D7smv6Dm6IeG3-kT14cKm__cvjlWXCu_zDM/edit?usp=sharing" class="strong">Otázky pro kandidáty</p-link>
+							<div class="smallest">Zobrazit na Google Drive</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="link">
+							<p-link href="https://docs.google.com/spreadsheets/d/1DQF_NYK-WaCPir-cp_fDPxQc_9kgxctl1_MTD8WZ7jY/edit#gid=0" class="strong">Otázky z volební kalkulačky</p-link>
+							<div class="smallest">Zobrazit na Google Drive</div>
+						</p-area>
+					</div>
+				</p-grid>
 			</p-block>
 			<p-block headline="Průzkumy a odhady">
 				<p>Ve volbách do Evropského parlamentu se používá d'Hondtova metoda pro přepočet na mandáty. Celá republika je pro tyto účely brána jako jeden volební obvod. U průzkumů proto najdete také orientační přepočet na mandáty. <router-link to="/volebni-pruzkumy">Seznam průzkumů a odhadů.</router-link></p>
@@ -416,6 +470,18 @@
 		</template>
 		<template #aside>
 			<p-list height="1.25">
+				<div>
+
+			<p-area borderColor="var(--yellow)" background="transparent" padding=".85em 0 1em 1.5em">
+				<strong>Výzva pro strany a kandidáty</strong>
+				<div class="p-gap _05"></div>
+				<div class="smaller">Jdete do voleb? Už máte svůj přístup do <router-link to="/pro-kandidaty" class="strong">Adminu</router-link>? Už dnes můžete vyplnit své údaje a také odpovědi na <router-link to="/otazky" class="strong">volební otázky</router-link> a kalkulačku.</div>
+				<div class="p-gap _05"></div>
+				<p-box to="/otazky">
+					<p-box-button>Zobrazit</p-box-button>
+				</p-box>
+			</p-area>
+				</div>
 				<div>
 					<strong class="smaller">Novinky</strong>
 					<div class="p-gap"></div>
