@@ -13,6 +13,7 @@ import ElectionPoll from '@/views/polls/poll/do.vue';
 import EngagementResultTip from '@/components/engagement/result-tip/do.vue';
 import PartyPreview from '@/components/party-preview/do.vue';
 import NewsBlock from '@/components/news-block/do.vue'
+import Feedback1 from '@/components/engagement/feedback-1/do.vue'
 
 export default {
 	name: 'layout-homepage',
@@ -67,7 +68,7 @@ export default {
 		}
 	},
   components: {
-	NewsItem, EventItem, MailchimpSignup, ReportForm, ElectionPoll, EngagementResultTip, PartyPreview, NewsBlock
+	NewsItem, EventItem, MailchimpSignup, ReportForm, ElectionPoll, EngagementResultTip, PartyPreview, NewsBlock, Feedback1
   },
 	computed: {
 		$store: function () {

@@ -1,7 +1,7 @@
 import {useEngagement} from '@/stores/engagement';
 
 export default {
-	name: 'EngagementThanks',
+	name: 'EngagementQuiz1',
 	data: function () {
 		return {
 			list: [

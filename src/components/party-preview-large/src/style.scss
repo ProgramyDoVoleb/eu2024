@@ -124,3 +124,13 @@
 		top: .4em;
 	}
 }
+
+._i {
+	position: relative;
+
+	.p-icon {
+		position: absolute;
+		left: -.25em;
+		top: -.5em;
+	}
+}

@@ -1,4 +1,4 @@
-<div class="party-preview">
+	<div class="party-preview">
 	<p-area class="_aig">
 		<!-- <div class="_aig"> -->
 			<div class="_b">
@@ -40,7 +40,13 @@
 				<p-list class="invisible">
 					<template v-for="(cand, index2) in sortByPorCislo(candidates)">
 						<li v-if="index2 < 5">
-							{{ cand.PORCISLO ? cand.PORCISLO + '. ' : '?'}} <router-link :to="'/kandidat/' + cand.id" :class="{'is-span': !cand.PORCISLO}">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link>
+							{{ cand.PORCISLO ? cand.PORCISLO + '. ' : '?'}} 
+							<router-link :to="'/kandidat/' + cand.id" :class="{'is-span': !cand.PORCISLO}">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</router-link>
+							<span v-if="cand.$odpovedi > 0"> 
+								<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" class="_i">
+									<p-icon icon="answers-mini"></p-icon>
+								</router-link>
+							</span>							
 						</li>
 					</template>
 					<li v-if="candidates.length > 5">

@@ -1,0 +1,14 @@
+<div class="engagement-feedback-1">
+	<p-area borderColor="var(--yellow)">
+		<template v-if="!used">
+			<strong>Máte nápad, jak byste vylepšili tento web?</strong>
+			<div class="p-gap"></div>
+			<input type="text" v-model="answer" class="" placeholder="prosím napište svůj nápad nebo postřed">
+			<div class="p-gap"></div>
+			<button @click="click">Odeslat nápad</button>
+		</template>
+		<template v-else>
+			Díky za zpětnou vazbu.
+		</template>
+	</p-area>
+</div>

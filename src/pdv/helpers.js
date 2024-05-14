@@ -291,3 +291,33 @@ export function lang (_value, _end) {
 export function unique (_list, _key) {
   return [...new Set(_list.map(x => x[_key]))];
 }
+
+export function userInput (content) {
+    return content ? content.split('"').join('”').split("'").join("'").split("\n").join("<br>") : content;
+}
+
+export function userInputReverse (content) {
+    return content ? content.split("<br>").join("\n") : null;
+}
+
+export function textareaAutosize (root) {
+
+    function setAutosize (elem) {
+			elem.setAttribute('data-autosized', true);
+			elem.addEventListener('keyup', e => {
+				e.target.style.height = 0  // SEE NOTE
+				setTimeout(() => e.target.style.height = (e.target.scrollHeight + 2) + 'px', 1);
+			})
+			elem.style.height = (elem.scrollHeight + 2) + 'px'
+		}
+
+	function checkTextArea () {
+			var list = root.querySelectorAll('textarea:not([data-autosized])');
+
+			for (var i = 0; i < list.length; i++) {
+				setAutosize(list[i]);
+			}
+		}
+
+    setInterval(() => checkTextArea(), 1000);
+}

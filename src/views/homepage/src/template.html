@@ -252,14 +252,17 @@
 					</div>
 				</p-columns>
 			</p-block-expandable>
+			<p-block headline="Zpětná vazba" :hide="true">
+				<feedback-1></feedback-1>
+			</p-block>
 			<p-block headline="Události">
 				<p-loader :rule="news && elections">
 					<div v-if="news && elections">
 						<p-list height="1.5">
 							<div class="smallest strong">Nejbližší debaty</div>
-							<template v-for="(item, index) in sortEvents(news.events.filter(x => !x.csu_id))">
-								<div v-if="JSON.parse(item.label)[0] >= today && index < 3">
-									<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
+							<template v-for="(item, index) in sortEvents(news.events.filter(x => !x.csu_id)).filter(x => JSON.parse(x.label)[0] >= today)">
+								<div v-if="index < 3">
+									<event-item :item="item" :party="null" :data="elections"></event-item>
 								</div>
 							</template>
 							<div class="smallest strong">Nejbližší akce stran a koalic</div>
