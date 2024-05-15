@@ -9,20 +9,17 @@
 							<h2>Odpověděli na otázky <p-icon icon="answers-mini"></p-icon></h2>
 							<p>Všichni kandidáti mohou odpovědět na 6 otázek a také vyplnit volební kalkulačku. Níže jsou vypsaní kandidáti, kteří už odpověděli alespoň na některou z otázek.</p>
 							<div class="columns-4">
-									<div v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.$odpovedi), 'PRIJMENI', '', true)">
-										<p-offset class="reverse">
-											<div>
-												<p-label :color="colorByItem(elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA), elections)">
-													<router-link :to="'/kandidat/' + cand.id" :class="{'strong': cand.PORCISLO < 6}">
+								<div v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.$odpovedi), 'PRIJMENI', '', true)">
+									
+											<p-label :color="colorByItem(elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA), elections)">
+												<div>
+													<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" :class="{'strong': cand.PORCISLO < 6}">
 														{{ cand.JMENO }} {{ cand.PRIJMENI }}
 													</router-link>
-												</p-label>
-											</div>
-											<div>
-												<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" class="smaller">číst <p-icon icon="answers-mini" size="1em" border="none"></p-icon></router-link>
-											</div>
-										</p-offset>
-									</div>
+													<div class="smallest">{{ elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA).ZKRATKA }} &middot; {{ cand.PORCISLO }}</div>
+												</div>
+											</p-label>
+								</div>
 							</div>
 							<p-gap height="2"></p-gap>
 							<p-grid>

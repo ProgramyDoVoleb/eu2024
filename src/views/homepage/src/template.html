@@ -101,16 +101,23 @@
 			<p-block headline="Odpovědi kandidátů" :hide="true" anchor="Odpověděli">
 				<h2>Odpovědi kandidátů <p-icon icon="answers-mini"></p-icon></h2>
 				<p>Všichni kandidáti mohou odpovědět na 6 otázek a také vyplnit volební kalkulačku. Níže jsou vypsaní kandidáti, kteří už odpověděli alespoň na některou z otázek.</p>
-				<div class="columns-4">
-						<div v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.$odpovedi), 'PRIJMENI', '', true)">
-							
-									<p-label :color="colorByItem(elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA), elections)">
-										<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" :class="{'strong': cand.PORCISLO < 6}">
-											{{ cand.JMENO }} {{ cand.PRIJMENI }}
-										</router-link>
-									</p-label>
+				<p-loader :rule="elections">
+					<div v-if="elections">
+						<div class="columns-4">
+								<div v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.$odpovedi), 'PRIJMENI', '', true)">
+									
+											<p-label :color="colorByItem(elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA), elections)">
+												<div>
+													<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" :class="{'strong': cand.PORCISLO < 6}">
+														{{ cand.JMENO }} {{ cand.PRIJMENI }}
+													</router-link>
+													<div class="smallest">{{ elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA).ZKRATKA }} &middot; {{ cand.PORCISLO }}</div>
+												</div>
+											</p-label>
+								</div>
 						</div>
-				</div>
+					</div>
+				</p-loader>
 				<p-gap height="2"></p-gap>
 				<p-grid>
 					<div>
@@ -313,7 +320,7 @@
 				<p-loader :rule="news && elections">
 					<div v-if="news && elections">
 						<p-list height="1.5">
-							<div class="smallest strong">Nejbližší debaty</div>
+							<div class="smallest strong">Nejbližší debaty &middot; <router-link to="/udalosti#probehle-debaty">Již proběhlé</router-link></div>
 							<template v-for="(item, index) in sortEvents(news.events.filter(x => !x.csu_id)).filter(x => JSON.parse(x.label)[0] >= today)">
 								<div v-if="index < 3">
 									<event-item :item="item" :party="null" :data="elections"></event-item>

@@ -7,9 +7,9 @@
 			</p-area>
 		</div>
 		<div>
-			<template v-if="item.csu_id && !noTag">
+			<template v-if="item.csu_id && !noTag && party">
 				<div class="tiny">
-					<router-link :to="'/strana/' + item.csu_id" class="dimm">{{ party.ZKRATKA }}</router-link>
+					<router-link :to="'/strana/' + item.csu_id" class="is-span">{{ party.ZKRATKA }}</router-link>
 				</div>
 			</template>
 			<component :is="item.source ? 'p-link' : 'span'" :href="item.source"><strong>{{ JSON.parse(item.value)[0] }}</strong></component>

@@ -60,11 +60,24 @@
 						</div>
 					</p-grid>
 				</p-block>
-				<p-block-expandable headline="Již proběhlo">
+				<p-block-expandable headline="Proběhlé debaty">
 					<p-loader :rule="news && elections">
 						<div v-if="news && elections">
 							<p-list height="1.5">
-								<template v-for="(item, index) in firstOfUnique(sortEvents(news.events.filter(x => x.csu_id && JSON.parse(x.label)[0] < today)), 'csu_id')">
+								<template v-for="(item, index) in sortEvents(news.events.filter(x => !x.csu_id && JSON.parse(x.label)[0] < today))">
+									<div>
+										<event-item :item="item" :party="null" :data="elections"></event-item>
+									</div>
+								</template>
+							</p-list>
+						</div>
+					</p-loader>
+				</p-block-expandable>	
+				<p-block-expandable headline="Proběhlé akce stran">
+					<p-loader :rule="news && elections">
+						<div v-if="news && elections">
+							<p-list height="1.5">
+								<template v-for="(item, index) in sortEvents(news.events.filter(x => x.csu_id && JSON.parse(x.label)[0] < today))">
 									<div>
 										<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
 									</div>
