@@ -17,6 +17,7 @@ import PointerParty from '../views/pointer/strana/do.vue'
 import PointerCandidate from '../views/pointer/kandidat/do.vue'
 import PointerQA from '../views/pointer/qa/do.vue'
 import PointerProgram from '../views/pointer/program/do.vue'
+import Activity_Poll from '../views/aktivity/anketa-1/do.vue'
 import Activity_Quiz1 from '../views/aktivity/quiz-1/do.vue'
 import Activity_ResultGuess from '../views/aktivity/odhad-vysledku/do.vue'
 
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/aktivity/odhad-vysledku',
       name: 'Activity_ResultGuess',
       component: Activity_ResultGuess
+    },
+    {
+      path: '/aktivity/volebni-anketa',
+      name: 'Activity_Poll',
+      component: Activity_Poll
     },
     {
       path: '/prehled',

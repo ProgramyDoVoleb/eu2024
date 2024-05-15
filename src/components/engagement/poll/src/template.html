@@ -1,0 +1,32 @@
+<div class="engagement-result-tip">
+	<p-area borderColor="var(--blue)">
+		<!-- <p-loader :rule="data"> -->
+			<div v-if="!used">
+				<p-list height="2">
+					<div v-for="(q, index) in questions">
+						<strong>{{ q.question }}</strong>
+						<p-gap height="0.6"></p-gap>
+						<div v-if="q.comment" v-html="q.comment"></div>
+						<p-gap></p-gap>
+						<p-box-group>
+							<template v-for="(answer, index) in q.options">
+								<p-box>
+									<p-box-button>{{ answer }}</p-box-button>
+								</p-box>
+							</template>
+						</p-box-group>
+					</div>
+					<div>
+						<button @click="submit">Odeslat</button>
+					</div>
+				</p-list>
+			</div>
+			<div v-if="used">
+				<p-area icon="icon-check" class="inline">
+					<strong>Vaše odpovědi jsou odeslány</strong>
+					<div class="smallest dimm">Jakmile se nasbírá alespoň 100 hlasů, zobrazí se průběžné grafy.</div>
+				</p-area>
+			</div>
+		<!-- </p-loader> -->
+	</p-area>
+</div>

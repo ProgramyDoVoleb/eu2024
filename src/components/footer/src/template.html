@@ -5,6 +5,18 @@
 
 		<p-line height="3"></p-line>
 
+		<div class="strong">Sledujte Programy na sociálních sítích:</div>
+
+		<p-box-group class="_jac">
+			<template v-for="(item, index) in Object.keys(list)">
+				<p-box :href="list[item]">
+					<p-box-icon :type="item"></p-box-icon>
+				</p-box>
+			</template>
+		</p-box-group>
+
+		<p-line height="3"></p-line>
+
 		<div class="strong">
 			&copy;
 			<p-link href="https://programydovoleb.cz">Programy do voleb, z. s.</p-link>

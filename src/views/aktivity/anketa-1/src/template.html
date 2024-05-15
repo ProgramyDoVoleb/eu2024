@@ -1,0 +1,27 @@
+<div class="layout-homepage">
+	<p-layout-divided>
+		<template #main>
+			<p-block headline="Volební anketa" anchor="Anketa" :level="1">
+				<quiz-1></quiz-1>
+			</p-block>		
+		</template>
+		<template #anchors>
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" alt="Evropské volby 2024"></p-logo>
+			<div class="p-gap"></div>
+			<p-anchors></p-anchors>
+		</template>
+		<template #aside>
+			<p-list>
+				<div>
+					<router-link to="/aktivity/odhad-vysledku">Odhad výsledku</router-link>
+				</div>
+				<div>
+					<router-link to="/aktivity/kviz-pro-eurovolby">Volební kvíz</router-link>
+				</div>
+				<div>
+					<router-link to="/aktivity/volebni-anketa">Anketa</router-link>
+				</div>
+			</p-list>
+		</template>
+	</p-layout-divided>
+</div>
