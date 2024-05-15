@@ -28,7 +28,7 @@ export default {
 			return useEngagement();
 		},
 		used: function () {
-			return this.engagement.used(null, 'eu24-result-tip');
+			return this.engagement.used(null, 'eu24-result-tip-2');
 		},
 		resultsAsPoll: function () {
 			var data = {
@@ -40,12 +40,12 @@ export default {
 				}
 			}
 
-			var list = this.engagement.list.find(x => x.hash === 'eu24-result-tip');
+			var list = this.engagement.list.find(x => x.hash === 'eu24-result-tip-2');
 
 			if (list) {
 				var json = JSON.parse(list.value);
 
-				data.share = '?eu24-result-tip=' + list.token;
+				data.share = '/aktivity/odhad-vysledku?eu24-result-tip-2=' + list.token;
 
 				if (json.name) data.agency += ' ' + json.name;
 				if (list.now) data.datum = list.now;
@@ -72,7 +72,7 @@ export default {
 			if (d && d.list.length > 0) {
 				this.engagement.silent(d.list[0].path, d.list[0].hash, JSON.stringify(d.list[0].value), d.list[0].datum, this.eid);
 				setTimeout(() => {
-					document.querySelector('.engagement-result-tip').scrollIntoView({behavior: "smooth", block: "center"});
+					document.querySelector('.engagement-result-tip-2').scrollIntoView({behavior: "smooth", block: "center"});
 				}, 1000);
 			}
 
@@ -92,7 +92,7 @@ export default {
 				}
 			});
 
-			this.engagement.add(this.$route.fullPath, 'eu24-result-tip', JSON.stringify({name: this.form.name, parties: vals}), 'Posílám odhad');
+			this.engagement.add(this.$route.fullPath, 'eu24-result-tip-2', JSON.stringify({name: this.form.name, parties: vals}), 'Posílám odhad');
 		},
 		populateForm: function () {
 			while (this.form.parties.length > 0) this.form.parties.pop();
@@ -119,8 +119,8 @@ export default {
 	mounted: function () {
 		if (this.data) this.populateForm();
 
-		if (this.$route.query['eu24-result-tip']) {
-			this.eid = this.$route.query['eu24-result-tip'];
+		if (this.$route.query['eu24-result-tip-2']) {
+			this.eid = this.$route.query['eu24-result-tip-2'];
 		}
 	},
 	watch: {
