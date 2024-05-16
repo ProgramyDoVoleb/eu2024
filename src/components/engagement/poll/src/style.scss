@@ -13,3 +13,20 @@
 ._w5 {
   width: 4em;
 }
+
+._r {
+  position: relative;
+}
+
+._c {
+  position: absolute;
+  width: 1.6em;
+  height: 1.6em;
+  font-size: 10px;
+  top: -4px;
+  right: -4px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  text-align: center;
+}

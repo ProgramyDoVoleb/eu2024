@@ -3,21 +3,24 @@
 		<!-- <p-loader :rule="data"> -->
 			<div v-if="!used">
 				<p-list height="2">
-					<div v-for="(q, index) in questions">
+					<div v-for="(q, indexQuestion) in questions">
 						<strong>{{ q.question }}</strong>
 						<p-gap height="0.6"></p-gap>
-						<div v-if="q.comment" v-html="q.comment"></div>
+						<div v-if="q.comment" v-html="q.comment" class="smaller"></div>
 						<p-gap></p-gap>
 						<p-box-group>
-							<template v-for="(answer, index) in q.options">
-								<p-box>
-									<p-box-button>{{ answer }}</p-box-button>
+							<template v-for="(answer, indexAnswer) in q.options">
+								<p-box :click="() => toggle(indexQuestion, indexAnswer)" class="_r">
+									<p-box-button :color="form.answers[indexQuestion].indexOf(indexAnswer) > -1 ? 'var(--blue)' : null" :class="{dimm: form.answers[indexQuestion].indexOf(indexAnswer) === -1 && questions[indexQuestion].limit && form.answers[indexQuestion].length === questions[indexQuestion].limit}">{{ answer }}</p-box-button>
+									<div class="_c" v-if="form.answers[indexQuestion].indexOf(indexAnswer) > -1 && questions[indexQuestion].limit">
+										{{ form.answers[indexQuestion].indexOf(indexAnswer) + 1 }}
+									</div>
 								</p-box>
 							</template>
 						</p-box-group>
 					</div>
 					<div>
-						<button @click="submit">Odeslat</button>
+						<button @click="submit" :disabled="form.answers.find(x => x.length === 0)">Odeslat</button>
 					</div>
 				</p-list>
 			</div>

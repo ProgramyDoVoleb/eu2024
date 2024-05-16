@@ -28,7 +28,19 @@ export default {
 	},
 	methods: {
 		submit: function () {
-			this.engagement.add(this.$route.fullPath, 'eu24-poll-1', JSON.stringify(this.form), 'Posílám odpovědi do ankety');
+			this.engagement.add(this.$route.fullPath, 'eu24-poll-1', JSON.stringify(this.form.answers), 'Posílám odpovědi do ankety');
+		},
+		toggle: function (question, answer) {
+			if (questions[question].limit) {
+				if (this.form.answers[question].indexOf(answer) > -1) {
+					this.form.answers[question].splice(this.form.answers[question].indexOf(answer), 1);
+				} else if (this.form.answers[question].length < (questions[question].limit || 1)) {
+					this.form.answers[question].push(answer);
+				}
+			} else {
+				this.form.answers[question].pop();
+				this.form.answers[question].push(answer);
+			}
 		}
 	}
 };
