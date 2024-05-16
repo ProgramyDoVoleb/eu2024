@@ -1,23 +1,33 @@
 <div class="share-block">
 	<!-- <h3>{{title || 'Sdílejte tuto stránku' }}</h3> -->
-	<p-box-group :class="{middle}">
-		<p-box :click="() => copyLink()" class="_blockAside" title="Kliknutím si zkopírujete odkaz na stránku do schránky">
-			<p-box-label v-if="!copied" icon="link.svg">{{ cta || 'Sdílet tuto stránku'}}</p-box-label>
-			<p-box-label v-if="copied" class="green">Kopie</p-box-label>
-			<p-box-icon type="link" v-if="cta"></p-box-icon>
-		</p-box>
-		<p-box :href="'https://www.facebook.com/sharer/sharer.php?u=' + path" title="Kliknutím se otevře okno pro sdílení na Facebooku">
-			<p-box-icon type="fb" class="dark-invert"></p-box-icon>
-		</p-box>
-		<p-box :href="'http://twitter.com/share?text=' + encodeURIComponent(copy || _backupCopy) + '&url=' + encodeURIComponent(path) + '&via=programydovoleb'" title="Kliknutím se otevře okno pro sdílení na Twitteru">
-			<p-box-icon type="tw" class="dark-invert"></p-box-icon>
-		</p-box>
-		<p-box :href="'https://bsky.app/intent/compose?text=' + encodeURIComponent(copy || _backupCopy) + ' · ' + encodeURIComponent(path)" title="Kliknutím se otevře okno pro sdílení na Bluesky">
-			<p-box-icon type="bsky" class="dark-invert"></p-box-icon>
-		</p-box>
-		<p-box :href="'https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(path) + '&title=' + encodeURIComponent(copy || _backupCopy)" title="Kliknutím se otevře okno pro sdílení na síti LinkedIn.">
-			<p-box-icon type="linkedin" class="dark-invert"></p-box-icon>
-			<!-- <p-box-button type="linkedin">LinkedIn</p-box-button> -->
-		</p-box>
-	</p-box-group>
+	<p-list class="invisible">
+		<div>
+			<p-box :click="() => copyLink()" class="_blockAside" title="Kliknutím si zkopírujete odkaz na stránku do schránky">
+				<p-box-button v-if="!copied" icon="link.svg">{{ cta || 'Zkopírovat odkaz na tuto stránku'}}</p-box-button>
+				<p-box-label v-if="copied" class="green">Kopie</p-box-label>
+				<!-- <p-box-icon type="link" v-if="cta"></p-box-icon> -->
+			</p-box>
+		</div>
+		<div>
+			<p-box :href="'https://www.facebook.com/sharer/sharer.php?u=' + path" title="Kliknutím se otevře okno pro sdílení na Facebooku">
+				<p-box-button icon="fb.svg">Sdílet na Facebooku</p-box-button>
+			</p-box>
+		</div>
+		<div>
+			<p-box :href="'http://twitter.com/share?text=' + encodeURIComponent(copy || _backupCopy) + '&url=' + encodeURIComponent(path) + '&via=programydovoleb'" title="Kliknutím se otevře okno pro sdílení na Twitteru">
+				<p-box-button icon="tw.svg">Sdílet na Twitteru</p-box-button>
+			</p-box>
+		</div>
+		<div>
+			<p-box :href="'https://bsky.app/intent/compose?text=' + encodeURIComponent(copy || _backupCopy) + ' · ' + encodeURIComponent(path)" title="Kliknutím se otevře okno pro sdílení na Bluesky">
+				<p-box-button icon="bsky.svg">Sdílet na BlueSky</p-box-button>
+			</p-box>
+		</div>
+		<div>
+			<p-box :href="'https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(path) + '&title=' + encodeURIComponent(copy || _backupCopy)" title="Kliknutím se otevře okno pro sdílení na síti LinkedIn.">
+				<p-box-button icon="linkedin.svg">Sdílet na LinkedIn</p-box-button>
+				<!-- <p-box-button type="linkedin">LinkedIn</p-box-button> -->
+			</p-box>
+		</div>
+	</p-list>
 </div>

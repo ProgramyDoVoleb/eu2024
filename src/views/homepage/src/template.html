@@ -382,16 +382,17 @@
 					</p-area>
 				</li>
 				<li>
-					<p-area icon="email" background="var(--greyish)">
+					<p-area icon="link" background="var(--greyish)">
 						<p-modal>
 							<template #init>
-								<button class="inline strong">Chcete novinky e-mailem?</button>
+								<button class="inline strong">Sdílejte Programy s přáteli</button>
 							</template>
 							<template #content>
-								<mailchimp-signup></mailchimp-signup>
+								<h3>Sdílejte Programy do voleb</h3>
+								<p-share></p-share>
 							</template>
 						</p-modal>
-						<div class="smallest dimm">Souhrn vždy na konci měsíce</div>
+						<div class="smallest dimm">Twitter, Facebook, LinkedIn...</div>
 					</p-area>
 				</li>
 				<li>
@@ -417,56 +418,14 @@
 			<!-- <p-line></p-line> -->
 			<div class="p-gap _2"></div>
 			<p-block headline="O tomto projektu">
-				<p-grid>
-					<li>
-						<div class="strong blue">Programy do voleb</div>
-						<p class="smaller">
-							<strong>Nestranný neziskový projekt</strong>, jehož cílem je usnadnit každému, kdo se zajímá o volby, kandidáty a volební programy, aby je našel přehledně a na jednom místě.
-							Projekt vznikl v roce 2018 a od té doby pokrývá všechny významné české volby. Od roku 2021 mají <em>Programy do voleb</em> formu zapsaného spolku. 
-							Žádná strana ani kandidát nejsou jakkoli zvýhodněni, preferováni nebo doporučováni.
-						</p>
-						<p-line height=".25"></p-line>
-						<div class="p-gap _075"></div>
-						<div class="smaller">
-							<router-link to="/o-projektu">Více o projektu</router-link>
-						</div>						
-					</li>
-					<li>
-						<div class="strong blue">Podpořte tento projekt</div>
-						<p class="smaller">
-							<em>Programy do voleb</em> existují díky letité dobrovolnické práci a jsou financovány výhradně z darů přispěvatelů. Podpořte je také. Dary je možné odepsat z daní.
-						</p>
-						<p-box-group>
-							<template v-for="(kc, i) in [50, 100, 200, 500]"><p-box :href="'https://www.darujme.cz/darovat/1205354?portalWidget=1&frequency=once&amount=' + kc"><p-box-button color="var(--green)">{{ kc }} Kč</p-box-button></p-box></template>
-							<p-box href="https://www.darujme.cz/programydovoleb"><p-box-button color="var(--blue)">Jinou částku</p-box-button></p-box>
-						</p-box-group>
-						<p-line></p-line>
-						<div class="smaller">Programy najdete na <p-link href="https://www.darujme.cz/programydovoleb">Darujme.cz</p-link></div>
-					</li>
-					<li>
-						<div class="strong blue">Jak můžete také pomoct?</div>
-						<div class="p-gap _075"></div>
-						<p-list height=".5" class="smaller">
-							<li>Posílejte tipy na zprávy v médiích</li>
-							<li>Dejte vědět, když někdo oznámí záměr kandidovat.</li>
-							<li>Sledujte, sdílejte a lajkujte Programy na sociálních sítích.</li>
-							<li>Doporučujte Programy všem zájemcům o přehlednější volby.</li>
-							<li>Odhalte a <p-modal :inline="true">
-								<template #init>
-									<button class="inline red">nahlašte</button>
-								</template>
-								<template #content>
-									<div class="text-left">
-										<h3>Našli jste chybu? Nebo chcete něco doplnit?</h3>
-										<report-form part="Hlášení chyby" :noLink="true"></report-form>
-										<p-line></p-line>
-										<p>Můžete také napsat na <p-link href="mailto:opravte@programydovoleb.cz">opravte@programydovoleb.cz</p-link></p>
-									</div>
-								</template>
-							</p-modal> chyby.</li>
-						</p-list>
-					</li>
-				</p-grid>
+				<p class="smaller">
+					<em>Programy do voleb</em> jsou <strong>nestranný neziskový projekt</strong>, jehož cílem je usnadnit každému, kdo se zajímá o volby, kandidáty a volební programy, aby je našel přehledně a na jednom místě.
+					Projekt vznikl v roce 2018 a od té doby pokrývá všechny významné české volby. Od roku 2021 mají <em>Programy do voleb</em> formu zapsaného spolku. 
+					Žádná strana ani kandidát nejsou jakkoli zvýhodněni, preferováni nebo doporučováni.
+				</p>
+				<p class="smaller">
+					<router-link to="/o-projektu">Více o projektu</router-link>
+				</p>
 			</p-block>
 			
 		</template>

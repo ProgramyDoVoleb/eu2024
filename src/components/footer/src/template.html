@@ -7,12 +7,26 @@
 
 		<div class="strong">Sledujte Programy na sociálních sítích:</div>
 
+		<div class="p-gap"></div>
+
 		<p-box-group class="_jac">
 			<template v-for="(item, index) in Object.keys(list)">
 				<p-box :href="list[item]">
 					<p-box-icon :type="item"></p-box-icon>
 				</p-box>
 			</template>
+		</p-box-group>
+
+		<p-line height="3"></p-line>
+
+		<div class="strong green">Podpořte Programy do voleb</div>
+		<div class="center smaller">Jednorázově nebo opakovaně na <p-link href="https://darujme.cz/programydovoleb">Darujme.cz</p-link></div>
+
+		<div class="p-gap"></div>
+
+		<p-box-group class="_jac">
+			<template v-for="(kc, i) in [50, 100, 200, 500]"><p-box :href="'https://www.darujme.cz/darovat/1205354?portalWidget=1&frequency=once&amount=' + kc"><p-box-button color="var(--green)">{{ kc }} Kč</p-box-button></p-box></template>
+			<p-box href="https://www.darujme.cz/programydovoleb"><p-box-button color="var(--blue)">Jinou částku</p-box-button></p-box>
 		</p-box-group>
 
 		<p-line height="3"></p-line>
@@ -24,13 +38,19 @@
 
 		<div class="p-gap"></div>
 
+		<p class="small">
+			Web vytváří a provozuje spolek Programy do voleb, z. s., <p-link href="https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=1126297&typ=PLATNY" title="Spolkový resjtřík">IČO: 10906380</p-link>, L&nbsp;13767 vedený u Krajského soudu v Hradci Králové. Sídlo spolku je na adrese Jana Palacha 1413, Turnov. Transparentní účet je u Fio Banky: <p-link href="https://ib.fio.cz/ib/transparent?a=2502004588">2502004588/2010</p-link>. Web neslouží na podporu žádného kandidáta nebo strany. Ke všem stranám a&nbsp;kandidátům je přistupováno na principu rovnosti a&nbsp;férové politické&nbsp;soutěže. Fotografie kandidátů jsou použité s&nbsp;jejich svolením nebo jejich tiskových oddělení.  Volební číselníky, registry a výsledky vychází z <p-link href="https://www.czso.cz/csu/czso/podminky_pro_vyuzivani_a_dalsi_zverejnovani_statistickych_udaju_csu" content="otevřených dat ČSÚ">otevřených dat ČSÚ</p-link>.
+		</p>
+
+		<div class="p-gap"></div>
+
+		<p class="small">
+			Datová schránka <strong>vhwmpce</strong>.
+		</p>
+
+		<div class="p-gap"></div>
+
 		<p-box-group class="center">
-			<p-box href="https://darujme.cz/programydovoleb">
-				<p-box-button color="var(--green)">Podpořit</p-box-button>
-			</p-box>
-			<p-box to="/o-projektu">
-				<p-box-button color="var(--blue)">O projektu</p-box-button>
-			</p-box>
 			<p-modal> 
 				<template #init>
 					<p-box>
@@ -45,14 +65,5 @@
 				</template>
 			</p-modal>
 		</p-box-group>
-
-		<div class="p-gap"></div>
-		<p class="small">
-			Web vytváří a provozuje spolek Programy do voleb, z. s., <p-link href="https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=1126297&typ=PLATNY" title="Spolkový resjtřík">IČO: 10906380</p-link>, L&nbsp;13767 vedený u Krajského soudu v Hradci Králové. Sídlo spolku je na adrese Jana Palacha 1413, Turnov. Transparentní účet je u Fio Banky: <p-link href="https://ib.fio.cz/ib/transparent?a=2502004588">2502004588/2010</p-link>. Web neslouží na podporu žádného kandidáta nebo strany. Ke všem stranám a&nbsp;kandidátům je přistupováno na principu rovnosti a&nbsp;férové politické&nbsp;soutěže. Fotografie kandidátů jsou použité s&nbsp;jejich svolením nebo jejich tiskových oddělení.  Volební číselníky, registry a výsledky vychází z <p-link href="https://www.czso.cz/csu/czso/podminky_pro_vyuzivani_a_dalsi_zverejnovani_statistickych_udaju_csu" content="otevřených dat ČSÚ">otevřených dat ČSÚ</p-link>.
-		</p>
-		<div class="p-gap"></div>
-		<p class="small">
-			Datová schránka <strong>vhwmpce</strong>.
-		</p>
 	</div>
 </footer>

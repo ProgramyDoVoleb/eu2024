@@ -1,6 +1,11 @@
+import ReportForm from '@/components/report-form/do.vue';
+
 export default {
 	name: 'LayoutDivided',
 	props: ['keep'],
+	components: {
+		ReportForm
+	},
 	data: function () {
 		return {
 			height: {

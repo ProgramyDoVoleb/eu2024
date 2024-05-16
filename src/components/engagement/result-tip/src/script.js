@@ -72,7 +72,7 @@ export default {
 			if (d && d.list.length > 0) {
 				this.engagement.silent(d.list[0].path, d.list[0].hash, JSON.stringify(d.list[0].value), d.list[0].datum, this.eid);
 				setTimeout(() => {
-					document.querySelector('.engagement-result-tip-2').scrollIntoView({behavior: "smooth", block: "center"});
+					document.querySelector('.engagement-result-tip').scrollIntoView({behavior: "smooth", block: "center"});
 				}, 1000);
 			}
 

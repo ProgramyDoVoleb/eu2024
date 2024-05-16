@@ -32,13 +32,13 @@
 				<strong>Odhad výsledku eurovoleb</strong>
 				<div class="p-gap"></div>
 				<election-poll :data="resultsAsPoll"></election-poll>
-				<div class="p-gap"></div>
+				<p-line></p-line>
 				<p-offset class="reverse">
 					<div>
-						<p-share copy="Podívejte se na tenhle odhad výsledku eurovoleb" :link="resultsAsPoll.share" cta="Sdílet odhad"></p-share>
+						<p-share copy="Podívejte se na tenhle odhad výsledku eurovoleb" :link="resultsAsPoll.share" cta="Zkopírovat odkaz na odhad"></p-share>
 					</div>
 					<div>
-						<button class="inline red smallest" @click="() => clear(resultsAsPoll.token)">Smazat</button>
+						<button class="inline red smallest" @click="() => clear(resultsAsPoll.token)">Zadat nové údaje</button>
 					</div>
 				</p-offset>
 				

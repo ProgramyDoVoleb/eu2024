@@ -22,9 +22,31 @@
 			<div class="_nav-main">
 				<slot name="nav" />
 			</div>
-			<div class="_share">
+			<div class="">
 				<div class="p-gap"></div>
-				<p-share class="-aside"></p-share>
+				<p-modal>
+					<template #init>
+						<span class="strong smaller">Sdílet tuto stránku</span>
+					</template>
+					<template #content>
+						<h3>Sdílejte tuto stránku</h3>
+						<p-share></p-share>
+					</template>
+				</p-modal>
+			</div>
+			<div class="_report">
+				<p-line></p-line>
+				<p-modal> 
+					<template #init>
+						<span class="red strong smaller">Nahlásit chybu</span>
+					</template>
+					<template #content>
+						<h3>Našli jste chybu? Nebo chcete něco doplnit?</h3>
+						<report-form part="Hlášení chyby" :noLink="true"></report-form>
+						<p-line></p-line>
+						<p>Můžete také napsat na <p-link href="mailto:opravte@programydovoleb.cz">opravte@programydovoleb.cz</p-link></p>
+					</template>
+				</p-modal>
 			</div>
 		</div>
 	</nav>
