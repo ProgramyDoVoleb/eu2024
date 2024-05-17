@@ -32,4 +32,77 @@
 			</div>
 		<!-- </p-loader> -->
 	</p-area>
+	<p-gap></p-gap>
+	<p-block-expandable headline="Průběžné výsledky">
+		<p-loader :rule="results">
+			<div v-if="results">
+				<p>Průběžné výsledky této ankety se aktualizují maximálně jednou za 6 hodin. Poslední aktualizace byla {{ results.cache ? date(results.cache.created) + ' v ' + results.cache.created.split('T')[1].split('+')[0] : 'právě nyní' }}. Do ankety se prozatím zapojilo {{ results.summary.count }} respondentů. U témat a preferovaných stran bylo možné vybrat až 3 odpovědi, přičemž záleželo na pořadí. Každá odpověď pak mohla získala až 7 bodů. Prosím berte v potaz, tohle není reprezentativní průzkum, jedná se o anketu.</p>
+				<p v-if="form.answers.find(x => x.length > 0)"><strong class="green">Zeleně</strong> vidíte položky, pro které jste hlasovali. Také vidíte, jak se po vašem hlasování anketa orientačně přepočítala.</p>
+				<h3 class="serif">Témata</h3>
+				<p-area class="smaller">
+					<p-list height=".25">
+						<div v-for="(item, index) in questions[0].options">
+							<div class="_split" :class="{'strong green': form.answers[0].indexOf(index) > -1}">
+								<div class="_topic">{{ item }}</div>
+								<div class="_graph">
+									<p-line-graph label="" :color="'var(--' + (form.answers[0].indexOf(index) > -1 ? 'green' : 'blue') + ')'" :value="80 * results.summary.topic[index] / Math.max(...results.summary.topic)"></p-line-graph>
+								</div>
+								<div class="_pct">
+									{{ results.summary.topic[index] }}
+								</div>
+							</div>
+						</div>
+					</p-list>
+				</p-area>
+				<h3 class="serif">Zvažované strany</h3>
+				<p-area class="smaller">
+					<p-list height=".25">
+						<div v-for="(item, index) in questions[1].options">
+							<div class="_split" :class="{'strong green': form.answers[1].indexOf(index) > -1}">
+								<div class="_topic">{{ item }}</div>
+								<div class="_graph">
+									<p-line-graph label="" :color="'var(--' + (form.answers[1].indexOf(index) > -1 ? 'green' : 'blue') + ')'" :value="80 * results.summary.party[index] / Math.max(...results.summary.party)"></p-line-graph>
+								</div>
+								<div class="_pct">
+									{{ results.summary.party[index] }}
+								</div>
+							</div>
+						</div>
+					</p-list>
+				</p-area>
+				<h3 class="serif">Předpokládaná účast ve volbách</h3>
+				<p-area class="smaller">
+					<p-list height=".25">
+						<div v-for="(item, index) in questions[2].options">
+							<div class="_split" :class="{'strong green': form.answers[2].indexOf(index) > -1}">
+								<div class="_topic">{{ item }}</div>
+								<div class="_graph">
+									<p-line-graph label="" :color="'var(--' + (form.answers[2].indexOf(index) > -1 ? 'green' : 'blue') + ')'" :value="80 * results.summary.attendance[index] / Math.max(...results.summary.attendance)"></p-line-graph>
+								</div>
+								<div class="_pct">
+									{{ results.summary.attendance[index] }}
+								</div>
+							</div>
+						</div>
+					</p-list>
+				</p-area>
+				<h3 class="serif">Bydliště respondentů</h3>
+				<p-area class="smaller">
+					<p-list height=".25">
+						<div v-for="(item, index) in questions[3].options">
+							<div class="_split" :class="{'strong green': form.answers[3].indexOf(index) > -1}">
+								<div class="_topic">{{ item }}</div>
+								<div class="_graph">
+									<p-line-graph label="" :color="'var(--' + (form.answers[3].indexOf(index) > -1 ? 'green' : 'blue') + ')'" :value="80 * results.summary.region[index] / Math.max(...results.summary.region)"></p-line-graph>
+								</div>
+								<div class="_pct">
+									{{ results.summary.region[index] }}
+								</div>
+							</div>
+						</div>
+					</p-list>
+				</p-area>
+			</div>
+		</p-loader>
+	</p-block-expandable>
 </div>

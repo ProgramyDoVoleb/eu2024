@@ -1,0 +1,21 @@
+
+
+._split {
+    display: flex;
+  
+    ._label {
+      width: min(16em, 40vw);
+    }
+  
+    ._pct {
+      width: 4em;
+      margin-left: 1em;
+      white-space: nowrap;
+      text-align: right;
+    }
+  
+    ._graph {
+      flex: 1;
+      margin-left: 1em;
+    }
+  }

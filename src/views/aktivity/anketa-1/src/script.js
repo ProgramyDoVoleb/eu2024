@@ -3,7 +3,7 @@ import { cdn } from '@/stores/core';
 import Quiz1 from '@/components/engagement/poll/do.vue'
 
 export default {
-	name: 'layout-activity-quiz1',
+	name: 'layout-activity-poll1',
 	data: function () {
 		return {
 			cdn
@@ -14,6 +14,6 @@ export default {
   },
   mounted: function () {
     window.scrollTo(0, 1);
-    ga("Kvíz k eurovolbám");
+    ga("Volební anketa");
   }
 };

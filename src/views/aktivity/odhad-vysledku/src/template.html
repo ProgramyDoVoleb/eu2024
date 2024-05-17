@@ -4,6 +4,33 @@
 			<p-block headline="Jak myslíte, že dopadnou letošní eurovolby?" anchor="Odhad výsledku" :level="1">
 				<result-guess :data="elections"></result-guess>
 			</p-block>	
+			<p-block-expandable headline="Průběžný průměr">
+				<p-loader :rule="elections && results">
+					<div v-if="elections && results">
+						<p-area>
+							<election-poll :data="resultsAsPoll(results.summary.parties, 'Průměr tipů', results.cache ? results.cache.created.split('T')[0] : new Date())"></election-poll>
+						</p-area>
+						<p>Aktualizováno jednou za 6 hodin.</p>
+					</div>
+				</p-loader>
+			</p-block-expandable>
+			<p-block-expandable headline="Jednotlivé tipy">
+				<p-loader :rule="elections && results">
+					<div v-if="elections && results">
+						<p-list class="invisible">
+							<template v-for="(entry, index) in results.list">
+								<p-collapsible :label="entry.name || 'Náhodný tip'" :status="date(entry.created)">
+
+									<p-area>
+										<election-poll :data="resultsAsPoll(entry.parties, entry.name || 'Náhodný tip', entry.created)"></election-poll>
+									</p-area>
+								</p-collapsible>
+							</template>
+						</p-list>
+					</div>
+				</p-loader>
+			</p-block-expandable>
+			<p-gap height="4"></p-gap>
 			<p-grid>
 				<div>
 					<p-area icon="icon-check" background="var(--blue11)">
