@@ -36,7 +36,36 @@
 									<div class="p-gap"></div>
 								</div>
 							</div>
-							<div class="p-gap _floar-clear"></div>
+							<div class="_floar-clear"></div>
+							<div v-if="current.NAZEV">
+								<p-box-group>
+									<p-box :to="'/strana/' + tableID">
+										<p-box-button color="var(--blue)">Profil</p-box-button>
+									</p-box>
+									<template v-if="current.$data.web && current.$data.web.length > 0">
+										<p-box :href="current.$data.web[0].value">
+											<p-box-button color="var(--blue)">Web</p-box-button>
+										</p-box>
+									</template>
+									<template v-if="current.POCMANDCR">
+										<p-box class="strong" :style="{color: current.POCMANDCR > 0 ? 'var(--green)' : 'var(--red)'}">
+											<p-box-icon :type="current.POCMANDCR > 0 ? 'icon-check' : 'icon-against'"></p-box-icon>
+											<p-box-label>
+												<p-lang :value="current.POCMANDCR" :end="['žádný mandát', 'jeden mandát', '%% mandáty', '%% mandátů']"></p-lang>	
+											</p-box-label>
+										</p-box>
+									</template>
+									<template v-if="current.$data.social && current.$data.social.length > 0">
+											<p-box-gap></p-box-gap>
+											<template v-for="(item, index) in links">
+												<p-box :href="item.value" class="clean">
+													<p-box-icon :type="type(item.value)"></p-box-icon>
+												</p-box>
+											</template>
+									</template>
+								</p-box-group>
+							</div>
+							<div class="p-gap _3"></div>
 							<p-block headline="Plné znění" v-if="current.$program.length > 0" :open="!current.$program[0].content" :hide="true">
 								<p-area :borderColor="colorByItem(current, data)">
 									<h2 class="_m0">{{ current.$program[0].headline || 'Plné znění' }}</h2>
@@ -90,7 +119,7 @@
 							</p-block>
 							<p-block headline="Vybraná témata a otázky k volebnímu programu" anchor="Vybraná témata" :level="1" v-if="current.$otazky.find(x => x.type === 2)">
 								
-									<template v-for="(question, index) in current.$otazky.filter(x => x.type === 2)">
+									<template v-for="(question, index) in current.$otazky.filter(x => x && x.type === 2)">
 										<p-collapsible :label="question.question" class="">
 											<p-list class="invisible" height=".5">
 												<template v-for="(answer, indexA) in current.$odpovedi.filter(x => x.question === question.id)">
@@ -107,14 +136,7 @@
 							<p-line></p-line>
 							<div class="p-gap _3"></div>
 							<p-block :level="1" :headline="headline" :hide="true">
-								<p-grid>
-									<li>
-										<p-area :borderColor="colorByItem(current, data)" padding=".75em 1.5em">
-											<router-link :to="'/strana/' + current.$program[0].csu_id" class="strong">{{ headline }}</router-link>
-											<div class="smallest dimm">Přejít na volební profil</div>
-										</p-area>
-									</li>
-								</p-grid>
+								<party-preview-large :party="current" :candidates="[]" :election="data.cis.volby[0]" :elections="data"></party-preview-large>
 								<div class="p-gap _2"></div>
 								<p-block-expandable headline="Volební priority" v-if="current.$priority.length > 0">
 										<!-- <p-list height="1"> -->

@@ -19,7 +19,7 @@ export default {
 		ReportForm
 	},
 	methods: {
-		colorByItem, logoByItem, date, truncate,
+		colorByItem, logoByItem, date, truncate, type,
 		sortByPorCislo: function (list) {
 			var arr = [];
 

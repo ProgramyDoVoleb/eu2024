@@ -72,7 +72,7 @@
 				<div class="p-gap _05"></div>
 				<p-truncated :size="24" :content="cand.$data.about[0].value" :compact="'/kandidat/' + cand.id" :unbreak="true"></p-truncated>
 			</div>	
-			<div class="smallest" v-if="cand.$profil.length > 0">
+			<div class="smallest" v-if="cand.$profil && cand.$profil.length > 0">
 				<p-gap></p-gap>
 				<p-link class="is-span strong" :href="'https://programydovoleb.cz/lide/profil/' + cand.$profil[0].profil">Volební historie</p-link>
 			</div>

@@ -14,7 +14,7 @@
 									</template>
 								</p-list-linear>
 							</div>
-							<div v-if="candidates.length === 0" class="dimm smallest"><em>zatím bez dalších informací</em></div>
+							<!-- <div v-if="candidates.length === 0" class="dimm smallest"><em>zatím bez dalších informací</em></div> -->
 						</div>
 						<div class="smallest dimm" v-if="party.ESTRANA > 0">
 							{{ party.ESTRANA }}
@@ -119,7 +119,9 @@
 						</template>
 					</p-modal>
 				</template>		
-				 <router-link :to="'/strana/' + party.id + '/otazky-a-odpovedi'" class="_icon" v-if="party.$odpovedi && party.$odpovedi > 0"> <img src="https://static.programydovoleb.cz/icon/answers.svg" alt="Odpovědi" class="_icon"> </router-link>											
+				 <router-link :to="'/strana/' + party.id + '/otazky-a-odpovedi'" class="_icon" v-if="party.$odpovedi && party.$odpovedi > 0"> <img src="https://static.programydovoleb.cz/icon/answers.svg" alt="Odpovědi" class="_icon"> </router-link>	
+				<template v-for="(soc, index) in party.$data.social.filter(x => ['tw', 'fb', 'threads', 'ig'].indexOf(type(x.value)) > -1)"> <p-link :href="soc.value" class="_icon"> <img :src="'https://static.programydovoleb.cz/icon/' + type(soc.value) + '.svg'" :alt="type(soc.value).toUpperCase() + ' ' + party.ZKRATKA"></p-link></template>
+				<template v-if="party.$data.web && party.$data.web.length > 0"> <p-link :href="party.$data.web[0].value" class="_icon"><img src="https://static.programydovoleb.cz/icon/link.svg" alt="Webové stránky" class="_icon"></p-link></template>										
 			</div>
 		<!-- </div> -->
 	</p-area>

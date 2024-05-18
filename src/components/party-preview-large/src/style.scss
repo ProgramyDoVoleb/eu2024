@@ -134,3 +134,12 @@
 		top: -.5em;
 	}
 }
+
+.dark {
+	img[src*=tw],
+	img[src*=fb],
+	img[src*=ig],
+	img[src*=threads] {
+		filter: invert(0.7);
+	}
+}

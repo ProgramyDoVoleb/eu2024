@@ -17,6 +17,8 @@ import PartyQuicklook from '@/components/party-quicklook/do.vue';
 import CandidateStats from '@/components/candidate-stats/do.vue';
 import NewsBlock from '@/components/news-block/do.vue'
 import ReportForm from '@/components/report-form/do.vue';
+import PartyPreview from '@/components/party-preview-large/do.vue';
+import PersonPreviewBlock from '@/components/person-preview-block/do.vue';
 
 export default {
 	name: 'layout-pointer',
@@ -40,7 +42,9 @@ export default {
 	PartyQuicklook,
 	CandidateStats,
 	NewsBlock,
-	ReportForm
+	ReportForm,
+	PartyPreview,
+	PersonPreviewBlock
   },
 	computed: {
 		$store: function () {

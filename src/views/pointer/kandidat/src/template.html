@@ -32,12 +32,12 @@
 												<p-box-button icon="answers-mini.svg">{{ current.$odpovedi.length }}</p-box-button>
 											</p-box>
 										</template>
-										<template v-if="current.MANDAT === null">
+										<!-- <template v-if="current.MANDAT === null"> -->
 											<p-box>
 												<p-box-label v-if="!current.PORCISLO" background="var(--blue44)">Neznámé umístění na kandidátce</p-box-label>
 												<p-box-label v-if="current.PORCISLO" background="var(--blue44)">č. {{ current.PORCISLO }}</p-box-label>
 											</p-box>
-										</template>
+										<!-- </template> -->
 										<template v-if="current.MANDAT">
 											<p-box class="strong" :style="{color: current.MANDAT === 'A' ? 'var(--green)' : 'var(--red)'}">
 												<p-box-icon :type="current.MANDAT === 'A' ? 'icon-check' : 'icon-against'"></p-box-icon>
