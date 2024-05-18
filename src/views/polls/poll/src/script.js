@@ -58,7 +58,10 @@ export default {
 			}
 		},
 		snapshot: function (ev) {
-			html2canvas(this.$el.querySelector('._area')).then((canvas) => {
+			html2canvas(this.$el.querySelector('._area'),{
+				allowTaint: true,
+				useCORS : true,
+			}).then((canvas) => {
 				this.$refs.canvas.appendChild(canvas);
 				this.imagedata = canvas.toDataURL("image/png");
 
