@@ -234,6 +234,19 @@
 									</div>
 								</p-list>
 							</p-block>
+							<p-block headline="Videa" v-if="current.$data.video" :hide="true">
+								<template v-for="(video, index) in current.$data.video">
+									<p-collapsible :label="video.label || 'Volební spot'" :open="index === 0">
+										<div class="_video" v-html="video.value" v-if="video.value"></div>
+										<div class="_video" v-if="video.source && video.source.split('facebook').length > 1">
+											<iframe :src="video.source" width="560" height="429" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+										</div>
+										<div class="_video" v-if="video.source && video.source.split('youtube').length > 1">
+											<iframe width="560" height="315" :src="video.source" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+										</div>
+									</p-collapsible>
+								</template>
+							</p-block>
 							<p-block headline="Kandidáti" v-if="current.$kandidati" :hide="true">
 									<p-offset class="reverse balanced">
 										<div>
@@ -333,19 +346,6 @@
 										</template>
 									</div>
 								</div>
-							</p-block-expandable>
-							<p-block-expandable headline="Videa" v-if="current.$data.video">
-								<template v-for="(video, index) in current.$data.video">
-									<p-collapsible :label="video.label || 'Volební spot'" :open="index === 0">
-										<div class="_video" v-html="video.value" v-if="video.value"></div>
-										<div class="_video" v-if="video.source && video.source.split('facebook').length > 1">
-											<iframe :src="video.source" width="560" height="429" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-										</div>
-										<div class="_video" v-if="video.source && video.source.split('youtube').length > 1">
-											<iframe width="560" height="315" :src="video.source" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-										</div>
-									</p-collapsible>
-								</template>
 							</p-block-expandable>
 							<p-block headline="V médiích" v-if="current.$data.media">
 								<p-columns>
