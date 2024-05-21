@@ -6,6 +6,7 @@ import Candidates from '../views/kandidati/do.vue'
 import Admin from '../views/admin/do.vue'
 import About from '../views/about/do.vue'
 import Polls from '../views/polls/do.vue'
+import HowTo from '../views/jak-volit/do.vue'
 import Events from '../views/udalosti/do.vue'
 import Topic from '../views/volby/tema/do.vue'
 import TopicCalc from '../views/volby/kalkulacka/do.vue'
@@ -43,6 +44,11 @@ const router = createRouter({
       path: '/aktivity/volebni-anketa',
       name: 'Activity_Poll',
       component: Activity_Poll
+    },
+    {
+      path: '/jak-volit',
+      name: 'HowTo',
+      component: HowTo
     },
     {
       path: '/prehled',

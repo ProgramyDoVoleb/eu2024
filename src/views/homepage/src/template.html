@@ -3,14 +3,14 @@
 		<template #main>
 			<p-block headline="Volby do evropského parlamentu 2024" anchor="Eurovolby 2024" :level="1" subheadline="Programy do voleb" :hide="true">
 				<p class="lead">
-					Přehledně o volbách do Evropského parlamentu: volební programy, <router-link to="/kandidati">kandidáti</router-link>, <router-link to="/strany">politické strany</router-link>, <router-link to="/volebni-pruzkumy">průzkumy</router-link> a další statistiky a přehledy. <strong>Volby budou 7. a 8. června.</strong>
+					<strong>Volby se konají 7. a 8. června</strong> a vybíráme při nich 21 europoslanců. Volit může každý občan ČR starší 18 let. Do obálky se dává <strong>jeden lístek</strong>, na kterém můžete <strong>zakroužkovat až dva kandidáty</strong>. <router-link to="/jak-volit" class="strong">Jak volit?</router-link>
 				</p>
-				<!-- <p-area icon="answers">
-					<strong>Výzva pro strany a kandidáty</strong>
-					<div class="smaller">Jdete do voleb? Už máte svůj přístup do <router-link to="/pro-kandidaty" class="strong">Adminu</router-link>? Už dnes můžete vyplnit své údaje a také odpovědi na <router-link to="/otazky" class="strong">volební otázky</router-link> a kalkulačku.</div>
-				</p-area> -->
+				<p-line height=".25"></p-line>
+				<p class="lead">Na tomto webu najdete podrobné informace o <router-link to="/prehled">všech stranách</router-link> a <router-link to="/kandidati">kandidátech</router-link>, volební programy nebo <router-link to="/otazky">odpovědi kandidátů</router-link>. Zkuste také <router-link to="/aktivity/kviz-pro-eurovolby">volební kvíz</router-link>.</p>
+				<div class="p-gap"></div>
 			</p-block>
-			<p-block headline="Hlavní témata" class="p-block---up">
+			<p-block headline="Hlavní témata ve volebních programech" class="_up" :hide="true">
+				<h2>Hlavní témata <div class="smaller">ve volebních programech</div></h2>
 				<p-loader :rule="elections" reserve="10em">
 					<div v-if="elections">
 						<p-columns class="smaller strong">
@@ -43,27 +43,7 @@
 					</div>
 				</p-grid>
 			</p-block>
-			<p-block headline="Rychlý přehled" :hide="true">
-				<p-offset class="reverse balanced">
-					<div>
-						<p-headline :level="2">Rychlý přehled</p-headline>		
-					</div>
-					<div v-if="elections && elections.list[0].status === 1">
-						<p-area class="_note" background="var(--blue11)">
-							<p-label color="var(--red)">
-								<p-modal>
-									<template #init><button class="inline red">Předběžný seznam</button></template>
-									<template #content>
-										<div class="reset">
-											<h2>Předběžné informace</h2>
-											<p>Zde najdete přehled stran a kandidátů, kteří už nějakou formou oznámili záměr nebo odhodlání kandidovat. Kandidáti uvedeni modře již byli představeni včetně pozice na kandidátce. Ostatní jsou řazeni dle abecedy a nemusí být součástí finální podoby kandidátky. Pořadí a složení se může měnit. Tento přehled bude nahrazen za oficiální přehled, který vydává Český statistický úřad, cca 45 dní před volbami.</p>
-										</div>
-									</template>
-								</p-modal>
-							</p-label>
-						</p-area>
-					</div>	
-				</p-offset>	
+			<p-block headline="Kdo kandiduje?">	
 				<p-loader :rule="elections" reserve="100vh">
 					<div v-if="elections">
 						<div v-for="(election, index) in [elections.list[0]]">
@@ -78,9 +58,9 @@
 												</div>
 
 												<div>
-													<p-area icon="detail" background="var(--blue11)">
-														<router-link to="/prehled" class="strong">Kompletní přehled</router-link>
-														<div class="smallest dimm">Strany, kandidáti, koalice</div>
+													<p-area icon="program-white" background="var(--blue)">
+														<router-link to="/prehled" class="strong _white">Kompletní přehled</router-link>
+														<div class="smallest dimm _white">Strany, kandidáti, odkazy...</div>
 													</p-area>
 												</div>
 

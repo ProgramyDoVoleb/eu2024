@@ -14,11 +14,12 @@ export default {
 			list: [
 				{label: 'Přehled', to: '/prehled'},
 				{label: 'Strany', to: '/strany'},
-				{label: 'Lidé', to: '/kandidati'},
-				{label: 'Otázky', to: '/otazky'},
+				{label: 'Kandidáti', to: '/kandidati'},
+				{label: 'Jak volit?', to: '/jak-volit'},
 				{label: 'Události', to: '/udalosti'},
 				{label: 'Průzkumy', to: '/volebni-pruzkumy'},
 				{label: 'Novinky', to: '/novinky'},
+				{label: 'Otázky', to: '/otazky'},
 				{label: 'Pro kandidáty', to: '/pro-kandidaty', class: 'strong'}
 			]
 		}
