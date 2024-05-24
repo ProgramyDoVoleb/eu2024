@@ -54,7 +54,7 @@
 										<div class="smaller" v-if="parties">
 											<div class="columns _gap">
 												<div v-for="(party, index) in sortBy(election.$strany, 'ZKRATKA', '', true)">
-													<party-preview :party="party" :candidates="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA)" :election="election" :elections="elections"></party-preview>
+													<party-preview :label="true" :party="party" :candidates="election.$kandidati.filter(x => x.ESTRANA === party.ESTRANA)" :election="election" :elections="elections"></party-preview>
 												</div>
 
 												<div>

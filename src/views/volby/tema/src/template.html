@@ -18,17 +18,11 @@
 							<template v-if="$strany">
 								<template v-for="(party, index) in $strany">
 									<p-block :headline="party.NAZEV" :anchor="party.ZKRATKA || party.NAZEV" :hide="true">
-										<p-area class="inline" :borderColor="colorByItem(party, data)">
-											<p-offset>
-												<div>
-													<p-image :src="logoByItem(party, data)" :rounded="true"></p-image>
-												</div>
-												<div>
-													<router-link class="strong" :to="'/strana/' + party.id">{{ truncate(party.NAZEV, 10) }}</router-link>
-													<div class="smallest dimm">Program přidán {{ date(data.list[0].$body.find(x => x.csu_table === party.csu_table && x.csu_id === party.id).$program[0].updated) }}</div>
-												</div>
-											</p-offset>
-										</p-area>
+										<p-grid>
+											<div>
+												<party-preview :party="party" :candidates="[]" :election="null" :elections="data" :label="'Program přidán ' + date(data.list[0].$body.find(x => x.csu_table === party.csu_table && x.csu_id === party.id).$program[0].updated)"></party-preview>
+											</div>
+										</p-grid>
 										<p-gap></p-gap>
 										<!-- <p-collapsible :label="party.NAZEV" :logo="logoByItem(party, data)"> -->
 											<!-- <p-area :borderColor="colorByItem(party, data)"> -->
@@ -40,18 +34,13 @@
 															</div>
 														</template>
 														<div class="smaller strong">
-															<p-box :to="'/strana/' + party.id + '/volebni-program/' + data.list[0].$body.find(x => x.csu_table === party.csu_table && x.csu_id === party.id).$program[0].id">
-																<!-- <p-box-color :color="colorByItem(party, data)"></p-box-color> -->
-																<p-box-button color="var(--blue)">
-																	Zobrazit volební program
-																</p-box-button>
-															</p-box>
+															<router-link :to="'/strana/' + party.id + '/volebni-program/' + data.list[0].$body.find(x => x.csu_table === party.csu_table && x.csu_id === party.id).$program[0].id">Zobrazit volební program</router-link>
 														</div>
 													</p-list>
 												</template>
 											<!-- </p-area> -->
 										<!-- </p-collapsible> -->
-
+										<p-gap height="3"></p-gap>
 									</p-block>
 								</template>
 								

@@ -3,6 +3,7 @@ import { cdn, today } from '@/stores/core';
 import {url, date, number, truncate, sortBy, unique, slide} from '@/pdv/helpers';
 import { colorByItem, logoByItem } from '@/components/results/helpers';
 import {ga} from '@/pdv/analytics';
+import PartyPreview from '@/components/party-preview/do.vue';
 
 export default {
 	name: 'volby-qa',
@@ -17,6 +18,9 @@ export default {
 			],
 			hasStrany: false
 		}
+	},
+	components: {
+		PartyPreview
 	},
 	computed: {
 		$store: function () {
@@ -48,7 +52,11 @@ export default {
 
 				this.data.list[0].$body.filter(x => x.$strana).forEach(item => {
 					if (!list.find(x => x.id === item.$strana.id)) {
-						list.push(item.$strana);
+
+						var o = item.$strana;
+						o.$program = item.$program;
+
+						list.push(o);
 					}
 				});
 

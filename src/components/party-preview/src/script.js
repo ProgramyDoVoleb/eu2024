@@ -6,7 +6,7 @@ import ReportForm from '@/components/report-form/do.vue';
 
 export default {
 	name: 'party-preview',
-	props: ['party', 'candidates', 'elections', 'election'],
+	props: ['party', 'candidates', 'elections', 'election', 'label'],
 	data: function () {
 		return {
 			cdn
