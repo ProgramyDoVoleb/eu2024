@@ -172,6 +172,15 @@
 									</div>
 								</p-list>
 							</p-block>
+							<p-block headline="Kalkulačka" :hide="true">
+								<p-area background="var(--blue11)">
+									<p-box-group class="_pbg">
+										<p-box to="/kalkulacka">
+											<p-box-button color="var(--blue)">Vyplnit kalkulačku</p-box-button>
+										</p-box>
+									</p-box-group>
+								</p-area>
+							</p-block>
 							<p-gap height="4"></p-gap>
 							<p-block :level="1" :headline="headline">
 								<div v-if="current.JMENO">

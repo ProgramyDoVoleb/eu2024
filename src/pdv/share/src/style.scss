@@ -15,3 +15,13 @@
 .-aside ._blockAside {
   width: 100%;
 }
+
+.compact {
+  display: flex !important;
+  flex-wrap: wrap;
+
+  > * {
+    padding-left: .15em;
+    padding-right: .15em;
+  }
+}

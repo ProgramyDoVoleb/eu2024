@@ -88,3 +88,13 @@
 ._mw {
 	max-width: 40em;
 }
+
+._pbg {
+  max-width: 40rem;
+  margin: auto;
+  justify-content: center;
+
+  .p-box-image {
+    border-radius: 4px;
+  }
+}

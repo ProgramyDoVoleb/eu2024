@@ -166,7 +166,7 @@
 							<div><strong>Účast je dobrovolná.</strong> Nikdo vás k volbám nesmí nutit.</div>
 							<div><strong>Volba je svobodná.</strong> Nikdo vám nemůže vnucovat, koho musíte či nesmíte volit.</div>
 							<div><strong>Volba je tajná.</strong> Nikdo nemá právo vidět, pro koho hlasujete. A nikomu to nemusíte ani poté říkat.</div>
-							<div><strong>Rozhodnutí je na vás.</strong> <router-link to="/volebni-pruzkumy">Průzkumy</router-link>, kalkulačky, debaty i tento web jsou jen pomůckami při rozhodování.</div>
+							<div><strong>Rozhodnutí je na vás.</strong> <router-link to="/volebni-pruzkumy">Průzkumy</router-link>, <router-link to="/kalkulacka">kalkulačky</router-link>, debaty i tento web jsou jen pomůckami při rozhodování.</div>
 							<div><strong>Volby jsou svátek.</strong> Nemusíte se extra strojit, ale slušnost, ohleduplnost a střízlivost jsou vždy vítány.</div>
 							<div><strong>Kampaň končí před volební místností.</strong> Uvnitř nesmí nikdo nikoho přesvědčovat, ani nikoho propagovat.</div>
 						</p-list>
@@ -236,12 +236,12 @@
 					<p-block headline="Zajímavé odkazy" :hide="true" class="_p0">
 						<p-grid>
 							<div>
-								<p-area icon="link" borderColor="var(--blue)">
+								<p-area icon="icon-check" borderColor="var(--blue)">
 									<strong>Volební kalkulačka</strong>
 									<p-gap height=".25"></p-gap>
-									<div class="smaller">Nejznámější česká volební kalkulačka pro evropské volby</div>
+									<div class="smaller">Pomocí volební kalkulačka zjistíte, kdo vám je názory blíže.</div>
 									<p-gap height=".5"></p-gap>
-									<div><p-link href="https://www.volebnikalkulacka.cz/" class="btn">Vyzkoušet</p-link></div>
+									<div><router-link class="btn btn-primary" to="/kalkulacka">Vyzkoušet</router-link> <p-link href="https://www.volebnikalkulacka.cz/" class="btn">Jiná</p-link></div>
 								</p-area>
 							</div>
 							<div>

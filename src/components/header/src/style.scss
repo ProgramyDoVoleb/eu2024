@@ -28,7 +28,7 @@
     // border-color: #222;
   }
 
-  @media (min-width: 960px) {
+  @media (min-width: 1140px) {
     padding: 1rem 2.5rem;
   }
 
@@ -101,7 +101,7 @@ button {
   background: transparent;
 }
 
-@media (min-width: 960px) {
+@media (min-width: 1140px) {
   .row-menu-button {
     display: none;
   }
@@ -124,7 +124,7 @@ button {
   }
 }
 
-@media (min-width: 960px) {
+@media (min-width: 1140px) {
   .row-menu-list {
     right: 2.5rem;
   }
@@ -141,7 +141,7 @@ button {
   left: .2rem; // 9.5rem;
   top: 1.3rem;
 
-  @media (min-width: 960px) {
+  @media (min-width: 1140px) {
     left: .7rem;
   }
 
@@ -189,7 +189,7 @@ button {
 }
 
 .support-button {
-  @media (min-width: 960px) {
+  @media (min-width: 1140px) {
     position: relative;
   }
 }
@@ -221,7 +221,7 @@ button {
 		column-gap: 40px;
 	}
 
-	@media (min-width: 960px) {
+	@media (min-width: 1140px) {
 		columns: 4;
 		column-gap: 40px;
 	}
@@ -363,7 +363,7 @@ button {
     bottom: 100%;
     left: 70%;
 
-    @media (min-width: 960px) {
+    @media (min-width: 1140px) {
       left: 50%;
     }
   }
@@ -377,7 +377,7 @@ button {
 .row-menu-right {
   display: none;
 
-  @media (min-width: 960px) {
+  @media (min-width: 1140px) {
     display: block;
     position: absolute;
     right: 2rem;

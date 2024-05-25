@@ -6,9 +6,9 @@
 			</p-block>
 			<p-grid>
 				<div>
-					<p-area icon="icon-check" background="var(--blue11)">
-						<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební eurokvíz</router-link>
-						<div class="smallest">Vyzkoušte své znalosti, čeká vás 10 otázek</div>
+					<p-area icon="icon-check" background="var(--blue)">
+						<router-link to="/kalkulacka" class="strong _white">Volební kalkulačka</router-link>
+						<div class="smallest _white">40 otázek napoví, kdo vám je blíž</div>
 					</p-area>
 				</div>
 				<div>
@@ -18,9 +18,27 @@
 					</p-area>
 				</div>
 				<div>
+					<p-area icon="icon-false" background="var(--blue11)">
+						<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební eurokvíz</router-link>
+						<div class="smallest">Vyzkoušte své znalosti, čeká vás 10 otázek</div>
+					</p-area>
+				</div>
+				<div>
 					<p-area icon="evropske-volby" background="var(--blue11)">
 						<router-link to="/" class="strong">Volební přehled</router-link>
 						<div class="smallest">Přejít na úvodní stránku</div>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="answers" background="var(--blue11)">
+						<router-link to="/" class="strong">Odpovědi kandidátů</router-link>
+						<div class="smallest">Seznamte se s jejich názory</div>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="warning" background="var(--blue11)">
+						<router-link to="/jak-volit" class="strong">Jak volit</router-link>
+						<div class="smallest">Termíny, podmínky, krok za krokem</div>
 					</p-area>
 				</div>
 			</p-grid>
@@ -34,8 +52,8 @@
 			<p-list class="smaller invisible">
 				<!-- <p-grid> -->
 					<div>
-						<p-area icon="icon-check" background="var(--blue11)">
-							<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební<br>eurokvíz</router-link>
+						<p-area icon="icon-check" background="var(--blue)">
+							<router-link to="/kalkulacka" class="strong _white">Volební<br>kalkulačka</router-link>
 						</p-area>
 					</div>
 					<div>
@@ -46,6 +64,11 @@
 					<div>
 						<p-area icon="icon-election" background="var(--blue11)">
 							<router-link to="/aktivity/odhad-vysledku" class="strong">Odhad<br>výsledku</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-false" background="var(--blue11)">
+							<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební<br>eurokvíz</router-link>
 						</p-area>
 					</div>
 					<div>

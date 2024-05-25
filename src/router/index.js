@@ -21,6 +21,8 @@ import PointerProgram from '../views/pointer/program/do.vue'
 import Activity_Poll from '../views/aktivity/anketa-1/do.vue'
 import Activity_Quiz1 from '../views/aktivity/quiz-1/do.vue'
 import Activity_ResultGuess from '../views/aktivity/odhad-vysledku/do.vue'
+import Activity_Calc from '../views/aktivity/kalkulacka-1/do.vue'
+import Activity_CalcResult from '../views/aktivity/kalkulacka-1/vysledky/do.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +31,23 @@ const router = createRouter({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/kalkulacka',
+      name: 'Activity_Calc',
+      component: Activity_Calc
+    },
+    {
+      path: '/kalkulacka/otazka/:qid',
+      name: 'TopicCalc',
+      component: TopicCalc,
+      props: true
+    },
+    {
+      path: '/kalkulacka/:id',
+      name: 'Activity_CalcResult',
+      component: Activity_CalcResult,
+      props: true
     },
     {
       path: '/aktivity/kviz-pro-eurovolby',
@@ -114,12 +133,6 @@ const router = createRouter({
       path: '/tema/:qid',
       name: 'Topic',
       component: Topic,
-      props: true
-    },
-    {
-      path: '/kalkulacka/otazka/:qid',
-      name: 'TopicCalc',
-      component: TopicCalc,
       props: true
     },
     {
