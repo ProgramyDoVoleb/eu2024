@@ -3,87 +3,11 @@
 		<template #main>
 			<p-block :level="1" headline="Otázky pro strany a kandidáty" anchor="Otázky">
 				<p class="lead">Pro evropské volby je přichystáno několik forem, jak se mohou strany a kandidáti lépe představit, nad rámec vyplněných medailonků. Jednou formou jsou odpovědi na několik vybraných otázek, druhou formou je volební kalkulačka. Ta je určena hlavně pro volební strany, ale své odpovědi mohou ji vyplnit i kandidáti.</p>
-				<p-block headline="Jak vyplňovat?">
-					<p-grid>
-						<div>
-							<p-area icon="program-white" background="var(--blue)">
-								<router-link to="/pro-kandidaty" class="strong _white">Admin - vyplňte odpovědi zde</router-link>
-								<div class="smallest _white">Nejrychlejší forma, kdykoli 24/7</div>
-							</p-area>
-						</div>
-						<div>
-							<p-area icon="email">
-								<a href="mailto:odpovedi@programydovoleb.cz" class="strong smaller">odpovedi@programydovoleb.cz</a>
-								<div class="smallest">Stačí zaslat e-mailem z ověřitelné adresy</div>
-							</p-area>
-						</div>
-					</p-grid>
-					<p>Je několik forem, jak lze odpovědi vyplnit. <router-link to="/pro-kandidaty" class="strong">Admin</router-link> je nejpohodlnější způsob, je dostupný kdykoli a odkudkoli. Strany i kandidáti v něm mohou snadno doplnit či upravit své odpovědi a také přidat další informace, fotky, tiskové zprávy, ukázky volebních materiálů, apod.</p>
-					<p>Pokud máte e-mail, který je dohledatelný online nebo je z něj jasné, že patří politické straně nebo hnutí, můžete odpovědi poslat jako prostý text e-mailem.</p>
-					<p>Všem 30 stranám zároveň přijde dokument ve formátu XLS a Google Sheets, ve kterém budou moct odpovědi připravit a doplnit. Spolu s dokumenty přijde i odkaz do Adminu.</p>
-
-				</p-block>
-				<p-block headline="Termín na doplnění">
-					<p class="lead"><strong class="blue">Otázky do kalkulačky je vhodné dodat do 24. května!</strong> Odpovědi lze doplňovat a upravovat i po tomto datu, ale znamená to, že si je nemusí přečíst čtenáči v první várce.</p>
-					<p>Ostatní otázky je možné doplňovat a upravovat kdykoli až do čtvrtka 6. června do 14:00. Do té doby bude také otevřený Admin pro úpravy všech ostatních údajů.</p>
-
-				</p-block>
-			</p-block>
-			<p-block headline="Přehled otázek" :level="1" class="p-block---up">
+			<!-- </p-block> -->
+			<!-- <p-block headline="Přehled otázek" :level="1" class="p-block---up"> -->
 				<p-loader :rule="elections">
 					<div v-if="elections">
-						<p-block headline="Otevřené otázky pro strany">
-							<p-area background="var(--blue11)">
-								<p-list class="smaller strong">
-									<div>Odpovídat mohou všechny strany, hnutí a koalice registrované do voleb.</div>
-									<div>Odpověď může obsahovat základní formátování: <strong>tučné písmo</strong>, <em>kurzívu</em>, <span class="is-link">odkazy</span> nebo odřádkování.</div>
-									<div>K odpovědi lze přidat také odkaz, kde je odpověď vysvětlena podrobněji.</div>
-									<div>Lze odpovědět jen na nějaké otázky</div>
-								</p-list>
-							</p-area>
-							<p-gap height=""></p-gap>
-							<p-list>
-								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 1 && x.designated === 1)">
-									<p-offset class="reverse balanced">
-										<div>
-											<p-offset class="balanced">
-												<div>
-													<p-box-ticker>{{ i + 1 }}</p-box-ticker>
-												</div>
-												<div>
-													{{ q.question }} 
-													<div class="smaller serif" v-if="q.comment">{{ q.comment }}</div>
-												</div>
-											</p-offset>
-										</div>
-										<div>
-											<p-box :to="'/otazka/' + q.id">
-												<p-box-button>Odpovědi</p-box-button>
-											</p-box>
-										</div>
-									</p-offset>
-								</div>
-							</p-list>
-							<p-gap height="2"></p-gap>
-							<p-grid>
-								<div>
-									<p-area icon="link">
-										<p-link href="https://docs.google.com/document/d/1pCoarMrmRNk1X9mNL3bTOOomjEa820XbX1hDwsa4AJo/edit?usp=sharing" class="strong">Zobrazit na Google Drive</p-link>
-										<div class="smallest">Otázky a instrukce</div>
-									</p-area>
-								</div>
-							</p-grid>
-						</p-block>
-						<p-block headline="Otevřené otázky pro kandidáty">
-							<p-area background="var(--blue11)">
-								<p-list class="smaller strong">
-									<div>Odpovídat mohou všichni kandidáti.</div>
-									<div>Odpověď může obsahovat základní formátování: <strong>tučné písmo</strong>, <em>kurzívu</em>, <span class="is-link">odkazy</span> nebo odřádkování.</div>
-									<div>K odpovědi lze přidat také odkaz, kde je odpověď vysvětlena podrobněji.</div>
-									<div>Lze odpovědět jen na nějaké otázky</div>
-								</p-list>
-							</p-area>
-							<p-gap height=""></p-gap>
+						<p-block-expandable headline="6 otázek pro kandidáty" anchor="Pro kandidáty" :open="true">
 							<p-list>
 								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 1 && x.designated === 2)">
 									<p-offset class="reverse balanced">
@@ -106,26 +30,8 @@
 									</p-offset>
 								</div>
 							</p-list>
-							<p-gap height="2"></p-gap>
-							<p-grid>
-								<div>
-									<p-area icon="link">
-										<p-link href="https://docs.google.com/document/d/13Eyrk9u3D7smv6Dm6IeG3-kT14cKm__cvjlWXCu_zDM/edit?usp=sharing" class="strong">Zobrazit na Google Drive</p-link>
-										<div class="smallest">Otázky a instrukce</div>
-									</p-area>
-								</div>
-							</p-grid>
-						</p-block>
-						<p-block headline="Otázky do volební kalkulačky">
-							<p-area background="var(--blue11)">
-								<p-list class="smaller strong">
-									<div>U následujících otázek se předpokládá odpověď <span class="green">ANO</span> nebo <span class="red">NE</span>.</div>
-									<div>Protože ale svět není černobílý, je možné také využít možnost <em class="blue">je to složitější</em>, popřípadě <em class="dimm">nechci odpovídat</em></div>
-									<div>A protože občas se hodí i pár slov k vysvětlení, lze přidat i krátký komentář a odkaz, kde je odpověď vysvětlena podrobněji.</div>
-									<div>Otázky jsou určené hlavně pro volební strany, ale odpovídat mohou i kandidáti.</div>
-								</p-list>
-							</p-area>
-							<p-gap height=""></p-gap>
+						</p-block-expandable>
+						<p-block-expandable headline="Otázky do volební kalkulačky" anchor="Kalkulačka">
 							<p-list>
 								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 3)">
 									<p-offset class="reverse balanced">
@@ -151,16 +57,98 @@
 							<p-gap height="2"></p-gap>
 							<p-grid>
 								<div>
-									<p-area icon="link">
-										<p-link href="https://docs.google.com/spreadsheets/d/1DQF_NYK-WaCPir-cp_fDPxQc_9kgxctl1_MTD8WZ7jY/edit#gid=0" class="strong">Zobrazit na Google Drive</p-link>
-										<div class="smallest">Otázky a instrukce</div>
+									<p-area icon="icon-check">
+										<router-link to="/kalkulacka" class="strong">Vyzkoušet volební kalkulačku</router-link>
+										<div class="smallest">40 otázek napoví, kdo vám je blíž</div>
 									</p-area>
 								</div>
 							</p-grid>
-						</p-block>
+						</p-block-expandable>
+						<p-block-expandable headline="5 otázek pro strany">
+							<p-list>
+								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 1 && x.designated === 1)">
+									<p-offset class="reverse balanced">
+										<div>
+											<p-offset class="balanced">
+												<div>
+													<p-box-ticker>{{ i + 1 }}</p-box-ticker>
+												</div>
+												<div>
+													{{ q.question }} 
+													<div class="smaller serif" v-if="q.comment">{{ q.comment }}</div>
+												</div>
+											</p-offset>
+										</div>
+										<div>
+											<p-box :to="'/otazka/' + q.id">
+												<p-box-button>Odpovědi</p-box-button>
+											</p-box>
+										</div>
+									</p-offset>
+								</div>
+							</p-list>
+						</p-block-expandable>
 					</div>
-				</p-loader>
-			</p-block>
+				</p-loader>	
+			</p-block>		
+			<p-block headline="Informace pro kandidáty a strany" :level="1">
+				<!-- <p-block headline="Jak vyplňovat?"> -->
+					<p>Je několik forem, jak lze odpovědi vyplnit. <router-link to="/pro-kandidaty" class="strong">Admin</router-link> je nejpohodlnější způsob, je dostupný kdykoli a odkudkoli. Strany i kandidáti v něm mohou snadno doplnit či upravit své odpovědi a také přidat další informace, fotky, tiskové zprávy, ukázky volebních materiálů, apod.</p>
+					<p>Pokud máte e-mail, který je dohledatelný online nebo je z něj jasné, že patří politické straně nebo hnutí, můžete odpovědi poslat jako prostý text e-mailem.</p>
+				
+					<p-grid>
+						<div>
+							<p-area icon="email">
+								<a href="mailto:odpovedi@programydovoleb.cz" class="strong smaller">odpovedi@programydovoleb.cz</a>
+								<div class="smallest">Stačí zaslat e-mailem z ověřitelné adresy</div>
+							</p-area>
+						</div>
+					</p-grid>
+
+					<p>Všem 30 stranám zároveň přijde dokument ve formátu XLS a Google Sheets, ve kterém budou moct odpovědi připravit a doplnit. Spolu s dokumenty přijde i odkaz do Adminu.</p>
+
+				<!-- </p-block> -->
+				<p-block headline="Ke stažení">
+					<p>Všechny otázky a instrukce pro zaslání si můžete také stáhnout ve formátech MS Word, Excel nebo Google Drive, který umí export i do dalších formátů.</p>
+					<p-list>
+						<div>
+							
+								<strong>Pro kandidáty</strong>
+								<div class="smaller">
+									<p-link class="strong" href="https://static.programydovoleb.cz/2024/docs/pdv-eu2024-pro-kandidaty.docx">Stáhnout Word</p-link>
+									&middot;
+									<p-link class="" href="https://docs.google.com/document/d/13Eyrk9u3D7smv6Dm6IeG3-kT14cKm__cvjlWXCu_zDM/edit?usp=sharing">Google Drive</p-link>
+								</div>
+							
+						</div>
+						<div>
+							
+								<strong>Pro strany</strong>
+								<div class="smaller">
+									<p-link class="strong" href="https://static.programydovoleb.cz/2024/docs/pdv-eu2024-pro-strany.docx">Stáhnout Word</p-link>
+									&middot;
+									<p-link href="https://docs.google.com/document/d/1pCoarMrmRNk1X9mNL3bTOOomjEa820XbX1hDwsa4AJo/edit?usp=sharing" class="">Google Drive</p-link>
+								</div>
+							
+						</div>
+						<div>
+							
+								<strong>Kalkulačka</strong>
+								<div class="smaller">
+									<p-link class="strong" href="https://static.programydovoleb.cz/2024/docs/pdv-eu2024-do-kalkulacky.xlsx">Stáhnout Excel</p-link>
+									&middot;
+									<p-link class="" href="https://docs.google.com/spreadsheets/d/1DQF_NYK-WaCPir-cp_fDPxQc_9kgxctl1_MTD8WZ7jY/edit?usp=sharing">Google Drive</p-link>
+								</div>
+							
+						</div>
+					</p-list>
+				</p-block>
+				<p-block headline="Termín na doplnění">
+					<p class="lead">Odpovědi lze doplňovat a upravovat i po 24. květnu, ale znamená to, že si je nemusí přečíst čtenáči v první várce.</p>
+					<p>Ostatní otázky je možné doplňovat a upravovat kdykoli až do čtvrtka 6. června do 14:00. Do té doby bude také otevřený Admin pro úpravy všech ostatních údajů.</p>
+
+				</p-block>
+			</p-block>	
 		</template>
 		<template #aside>
 			<h3 class="serif w400">Programy do voleb, z. s.</h3>
@@ -213,7 +201,8 @@
 			</p-list>
 		</template>
 		<template #anchors>
-
+			<p-logo :data="{logo: cdn + 'icon/answers-mini.svg'}" :size="'12rem'" alt="Otázky pro evropské volby 2024"></p-logo>
+			<div class="p-gap"></div>
 			<p-anchors></p-anchors>
 		</template>
 	</p-layout-divided>

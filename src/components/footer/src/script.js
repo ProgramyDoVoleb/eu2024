@@ -15,7 +15,7 @@ export default {
 				reddit: "https://www.reddit.com/r/volby/",
 				bsky: "https://bsky.app/profile/programydovoleb.cz",
 				mastodon: "https://cztwitter.cz/@programydovoleb",
-				linkedin: "https://www.linkedin.com/company/programydovoleb"
+				// linkedin: "https://www.linkedin.com/company/programydovoleb"
 			}
 		}
 	}

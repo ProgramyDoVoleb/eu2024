@@ -1,10 +1,13 @@
 import {ga} from '@/pdv/analytics';
 import {useData} from '@/stores/data';
+import { cdn } from '@/stores/core';
 
 export default {
 	name: 'layout-homepage',
 	data: function () {
-		return {}
+		return {
+			cdn
+		}
 	},
   components: {},
 	computed: {
