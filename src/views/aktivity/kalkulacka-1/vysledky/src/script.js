@@ -85,17 +85,19 @@ export default {
 	number, sortBy, date, round,
 	logoByItem, colorByItem,
 	snapshot: function (ev) {
-		html2canvas(this.$el.querySelector('._area'),{
-			allowTaint: true,
-			useCORS : true,
-		}).then((canvas) => {
-			this.$refs.canvas.appendChild(canvas);
-			this.imagedata = canvas.toDataURL("image/png");
-
-			canvas.style.width = '100%';
-			canvas.style['max-width'] = canvas.width + 'px';
-			canvas.style.height = 'auto';
-		})
+		setTimeout(() => {
+			html2canvas(this.$el.querySelector('._area'),{
+				allowTaint: true,
+				useCORS : true,
+			}).then((canvas) => {
+				this.$refs.canvas.appendChild(canvas);
+				this.imagedata = canvas.toDataURL("image/png");
+	
+				canvas.style.width = '100%';
+				canvas.style['max-width'] = canvas.width + 'px';
+				canvas.style.height = 'auto';
+			})
+		}, 500);
 	},
 	sublist_toggle: function (id) {
 		if (this.sublist.find(x => x === id)) {

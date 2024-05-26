@@ -4,139 +4,143 @@
 			<p-block headline="Výsledky volební kalkulačky" anchor="Výsledky" :level="1" :hide="true">
 				<p-loader :rule="results">
 					<div v-if="results && list">
-						<p-area class="_area">
-							<h1>
-								Výsledky volební kalkulačky
-								<div class="small blue">Programy do voleb, {{ date(results.list[0].datum) }}</div>
-							</h1>
-							<p-offset class="reverse">
-								<div>
-									<button class="inline" @click="type = 2" :class="{strong: type === 2}">Základní</button>
-									&middot;
-									<button class="inline" @click="type = 1" :class="{strong: type === 1}">Zohlednit důležité</button>
-								</div>
-								<div>
-									<p-modal>
-										<template #init>Filtr <template v-if="sublist.length > 0">&middot; {{ sublist.length }}</template> </template>
-										<template #content>
-											<strong>
-												Výběr stran
-												
-											</strong>
-											<div class="p-gap"></div>
-											<div class="columns smaller">
-												<div v-for="(party, index) in sortBy(result.parties, 'short', null, true)">
-													<button class="inline" @click="sublist_toggle(party.id)" :class="{'strong green': sublist.find(x => x === party.id)}">{{ data.parties.find(x => x.id === party.id).ZKRATKA }}</button>
+						<div class="_r">
+							<p-area class="_area">
+								<h1>
+									<div class="_fs blue">Programy do voleb</div>
+									Výsledky volební kalkulačky
+								</h1>
+								<p-offset class="reverse _fs">
+									<div>
+										<button class="inline" @click="type = 2" :class="{strong: type === 2}">Základní</button>
+										&middot;
+										<button class="inline" @click="type = 1" :class="{strong: type === 1}">Zohlednit důležité</button>
+									</div>
+									<div>
+										<p-modal>
+											<template #init>Filtr <template v-if="sublist.length > 0">&middot; {{ sublist.length }}</template> </template>
+											<template #content>
+												<strong>
+													Výběr stran
+													
+												</strong>
+												<div class="p-gap"></div>
+												<div class="columns smaller">
+													<div v-for="(party, index) in sortBy(result.parties, 'short', null, true)">
+														<button class="inline" @click="sublist_toggle(party.id)" :class="{'strong green': sublist.find(x => x === party.id)}">{{ data.parties.find(x => x.id === party.id).ZKRATKA }}</button>
+													</div>
 												</div>
-											</div>
-											<p-line></p-line>
-											<div class="smaller">
-												<button class="inline red" @click="sublist = []">Zrušit filtr</button>
-												&middot;
-												<button class="inline" @click="sublist = [149,150,156,151,160,144,163,146,154]">Podle průzkumů</button> 
-											</div>
-										</template>
-									</p-modal>
-								</div>
-							</p-offset>
-							<div class="p-gap"></div>
-							<template v-if="type === 2">
-								<table class="smaller">
-									<thead>
-										<tr>
-											<th colspan="2">Strana</th>
-											<th colspan="2">míra shody</th>
-											<th class="text-right">S</th>
-											<th class="text-right">N</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr v-for="(party, index) in list.filter((x, i) => i < (limit && sublist.length === 0 ? 8 : 100))">
-											<td class="_w">
-												<p-logo :size="(width < 1140 ? 2 : 3) + 'em'" :data="logoByItem(data.parties.find(x => x.id === party.id), data)"></p-logo>
-											</td>
-											<td class="strong _s">
-												<!-- <p-label :color="colorByItem(data.parties.find(x => x.id === party.id), data)"> -->
-													{{ data.parties.find(x => x.id === party.id).ZKRATKA }}
-												<!-- </p-label> -->
-											</td>
-											<td class="text-right _ws _s strong">
-												{{ party.res }}
-											</td>
-											<td>
-												<p-line-graph label="" class="_plg" :value="party.res" :color="colorByItem(data.parties.find(x => x.id === party.id), data)"></p-line-graph>
-											</td>
-											<td class="text-right green strong">
-												{{ party.agree }}
-											</td>
-											<td class="text-right red strong">
-												{{ party.oppose }}
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</template>
-							<template v-if="type === 1">
-								<table class="smaller">
-									<thead>
-										<tr>
-											<th colspan="2">Strana</th>
-											<th colspan="2">míra shody</th>
-											<th class="text-right">S</th>
-											<th class="text-right">N</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr v-for="(party, index) in list.filter((x, i) => i < (limit && sublist.length === 0 ? 8 : 100))">
-											<td class="_w">
-												<p-logo :size="(width < 1140 ? 2 : 3) + 'em'" :data="logoByItem(data.parties.find(x => x.id === party.id), data)"></p-logo>
-											</td>
-											<td class="strong _s">
-												<!-- <p-label :color="colorByItem(data.parties.find(x => x.id === party.id), data)"> -->
-													{{ data.parties.find(x => x.id === party.id).ZKRATKA }}
-												<!-- </p-label> -->
-											</td>
-											<td class="text-right _ws _s strong">
-												{{ number(Math.round((party.pwi + 400) / .08)/100, 2) }}
-											</td>
-											<td>
-												<p-line-graph label="" class="_plg" :value="(party.pwi + 400) / 8" :color="colorByItem(data.parties.find(x => x.id === party.id), data)"></p-line-graph>
-											</td>
-											<td class="text-right green strong">
-												{{ party.agree }}
-											</td>
-											<td class="text-right red strong">
-												{{ party.oppose }}
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</template>
-							<p-offset class="reverse">
-								<div>
-									<template v-if="sublist.length === 0">
-										<div class="p-gap"></div>
-										<div>
-											<button @click="limit = false" v-if="limit">Zobrazit všechny strany</button>
-											<button @click="limit = true" v-if="!limit">Zobrazit zkrácený výpis</button>
-										</div>
-									</template>
-									<template v-else>
-										<div class="p-gap"></div>
-										<div class="smaller smallest dimm">Výpis obsahuje jen vyfiltrované položky</div>
-									</template>
-								</div>
-								<div>
-									<p-modal>
-										<template #init><span class="smallest">Sdílet</span></template>
-										<template #content>
-											<strong>Sdílejte výsledky</strong>
+												<p-line></p-line>
+												<div class="smaller">
+													<button class="inline red" @click="sublist = []">Zrušit filtr</button>
+													&middot;
+													<button class="inline" @click="sublist = [149,150,156,151,160,144,163,146,154]">Podle průzkumů</button> 
+												</div>
+											</template>
+										</p-modal>
+									</div>
+								</p-offset>
+								<div class="p-gap"></div>
+								<template v-if="type === 2">
+									<table class="smaller">
+										<thead>
+											<tr>
+												<th colspan="2">Strana</th>
+												<th colspan="2">míra shody</th>
+												<th class="text-right">S</th>
+												<th class="text-right">N</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr v-for="(party, index) in list.filter((x, i) => i < (limit && sublist.length === 0 ? 8 : 100))">
+												<td class="_w">
+													<p-logo :size="(width < 1140 ? 2 : 3) + 'em'" :data="logoByItem(data.parties.find(x => x.id === party.id), data)"></p-logo>
+												</td>
+												<td class="strong _s">
+													<!-- <p-label :color="colorByItem(data.parties.find(x => x.id === party.id), data)"> -->
+														{{ data.parties.find(x => x.id === party.id).ZKRATKA }}
+													<!-- </p-label> -->
+												</td>
+												<td class="text-right _ws _s strong">
+													{{ party.res }}
+												</td>
+												<td>
+													<p-line-graph label="" class="_plg" :value="party.res" :color="colorByItem(data.parties.find(x => x.id === party.id), data)"></p-line-graph>
+												</td>
+												<td class="text-right green strong">
+													{{ party.agree }}
+												</td>
+												<td class="text-right red strong">
+													{{ party.oppose }}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</template>
+								<template v-if="type === 1">
+									<table class="smaller">
+										<thead>
+											<tr>
+												<th colspan="2">Strana</th>
+												<th colspan="2">míra shody</th>
+												<th class="text-right">S</th>
+												<th class="text-right">N</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr v-for="(party, index) in list.filter((x, i) => i < (limit && sublist.length === 0 ? 8 : 100))">
+												<td class="_w">
+													<p-logo :size="(width < 1140 ? 2 : 3) + 'em'" :data="logoByItem(data.parties.find(x => x.id === party.id), data)"></p-logo>
+												</td>
+												<td class="strong _s">
+													<!-- <p-label :color="colorByItem(data.parties.find(x => x.id === party.id), data)"> -->
+														{{ data.parties.find(x => x.id === party.id).ZKRATKA }}
+													<!-- </p-label> -->
+												</td>
+												<td class="text-right _ws _s strong">
+													{{ number(Math.round((party.pwi + 400) / .08)/100, 2) }}
+												</td>
+												<td>
+													<p-line-graph label="" class="_plg" :value="(party.pwi + 400) / 8" :color="colorByItem(data.parties.find(x => x.id === party.id), data)"></p-line-graph>
+												</td>
+												<td class="text-right green strong">
+													{{ party.agree }}
+												</td>
+												<td class="text-right red strong">
+													{{ party.oppose }}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</template>
+								<p-offset class="reverse">
+									<div>
+										<template v-if="sublist.length === 0">
 											<div class="p-gap"></div>
-											<p-share cta="Zkopírovat odkaz na výsledky"></p-share>
+											<div>
+												<button @click="limit = false" v-if="limit">Zobrazit všechny strany</button>
+												<button @click="limit = true" v-if="!limit">Zobrazit zkrácený výpis</button>
+												<p-gap height=".5"></p-gap>
+												<button @click="sublist = [149,150,156,151,160,144,163,146,154]" class="inline smallest strong">Jen relevantní strany</button> 
+											</div>
 										</template>
-									</p-modal>
-								</div>
-							</p-offset>
+										<template v-else>
+											<div class="p-gap"></div>
+											<div class="smaller smallest dimm">Výpis obsahuje jen vyfiltrované položky</div>
+										</template>
+									</div>
+									<div>
+										<p-modal>
+											<template #init><span class="smallest">Sdílet</span></template>
+											<template #content>
+												<strong>Sdílejte výsledky</strong>
+												<div class="p-gap"></div>
+												<p-share cta="Zkopírovat odkaz na výsledky"></p-share>
+											</template>
+										</p-modal>
+									</div>
+								</p-offset>
+							</p-area>
 							<div class="_action">
 								<!-- <a :href="imagedata" :download="'graf-' + (new Date().getTime()) + '.png'" class="strong" @click="(ev) => snapshot(ev)">Uložit jako obrázek</a> -->
 								<p-modal class="inline">
@@ -150,7 +154,7 @@
 									</template>
 								</p-modal>
 							</div>
-						</p-area>
+						</div>
 						<p>Základní kalkulačka porovnává pouze soulad v odpovědích, přičemž nějakou váhu mají i odpovědi <em>je to složité</em>. Pokročilá porovnává také to, nakolik se shoduje důležitost témat.</p>
 						<p-gap></p-gap>
 						<p-block-expandable headline="Podrobný výpočet" anchor="Výpočet">

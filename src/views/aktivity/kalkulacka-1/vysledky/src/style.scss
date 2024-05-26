@@ -15,8 +15,8 @@
 
 ._action {
     position: absolute;
-    top: 0em;
-    right: -.5em;
+    top: 1em;
+    right: 1em;
 }
 
 ._mw {
@@ -56,4 +56,13 @@ td.text-right, ._w {
 
 ._oppose {
 	background: var(--red11);
+}
+
+._fs {
+	font-size: 14px !important;
+	margin-bottom: .5em;
+}
+
+._r {
+	position: relative;
 }
