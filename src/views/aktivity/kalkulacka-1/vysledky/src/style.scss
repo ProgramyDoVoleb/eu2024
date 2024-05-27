@@ -1,5 +1,21 @@
 ._plg {
-	min-width: 8em;
+	position: absolute;
+	width: 80vw;
+	height: 4px;
+	overflow: hidden;
+	left: 0;    
+	bottom: 0;
+
+	@media (min-width: 400px) {
+		position: static;
+		min-width: 5em;
+		width: auto;
+		height: auto;
+	}
+
+	@media (min-width: 640px) {
+		min-width: 8em;
+	}
 }
 
 ._ws {

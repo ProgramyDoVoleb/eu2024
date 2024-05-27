@@ -34,7 +34,7 @@
 												<div class="smaller">
 													<button class="inline red" @click="sublist = []">Zrušit filtr</button>
 													&middot;
-													<button class="inline" @click="sublist = [149,150,156,151,160,144,163,146,154]">Podle průzkumů</button> 
+													<button class="inline" @click="sublist = [149,148,150,156,151,160,144,163,146,154, 169]">Podle průzkumů</button> 
 												</div>
 											</template>
 										</p-modal>
@@ -88,7 +88,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr v-for="(party, index) in list.filter((x, i) => i < (limit && sublist.length === 0 ? 8 : 100))">
+											<tr  class="_r" v-for="(party, index) in list.filter((x, i) => i < (limit && sublist.length === 0 ? 8 : 100))">
 												<td class="_w">
 													<p-logo :size="(width < 1140 ? 2 : 3) + 'em'" :data="logoByItem(data.parties.find(x => x.id === party.id), data)"></p-logo>
 												</td>
@@ -101,7 +101,9 @@
 													{{ number(Math.round((party.pwi + 400) / .08)/100, 2) }}
 												</td>
 												<td>
-													<p-line-graph label="" class="_plg" :value="(party.pwi + 400) / 8" :color="colorByItem(data.parties.find(x => x.id === party.id), data)"></p-line-graph>
+													<div>
+														<p-line-graph label="" class="_plg" :value="(party.pwi + 400) / 8" :color="colorByItem(data.parties.find(x => x.id === party.id), data)"></p-line-graph>
+													</div>
 												</td>
 												<td class="text-right green strong">
 													{{ party.agree }}
@@ -121,7 +123,7 @@
 												<button @click="limit = false" v-if="limit">Zobrazit všechny strany</button>
 												<button @click="limit = true" v-if="!limit">Zobrazit zkrácený výpis</button>
 												<p-gap height=".5"></p-gap>
-												<button @click="sublist = [149,150,156,151,160,144,163,146,154]" class="inline smallest strong">Jen relevantní strany</button> 
+												<button @click="sublist = [149,148,150,156,151,160,144,163,146,154,169]" class="inline smallest strong">Jen strany, které byly v průzkumech</button> 
 											</div>
 										</template>
 										<template v-else>
