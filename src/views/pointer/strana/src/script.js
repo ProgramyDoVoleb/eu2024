@@ -271,7 +271,7 @@ export default {
 				['web', 'social', 'link', 'wiki'].forEach(type => {
 					if (this.current.$data[type]) {
 						this.current.$data[type].forEach(x => {
-							if (!arr.find(y => y.value === x.value || domain(y.value) === domain(x.value))) arr.push(x);
+							if (!arr.find(y => y.value === x.value || url(y.value) === url(x.value))) arr.push(x);
 						});
 					}
 				});
