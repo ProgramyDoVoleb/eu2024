@@ -82,3 +82,11 @@ td.text-right, ._w {
 ._r {
 	position: relative;
 }
+
+._diff {
+	background: var(--red11);
+	
+	.dark & {
+		color: #ddd;
+	}
+}

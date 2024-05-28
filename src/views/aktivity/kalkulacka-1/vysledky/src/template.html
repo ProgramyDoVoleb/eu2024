@@ -57,9 +57,41 @@
 													<p-logo :size="(width < 1140 ? 2 : 3) + 'em'" :data="logoByItem(data.parties.find(x => x.id === party.id), data)"></p-logo>
 												</td>
 												<td class="strong _s">
-													<!-- <p-label :color="colorByItem(data.parties.find(x => x.id === party.id), data)"> -->
-														{{ data.parties.find(x => x.id === party.id).ZKRATKA }}
-													<!-- </p-label> -->
+														<p-modal>
+															<template #init>{{ data.parties.find(x => x.id === party.id).ZKRATKA }}</template>
+															<template #content>
+																<strong>Porovnání otázek a odpovědí:</strong>
+																<div class="smaller _mw">{{ data.parties.find(x => x.id === party.id).NAZEV }}</div>
+																<table>
+																	<thead>
+																		<tr>
+																			<th>Otázky a komentáře</th>
+																			<th><p-logo size="3rem" :data="logoByItem(elections.list[0].$strany.find(x => x.id === party.id), elections)"></p-logo></th>
+																			<th><p-icon size="3rem" icon="people"></p-icon></th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr v-for="(item, indexQ) in data.questions" :class="{_diff: data.answers.find(x => x[1] === item.id && x[0] === party.id)[2] != result.answers.find(x => x[0] === item.id)[1]}">
+																			<td>
+																				<div class="_mw strong">
+																					{{ data.questions[indexQ].question }}
+																				</div>																			
+																				<div class="smaller serif _mw" v-if="data.comments.find(x => x.csu_id === party.id && x.question === item.id)">
+																					<p-gap height=".5"></p-gap>
+																					<p-truncated :size="30" :content="data.comments.find(x => x.csu_id === party.id && x.question === item.id).answer"></p-truncated>
+																				</div>
+																			</td>
+																			<td class="_w"><p-icon size="3rem" :icon="['', 'icon-check', 'icon-against', 'icon-none', 'icon-false'][data.answers.find(x => x[1] === item.id && x[0] === party.id)[2]]"></p-icon></td>
+																			<td class="_w"><p-icon size="3rem" :icon="['', 'icon-check', 'icon-against', 'icon-none', 'icon-false'][result.answers.find(x => x[0] === item.id)[1]]"></p-icon></td>
+																		</tr>
+																	</tbody>
+																</table>
+																<p-gap></p-gap>
+																<div>
+																	<party-preview :party="elections.list[0].$strany.find(x => x.id === party.id)" :candidates="[]" label="Více informací" :election="null" :elections="elections"></party-preview>
+																</div>
+															</template>
+														</p-modal>
 												</td>
 												<td class="text-right _ws _s strong">
 													{{ party.res }}
@@ -93,9 +125,41 @@
 													<p-logo :size="(width < 1140 ? 2 : 3) + 'em'" :data="logoByItem(data.parties.find(x => x.id === party.id), data)"></p-logo>
 												</td>
 												<td class="strong _s">
-													<!-- <p-label :color="colorByItem(data.parties.find(x => x.id === party.id), data)"> -->
-														{{ data.parties.find(x => x.id === party.id).ZKRATKA }}
-													<!-- </p-label> -->
+													<p-modal>
+														<template #init>{{ data.parties.find(x => x.id === party.id).ZKRATKA }}</template>
+														<template #content>
+															<strong>Porovnání otázek a odpovědí:</strong>
+															<div class="smaller _mw">{{ data.parties.find(x => x.id === party.id).NAZEV }}</div>
+															<table>
+																<thead>
+																	<tr>
+																		<th>Otázky a komentáře</th>
+																		<th><p-logo size="3rem" :data="logoByItem(elections.list[0].$strany.find(x => x.id === party.id), elections)"></p-logo></th>
+																		<th><p-icon size="3rem" icon="people"></p-icon></th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr v-for="(item, indexQ) in data.questions" :class="{_diff: data.answers.find(x => x[1] === item.id && x[0] === party.id)[2] != result.answers.find(x => x[0] === item.id)[1]}">
+																		<td>
+																			<div class="_mw strong">
+																				{{ data.questions[indexQ].question }}
+																			</div>																			
+																			<div class="smaller serif _mw" v-if="data.comments.find(x => x.csu_id === party.id && x.question === item.id)">
+																				<p-gap height=".5"></p-gap>
+																				<p-truncated :size="30" :content="data.comments.find(x => x.csu_id === party.id && x.question === item.id).answer"></p-truncated>
+																			</div>
+																		</td>
+																		<td class="_w"><p-icon size="3rem" :icon="['', 'icon-check', 'icon-against', 'icon-none', 'icon-false'][data.answers.find(x => x[1] === item.id && x[0] === party.id)[2]]"></p-icon></td>
+																		<td class="_w"><p-icon size="3rem" :icon="['', 'icon-check', 'icon-against', 'icon-none', 'icon-false'][result.answers.find(x => x[0] === item.id)[1]]"></p-icon></td>
+																	</tr>
+																</tbody>
+															</table>
+															<p-gap></p-gap>
+															<div>
+																<party-preview :party="elections.list[0].$strany.find(x => x.id === party.id)" :candidates="[]" label="Více informací" :election="null" :elections="elections"></party-preview>
+															</div>
+														</template>
+													</p-modal>
 												</td>
 												<td class="text-right _ws _s strong">
 													{{ number(Math.round((party.pwi + 400) / .08)/100, 2) }}
@@ -225,8 +289,15 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr v-for="(item, indexQ) in focus.questions">
-												<td>{{ data.questions[indexQ].question }}</td>
+											<tr v-for="(item, indexQ) in focus.questions" :class="{_diff: data.answers.find(x => x[1] === item.id && x[0] === focus.id)[2] != result.answers.find(x => x[0] === item.id)[1]}">
+												<td>
+													<div class="strong _mw">{{ data.questions[indexQ].question }}</div>
+																															
+													<div class="serif _mw" v-if="data.comments.find(x => x.csu_id === focus.id && x.question === item.id)">
+														<p-gap height=".5"></p-gap>
+														<p-truncated :size="30" :content="data.comments.find(x => x.csu_id === focus.id && x.question === item.id).answer"></p-truncated>
+													</div>
+												</td>
 												<td class="_w"><p-icon size="3rem" :icon="['', 'icon-check', 'icon-against', 'icon-none', 'icon-false'][data.answers.find(x => x[1] === item.id && x[0] === focus.id)[2]]"></p-icon></td>
 												<td class="_w">{{ data.answers.find(x => x[1] === item.id && x[0] === focus.id)[3] }}</td>
 												<td class="_w"><p-icon size="3rem" :icon="['', 'icon-check', 'icon-against', 'icon-none', 'icon-false'][result.answers.find(x => x[0] === item.id)[1]]"></p-icon></td>
@@ -272,7 +343,7 @@
 													</tr>
 												</thead>
 												<tbody>
-													<tr v-for="(question, indexQ) in party.questions.filter(x => x.agree === 0)" :class="{'_oppose': question.oppose === 1}">
+													<tr v-for="(question, indexQ) in party.questions.filter(x => x.agree === 0)" :class="{'_diff': question.oppose === 1}">
 														<td class="strong">
 															{{ data.questions.find(x => x.id === question.id).question }}
 															<div v-if="data.comments.find(x => x.question === question.id && x.csu_id === party.id)">
