@@ -62,7 +62,7 @@
 			</p-box>
 		</p-box-group>
 		<p-gap height="3"></p-gap>
-		<p><button class="inline dimm" :click="() => add_result(data.questions[index].id, 4, 2, true)">Nechci odpovídat</button></p>
+		<p><button class="inline dimm" @click="add_result(data.questions[index].id, 4, 2, true)">Nechci odpovídat</button></p>
 		<p-gap height="3"></p-gap>
 		<p-icon icon="answers"></p-icon>
 		<p-modal>
