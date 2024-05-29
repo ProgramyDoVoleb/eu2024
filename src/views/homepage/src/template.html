@@ -3,13 +3,34 @@
 		<template #main>
 			<p-block headline="Volby do evropského parlamentu 2024" anchor="Eurovolby 2024" :level="1" subheadline="Programy do voleb" :hide="true">
 				<p class="lead">
-					<strong>Volby se konají 7. a 8. června</strong> a vybíráme při nich 21 europoslanců. Volit může každý občan ČR starší 18 let. Do obálky se dává <strong>jeden lístek</strong>, na kterém můžete <strong>zakroužkovat až dva kandidáty</strong>. <router-link to="/jak-volit" class="strong">Jak volit?</router-link>
+					<strong>Volby se konají 7. a 8. června</strong> a vybíráme při nich 21 europoslanců. Volit může každý občan ČR starší 18 let a registrovaný občan z členské země EU. Do obálky se dává <strong>jeden lístek</strong>, na kterém můžete <strong>zakroužkovat až dva kandidáty</strong>. <router-link to="/jak-volit" class="strong">Jak volit?</router-link>
 				</p>
-				<p-line height=".25"></p-line>
-				<p class="lead">Na tomto webu najdete podrobné informace o <router-link to="/prehled">všech stranách</router-link> a <router-link to="/kandidati">kandidátech</router-link>, volební programy nebo <router-link to="/otazky">odpovědi kandidátů</router-link>. Zkuste také <router-link to="/kalkulacka" class="strong">volební kalkulačku</router-link> nebo <router-link to="/aktivity/kviz-pro-eurovolby">kvíz</router-link>.</p>
-				<div class="p-gap"></div>
+				<!-- <p-line height=".25"></p-line> -->
+				<!-- <p class="lead">Na tomto webu najdete podrobné informace o <router-link to="/prehled">všech stranách</router-link> a <router-link to="/kandidati">kandidátech</router-link>, volební programy nebo <router-link to="/otazky">odpovědi kandidátů</router-link>. Zkuste také <router-link to="/kalkulacka" class="strong">volební kalkulačku</router-link> nebo <router-link to="/aktivity/kviz-pro-eurovolby">kvíz</router-link>.</p> -->
+				<p-gap height="1"></p-gap>
+				<p-grid>
+					<div>
+						<p-area icon="icon-party" background="var(--blue11)">
+							<router-link to="/prehled" class="strong">Volební přehled</router-link>
+							<div class="smallest">Strany, kandidáti, programy, odkazy...</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="answers-mini" background="var(--blue11)">
+							<router-link to="/otazky" class="strong">Porovnejte si ...</router-link>
+							<div class="smallest">Programy, názory, odpovědi</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-check" background="var(--blue)">
+							<router-link to="/kalkulacka" class="strong _white">Volební kalkulačka</router-link>
+							<div class="smallest _white">40 otázek a uvidíme, ke komu máte blíž</div>
+						</p-area>
+					</div>
+				</p-grid>
+				<p-gap height="2"></p-gap>
 			</p-block>
-			<p-block headline="Hlavní témata ve volebních programech" class="_up" :hide="true">
+			<p-block headline="Hlavní témata ve volebních programech" :hide="true" class="_up">
 				<h2>Hlavní témata <div class="smaller">ve volebních programech</div></h2>
 				<p-loader :rule="elections" reserve="10em">
 					<div v-if="elections">
@@ -20,28 +41,6 @@
 						</p-columns>
 					</div>
 				</p-loader>
-			</p-block>
-			<p-block headline="Vyzkoušejte" :hide="true">
-				<p-grid>
-					<div>
-						<p-area icon="icon-check" background="var(--blue)">
-							<router-link to="/kalkulacka" class="strong _white">Volební kalkulačka</router-link>
-							<div class="smallest _white">40 otázek napoví, kdo vám je blíž</div>
-						</p-area>
-					</div>
-					<div>
-						<p-area icon="evropske-volby" background="var(--blue11)">
-							<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební eurokvíz</router-link>
-							<div class="smallest">Vyzkoušte své znalosti, čeká vás 10 otázek</div>
-						</p-area>
-					</div>
-					<div>
-						<p-area icon="party" background="var(--blue11)">
-							<router-link to="/aktivity/volebni-anketa" class="strong">Anketa</router-link>
-							<div class="smallest">Vyplňte prosím krátkou anketu</div>
-						</p-area>
-					</div>
-				</p-grid>
 			</p-block>
 			<p-block headline="Kdo kandiduje?">	
 				<p-loader :rule="elections" reserve="100vh">
@@ -104,18 +103,6 @@
 						<p-area icon="answers-mini">
 							<router-link to="/otazky" class="strong">Chcete také odpovědět?</router-link>
 							<div class="smallest">Zobrazit otázky a instrukce</div>
-						</p-area>
-					</div>
-					<div>
-						<p-area icon="link">
-							<p-link href="https://docs.google.com/document/d/13Eyrk9u3D7smv6Dm6IeG3-kT14cKm__cvjlWXCu_zDM/edit?usp=sharing" class="strong">Otázky pro kandidáty</p-link>
-							<div class="smallest">Zobrazit na Google Drive</div>
-						</p-area>
-					</div>
-					<div>
-						<p-area icon="link">
-							<p-link href="https://docs.google.com/spreadsheets/d/1DQF_NYK-WaCPir-cp_fDPxQc_9kgxctl1_MTD8WZ7jY/edit#gid=0" class="strong">Otázky z volební kalkulačky</p-link>
-							<div class="smallest">Zobrazit na Google Drive</div>
 						</p-area>
 					</div>
 				</p-grid>

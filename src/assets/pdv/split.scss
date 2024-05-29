@@ -1,0 +1,24 @@
+.p-split {
+    &.-up960 {
+        flex-wrap: wrap;
+    
+        > * {
+            width: 100%;
+        
+            &:not(:first-child) {
+                margin-top: 2em;
+            }
+        }
+
+        @media (min-width: 960px) {
+            flex-wrap: nowrap;
+            > * {
+                width: calc(50% - 1em);
+            
+                &:not(:first-child) {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+}

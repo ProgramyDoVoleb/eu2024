@@ -113,3 +113,13 @@
   .p-list-linear > div {
     display: inline;
   }
+
+  .p-list.-np {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    > :is(div, li) {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }

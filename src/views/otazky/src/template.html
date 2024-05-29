@@ -1,13 +1,13 @@
 <div class="layout-homepage">
 	<p-layout-divided>
 		<template #main>
-			<p-block :level="1" headline="Otázky pro strany a kandidáty" anchor="Otázky">
-				<p class="lead">Pro evropské volby je přichystáno několik forem, jak se mohou strany a kandidáti lépe představit, nad rámec vyplněných medailonků. Jednou formou jsou odpovědi na několik vybraných otázek, druhou formou je volební kalkulačka. Ta je určena hlavně pro volební strany, ale své odpovědi mohou ji vyplnit i kandidáti.</p>
+			<p-block :level="1" headline="Porovnejte si strany a kandidáty" anchor="Porovnejte si">
+				<p class="lead">Zde si můžete porovnat strany a kandidáty a jejich odpovědi. Nebo si můžete vybrat téma, které vás zajímá a pročíst si, jak se k němu strany vyjadřují ve svém volebním programu.</p>
 			<!-- </p-block> -->
 			<!-- <p-block headline="Přehled otázek" :level="1" class="p-block---up"> -->
 				<p-loader :rule="elections">
 					<div v-if="elections">
-						<p-block-expandable headline="6 otázek pro kandidáty" anchor="Pro kandidáty" :open="true">
+						<p-block-expandable headline="Odpovědi kandidátů" :open="true">
 							<p-list>
 								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 1 && x.designated === 2)">
 									<p-offset class="reverse balanced">
@@ -24,14 +24,14 @@
 										</div>
 										<div>
 											<p-box :to="'/otazka/' + q.id">
-												<p-box-button>Odpovědi</p-box-button>
+												<p-box-button>Porovnat</p-box-button>
 											</p-box>
 										</div>
 									</p-offset>
 								</div>
 							</p-list>
 						</p-block-expandable>
-						<p-block-expandable headline="Otázky do volební kalkulačky" anchor="Kalkulačka">
+						<p-block-expandable headline="Odpovědi stran ve volební kalkulačce" anchor="Odpovědi v kalkulačce">
 							<p-list>
 								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 3)">
 									<p-offset class="reverse balanced">
@@ -48,7 +48,7 @@
 										</div>
 										<div>
 											<p-box :to="'/kalkulacka/otazka/' + q.id">
-												<p-box-button>Odpovědi</p-box-button>
+												<p-box-button>Porovnat</p-box-button>
 											</p-box>
 										</div>
 									</p-offset>
@@ -64,7 +64,7 @@
 								</div>
 							</p-grid>
 						</p-block-expandable>
-						<p-block-expandable headline="5 otázek pro strany">
+						<p-block-expandable headline="Další odpovědi stran">
 							<p-list>
 								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 1 && x.designated === 1)">
 									<p-offset class="reverse balanced">
@@ -81,7 +81,31 @@
 										</div>
 										<div>
 											<p-box :to="'/otazka/' + q.id">
-												<p-box-button>Odpovědi</p-box-button>
+												<p-box-button>Porovnat</p-box-button>
+											</p-box>
+										</div>
+									</p-offset>
+								</div>
+							</p-list>
+						</p-block-expandable>
+						<p-block-expandable headline="Volební programy podle témat" anchor="Témata a programy" :open="false">
+							<p-list>
+								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 2)">
+									<p-offset class="reverse balanced">
+										<div>
+											<p-offset class="balanced">
+												<div>
+													<p-box-ticker>{{ i + 1 }}</p-box-ticker>
+												</div>
+												<div>
+													{{ q.question }} 
+													<!-- <div class="smaller serif" v-if="q.comment">{{ q.comment }}</div> -->
+												</div>
+											</p-offset>
+										</div>
+										<div>
+											<p-box :to="'/otazka/' + q.id">
+												<p-box-button>Porovnat</p-box-button>
 											</p-box>
 										</div>
 									</p-offset>
@@ -91,7 +115,7 @@
 					</div>
 				</p-loader>	
 			</p-block>		
-			<p-block headline="Informace pro kandidáty a strany" :level="1">
+			<p-block headline="Informace pro kandidáty a strany" :level="1" anchor="Pro kandidáty">
 				<!-- <p-block headline="Jak vyplňovat?"> -->
 					<p>Je několik forem, jak lze odpovědi vyplnit. <router-link to="/pro-kandidaty" class="strong">Admin</router-link> je nejpohodlnější způsob, je dostupný kdykoli a odkudkoli. Strany i kandidáti v něm mohou snadno doplnit či upravit své odpovědi a také přidat další informace, fotky, tiskové zprávy, ukázky volebních materiálů, apod.</p>
 					<p>Pokud máte e-mail, který je dohledatelný online nebo je z něj jasné, že patří politické straně nebo hnutí, můžete odpovědi poslat jako prostý text e-mailem.</p>

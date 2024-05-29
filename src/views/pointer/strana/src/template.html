@@ -77,49 +77,22 @@
 								</div>
 							</div>
 							<div class="p-gap _floar-clear"></div>
-							<p-block headline="Základní údaje" :subheadline="$volby.status > 1 ? 'podle Českého statistického úřadu' : null" :hide="true">
-								<p-area class="smaller">
-									<p-list height=".5">
-										<p-stats label="Upozornění" v-if="$volby.status === 1">
-											<p-modal>
-												<template #init><button class="inline red strong">Předběžné informace</button></template>
-												<template #content>
-													<div class="reset">
-														<h2>Předběžné informace</h2>
-														<p>Ještě nedošlo k registraci k volbám. Informace se mohou měnit. Strany a kandidáti jsou povinni podat registraci příslušnému úřadu v termínu 66 dní před začátkem voleb. O registraci je rozhodnuto během 3 týdnů. Jakmile příslušné údaje získá Český statistický úřad, jsou dostupné i zde.</p>
-														<p><em>Programy do voleb</em> do registrace uvádí předběžné informace, které vychází z médií, tiskových zpráv, sociálních sítí či ohlášení od stran nebo samotných kandidátů. Snahou je již před samotnou registrací přinést přehled o možných kandidátech a stranách. Některé strany v průběhu předvolebního jednání mohou uzavřít koalici, někteří kandidáti odstoupit nebo se nakonec na finální kandidátní listinu nedostanou.</p>
-													</div>
-												</template>
-											</p-modal>
-										</p-stats>
-										<template v-if="current.NAZEV">
-											<p-stats label="Celý název">
-												<div>{{ current.NAZEV }}</div>
-											</p-stats>
-											<p-stats label="Zkratka">
-												<p-offset class="reverse balanced">
-													<div>{{ current.ZKRATKA }}</div>
-													<div class="dimm smallest"><p-link :href="'https://programydovoleb.cz/rejstrik/' + current.VSTRANA" class="dimm is-span">{{ current.VSTRANA }}</p-link></div>
-												</p-offset>
-											</p-stats>
-											<p-stats label="Koalice" v-if="typeof current.SLOZENI === 'string' || (typeof current.SLOZENI === 'undefined' && data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition)">
-												<p-list height="0" class="invisible">
-													<div v-for="(member, index) in data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition">
-														<p-label :color="colorByItem(member, data)">
-															<p-link :href="'https://programydovoleb.cz/rejstrik/' + member.VSTRANA">{{ member.NAZEV }}</p-link>
-														</p-label> 
-														<template v-if="$volby.status > 1">
-															&middot;
-															<p-lang :value="current.$kandidati.filter(x => x.NSTRANA === member.VSTRANA).length" :end="['žádný nominovaný', 'jeden nominovaný', '%% nominovaní', '%% nominovaných']"></p-lang>
-														</template>
-														<template v-if="$volby.status === 3">
-															&rarr;
-															<p-lang :value="current.$kandidati.filter(x => x.NSTRANA === member.VSTRANA && x.MANDAT === 'A').length" :end="['žádný mandát', 'jeden mandát', '%% mandáty', '%% mandátů']"></p-lang>
-														</template>
-													</div>
-												</p-list>
-											</p-stats>
-										</template>
+							<p-block headline="Koalice" :hide="true" v-if="typeof current.SLOZENI === 'string' || (typeof current.SLOZENI === 'undefined' && data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition)">
+								<p-area background="var(--blue11)">
+									<p-list height="0" class="invisible smaller">
+										<div v-for="(member, index) in data.cis.strany.find(x => x.VSTRANA === current.VSTRANA).$coalition">
+											<p-label :color="colorByItem(member, data)">
+												<p-link :href="'https://programydovoleb.cz/rejstrik/' + member.VSTRANA">{{ member.NAZEV }}</p-link>
+											</p-label> 
+											<template v-if="$volby.status > 1">
+												&middot;
+												<p-lang :value="current.$kandidati.filter(x => x.NSTRANA === member.VSTRANA).length" :end="['žádný nominovaný', 'jeden nominovaný', '%% nominovaní', '%% nominovaných']"></p-lang>
+											</template>
+											<template v-if="$volby.status === 3">
+												&rarr;
+												<p-lang :value="current.$kandidati.filter(x => x.NSTRANA === member.VSTRANA && x.MANDAT === 'A').length" :end="['žádný mandát', 'jeden mandát', '%% mandáty', '%% mandátů']"></p-lang>
+											</template>
+										</div>
 									</p-list>
 								</p-area>
 							</p-block>
@@ -203,20 +176,22 @@
 										<p-list class="_p0 invisible">
 											<div v-for="(priority, indexP) in current.$priority">
 												<p-area :borderColor="colorByItem(current, data)" padding="1em 0 1em 1.5em">
-													<strong v-if="priority.headline">{{ priority.headline }}</strong>
-													<template v-if="priority.content && priority.content.charAt(0) != '['">
-															<p-truncated class="serif" :content="priority.content.split('\n').join('<br>')" :size="40"></p-truncated>
-													</template>
-													<template v-if="priority.content && priority.content.charAt(0) === '['">
-															<program-block class="serif" :parts="{parts: JSON.parse(priority.content)}" :hash="url(priority.headline)" :headline="priority.headline" :color="colorByItem(current, data)"></program-block>
-													</template>
+													<div class="_mw">
+														<strong v-if="priority.headline">{{ priority.headline }}</strong>
+														<template v-if="priority.content && priority.content.charAt(0) != '['">
+																<p-truncated class="serif" :content="priority.content.split('\n').join('<br>')" :size="40"></p-truncated>
+														</template>
+														<template v-if="priority.content && priority.content.charAt(0) === '['">
+																<program-block class="serif" :parts="{parts: JSON.parse(priority.content)}" :hash="url(priority.headline)" :headline="priority.headline" :color="colorByItem(current, data)"></program-block>
+														</template>
+													</div>
 												</p-area>
 											</div>
 										</p-list>
 
 									<!-- </p-list> -->
 							</p-block>
-							<p-block headline="Otázky a odpovědi" v-if="current.$otazky.filter(x => x.type != 2).length > 0">
+							<p-block headline="Otázky a odpovědi" v-if="current.$otazky.filter(x => x.type === 1).length > 0">
 								<p-list height="1.5">
 									<div v-for="(question, index) in sortBy(current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 1)), 'id')">
 										<strong>{{ question.question }}</strong>

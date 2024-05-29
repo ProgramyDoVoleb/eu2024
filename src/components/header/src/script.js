@@ -15,7 +15,7 @@ export default {
 				{label: 'Přehled stran', to: '/prehled'},
 				// {label: 'Strany', to: '/strany'},
 				{label: 'Kandidáti', to: '/kandidati'},
-				{label: 'Otázky', to: '/otazky'},
+				{label: 'Porovnejte si', to: '/otazky'},
 				{label: 'Jak volit?', to: '/jak-volit'},
 				{label: 'Události', to: '/udalosti'},
 				{label: 'Průzkumy', to: '/volebni-pruzkumy'},
