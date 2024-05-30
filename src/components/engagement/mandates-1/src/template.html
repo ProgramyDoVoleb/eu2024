@@ -1,0 +1,120 @@
+<div class="engagement-result-tip">
+		<!-- <p-loader :rule="data"> -->
+			<div v-if="!used">
+				<p>Tipněte si, kdo se stane budoucím europoslancem. Pro odeslání je nutné vybrat <strong>21 kandidátů.</strong> Jakmile budou vybraní, formulář <strong class="green">zezelená</strong>.</p>
+				<p-loader :rule="elections">
+					<div v-if="elections">
+						<p-area :borderColor="form.answers.length === 21 ? 'var(--green)' : 'var(--blue)'">
+							<strong>Kdo má největší šance?</strong>
+							<div class="smallest">Vybraní eurokandidáti podle <p-link href="https://denikn.cz/1438500/predstavujeme-budouci-europoslance-kdo-miri-do-bruselu-krome-vondry-nebo-nerudove/" class="is-span">odhadu Deníku N</p-link></div>
+							<p-gap></p-gap>
+							<p-list>
+								<div v-for="(party, index) in hotshots">
+									<div class="strong smaller blue">{{ party.party }}</div>
+									<p-gap height=".25"></p-gap>
+									<p-box-group>
+										<template v-for="(id, index2) in party.list">
+											<p-box :click="() => toggle(id)">
+												<p-box-button :color="form.answers.find(x => x === id) ? (form.answers.length === 21 ? 'var(--green)' : 'var(--blue)') : null">{{ elections.list[0].$kandidati.find(x => x.id === id).JMENO + ' ' + elections.list[0].$kandidati.find(x => x.id === id).PRIJMENI }} &middot; <span class="smallest dimm">{{ elections.list[0].$kandidati.find(x => x.id === id).PORCISLO }}</span></p-box-button>
+											</p-box>
+										</template>
+									</p-box-group>
+								</div>
+							</p-list>
+						</p-area>
+					</div>
+					<div v-if="elections">
+						<p-collapsible label="Kompletní seznam kandidátů podle stran" :borderless=true>
+							<p-area background="var(--blue11)">
+								<p-columns class="smaller">
+									<div v-for="(party, index) in elections.list[0].$strany">
+										<p-modal>
+											<template #init>
+												{{ party.ZKRATKA }}
+											</template>
+											<template #content>
+												<div class="strong">Seznam kandidátů {{ party.ZKRATKA }}</div>
+												<p-gap></p-gap>
+												<p-columns>
+													<div v-for="(cand, index2) in elections.list[0].$kandidati.filter(x => x.ESTRANA === party.ESTRANA)">												
+														<span class="smallest dimm">{{ cand.PORCISLO }}. </span><button class="inline" @click="toggle(cand.id)" :class="{strong: form.answers.find(x => x === cand.id)}">{{ cand.JMENO + ' ' + cand.PRIJMENI }}</button>
+													</div>
+												</p-columns>
+												<p-line></p-line>
+												<div class="smallest">
+													<p-lang :value="form.answers.length" :end="['Ještě nikdo nebyl vybrán', 'Jeden vybraný kandidát', '%% vybraní kandidáti', '%% vybraných kandidátů']"></p-lang>
+												</div>
+											</template>
+										</p-modal>
+									</div>
+								</p-columns>
+							</p-area>
+						</p-collapsible>
+					</div>
+					<p-line></p-line>
+					<div>
+						<div class="strong">
+							<p-lang :value="form.answers.length" :end="['Ještě nikdo nebyl vybrán', 'Jeden vybraný kandidát', '%% vybraní kandidáti', '%% vybraných kandidátů']"></p-lang>
+						</div>
+						<div class="smallest dimm">Kliknutím kandidáta odeberete</div>
+						<p-gap height=".25"></p-gap>
+						<div class="smaller">
+							<p-list-linear>
+								<span v-for="(id, index2) in form.answers">
+									<button class="inline" @click="toggle(id)">{{ elections.list[0].$kandidati.find(x => x.id === id).JMENO + ' ' + elections.list[0].$kandidati.find(x => x.id === id).PRIJMENI }}</button>
+								</span>
+							</p-list-linear>
+						</div>
+					</div>
+					<p-line></p-line>
+					<div>
+						<p-area :borderColor="form.answers.length === 21 ? 'var(--green)' : 'var(--blue)'">
+							<input type="text" v-model="form.name" placeholder="volitelně, vaše jméno nebo jiné označení tipu">
+							<p-gap></p-gap>
+							<button @click="submit" :disabled="form.answers.length != 21">Odeslat váš tip</button>
+						</p-area>
+					</div>
+				</p-loader>
+			</div>
+			<div v-if="used">
+				<p-area icon="icon-check" class="inline">
+					<strong>Vaše odpovědi jsou odeslány</strong>
+					<div class="smallest dimm">Jakmile se nasbírá alespoň 100 hlasů, zobrazí se průběžné grafy.</div>
+				</p-area>
+				<p-gap height="3"></p-gap>
+				<p-block headline="Můj tip" :hide="true">
+					<div class="_r">
+						<p-area class="_area">
+							<h1>
+								<div class="_fs blue">Programy do voleb <span class="dimm">&middot; {{ date(form.datum) }}</span><span v-if="form.name" class="dimm">&middot; {{ form.name }}</span></div>
+								Tip: Kdo se stane europoslancem?
+							</h1>
+							<p-list>
+								<div v-for="(party, index) in elections.list[0].$strany.filter(x => list.find(y => y.ESTRANA === x.ESTRANA))">
+									<div class="smaller blue strong">{{ party.ZKRATKA }}</div>
+									<p-list-linear>
+										<div v-for="(cand, index) in list.filter(x => x.ESTRANA === party.ESTRANA)">
+											{{ cand.JMENO + ' ' + cand.PRIJMENI }}
+										</div>
+									</p-list-linear>
+								</div>
+							</p-list>
+						</p-area>
+						<div class="_action">
+							<!-- <a :href="imagedata" :download="'graf-' + (new Date().getTime()) + '.png'" class="strong" @click="(ev) => snapshot(ev)">Uložit jako obrázek</a> -->
+							<p-modal class="inline">
+								<template #init><button class="inline smallest" @click="snapshot">Uložit PNG</button></template>
+								<template #content>
+									<a :href="imagedata" :download="'programydovoleb-kalkulacka-' + (new Date().getTime()) + '.png'" class="strong btn">Stáhnout obrázek</a>
+									<p-line></p-line>
+									<div class="canvas" ref="canvas"></div>
+									<p-line></p-line>
+									
+								</template>
+							</p-modal>
+						</div>
+					</div>
+				</p-block>
+			</div>
+		<!-- </p-loader> -->
+</div>

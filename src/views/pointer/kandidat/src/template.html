@@ -476,6 +476,62 @@
 		</template>
 		<template #aside>
 			<p-list height="1.25">
+				<div v-if="data">
+					<p-list class="smaller invisible" v-if="current.NAZEV">
+							<li>
+								<p-area :icon="logoByItem(current, data)">
+									<router-link :to="'/strana/' + current.$program[0].csu_id" class="strong">Zobrazit<br>profil</router-link>
+									<!-- <div class="dimm smallest">{{ date(current.$program[0].updated) }}</div> -->
+								</p-area>
+							</li>
+							<li v-if="current.$program.length > 0">
+								<p-area icon="icon-party" background="var(--blue11)">
+									<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#plne-zneni'" class="strong">Celý volební program</router-link>
+									<!-- <div class="dimm smallest">{{ date(current.$program[0].updated) }}</div> -->
+								</p-area>
+							</li>
+							<li v-if="current.$otazky.find(x => x.type === 2)">
+								<p-area icon="detail" background="var(--blue11)">
+									<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#vybrana-temata'" class="strong">Vybraná<br>témata</router-link>
+									<!-- <div class="dimm smallest">Zobrazit a porovnat</div> -->
+								</p-area>
+							</li>
+							<li>
+								<p-area icon="answers-mini" background="var(--blue11)">
+									<router-link :to="'/strana/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'" class="strong">Otázky<br>a odpovědi</router-link>
+									<!-- <div class="dimm smallest">Nejen do kalkulačky</div> -->
+								</p-area>
+							</li>
+						<!-- </p-grid> -->
+					</p-list>
+					<p-list class="smaller invisible" v-if="current.JMENO">
+							<li>
+								<p-area :icon="logoByItem($strana, data)">
+									<router-link :to="'/strana/' + $strana.id" class="strong">Zobrazit<br>profil</router-link>
+									<!-- <div class="dimm smallest">{{ date(current.$program[0].updated) }}</div> -->
+								</p-area>
+							</li>
+							<li v-if="$strana.$program.length > 0">
+								<p-area icon="icon-party" background="var(--blue11)">
+									<router-link :to="'/strana/' + $strana.id + '/volebni-program/' + $strana.$program[0].id + '#plne-zneni'" class="strong">Celý volební program</router-link>
+									<!-- <div class="dimm smallest">{{ date(current.$program[0].updated) }}</div> -->
+								</p-area>
+							</li>
+							<li>
+								<p-area icon="detail" background="var(--blue11)">
+									<router-link :to="'/strana/' + $strana.id + '/volebni-program/' + $strana.$program[0].id + '#vybrana-temata'" class="strong">Vybraná<br>témata</router-link>
+									<!-- <div class="dimm smallest">Zobrazit a porovnat</div> -->
+								</p-area>
+							</li>
+							<li>
+								<p-area icon="answers-mini" background="var(--blue11)">
+									<router-link :to="'/strana/' + $strana.id + '/otazky-a-odpovedi'" class="strong">Otázky<br>a odpovědi</router-link>
+									<!-- <div class="dimm smallest">Nejen do kalkulačky</div> -->
+								</p-area>
+							</li>
+						<!-- </p-grid> -->
+					</p-list>
+				</div>
 				<div>
 					<strong>Novinky</strong>
 					<div class="p-gap"></div>
@@ -484,6 +540,45 @@
 							<news-block :news="news" :limit="2" :data="current.$data"></news-block>
 						</div>
 					</p-loader>
+				</div>
+				<div>
+					<p-list class="smaller invisible">
+						<div>
+							<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png">
+								<p-link href="https://darujme.cz/programydovoleb" class="green strong">Přispějte na<br>tento projekt</p-link>
+							</p-area>
+						</div>
+						<div>
+							<p-area icon="people-symbol" background="var(--blue11)">
+								<router-link to="/aktivity/kdo-se-stane-europoslancem" class="strong">Tipněte si,<br>kdo uspěje</router-link>
+							</p-area>
+						</div>
+						<div>
+							<p-area icon="icon-false" background="var(--blue11)">
+								<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební<br>eurokvíz</router-link>
+							</p-area>
+						</div>
+						<div>
+							<p-area icon="party" background="var(--blue11)">
+								<router-link to="/aktivity/volebni-anketa" class="strong">Předvolební<br>anketa</router-link>
+							</p-area>
+						</div>
+						<div>
+							<p-area icon="icon-election" background="var(--blue11)">
+								<router-link to="/aktivity/odhad-vysledku" class="strong">Odhad<br>výsledku</router-link>
+							</p-area>
+						</div>
+						<div>
+							<p-area icon="answers-mini" background="var(--blue11)">
+								<router-link to="/otazky" class="strong">Porovnejte<br>si odpovědi</router-link>
+							</p-area>
+						</div>
+						<div>
+							<p-area icon="icon-check" background="var(--blue11)">
+								<router-link to="/kalkulacka" class="strong">Volební<br>kalkulačka</router-link>
+							</p-area>
+						</div>
+					</p-list>
 				</div>
 			</p-list>
 		</template>

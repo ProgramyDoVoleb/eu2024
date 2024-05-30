@@ -23,6 +23,7 @@ import Activity_Quiz1 from '../views/aktivity/quiz-1/do.vue'
 import Activity_ResultGuess from '../views/aktivity/odhad-vysledku/do.vue'
 import Activity_Calc from '../views/aktivity/kalkulacka-1/do.vue'
 import Activity_CalcResult from '../views/aktivity/kalkulacka-1/vysledky/do.vue'
+import Activity_Mandates from '../views/aktivity/mandaty-1/do.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,6 +64,11 @@ const router = createRouter({
       path: '/aktivity/volebni-anketa',
       name: 'Activity_Poll',
       component: Activity_Poll
+    },
+    {
+      path: '/aktivity/kdo-se-stane-europoslancem',
+      name: 'Activity_Mandates',
+      component: Activity_Mandates
     },
     {
       path: '/jak-volit',

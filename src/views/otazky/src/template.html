@@ -31,6 +31,30 @@
 								</div>
 							</p-list>
 						</p-block-expandable>
+						<p-block-expandable headline="Odpovědi stran" :open="true">
+							<p-list>
+								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 1 && x.designated === 1)">
+									<p-offset class="reverse balanced">
+										<div>
+											<p-offset class="balanced">
+												<div>
+													<p-box-ticker>{{ i + 1 }}</p-box-ticker>
+												</div>
+												<div>
+													{{ q.question }} 
+													<div class="smaller serif" v-if="q.comment">{{ q.comment }}</div>
+												</div>
+											</p-offset>
+										</div>
+										<div>
+											<p-box :to="'/otazka/' + q.id">
+												<p-box-button>Porovnat</p-box-button>
+											</p-box>
+										</div>
+									</p-offset>
+								</div>
+							</p-list>
+						</p-block-expandable>
 						<p-block-expandable headline="Odpovědi stran ve volební kalkulačce" anchor="Odpovědi v kalkulačce">
 							<p-list>
 								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 3)">
@@ -63,30 +87,6 @@
 									</p-area>
 								</div>
 							</p-grid>
-						</p-block-expandable>
-						<p-block-expandable headline="Další odpovědi stran">
-							<p-list>
-								<div v-for="(q, i) in elections.list[0].$otazky.filter(x => x.type === 1 && x.designated === 1)">
-									<p-offset class="reverse balanced">
-										<div>
-											<p-offset class="balanced">
-												<div>
-													<p-box-ticker>{{ i + 1 }}</p-box-ticker>
-												</div>
-												<div>
-													{{ q.question }} 
-													<div class="smaller serif" v-if="q.comment">{{ q.comment }}</div>
-												</div>
-											</p-offset>
-										</div>
-										<div>
-											<p-box :to="'/otazka/' + q.id">
-												<p-box-button>Porovnat</p-box-button>
-											</p-box>
-										</div>
-									</p-offset>
-								</div>
-							</p-list>
 						</p-block-expandable>
 						<p-block-expandable headline="Volební programy podle témat" anchor="Témata a programy" :open="false">
 							<p-list>
@@ -175,54 +175,52 @@
 			</p-block>	
 		</template>
 		<template #aside>
-			<h3 class="serif w400">Programy do voleb, z. s.</h3>
-			<div class="p-gap _02"></div>
-			<p-list class="smaller">
-				<p-stats :vertical="true" label="Zapsaný spolek">
-					Nestranný neziskový projekt, díky kterému si můžete snadno, pohodlně a bez hledání přečíst a
-					porovnat volební programy všech stran či kandidátů.
-				</p-stats>
-				<p-stats :vertical="true" label="IČO">
-					10906380 (<p-link class="as-span"
-						href="https://or.justice.cz/ias/ui/rejstrik-firma.vysledky?subjektId=1126297&typ=PLATNY">rejstřík</p-link>)
-				</p-stats>
-				<p-stats :vertical="true" label="Datovka">
-					vhwmpce
-				</p-stats>
-				<p-stats :vertical="true" label="Sídlo">
-					Jana Palacha 1413, Turnov
-				</p-stats>
-				<p-stats :vertical="true" label="Kontakt" class="smallest">
-					<a href="mailto:info@programydovoleb.cz">info@programydovoleb.cz</a>
-					<br>
-					<a href="mailto:media@programydovoleb.cz">media@programydovoleb.cz</a>
-				</p-stats>
-				<p-stats :vertical="true" label="">
-					<p-box-group>
-						<p-box href="https://www.twitter.com/programydovoleb">
-							<p-box-icon type="tw"></p-box-icon>
-						</p-box>
-						<p-box href="https://www.instagram.com/programydovoleb">
-							<p-box-icon type="ig"></p-box-icon>
-						</p-box>
-						<p-box href="https://www.facebook.com/programydovoleb">
-							<p-box-icon type="fb"></p-box-icon>
-						</p-box>
-						<p-box href="https://www.threads.net/@programydovoleb">
-							<p-box-icon type="threads"></p-box-icon>
-						</p-box>
-						<p-box href="https://www.reddit.com/u/programydovoleb/">
-							<p-box-icon type="reddit"></p-box-icon>
-						</p-box>
-						<p-box href="https://bsky.app/profile/programydovoleb.cz">
-							<p-box-icon type="bsky"></p-box-icon>
-						</p-box>
-						<p-box href="https://www.linkedin.com/company/programydovoleb">
-							<p-box-icon type="linkedin"></p-box-icon>
-						</p-box>
-					</p-box-group>
-				</p-stats>
+			<p-list class="smaller invisible">
+				<!-- <p-grid> -->
+					<div>
+						<p-area icon="icon-check" background="var(--blue)">
+							<router-link to="/kalkulacka" class="strong _white">Volební<br>kalkulačka</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="people-symbol" background="var(--blue11)">
+							<router-link to="/aktivity/kdo-se-stane-europoslancem" class="strong">Tipněte si,<br>kdo uspěje?</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="party" background="var(--blue11)">
+							<router-link to="/aktivity/volebni-anketa" class="strong">Předvolební<br>Anketa</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-election" background="var(--blue11)">
+							<router-link to="/aktivity/odhad-vysledku" class="strong">Odhad<br>výsledku</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-false" background="var(--blue11)">
+							<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební<br>eurokvíz</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="evropske-volby" background="var(--blue11)">
+							<router-link to="/" class="strong">Volební přehled<br>k eurovolbám</router-link>
+						</p-area>
+					</div>
+				<!-- </p-grid> -->
 			</p-list>
+			<h3 class="serif w400">Programy do voleb, z. s.</h3>
+			<div class="smaller">
+				Nestranný neziskový projekt, díky kterému si můžete snadno, pohodlně a bez hledání přečíst a
+				porovnat volební programy všech stran či kandidátů.
+				<p-gap></p-gap>
+				<p-link href="https://programydovoleb.cz/o-projektu" class="strong">Více o tomto projektu</p-link>
+			</div>
+			<div class="p-gap"></div>
+			<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png" class="smaller strong">
+				<p-link href="https://darujme.cz/programydovoleb" class="green">Podpořte<br>Programy</p-link>
+			</p-area>
+			
 		</template>
 		<template #anchors>
 			<p-logo :data="{logo: cdn + 'icon/answers-mini.svg'}" :size="'12rem'" alt="Otázky pro evropské volby 2024"></p-logo>

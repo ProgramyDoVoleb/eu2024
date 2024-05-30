@@ -1,0 +1,85 @@
+<div class="layout-homepage">
+	<p-layout-divided>
+		<template #main>
+			<p-block headline="Kdo se stane europoslancem?" :level="1">
+				<quiz-1></quiz-1>
+			</p-block>
+			<p-block headline="Vyzkoušejte také ...">
+				<p-grid>
+					<div>
+						<p-area icon="icon-check" background="var(--blue)">
+							<router-link to="/kalkulacka" class="strong _white">Volební kalkulačka</router-link>
+							<div class="smallest _white">40 otázek napoví, kdo vám je blíž</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-election" background="var(--blue11)">
+							<router-link to="/aktivity/odhad-vysledku" class="strong">Odhad výsledku</router-link>
+							<div class="smallest">Tipněte si, jak letos volby dopadnout</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-false" background="var(--blue11)">
+							<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební eurokvíz</router-link>
+							<div class="smallest">Vyzkoušte své znalosti, čeká vás 10 otázek</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="evropske-volby" background="var(--blue11)">
+							<router-link to="/" class="strong">Volební přehled</router-link>
+							<div class="smallest">Přejít na úvodní stránku</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="answers" background="var(--blue11)">
+							<router-link to="/" class="strong">Odpovědi kandidátů</router-link>
+							<div class="smallest">Seznamte se s jejich názory</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="warning" background="var(--blue11)">
+							<router-link to="/jak-volit" class="strong">Jak volit</router-link>
+							<div class="smallest">Termíny, podmínky, krok za krokem</div>
+						</p-area>
+					</div>
+				</p-grid>
+			</p-block>
+		</template>
+		<template #anchors>
+			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" alt="Evropské volby 2024"></p-logo>
+			<div class="p-gap"></div>
+			<p-anchors></p-anchors>
+		</template>
+		<template #aside>
+			<p-list class="smaller invisible">
+				<!-- <p-grid> -->
+					<div>
+						<p-area icon="icon-check" background="var(--blue)">
+							<router-link to="/kalkulacka" class="strong _white">Volební<br>kalkulačka</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="party" background="var(--blue11)">
+							<router-link to="/aktivity/volebni-anketa" class="strong">Předvolební<br>Anketa</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-election" background="var(--blue11)">
+							<router-link to="/aktivity/odhad-vysledku" class="strong">Odhad<br>výsledku</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-false" background="var(--blue11)">
+							<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební<br>eurokvíz</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="evropske-volby" background="var(--blue11)">
+							<router-link to="/" class="strong">Volební přehled<br>k eurovolbám</router-link>
+						</p-area>
+					</div>
+				<!-- </p-grid> -->
+			</p-list>
+		</template>
+	</p-layout-divided>
+</div>

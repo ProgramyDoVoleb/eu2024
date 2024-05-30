@@ -297,6 +297,44 @@
 					<p-link href="https://gov.cz/kam-dal/volicsky-prukaz-2024-online">Portál občana</p-link>
 				</div>
 			</p-list>
+			<p-gap height="2"></p-gap>
+			<p-list class="smaller invisible">
+				<div>
+					<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png">
+						<p-link href="https://darujme.cz/programydovoleb" class="green strong">Přispějte na<br>tento projekt</p-link>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="people-symbol" background="var(--blue11)">
+						<router-link to="/aktivity/kdo-se-stane-europoslancem" class="strong">Tipněte si,<br>kdo uspěje</router-link>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="icon-false" background="var(--blue11)">
+						<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební<br>eurokvíz</router-link>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="party" background="var(--blue11)">
+						<router-link to="/aktivity/volebni-anketa" class="strong">Předvolební<br>anketa</router-link>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="icon-election" background="var(--blue11)">
+						<router-link to="/aktivity/odhad-vysledku" class="strong">Odhad<br>výsledku</router-link>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="answers-mini" background="var(--blue11)">
+						<router-link to="/otazky" class="strong">Porovnejte<br>si odpovědi</router-link>
+					</p-area>
+				</div>
+				<div>
+					<p-area icon="icon-check" background="var(--blue11)">
+						<router-link to="/kalkulacka" class="strong">Volební<br>kalkulačka</router-link>
+					</p-area>
+				</div>
+			</p-list>
 		</template>
 		<template #anchors>
 			<p-logo :data="{logo: cdn + 'icon/evropske-volby.svg'}" :size="'12rem'" alt="Evropské volby 2024"></p-logo>

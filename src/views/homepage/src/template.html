@@ -57,9 +57,9 @@
 												</div>
 
 												<div>
-													<p-area icon="program-white" background="var(--blue)">
-														<router-link to="/prehled" class="strong _white">Kompletní přehled</router-link>
-														<div class="smallest dimm _white">Strany, kandidáti, odkazy...</div>
+													<p-area icon="party" background="var(--blue11)">
+														<router-link to="/prehled" class="strong">Kompletní přehled</router-link>
+														<div class="smallest dimm">Strany, kandidáti, odkazy...</div>
 													</p-area>
 												</div>
 
@@ -83,11 +83,11 @@
 				<p-loader :rule="elections">
 					<div v-if="elections">
 						<div class="columns-4">
-								<div v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.$odpovedi), 'PRIJMENI', '', true)">
+								<div v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.$odpovedi && x.PORCISLO < 6), 'PRIJMENI', '', true)">
 									
 											<p-label :color="colorByItem(elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA), elections)">
 												<div>
-													<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" :class="{'strong': cand.PORCISLO < 6}">
+													<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" class="strong">
 														{{ cand.JMENO }} {{ cand.PRIJMENI }}
 													</router-link>
 													<div class="smallest">{{ elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA).ZKRATKA }} &middot; {{ cand.PORCISLO }}</div>
@@ -95,6 +95,22 @@
 											</p-label>
 								</div>
 						</div>
+						<p-gap></p-gap>
+						<p-collapsible label="Odpovědi dalších kandidátů">
+							<div class="columns-4">
+									<div v-for="(cand, index2) in sortBy(elections.list[0].$kandidati.filter(x => x.$odpovedi && x.PORCISLO > 5), 'PRIJMENI', '', true)">
+										
+												<p-label :color="colorByItem(elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA), elections)">
+													<div>
+														<router-link :to="'/kandidat/' + cand.id + '/otazky-a-odpovedi'" class="">
+															{{ cand.JMENO }} {{ cand.PRIJMENI }}
+														</router-link>
+														<div class="smallest">{{ elections.list[0].$strany.find(x => x.ESTRANA === cand.ESTRANA).ZKRATKA }} &middot; {{ cand.PORCISLO }}</div>
+													</div>
+												</p-label>
+									</div>
+							</div>
+						</p-collapsible>
 					</div>
 				</p-loader>
 				<p-gap height="2"></p-gap>
@@ -103,6 +119,52 @@
 						<p-area icon="answers-mini">
 							<router-link to="/otazky" class="strong">Chcete také odpovědět?</router-link>
 							<div class="smallest">Zobrazit otázky a instrukce</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="people-symbol">
+							<router-link to="/kandidati" class="strong">Seznam kandidátů</router-link>
+							<div class="smallest">Abecední seznam všech kandidátů</div>
+						</p-area>
+					</div>
+				</p-grid>
+			</p-block>
+			<p-block anchor="Aktivity" headline="Aktivity">
+				<p-grid>
+					<div>
+						<p-area icon="icon-check" background="var(--blue)">
+							<router-link to="/kalkulacka" class="strong _white">Volební kalkulačka</router-link>
+							<div class="smallest _white">40 otázek a uvidíme, ke komu máte blíž</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="people-symbol" background="var(--blue11)">
+							<router-link to="/aktivity/kdo-se-stane-europoslancem" class="strong">Kdo uspěje?</router-link>
+							<div class="smallest">Tipněte si 21 nových europoslanců</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-false" background="var(--blue11)">
+							<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební eurokvíz</router-link>
+							<div class="smallest">Otestujte své znalosti</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="party" background="var(--blue11)">
+							<router-link to="/aktivity/volebni-anketa" class="strong">Předvolební anketa</router-link>
+							<div class="smallest">Tipněte si, jak volby dopadnou</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-election" background="var(--blue11)">
+							<router-link to="/aktivity/odhad-vysledku" class="strong">Odhad výsledku</router-link>
+							<div class="smallest">Tipněte si, kolik jednotlivé strany dostanou</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="answers-mini" background="var(--blue11)">
+							<router-link to="/otazky" class="strong">Porovnejte si ...</router-link>
+							<div class="smallest">Programy, názory, odpovědi</div>
 						</p-area>
 					</div>
 				</p-grid>
@@ -405,14 +467,10 @@
 			<p-list height="1.25">
 				<div>
 
-			<p-area borderColor="var(--yellow)" background="transparent" padding=".85em 0 1em 1.5em">
-				<strong>Výzva pro strany a kandidáty</strong>
-				<div class="p-gap _05"></div>
-				<div class="smaller">Jdete do voleb? Odpovězte také na <router-link to="/otazky" class="strong">volební otázky</router-link>.</div>
-				<div class="p-gap _05"></div>
-				<p-box to="/otazky">
-					<p-box-button>Zobrazit</p-box-button>
-				</p-box>
+			<p-area borderColor="var(--yellow)" background="var(--blue11)" padding=".85em 1em 1em 1.5em">
+				<!-- <strong>Výzva pro strany a kandidáty</strong> -->
+				<!-- <div class="p-gap _05"></div> -->
+				<div class="smaller"><strong>Jdete do voleb?</strong> Odpověděli jste už na <router-link to="/otazky" class="strong">volební otázky</router-link>?</div>
 			</p-area>
 				</div>
 				<div>
@@ -424,18 +482,45 @@
 						</div>
 					</p-loader>
 				</div>
-				<div class="smallest b">
-					<p-offset class="reverse">
-						<div>
-							<router-link to="/novinky">Archiv novinek</router-link> &rarr;
-						</div>
-						<div>
-							<p-label :after="true" color="var(--red)">
-								<p-link href="https://programydovoleb.cz/rss">RSS</p-link>
-							</p-label>						
-						</div>
-					</p-offset>
-					
+				<div>
+
+				<p-list class="smaller invisible">
+					<div>
+						<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png">
+							<p-link href="https://darujme.cz/programydovoleb" class="green strong">Přispějte na<br>tento projekt</p-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="people-symbol" background="var(--blue11)">
+							<router-link to="/aktivity/kdo-se-stane-europoslancem" class="strong">Tipněte si,<br>kdo uspěje?</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-false" background="var(--blue11)">
+							<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební<br>eurokvíz</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="party" background="var(--blue11)">
+							<router-link to="/aktivity/volebni-anketa" class="strong">Předvolební<br>anketa</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-election" background="var(--blue11)">
+							<router-link to="/aktivity/odhad-vysledku" class="strong">Odhad<br>výsledku</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="answers-mini" background="var(--blue11)">
+							<router-link to="/otazky" class="strong">Porovnejte<br>si odpovědi</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-check" background="var(--blue)">
+							<router-link to="/kalkulacka" class="strong _white">Volební<br>kalkulačka</router-link>
+						</p-area>
+					</div>
+				</p-list>
 				</div>
 			</p-list>
 		</template>
