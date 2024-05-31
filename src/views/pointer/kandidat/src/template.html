@@ -187,24 +187,25 @@
 								</p-list>							
 							</p-block>
 							<p-block headline="Otázky a odpovědi" v-if="current.$otazky.length > 0">
-								<p-list height="1.25">
-									<div v-for="(question, index) in current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 2))">
-										<div class="_mw">
-											<strong>{{ question.question }}</strong>
-										</div>										
-										<div class="p-gap _05"></div>
-										<div class="serif _mw">
-											<p-truncated :size="30" :content="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].answer"></p-truncated>
-											<div class="smallest dimm" v-if="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">Více na <p-link :href="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">{{ domain(current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source) }}</p-link></div>
-										</div>
-									</div>
-									<div v-if="current.$odpovedi.length > 1" class="smaller">
-										<!-- <p-area class="inline"> -->
-											<strong><p-lang :value="current.$odpovedi.length" :end="['', '', 'Všechny %% otázky a odpovědi', 'Všech %% otázek a odpovědí']"></p-lang> <router-link :to="'/kandidat/' + tableID + '/otazky-a-odpovedi'">najdete zde</router-link></strong>
-											<p-icon icon="answers-mini" :border="0"></p-icon>
-										<!-- </p-area>										 -->
-									</div>
-								</p-list>
+								<template v-if="current.$otazky.find(x => x.type === 1 && (!x.designated || x.designated === 2))">
+									<template v-for="(question, index) in current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 2))">
+										<p-collapsible :label="getQuestion(question.id)">
+											<div class="_mw">
+												<strong>{{ question.question }}</strong>
+											</div>										
+											<div class="p-gap _05"></div>
+											<div class="serif _mw">
+												<p-truncated :size="120" :content="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].answer"></p-truncated>
+												<div class="smallest dimm" v-if="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">Více na <p-link :href="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">{{ domain(current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source) }}</p-link></div>
+											</div>
+										</p-collapsible>
+									</template>
+									<p-line></p-line>
+								</template>
+								<p-area icon="answers-mini" class="inline smaller">
+									<router-link :to="'/kandidat/' + tableID + '/otazky-a-odpovedi'" class="strong">Přečíst všechny odpovědi</router-link>
+									<div class="smaller dimm"><p-lang :value="current.$odpovedi.length" :end="['', '', 'Všechny %% odpovědi', 'Všech %% odpovědí']"></p-lang> přehledně</div>
+								</p-area>
 							</p-block>
 							<p-block headline="Volební historie" v-if="current.$profil.length">
 								<profile-preview :id="current.$profil[0].profil"></profile-preview>

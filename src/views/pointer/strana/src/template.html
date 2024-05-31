@@ -106,7 +106,7 @@
 										</div>
 									</template>
 									<div v-if="current.$data.about">
-										<div class="serif">
+										<div class="serif _mw">
 											<p-truncated :size="60" :content="(current.$data.about.find(x => x.type === 'about').value || '').split('\n').join('<br>')"></p-truncated>
 										</div>	
 										<div class="smallest dimm">
@@ -192,22 +192,27 @@
 									<!-- </p-list> -->
 							</p-block>
 							<p-block headline="Otázky a odpovědi" v-if="current.$otazky.filter(x => x.type === 1).length > 0">
-								<p-list height="1.5">
-									<div v-for="(question, index) in sortBy(current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 1)), 'id')">
-										<strong>{{ question.question }}</strong>
-										<div class="p-gap _05"></div>
-										<div class="serif">
-											<p-truncated :content="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].answer"></p-truncated>
-											<div class="smallest dimm" v-if="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">Více na <p-link :href="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">{{ domain(current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source) }}</p-link></div>
-										</div>
-									</div>
+								<!-- <p-list height="1"> -->
+									<template v-if="current.$otazky.find(x => x.type === 1 && (!x.designated || x.designated === 1))">
+										<template v-for="(question, index) in sortBy(current.$otazky.filter(x => x.type === 1 && (!x.designated || x.designated === 1)), 'id')">
+											<p-collapsible :label="['Hlavní volební priority', 'Kdy zachovat veto a kdy hlasovat většinově', 'Ekonomika vs Green Deal', 'Přístup EU k ruské agresi na Ukrajině', 'Cíle a síla vaší frakce'][question.id - 347]">
+												<div class="_mw"><strong>{{ question.question }}</strong></div>
+												<div class="p-gap _05"></div>
+												<div class="serif _mw">
+													<p-truncated :size="120" :content="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].answer"></p-truncated>
+													<div class="smallest dimm" v-if="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">Více na <p-link :href="current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source">{{ domain(current.$odpovedi.find(x => x.question === question.id).$odpoved[0].source) }}</p-link></div>
+												</div>
+											</p-collapsible>
+										</template>
+										<p-line></p-line>
+									</template>
 									<div v-if="current.$odpovedi.length > 1" class="smaller">
 										<!-- <p-area class="inline"> -->
 											<strong><p-lang :value="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length" :end="['', '', 'Všechny %% otázky a odpovědi', 'Všech %% otázek a odpovědí']"></p-lang> <router-link :to="'/strana/' + tableID + '/otazky-a-odpovedi'">najdete zde</router-link></strong>
 											<p-icon icon="answers-mini" :border="0"></p-icon>
 										<!-- </p-area>										 -->
 									</div>
-								</p-list>
+								<!-- </p-list> -->
 							</p-block>
 							<p-block headline="Videa" v-if="current.$data.video" :hide="true">
 								<template v-for="(video, index) in current.$data.video">
@@ -552,20 +557,20 @@
 						<!-- <p-grid> -->
 							<li v-if="current.$program.length > 0">
 								<p-area icon="icon-party">
-									<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#plne-zneni'" class="strong">Celý volební program</router-link>
+									<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#plne-zneni'" class="strong">Volební<br>program</router-link>
 									<!-- <div class="dimm smallest">{{ date(current.$program[0].updated) }}</div> -->
 								</p-area>
 							</li>
 							<li v-if="current.$otazky.find(x => x.type === 2)">
 								<p-area icon="detail" background="var(--blue11)">
-									<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#vybrana-temata'" class="strong">Vybraná témata</router-link>
-									<div class="dimm smallest">Zobrazit a porovnat</div>
+									<router-link :to="'/strana/' + current.$program[0].csu_id + '/volebni-program/' + current.$program[0].id + '#vybrana-temata'" class="strong">Vybraná<br>témata</router-link>
+									<!-- <div class="dimm smallest">Zobrazit a porovnat</div> -->
 								</p-area>
 							</li>
 							<li v-if="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length > 0">
 								<p-area icon="answers-mini" background="var(--blue11)">
-									<router-link :to="'/strana/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'" class="strong">Otázky a odpovědi</router-link>
-									<div class="dimm smallest"><p-lang :value="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length" :end="['žádná odpověď', 'jedna odpověď', '%% odpovědi', '%% odpovědí']"></p-lang></div>
+									<router-link :to="'/strana/' + current.$odpovedi[0].csu_id + '/otazky-a-odpovedi'" class="strong">Otázky<br>a odpovědi</router-link>
+									<!-- <div class="dimm smallest"><p-lang :value="current.$odpovedi.filter(x => x.$otazka[0].type != 2).length" :end="['žádná odpověď', 'jedna odpověď', '%% odpovědi', '%% odpovědí']"></p-lang></div> -->
 								</p-area>
 							</li>
 						<!-- </p-grid> -->

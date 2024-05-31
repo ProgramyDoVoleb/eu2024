@@ -324,6 +324,20 @@ export default {
 			list.sort((a, b) => (a.PORCISLO || 1000) - (b.PORCISLO || 1000));
 
 			return list;
+		},
+		getQuestion: function (id) {
+			var res = '';
+
+			switch (id) {
+				case 302: res = 'Čemu se chcete věnovat?'; break;
+				case 303: res = 'Výzvy EU na příštích 5 let'; break;
+				case 304: res = 'Zhodnocení 20 let ČR v EU'; break;
+				case 305: res = 'EU, menšiny a tradice?'; break;
+				case 306: res = 'Oblíbená jiná země'; break;
+				case 352: res = 'Biden, Trump nebo někdo jiný?'; break;
+			}
+
+			return res;
 		}
   },
   mounted: function () {

@@ -273,7 +273,7 @@
 					<p-list class="smaller invisible" v-if="current.NAZEV">
 							<li>
 								<p-area :icon="logoByItem(current, data)">
-									<router-link :to="'/strana/' + current.$program[0].csu_id" class="strong">Zobrazit<br>profil</router-link>
+									<router-link :to="'/strana/' + current.id" class="strong">Zobrazit<br>profil</router-link>
 									<!-- <div class="dimm smallest">{{ date(current.$program[0].updated) }}</div> -->
 								</p-area>
 							</li>
@@ -310,7 +310,7 @@
 									<!-- <div class="dimm smallest">{{ date(current.$program[0].updated) }}</div> -->
 								</p-area>
 							</li>
-							<li>
+							<li v-if="$strana.$program.length > 0">
 								<p-area icon="detail" background="var(--blue11)">
 									<router-link :to="'/strana/' + $strana.id + '/volebni-program/' + $strana.$program[0].id + '#vybrana-temata'" class="strong">Vybraná<br>témata</router-link>
 									<!-- <div class="dimm smallest">Zobrazit a porovnat</div> -->

@@ -10,7 +10,10 @@
 							</div>
 						</p-headline>
 						<p class="lead" v-if="data && data.list[0].comment">{{ data.list[0].comment }}</p>
-						<p-block :hide="true" headline="Rejstřík">
+						<!-- <p-block-expandable headline="Filtr">
+
+						</p-block-expandable> -->
+						<p-block-expandable headline="Rejstřík">
 							<p-area>
 								<p-columns class="smaller -tight">
 									<template v-if="data.list[0].$body.find(x => x.$kandidat)">
@@ -29,7 +32,7 @@
 									</template>
 								</p-columns>
 							</p-area>
-						</p-block>
+						</p-block-expandable>
 						<p-block :hide="true" headline="Odpovědi">
 							<p-list height="1.25">
 								<template v-if="data.list[0].$body.find(x => x.$kandidat)">
@@ -48,7 +51,7 @@
 													<div v-if="onlyLast(data.list[0].$odpovedi.filter(x => x.csu_table === cand.csu_table && x.csu_id === cand.csu_id)).quick">
 														<span class="dimm">Rychlá odpověď: </span> {{ ['', 'ANO', 'NE', 'je to komplikované', 'nechci odpovídat'][onlyLast(data.list[0].$odpovedi.filter(x => x.csu_table === cand.csu_table && x.csu_id === cand.csu_id)).quick] }}
 													</div>
-													<div v-if="onlyLast(data.list[0].$odpovedi.filter(x => x.csu_table === cand.csu_table && x.csu_id === cand.csu_id)).answer">
+													<div class="_mw" v-if="onlyLast(data.list[0].$odpovedi.filter(x => x.csu_table === cand.csu_table && x.csu_id === cand.csu_id)).answer">
 														<p-truncated :content="onlyLast(data.list[0].$odpovedi.filter(x => x.csu_table === cand.csu_table && x.csu_id === cand.csu_id)).answer" :size="60" class="serif"></p-truncated>
 													</div>
 												</div>
@@ -69,7 +72,7 @@
 													<div v-if="onlyLast(data.list[0].$odpovedi.filter(x => x.csu_table === cand.csu_table && x.csu_id === cand.csu_id)).quick">
 														<span class="dimm">Rychlá odpověď: </span> {{ ['', 'ANO', 'NE', 'je to komplikované', 'nechci odpovídat'][onlyLast(data.list[0].$odpovedi.filter(x => x.csu_table === cand.csu_table && x.csu_id === cand.csu_id)).quick] }}
 													</div>
-													<div v-if="onlyLast(data.list[0].$odpovedi.filter(x => x.csu_table === cand.csu_table && x.csu_id === cand.csu_id)).answer">
+													<div class="_mw" v-if="onlyLast(data.list[0].$odpovedi.filter(x => x.csu_table === cand.csu_table && x.csu_id === cand.csu_id)).answer">
 														<p-truncated :content="onlyLast(data.list[0].$odpovedi.filter(x => x.csu_table === cand.csu_table && x.csu_id === cand.csu_id)).answer" :size="60" class="serif"></p-truncated>
 													</div>
 												</div>
