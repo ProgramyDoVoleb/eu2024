@@ -524,9 +524,15 @@
 									<!-- <div class="dimm smallest">Zobrazit a porovnat</div> -->
 								</p-area>
 							</li>
-							<li>
+							<li v-if="current.JMENO">
 								<p-area icon="answers-mini" background="var(--blue11)">
-									<router-link :to="'/strana/' + $strana.id + '/otazky-a-odpovedi'" class="strong">Otázky<br>a odpovědi</router-link>
+									<router-link :to="'/kandidat/' + current.id + '/otazky-a-odpovedi'" class="strong">Otázky<br>a odpovědi</router-link>
+									<!-- <div class="dimm smallest">Nejen do kalkulačky</div> -->
+								</p-area>
+							</li>
+							<li v-if="current.NAZEV">
+								<p-area icon="answers-mini" background="var(--blue11)">
+									<router-link :to="'/strana/' + current.id + '/otazky-a-odpovedi'" class="strong">Odpovědi<br>strany</router-link>
 									<!-- <div class="dimm smallest">Nejen do kalkulačky</div> -->
 								</p-area>
 							</li>
@@ -544,11 +550,6 @@
 				</div>
 				<div>
 					<p-list class="smaller invisible">
-						<div>
-							<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png">
-								<p-link href="https://darujme.cz/programydovoleb" class="green strong">Přispějte na<br>tento projekt</p-link>
-							</p-area>
-						</div>
 						<div>
 							<p-area icon="people-symbol" background="var(--blue11)">
 								<router-link to="/aktivity/kdo-se-stane-europoslancem" class="strong">Tipněte si,<br>kdo uspěje</router-link>
@@ -577,6 +578,11 @@
 						<div>
 							<p-area icon="icon-check" background="var(--blue11)">
 								<router-link to="/kalkulacka" class="strong">Volební<br>kalkulačka</router-link>
+							</p-area>
+						</div>
+						<div>
+							<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png">
+								<p-link href="https://darujme.cz/programydovoleb" class="green strong">Přispějte na<br>tento projekt</p-link>
 							</p-area>
 						</div>
 					</p-list>

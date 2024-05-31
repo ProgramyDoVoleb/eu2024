@@ -32,15 +32,17 @@
 			</p-block>
 			<p-block headline="Hlavní témata ve volebních programech" :hide="true" class="_up">
 				<h2>Hlavní témata <div class="smaller">ve volebních programech</div></h2>
-				<p-loader :rule="elections" reserve="10em">
-					<div v-if="elections">
-						<p-columns class="smaller strong">
-							<div v-for="(topic, index) in elections.list[0].$otazky.filter(x => x.type === 2)">
-								<router-link :to="'/tema/' + topic.id">{{ topic.question }}</router-link>
+				<p-area background="var(--blue11)">
+					<p-loader :rule="elections" reserve="10em">
+						<div v-if="elections">
+							<div class="columns-4 strong">
+								<div v-for="(topic, index) in elections.list[0].$otazky.filter(x => x.type === 2)">
+									<router-link :to="'/tema/' + topic.id" class="smaller">{{ topic.question }}</router-link>
+								</div>
 							</div>
-						</p-columns>
-					</div>
-				</p-loader>
+						</div>
+					</p-loader>
+				</p-area>
 			</p-block>
 			<p-block headline="Kdo kandiduje?">	
 				<p-loader :rule="elections" reserve="100vh">
@@ -342,10 +344,10 @@
 					</div>
 				</p-columns>
 			</p-block-expandable>
-			<p-block headline="Zpětná vazba" :hide="true">
+			<!-- <p-block headline="Zpětná vazba" :hide="true">
 				<feedback-1></feedback-1>
-			</p-block>
-			<p-block headline="Události">
+			</p-block> -->
+			<p-block headline="Debaty">
 				<p-loader :rule="news && elections">
 					<div v-if="news && elections">
 						<p-list height="1.5">
@@ -355,22 +357,6 @@
 									<event-item :item="item" :party="null" :data="elections"></event-item>
 								</div>
 							</template>
-							<div class="smallest strong">Nejbližší akce stran a koalic</div>
-							<template v-for="(item, index) in firstOfUnique(sortEvents(news.events.filter(x => x.csu_id && JSON.parse(x.label)[0] >= today)), 'csu_id')">
-								<div v-if="index < 3 || JSON.parse(item.label)[0] === today">
-									<event-item :item="item" :party="elections.list[0].$strany.find(x => x.id === item.csu_id)" :data="elections"></event-item>
-								</div>
-							</template>
-							<div class="smallest strong">
-								Všechny události, budoucí i již proběhlé, <router-link to="/udalosti">najdete zde</router-link>. Chcete nějakou přidat, stačí 
-								<p-modal class="inline">
-									<template #init><span class="green">kliknout zde</span></template>
-									<template #content>
-										<strong>Přidat událost</strong>
-										<report-form part="Přidat událost"></report-form>
-									</template>
-								</p-modal>
-							</div>
 						</p-list>
 					</div>
 				</p-loader>
@@ -486,11 +472,6 @@
 
 				<p-list class="smaller invisible">
 					<div>
-						<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png">
-							<p-link href="https://darujme.cz/programydovoleb" class="green strong">Přispějte na<br>tento projekt</p-link>
-						</p-area>
-					</div>
-					<div>
 						<p-area icon="people-symbol" background="var(--blue11)">
 							<router-link to="/aktivity/kdo-se-stane-europoslancem" class="strong">Tipněte si,<br>kdo uspěje?</router-link>
 						</p-area>
@@ -516,8 +497,13 @@
 						</p-area>
 					</div>
 					<div>
-						<p-area icon="icon-check" background="var(--blue)">
-							<router-link to="/kalkulacka" class="strong _white">Volební<br>kalkulačka</router-link>
+						<p-area icon="icon-check" background="var(--blue11)">
+							<router-link to="/kalkulacka" class="strong">Volební<br>kalkulačka</router-link>
+						</p-area>
+					</div>
+					<div>
+						<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png">
+							<p-link href="https://darujme.cz/programydovoleb" class="green strong">Přispějte na<br>tento projekt</p-link>
 						</p-area>
 					</div>
 				</p-list>
