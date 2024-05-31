@@ -363,6 +363,20 @@ a.is-span:not(.dimm) {
 	}
 }
 
+.show-80rem {
+	display: none;
+
+	@media (min-width: 1140px) {
+		display: inherit;
+	}
+}
+
+.hide-80rem {
+	@media (min-width: 1140px) {
+		display: none !important;
+	}
+}
+
 .no-link,
 .no-link .underline {
 	border-bottom: none !important;

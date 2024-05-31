@@ -17,7 +17,7 @@
 					</button>
 				</div>
 				<div class="row-menu-list" :class="{showMenu}">
-					<div class="hide-60rem">
+					<div class="hide-80rem">
 						<div class="p-gap"></div>
 						<div class="columns" @click="showMenu = false">
 							<div v-for="(item, index) in list">
@@ -30,7 +30,7 @@
 
 						<div class="p-gap"></div>
 					</div>
-					<div class="show-60rem">
+					<div class="show-80rem">
 						<ul>
 							<li v-for="(item, index) in list">
 								<router-link :to="item.to" :class="item.class">{{ item.label }}</router-link>
