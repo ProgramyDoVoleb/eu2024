@@ -202,10 +202,23 @@
 									</template>
 									<p-line></p-line>
 								</template>
-								<p-area icon="answers-mini" class="inline smaller">
-									<router-link :to="'/kandidat/' + tableID + '/otazky-a-odpovedi'" class="strong">Přečíst všechny odpovědi</router-link>
-									<div class="smaller dimm"><p-lang :value="current.$odpovedi.length" :end="['', '', 'Všechny %% odpovědi', 'Všech %% odpovědí']"></p-lang> přehledně</div>
-								</p-area>
+								<p-grid>
+									<div>
+										<p-area icon="answers-mini" class="smaller">
+											<router-link :to="'/kandidat/' + tableID + '/otazky-a-odpovedi'" class="strong">Přečíst všechny odpovědi</router-link>
+											<div class="smaller dimm"><p-lang :value="current.$odpovedi.filter(x => x.$odpoved).length" :end="['', '', 'Všechny %% odpovědi', 'Všech %% odpovědí']"></p-lang> přehledně</div>
+										</p-area>
+									</div>
+									<div v-if="current.$odpovedi.find(x => !x.$odpoved)">
+										<p-area icon="icon-check" class="smaller">
+											<router-link :to="'/kandidat/' + tableID + '/otazky-a-odpovedi#z-volebni-kalkulacky'" class="strong">Odpovědi z volební kalkulačky</router-link>
+											<div class="smaller dimm"><p-lang :value="current.$odpovedi.filter(x => !x.$odpoved).length" :end="['', '', 'Všechny %% odpovědi', 'Všech %% odpovědí']"></p-lang> přehledně</div>
+										</p-area>
+									</div>
+								</p-grid>
+								<template>
+									...
+								</template>
 							</p-block>
 							<p-block headline="Volební historie" v-if="current.$profil.length">
 								<profile-preview :id="current.$profil[0].profil"></profile-preview>

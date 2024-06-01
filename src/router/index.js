@@ -23,6 +23,7 @@ import Activity_Quiz1 from '../views/aktivity/quiz-1/do.vue'
 import Activity_ResultGuess from '../views/aktivity/odhad-vysledku/do.vue'
 import Activity_Calc from '../views/aktivity/kalkulacka-1/do.vue'
 import Activity_CalcResult from '../views/aktivity/kalkulacka-1/vysledky/do.vue'
+import Activity_CalcCompare from '../views/aktivity/kalkulacka-1/porovnani/do.vue'
 import Activity_Mandates from '../views/aktivity/mandaty-1/do.vue'
 
 const router = createRouter({
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/kalkulacka',
       name: 'Activity_Calc',
       component: Activity_Calc
+    },
+    {
+      path: '/kalkulacka/porovnani',
+      name: 'Activity_CalcCompare',
+      component: Activity_CalcCompare
     },
     {
       path: '/kalkulacka/otazka/:qid',
