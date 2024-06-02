@@ -67,8 +67,8 @@
 									<p-area :borderColor="colorByItem(party, data)">
 										<p-box-image class="_fl" :src="logoByItem(party, data)"></p-box-image>
 										<div class="_mw smaller">
-											Na kandidátce <router-link class="strong" :to="'/strana/' + party.id">{{ party.ZKRATKA }}</router-link> <p-lang :value="party.$kandidati.length" :end="['nikdo není', 'je jeden kandidát', 'jsou %% kandidáti', 'je %% kandidátů']"></p-lang>, 
-											v čele je <router-link :to="'/kandidat/' + party.$kandidati.find(x => x.PORCISLO === 1).id">{{ party.$kandidati.find(x => x.PORCISLO === 1).JMENO }} {{ party.$kandidati.find(x => x.PORCISLO === 1).PRIJMENI }}</router-link>. 
+											Na kandidátce <router-link class="strong" :to="'/strana/' + party.id">{{ party.NAZEV }}</router-link> <p-lang :value="party.$kandidati.length" :end="['nikdo není', 'je jeden kandidát', 'jsou %% kandidáti', 'je %% kandidátů']"></p-lang>, 
+											v čele je <router-link :to="'/kandidat/' + party.$kandidati.find(x => x.PORCISLO === 1).id" class="strong">{{ party.$kandidati.find(x => x.PORCISLO === 1).JMENO }} {{ party.$kandidati.find(x => x.PORCISLO === 1).PRIJMENI }}</router-link>. 
 											<template v-if="data.cis.strany.find(x => x.VSTRANA === party.VSTRANA).$coalition">
 												Jedná se o koalici <p-lang :value="data.cis.strany.find(x => x.VSTRANA === party.VSTRANA).$coalition.length" :end="['', '', '%% stran či hnutí', '%% stran či hnutí']"></p-lang>: 
 												<p-list-linear>
@@ -77,7 +77,7 @@
 													</span>
 												</p-list-linear>.
 											</template>
-											Do voleb si <p-lang :value="party.$priority.length" :end="['nestanovili žádné priority', 'stanovili jednu prioritu', 'stanovili %% priority', 'stanovili %% priorit']"></p-lang>.
+											Do voleb si <p-lang :value="party.$priority.length" :end="['nestanovili žádné priority', 'stanovili jednu prioritu, najdete ji níže', 'stanovili %% priority, najdete je níže', 'stanovili %% priorit, najdete je níže']"></p-lang>.
 											<template v-if="party.$program.length === 0">Volební program není dodnes znám.</template>
 											<template v-if="party.$program.length === 1"><router-link :to="'/strana/' + party.id + '/volebni-program/' + party.$program[0].id">Volební program</router-link> byl zveřejněn {{ date(party.$program[0].updated) }}.</template>
 											Do volební kalkulačky {{ party.$odpovedi.find(x => x.$otazka[0].type === 3) ? '' : 'ne' }}poslali své <router-link :to="'/strana/' + party.id + '/otazky-a-odpovedi'">odpovědi</router-link><template v-if="!party.$odpovedi.find(x => x.$otazka[0].type === 1)">.</template>
@@ -646,6 +646,11 @@
 						</div>
 					</p-grid>
 				</div>
+			</template>
+
+			<template v-if="partyList.length === 0">
+				<div class="p-gap _4"></div>
+				<div class="p-gap _4"></div>
 			</template>
 		</div>
 	</p-layout-simple>

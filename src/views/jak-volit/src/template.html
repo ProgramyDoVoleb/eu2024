@@ -90,14 +90,14 @@
 							</p-area>
 						</div>
 						<div>
-							<p-area borderColor="var(--blue)" background="var(--blue11)">
+							<p-area borderColor="var(--red)" background="var(--red11)">
 								<strong>Datovka / Portál do 31. května</strong>
 								<p-gap height=".25"></p-gap>
 								<div class="smaller">nejpozději do 16:00</div>
 							</p-area>
 						</div>
 						<div>
-							<p-area borderColor="var(--blue)" background="var(--blue11)">
+							<p-area borderColor="var(--red)" background="var(--red11)">
 								<strong>Písemně do 31. května</strong>
 								<p-gap height=".25"></p-gap>
 								<div class="smaller">V tento den to musí na úřad přijít.</div>
@@ -182,7 +182,9 @@
 									<p-gap height=".25"></p-gap>
 									<div class="smaller">Vše najdete na tomto webu, seznam stran, kandidátů i volebních programů.</div>
 									<p-gap height=".5"></p-gap>
-									<div><router-link to="/prehled" class="btn">Zobrazit přehled</router-link></div>
+									<div>
+										<router-link to="/prehled" class="btn">Zobrazit přehled</router-link> <router-link to="/pruvodce" class="btn">Průvodce</router-link>
+									</div>
 								</p-area>
 							</div>
 							<div>
@@ -212,8 +214,7 @@
 									<strong>Oficiální web Evropského parlamentu k volbám v celé Evropské Unii</strong>
 									<p-gap height=".5"></p-gap>
 									<div>
-										<p-link href="https://www.zakonyprolidi.cz/cs/2003-62" class="btn">Zobrazit</p-link> 
-										<p-link href="https://elections.europa.eu/video/cs/" class="btn">Video</p-link>
+										<p-link href="https://www.zakonyprolidi.cz/cs/2003-62" class="btn">Zobrazit</p-link> <p-link href="https://elections.europa.eu/video/cs/" class="btn">Video</p-link>
 									</div>									
 								</p-area>
 							</div>
@@ -251,9 +252,7 @@
 									<div class="smaller">Informovanost v rámci zákonných mantinelů a s veřejným dohledem</div>
 									<p-gap height=".5"></p-gap>
 									<div>
-										<p-link href="https://ct24.ceskatelevize.cz/tema/volby-do-evropskeho-parlamentu-2681"class="btn">ČT</p-link> 
-										<p-link href="https://www.irozhlas.cz/volby/evropsky-parlament-2024"class="btn">ČRo</p-link> 
-										<p-link href="https://www.ceskenoviny.cz/special/volby-budoucnost-eu/"class="btn">ČTK</p-link>
+										<p-link href="https://ct24.ceskatelevize.cz/tema/volby-do-evropskeho-parlamentu-2681"class="btn">ČT</p-link> <p-link href="https://www.irozhlas.cz/volby/evropsky-parlament-2024"class="btn">ČRo</p-link> <p-link href="https://www.ceskenoviny.cz/special/volby-budoucnost-eu/"class="btn">ČTK</p-link>
 									</div>
 								</p-area>
 							</div>
@@ -276,62 +275,40 @@
 			</p-block>
 		</template>
 		<template #aside>
-			<h3>Důležité odkazy</h3>
-			<p-list class="smaller strong">
+			<p-list height="1.25">
 				<div>
-					<router-link to="/prehled">Kdo kandiduje?</router-link>
-				</div>
-				<div>
-					<router-link to="/otazky">Kdo má jaké názory?</router-link>
-				</div>
-				<div>
-					<router-link to="/">Kde jsou volební programy?</router-link>
-				</div>
-				<div>
-					<p-link href="https://www.mvcr.cz/volby/clanek/volby-do-evropskeho-parlamentu-2024.aspx">Oficiální informace Vnitra</p-link>
-				</div>
-				<div>
-					<p-link href="https://www.zakonyprolidi.cz/cs/2003-62">Volební zákon</p-link>
-				</div>
-				<div>
-					<p-link href="https://gov.cz/kam-dal/volicsky-prukaz-2024-online">Portál občana</p-link>
-				</div>
-			</p-list>
-			<p-gap height="2"></p-gap>
-			<p-list class="smaller invisible">
-				<div>
-					<p-area icon="people-symbol" background="var(--blue11)">
-						<router-link to="/aktivity/kdo-se-stane-europoslancem" class="strong">Tipněte si,<br>kdo uspěje</router-link>
+					<p-area borderColor="var(--yellow)" background="var(--blue11)" padding=".85em 1em 1em 1.5em">
+						<div class="smaller"><strong>Novinka!</strong> Unikátní volební průvodce, ve kterém si můžete snadno porovnat až tři strany najednou.</div>
+						<div class="p-gap"></div>
+						<p-box to="/pruvodce">
+							<p-box-button color="var(--blue)">Průvodce &rarr;</p-box-button>
+						</p-box>
 					</p-area>
 				</div>
 				<div>
-					<p-area icon="euroquiz" background="var(--blue11)">
-						<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební<br>eurokvíz</router-link>
-					</p-area>
+					<p-list class="smaller invisible">
+						<div>
+							<p-area icon="evropske-volby" background="var(--blue11)">
+								<router-link to="/prehled" class="strong">Volební<br>přehled</router-link>
+							</p-area>
+						</div>
+						<div>
+							<p-area icon="icon-check" background="var(--blue11)">
+								<router-link to="/kalkulacka" class="strong">Volební<br>kalkulačka</router-link>
+							</p-area>
+						</div>
+					</p-list>
 				</div>
 				<div>
-					<p-area icon="party" background="var(--blue11)">
-						<router-link to="/aktivity/volebni-anketa" class="strong">Předvolební<br>anketa</router-link>
-					</p-area>
-				</div>
-				<div>
-					<p-area icon="icon-election" background="var(--blue11)">
-						<router-link to="/aktivity/odhad-vysledku" class="strong">Odhad<br>výsledku</router-link>
-					</p-area>
-				</div>
-				<div>
-					<p-area icon="answers-mini" background="var(--blue11)">
-						<router-link to="/otazky" class="strong">Porovnejte<br>si odpovědi</router-link>
-					</p-area>
-				</div>
-				<div>
-					<p-area icon="icon-check" background="var(--blue11)">
-						<router-link to="/kalkulacka" class="strong">Volební<br>kalkulačka</router-link>
-					</p-area>
-				</div>
-				<div>
-					<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png">
-						<p-link href="https://darujme.cz/programydovoleb" class="green strong">Přispějte na<br>tento projekt</p-link>
+					<div class="smaller">
+						<strong>Programy do voleb </strong> jsou nestranný neziskový projekt, díky kterému si můžete snadno, pohodlně a bez hledání přečíst a
+						porovnat volební programy všech stran či kandidátů.
+						<p-gap></p-gap>
+						<p-link href="https://programydovoleb.cz/o-projektu" class="strong">Více o tomto projektu</p-link>
+					</div>
+					<div class="p-gap"></div>
+					<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png" class="smaller strong">
+						<p-link href="https://darujme.cz/programydovoleb" class="green">Podpořte<br>Programy</p-link>
 					</p-area>
 				</div>
 			</p-list>

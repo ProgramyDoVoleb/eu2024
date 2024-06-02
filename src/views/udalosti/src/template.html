@@ -126,26 +126,39 @@
 		<template #aside>
 			<p-list height="1.25">
 				<div>
-					<strong class="smaller">Novinky</strong>
-					<div class="p-gap"></div>
-					<p-loader :rule="news">
-						<div v-if="news" class="small">
-							<news-block :news="news" :limit="1"></news-block>
-						</div>
-					</p-loader>
+					<p-area borderColor="var(--yellow)" background="var(--blue11)" padding=".85em 1em 1em 1.5em">
+						<div class="smaller"><strong>Novinka!</strong> Unikátní volební průvodce, ve kterém si můžete snadno porovnat až tři strany najednou.</div>
+						<div class="p-gap"></div>
+						<p-box to="/pruvodce">
+							<p-box-button color="var(--blue)">Průvodce &rarr;</p-box-button>
+						</p-box>
+					</p-area>
 				</div>
-				<div class="smallest b">
-					<p-offset class="reverse">
+				<div>
+					<p-list class="smaller invisible">
 						<div>
-							<router-link to="/novinky">Archiv novinek</router-link> &rarr;
+							<p-area icon="evropske-volby" background="var(--blue11)">
+								<router-link to="/prehled" class="strong">Volební<br>přehled</router-link>
+							</p-area>
 						</div>
 						<div>
-							<p-label :after="true" color="var(--red)">
-								<p-link href="https://programydovoleb.cz/rss">RSS</p-link>
-							</p-label>						
+							<p-area icon="icon-check" background="var(--blue11)">
+								<router-link to="/kalkulacka" class="strong">Volební<br>kalkulačka</router-link>
+							</p-area>
 						</div>
-					</p-offset>
-					
+					</p-list>
+				</div>
+				<div>
+					<div class="smaller">
+						<strong>Programy do voleb </strong> jsou nestranný neziskový projekt, díky kterému si můžete snadno, pohodlně a bez hledání přečíst a
+						porovnat volební programy všech stran či kandidátů.
+						<p-gap></p-gap>
+						<p-link href="https://programydovoleb.cz/o-projektu" class="strong">Více o tomto projektu</p-link>
+					</div>
+					<div class="p-gap"></div>
+					<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png" class="smaller strong">
+						<p-link href="https://darujme.cz/programydovoleb" class="green">Podpořte<br>Programy</p-link>
+					</p-area>
 				</div>
 			</p-list>
 		</template>

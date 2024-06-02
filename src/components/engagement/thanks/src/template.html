@@ -11,6 +11,12 @@
 				<report-form :noLink="true"></report-form>
 			</template>
 		</p-modal>
+		<p-modal v-if="used" class="text-left">
+			<template #init><button>Sdílejte tuto stránku</button></template>
+			<template #content>
+				<p-share></p-share>
+			</template>
+		</p-modal>
 	</div>
 	
 </div>

@@ -3,6 +3,22 @@
 		<template #main>
 			<p-block :level="1" headline="Porovnejte si strany a kandidáty" anchor="Porovnejte si">
 				<p class="lead">Zde si můžete porovnat strany a kandidáty a jejich odpovědi. Nebo si můžete vybrat téma, které vás zajímá a pročíst si, jak se k němu strany vyjadřují ve svém volebním programu.</p>
+
+				<p-grid>
+					<div>
+						<p-area icon="icon-party" background="var(--blue11)">
+							<router-link to="/pruvodce" class="strong">Průvodce na míru</router-link>
+							<div class="smallest">Porovnejte si až 3 strany najednou</div>
+						</p-area>
+					</div>
+					<div>
+						<p-area icon="icon-check" background="var(--blue11)">
+							<router-link to="/kalkulacka" class="strong">Volební kalkulačka</router-link>
+							<div class="smallest">Napoví, ke komu máte blíž</div>
+						</p-area>
+					</div>
+				</p-grid>
+				<div class="p-gap _2"></div>
 			<!-- </p-block> -->
 			<!-- <p-block headline="Přehled otázek" :level="1" class="p-block---up"> -->
 				<p-loader :rule="elections">
@@ -175,51 +191,43 @@
 			</p-block>	
 		</template>
 		<template #aside>
-			<p-list class="smaller invisible">
-				<!-- <p-grid> -->
-					<div>
-						<p-area icon="icon-check" background="var(--blue11)">
-							<router-link to="/kalkulacka" class="strong">Volební<br>kalkulačka</router-link>
-						</p-area>
+			<p-list height="1.25">
+				<div>
+					<p-area borderColor="var(--yellow)" background="var(--blue11)" padding=".85em 1em 1em 1.5em">
+						<div class="smaller"><strong>Novinka!</strong> Unikátní volební průvodce, ve kterém si můžete snadno porovnat až tři strany najednou.</div>
+						<div class="p-gap"></div>
+						<p-box to="/pruvodce">
+							<p-box-button color="var(--blue)">Průvodce &rarr;</p-box-button>
+						</p-box>
+					</p-area>
+				</div>
+				<div>
+					<p-list class="smaller invisible">
+						<div>
+							<p-area icon="evropske-volby" background="var(--blue11)">
+								<router-link to="/prehled" class="strong">Volební<br>přehled</router-link>
+							</p-area>
+						</div>
+						<div>
+							<p-area icon="icon-check" background="var(--blue11)">
+								<router-link to="/kalkulacka" class="strong">Volební<br>kalkulačka</router-link>
+							</p-area>
+						</div>
+					</p-list>
+				</div>
+				<div>
+					<div class="smaller">
+						<strong>Programy do voleb </strong> jsou nestranný neziskový projekt, díky kterému si můžete snadno, pohodlně a bez hledání přečíst a
+						porovnat volební programy všech stran či kandidátů.
+						<p-gap></p-gap>
+						<p-link href="https://programydovoleb.cz/o-projektu" class="strong">Více o tomto projektu</p-link>
 					</div>
-					<div>
-						<p-area icon="people-symbol" background="var(--blue11)">
-							<router-link to="/aktivity/kdo-se-stane-europoslancem" class="strong">Tipněte si,<br>kdo uspěje?</router-link>
-						</p-area>
-					</div>
-					<div>
-						<p-area icon="party" background="var(--blue11)">
-							<router-link to="/aktivity/volebni-anketa" class="strong">Předvolební<br>Anketa</router-link>
-						</p-area>
-					</div>
-					<div>
-						<p-area icon="icon-election" background="var(--blue11)">
-							<router-link to="/aktivity/odhad-vysledku" class="strong">Odhad<br>výsledku</router-link>
-						</p-area>
-					</div>
-					<div>
-						<p-area icon="euroquiz" background="var(--blue11)">
-							<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební<br>eurokvíz</router-link>
-						</p-area>
-					</div>
-					<div>
-						<p-area icon="evropske-volby" background="var(--blue11)">
-							<router-link to="/" class="strong">Volební přehled<br>k eurovolbám</router-link>
-						</p-area>
-					</div>
-				<!-- </p-grid> -->
+					<div class="p-gap"></div>
+					<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png" class="smaller strong">
+						<p-link href="https://darujme.cz/programydovoleb" class="green">Podpořte<br>Programy</p-link>
+					</p-area>
+				</div>
 			</p-list>
-			<h3 class="serif w400">Programy do voleb, z. s.</h3>
-			<div class="smaller">
-				Nestranný neziskový projekt, díky kterému si můžete snadno, pohodlně a bez hledání přečíst a
-				porovnat volební programy všech stran či kandidátů.
-				<p-gap></p-gap>
-				<p-link href="https://programydovoleb.cz/o-projektu" class="strong">Více o tomto projektu</p-link>
-			</div>
-			<div class="p-gap"></div>
-			<p-area background="#fff" icon="https://static.programydovoleb.cz/logo/darujme.png" class="smaller strong">
-				<p-link href="https://darujme.cz/programydovoleb" class="green">Podpořte<br>Programy</p-link>
-			</p-area>
 			
 		</template>
 		<template #anchors>
