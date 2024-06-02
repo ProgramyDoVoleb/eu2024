@@ -16,9 +16,6 @@
 							</div>
 							<!-- <div v-if="candidates.length === 0" class="dimm smallest"><em>zatím bez dalších informací</em></div> -->
 						</div>
-						<div class="smallest dimm" v-if="party.ESTRANA > 0">
-							{{ party.ESTRANA }}
-						</div>
 					</div>
 				</div>
 				<div v-if="!logoByItem(party, elections).includes('empty')" class="_ba">
@@ -124,5 +121,8 @@
 				<template v-if="party.$data.web && party.$data.web.length > 0"> <p-link :href="party.$data.web[0].value" class="_icon"><img src="https://static.programydovoleb.cz/icon/link.svg" alt="Webové stránky" class="_icon"></p-link></template>										
 			</div>
 		<!-- </div> -->
+						<div class="smallest dimm _no" v-if="party.ESTRANA > 0">
+							{{ party.ESTRANA }}
+						</div>
 	</p-area>
 </div>

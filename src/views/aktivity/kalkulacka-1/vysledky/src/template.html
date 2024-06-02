@@ -455,11 +455,29 @@
 						<p-block headline="Kalkulačka" :hide="true">
 							<p-area background="var(--blue11)">
 								<p-box-group class="_pbg">
-									<p-box to="/kalkulacka">
-										<p-box-button color="var(--blue)">Vyplnit kalkulačku</p-box-button>
-									</p-box>
+									<p-modal class="_pmod">
+										<template #init>
+											<p-box>
+												<p-box-button color="var(--blue)">Do průvodce</p-box-button>
+											</p-box>
+										</template>
+										<template #content>
+											<strong>Vyberte si až tři strany do Průvodce</strong>
+											<div class="p-gap"></div>
+											<div class="columns-4 smaller">
+												<div v-for="(party, index) in sortBy(list, 'short', null, true)">
+													<button class="inline" @click="guide_toggle(party.id)" :class="{'strong green': guide.find(x => x === party.id)}">{{ data.parties.find(x => x.id === party.id).ZKRATKA }}</button>
+												</div>
+											</div>
+											<p-line></p-line>
+											<router-link class="btn" :to="'/pruvodce?vyber=' + guide.join(',')" :disabled="guide.length === 0">Přejít do průvodce</router-link>
+										</template>
+									</p-modal>
 									<p-box to="/">
 										<p-box-button color="var(--blue)">Volební přehled</p-box-button>
+									</p-box>
+									<p-box to="/kalkulacka">
+										<p-box-button color="var(--blue)">Vyplnit kalkulačku</p-box-button>
 									</p-box>
 								</p-box-group>
 							</p-area>

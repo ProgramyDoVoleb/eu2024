@@ -12,15 +12,15 @@ export default {
 			querySearchTown: null,
 			querySearchTownSearching: false,
 			list: [
-				{label: 'Přehled stran', to: '/prehled'},
-				// {label: 'Strany', to: '/strany'},
+				{label: 'Průvodce', to: '/pruvodce', class: 'strong'},
+				{label: 'Strany', to: '/prehled'},
 				{label: 'Kandidáti', to: '/kandidati'},
-				{label: 'Porovnejte si', to: '/otazky'},
 				{label: 'Jak volit?', to: '/jak-volit'},
+				{label: 'Otázky a odpovědi', to: '/otazky'},
 				{label: 'Události', to: '/udalosti'},
 				{label: 'Průzkumy', to: '/volebni-pruzkumy'},
 				{label: 'Novinky', to: '/novinky'},
-				{label: 'Pro kandidáty', to: '/pro-kandidaty', class: 'strong'}
+				// {label: 'Pro kandidáty', to: '/pro-kandidaty', class: 'strong'}
 			]
 		}
 	},

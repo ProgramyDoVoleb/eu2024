@@ -201,7 +201,7 @@ button, .button, .btn {
 		}
 	}
 
-	&[disabled] {
+	&[disabled]:not([disabled=false]) {
 		border: 1px solid #88888844 !important;
 		color: #88888888 !important;
 		background: transparent;

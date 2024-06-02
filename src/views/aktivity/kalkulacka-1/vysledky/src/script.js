@@ -18,6 +18,7 @@ export default {
 			limit: true,
 			imagedata: null,
 			sublist: [],
+			guide: [],
 			focus: null,
 			width: 0
 		}
@@ -104,6 +105,13 @@ export default {
 			this.sublist.splice(this.sublist.findIndex(x => x === id), 1)
 		} else {
 			this.sublist.push(id);
+		}
+	},
+	guide_toggle: function (id) {
+		if (this.guide.find(x => x === id)) {
+			this.guide.splice(this.guide.findIndex(x => x === id), 1)
+		} else if (this.guide.length < 3) {
+			this.guide.push(id);
 		}
 	}
   },
