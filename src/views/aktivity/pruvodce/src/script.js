@@ -17,6 +17,7 @@ export default {
 			partyList: [],
 			topic: null,
 			calc: [],
+			priorityLimit: [3,3,3],
 			focus: null
 		}
 	},
@@ -80,6 +81,19 @@ export default {
 			} else if (list.length < 3) {
 				list.push(id);
 			}
+		},
+		getQuestion: function (id) {
+			var res = '';
+
+			switch (id) {
+				case 347: res = 'Hlavní volební priority'; break;
+				case 348: res = 'Veto vs hlasování většinou'; break;
+				case 349: res = 'Ekonomika vs Green Deal'; break;
+				case 350: res = 'Přístup EU k ruské agresi'; break;
+				case 351: res = 'Cíle a síla frakce'; break;
+			}
+
+			return res;
 		}
 	},
   mounted: function () {

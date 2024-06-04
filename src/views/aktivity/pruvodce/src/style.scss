@@ -141,5 +141,16 @@ p {
   ._bp {
 	width: .5em;
 	height: .5em;
-	border: 4px;
+	border-radius: 2px;
+  }
+
+  ._i {
+	  position: relative;
+	  display: inline-block;
+  
+	  .p-icon {
+		  position: absolute;
+		  left: 0em;
+		  top: -1.45em;
+	  }
   }

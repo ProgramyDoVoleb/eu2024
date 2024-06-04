@@ -86,33 +86,59 @@
 										</div>
 										<template v-if="party.$data.about">
 											<div class="p-gap"></div>
-											<div class="strong smallest">Představení:</div>
+											<div class="strong smallest">Představení{{ party.$data.motto ? ' a volební slogan' : '' }}:</div>
 											<div class="p-gap _05"></div>
 											<div class="_mw serif">
 												<p-truncated :size="30" :content="party.$data.about[0].value"></p-truncated>
 											</div>
 										</template>
 										<template v-if="party.$data.motto">
-											<div class="p-gap"></div>
-											<div class="strong smallest">Volební hesla:</div>
+											<template v-if="!party.$data.about">
+												<div class="p-gap"></div>
+												<div class="strong smallest">Volební slogan:</div>
+											</template>
 											<div class="p-gap _05"></div>
-											<p-list>
+											<p-list class="invisible">
 												<div v-for="(quote, index) in party.$data.motto" class="_mw">
 													<p-offset class="balanced">
 														<div>
 															<div class="_bp" :style="{background: colorByItem(party, data)}"></div>
 														</div>
 														<div>
-															<div class="serif">{{ quote.value }}</div>
+															<div class="strong smaller">{{ quote.value }}</div>
 														</div>
 													</p-offset>
 												</div>
 											</p-list>
 										</template>
+										<template v-if="party.$odpovedi.find(x => x.question > 347 && x.question < 351)">
+											<!-- <div class="p-gap"></div> -->
+											<p-line></p-line>
+											<!-- <div class="strong smallest">Odpovědi na stěžejní otázky</div> -->
+											<!-- <div class="p-gap _05"></div> -->
+											<div class="_mw">
+												<p-list-linear class="or smaller">
+													<span v-for="(answer, indexA) in sortBy(party.$odpovedi.filter(x => x.question > 347 && x.question < 351), 'question')">
+														<p-modal class="inline">
+															<template #init><button class="inline strong">{{ getQuestion(answer.question) }}</button></template>
+															<template #content>
+																<div class="_mw smaller"><strong>{{ answer.$otazka[0].question }}</strong></div>
+																<div class="p-gap"></div>
+																<div class="serif _mw">
+																	<p-truncated :size="120" :content="answer.$odpoved[0].answer"></p-truncated>
+																	<div class="smallest dimm" v-if="answer.source">Více na <p-link :href="answer.source">{{ domain(answer.source) }}</p-link></div>
+																</div>
+															</template>
+														</p-modal>
+													</span>
+												</p-list-linear>
+											</div>
+										</template>
 										<template v-if="party.$data.video">
 											<div class="p-gap"></div>
+											<!-- <div class="p-gap _05"></div> -->
 											<template v-for="(video, index) in party.$data.video">
-												<p-collapsible :label="video.label">
+												<p-collapsible :label="video.label" class="smaller">
 													<div v-html="video.value"></div>
 												</p-collapsible>
 											</template>
@@ -138,16 +164,36 @@
 									<p-area :borderColor="colorByItem(party, data)">
 										<p-box-image class="_fl" :src="logoByItem(party, data)"></p-box-image>
 										<strong>{{ party.ZKRATKA }}</strong>
+										<div class="p-gap _05"></div>
+										<template v-if="party.$odpovedi.find(x => x.question === 347)">
+											<div class="smaller">
+												<strong>3 nejdůležitější body volebního programu:</strong>
+												<div class="p-gap _05"></div>
+											</div>
+											<div class="_mw serif">
+												<p-truncated :content="party.$odpovedi.find(x => x.question === 347).$odpoved[0].answer" :size="30"></p-truncated>
+											</div>
+											<p-line></p-line>
+										</template>
 										<template v-if="party.$priority.length > 0">
-											<div class="p-gap"></div>
 											<div class="strong smallest">Priority:</div>
 											<div class="p-gap _05"></div>
 											<p-list>
-												<div v-for="(item, index) in party.$priority" class="_mw">
+												<div v-for="(item, index) in party.$priority.filter((x, i) => i < priorityLimit[index])" class="_mw">
 													<strong>{{ item.headline }}</strong>
-													<div class="smaller">
-														<p-truncated :content="item.content" :size="30"></p-truncated>
+													<div class="serif" :class="{smaller: !!item.headline}">
+														<p-truncated :content="item.content" :size="24"></p-truncated>
 													</div>
+												</div>
+												<div v-if="party.$priority.length > 3" class="strong">
+													<button class="inline smallest" @click="priorityLimit[index] = priorityLimit[index] === 3 ? 100 : 3">
+														<template v-if="priorityLimit[index] === 3">
+															Zobrazit <p-lang :value="party.$priority.length" :end="['', '', 'všechny %% priority', 'všech %% priorit']"></p-lang>
+														</template>
+														<template v-else>
+															<span class="red">Zkrátit seznam priorit</span>
+														</template>
+													</button>
 												</div>
 											</p-list>
 										</template>
@@ -155,18 +201,28 @@
 											<em class="smaller">Priority nebyly zveřejněny</em>
 										</div>
 										<template v-if="party.$data.program">
-											<div class="p-gap"></div>
-											<div class="strong smallest">Programové dokumenty:</div>
-											<div class="p-gap _05"></div>
-											<div v-for="(item, index) in party.$data.program" class="_mw smaller">
-												<p-link class="strong" :href="item.source">{{ item.value }}</p-link>
-												&middot;
-												zveřejněno {{ date(item.updated) }}
-												<template v-if="item.label">
-													&middot;
-													<p-link :href="item.label" class="dimm">záložní odkaz</p-link>
-												</template>
-											</div>
+											<!-- <div class="p-gap"></div> -->
+											<p-line></p-line>
+											<p-offset>
+												<div>
+													<p-icon icon="icon-party" size="2.5em"></p-icon>
+												</div>
+												<div>
+													<div class="strong smallest">Programové dokumenty:</div>
+													<div class="p-gap _02"></div>
+													<p-list class="invisible" height=".25">
+														<div v-for="(item, index) in party.$data.program" class="_mw smaller">
+															<p-link class="strong" :href="item.source">{{ item.value }}</p-link>
+															&middot;
+															zveřejněno {{ date(item.updated) }}
+															<template v-if="item.label">
+																&middot;
+																<p-link :href="item.label" class="dimm">záložní odkaz</p-link>
+															</template>
+														</div>
+													</p-list>
+												</div>
+											</p-offset>
 										</template>
 										<div v-else>
 											<em class="smaller">Programové dokumenty nebyly nalezeny.</em>
@@ -189,7 +245,7 @@
 				<div class="p-gap"></div>
 				<p-line></p-line>
 				<div class="_big">05</div>
-				<h2>Hlavní volební témata</h2>
+				<h2>Z volebního programu</h2>
 				<p>Zde se můžete podívat, jak se vybrané strany ve svých volebních programech staví k hlavním tématům, jak je vybrali respondenti průzkumu STEM/MARK.</p>
 				<p-area class="_mc" background="var(--blue11)">
 					<p-loader :rule="elections">

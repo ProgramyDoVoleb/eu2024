@@ -36,7 +36,7 @@ export default {
 			}
 		},
 		removeBreaks: function (txt) {
-			return txt.split('<br>').join(' ');
+			return txt ? txt.split('<br>').join(' ') : txt;
 		}
 	},
 	mounted: function () {
