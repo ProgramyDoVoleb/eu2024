@@ -2,7 +2,7 @@
 	<p-offset>
 		<div class="_photo" v-if="current.$kandidati.find(x => x.$data.photo && x.$data.photo.length > 0)">
 			<p-photo class="_person" :data="con(cand.$data, 'photo', null, null, true)" :alt="cand.JMENO + ' ' + cand.PRIJMENI"></p-photo>
-			<img class="_party" loading="lazy" :src="logoByItem(nominee, data)" v-if="nominee.VSTRANA != current.VSTRANA" :alt="'Logo ' + nominee.ZKRATKA">
+			<img class="_party" loading="lazy" :src="logoByItem(nominee, data)" v-if="nominee.VSTRANA != current.VSTRANA || logoAlways" :alt="'Logo ' + nominee.ZKRATKA">
 			<template v-if="member && member.VSTRANA !== nominee.VSTRANA && member.VSTRANA != 99">
 				<img class="_party" loading="lazy" :src="logoByItem(member, data)" :alt="'Logo ' + member.ZKRATKA">
 			</template>	

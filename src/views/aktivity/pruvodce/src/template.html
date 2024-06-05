@@ -403,7 +403,7 @@
 							<div v-if="data">
 								<div v-for="(party, index) in [data.list[0]]" class="_pp">
 
-										<person-preview-block :cand="party.$kandidati.find(x => x.PORCISLO === 1)" :data="data" :current="party"></person-preview-block>
+										<person-preview-block :cand="party.$kandidati.find(x => x.PORCISLO === 1)" :data="data" :current="party" :logoAlways="true"></person-preview-block>
 
 								</div>
 							</div>
@@ -436,7 +436,7 @@
 										<p-line></p-line>
 										<p-list>
 											<div v-for="(cand, indexC) in party.$kandidati.filter(x => x.PORCISLO < 6)">
-												<person-preview-linear :cand="cand" :data="data" :current="party"></person-preview-linear>
+												<person-preview-linear :logoAlways="true" :cand="cand" :data="data" :current="party"></person-preview-linear>
 											</div>
 										</p-list>
 										<p-line></p-line>
