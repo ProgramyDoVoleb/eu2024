@@ -347,7 +347,7 @@
 			<!-- <p-block headline="Zpětná vazba" :hide="true">
 				<feedback-1></feedback-1>
 			</p-block> -->
-			<p-block headline="Debaty">
+			<!-- <p-block headline="Debaty">
 				<p-loader :rule="news && elections">
 					<div v-if="news && elections">
 						<p-list height="1.5">
@@ -360,8 +360,8 @@
 						</p-list>
 					</div>
 				</p-loader>
-			</p-block>
-			<p-block headline="Novinky">
+			</p-block> -->
+			<p-block-expandable headline="Novinky">
 				<p-area borderColor="var(--blue)">
 					<p-loader :rule="news" reserve="300px">
 						<div v-if="news" class="smaller">
@@ -382,7 +382,8 @@
 						</div>
 					</p-loader>
 				</p-area>
-			</p-block>
+			</p-block-expandable>
+			<p-gap height="3"></p-gap>
 			<p-grid>
 				<li>
 					<p-area icon="plus-green" background="var(--greyish)">
