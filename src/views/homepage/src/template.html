@@ -3,8 +3,14 @@
 		<template #main>
 			<p-block headline="Volby do evropského parlamentu 2024" anchor="Eurovolby 2024" :level="1" subheadline="Programy do voleb" :hide="true">
 				<p class="lead">
-					<strong>Volby se konají 7. a 8. června</strong> a vybíráme při nich 21 europoslanců. Volit může každý občan ČR starší 18 let a registrovaný občan z členské země EU. Do obálky se dává <strong>jeden lístek</strong>, na kterém můžete <strong>zakroužkovat až dva kandidáty</strong>. <router-link to="/jak-volit" class="strong">Jak volit?</router-link>
+					<strong>Volby se konaly 7. a 8. června</strong> a vybírali jsme při nich 21 europoslanců. Volit mohl každý občan ČR starší 18 let a registrovaný občan z členské země EU. Do obálky se dává <strong>jeden lístek</strong>, na kterém můžete <strong>zakroužkovat až dva kandidáty</strong>. <router-link to="/jak-volit" class="strong">Jak volit?</router-link>
 				</p>
+				<div class="p-gap"></div>
+
+				<template v-if="elections">
+					<election-results :type="election_types.find(x => x.key === 'EP')" :id="161" :kraj="0" :election="elections.list[0]" :spec="0"></election-results>
+				</template>
+
 				<!-- <p-line height=".25"></p-line> -->
 				<!-- <p class="lead">Na tomto webu najdete podrobné informace o <router-link to="/prehled">všech stranách</router-link> a <router-link to="/kandidati">kandidátech</router-link>, volební programy nebo <router-link to="/otazky">odpovědi kandidátů</router-link>. Zkuste také <router-link to="/kalkulacka" class="strong">volební kalkulačku</router-link> nebo <router-link to="/aktivity/kviz-pro-eurovolby">kvíz</router-link>.</p> -->
 				<p-gap height="1"></p-gap>
@@ -31,7 +37,7 @@
 				<p-gap height="2"></p-gap>
 			</p-block>
 			<p-block headline="Hlavní témata ve volebních programech" :hide="true" class="_up">
-				<h2>Hlavní témata <div class="smaller">ve volebních programech</div></h2>
+				<h2>Hlavní témata</h2>
 				<p-area background="var(--blue11)">
 					<p-loader :rule="elections" reserve="10em">
 						<div v-if="elections">
@@ -44,7 +50,7 @@
 					</p-loader>
 				</p-area>
 			</p-block>
-			<p-block headline="Kdo kandiduje?">	
+			<p-block headline="Kdo kandidoval?">	
 				<p-loader :rule="elections" reserve="100vh">
 					<div v-if="elections">
 						<div v-for="(election, index) in [elections.list[0]]">
