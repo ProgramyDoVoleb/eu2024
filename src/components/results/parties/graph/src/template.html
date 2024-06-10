@@ -23,7 +23,7 @@
 					<p-logo :data="item"></p-logo>
 				</div>
 				<div class="_short smallest">
-					<component :is="item.link ? 'router-link' : 'span'" :to="item.link">{{ truncate(item.short, 8, true) }}</component>
+					<component :is="item.link ? 'p-link' : 'span'" :href="'https://programydovoleb.cz' + item.link">{{ truncate(item.short, 8, true) }}</component>
 				</div>
 				<div class="_coal" v-if="item.coal">
 					<template v-for="(member, im) in item.coal">

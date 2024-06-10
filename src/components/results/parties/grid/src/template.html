@@ -3,9 +3,9 @@
 		<div v-for="(item, index) in list">
 			<p-area :borderColor="item.color" padding="0 1em 0 1.25em" background="Transparent">
 				<div class="strong">
-					<router-link :to="item.link">
+					<p-link :href="'https://programydovoleb.cz' + item.link">
 						{{ item.name }}
-					</router-link>
+					</p-link>
 				</div>
 				<p-logo :data="item" v-if="item.logo && item.logo.split('empty.png').length === 1"></p-logo>
 
@@ -55,9 +55,9 @@
 						<div v-for="(person, indexP) in sortByPorCislo(item.list).filter(x => leaders && item.list.find(y => y.POR) ? x.PORCISLO === 1 : true)">
 							<component :is="item.coal ? 'p-label' : 'span'" :color="person.color || 'var(--greyish)'">
 								<span class="dimm strong smallest _pc" :style="{color: !person.PORCISLO ? 'var(--greyish)' : null}">{{ person.PORCISLO ? person.PORCISLO + '.' : '? ' }}</span>
-								<router-link :to="person.link">
+								<p-link :href="'https://programydovoleb.cz' + person.link">
 									{{ person.name }} {{ person.family }}
-								</router-link> 
+								</p-link> 
 							</component><span class="dimm smallest" v-if="person.region"> &middot; {{ person.region }}</span>
 						</div>
 						<div class="dimm smallest" v-if="item.list.length === 0"><i>Žádní známí kandidáti</i></div>

@@ -28,7 +28,7 @@
 			<template v-for="(item, index) in display">
 				<tr :class="{'smaller no-mandat': !item.passed, 'rest dimm': !item.link}">
 					<td class="_pr">
-						<p-label :color="item.color"><component :is="item.link ? 'router-link' : 'span'" :to="item.link">{{ item.label }}</component></p-label>
+						<p-label :color="item.color"><component :is="item.link ? 'p-link' : 'span'" :href="'https://programydovoleb.cz' + item.link">{{ item.label }}</component></p-label>
 						<span class="graph-line-holder"><span class="graph-line" :style="{width: item.graph + '%', background: item.color}"></span></span>
 					</td>
 					<template v-if="!display[0].ref || !global || width > widthLimit">
