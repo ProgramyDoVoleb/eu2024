@@ -3,37 +3,35 @@
 		<template #main>
 			<p-block headline="Volby do evropského parlamentu 2024" anchor="Eurovolby 2024" :level="1" subheadline="Programy do voleb" :hide="true">
 				<p class="lead">
-					<strong>Volby se konaly 7. a 8. června</strong> a vybírali jsme při nich 21 europoslanců. Volit mohl každý občan ČR starší 18 let a registrovaný občan z členské země EU. Do obálky se dává <strong>jeden lístek</strong>, na kterém můžete <strong>zakroužkovat až dva kandidáty</strong>. <router-link to="/jak-volit" class="strong">Jak volit?</router-link>
+					<strong>Volby se konaly 7. a 8. června</strong> a vybírali jsme při nich 21 europoslanců. Volit mohl každý občan ČR starší 18 let a registrovaný občan z členské země EU. Lidé mohli zakroužkovat až dva kandidáty na jednom volebním lístku. Takto zvolili:
 				</p>
 				<div class="p-gap"></div>
 
 				<template v-if="elections">
 					<election-results :type="election_types.find(x => x.key === 'EP')" :id="161" :kraj="0" :election="elections.list[0]" :spec="0"></election-results>
 				</template>
+				<p-gap height="2"></p-gap>
+				<p-area background="var(--blue11)">
+					<p-offset>
+						<div>
+							<p-image src="https://static.programydovoleb.cz/img/2024/plakat-161-a2.jpg" width="120px" :border="true" :rounded="true"></p-image>
+						</div>
+						<div class="_poff">
+							<h3 class="blue _h3">Předobjednejte si plakát s výsledky eurovoleb '24</h3>
+							<p class="smaller">Koupí plakátu pomůžete lepší informovanosti u příštích voleb. Výnos z prodeje jde hlavně na reklamu, aby se o projektu před volbami dozvědělo co nejvíc lidí.</p>
+							<p-box href="https://eshop.programydovoleb.cz/plakat-a2-evropske-volby-2024/">
+								<p-box-button color="var(--blue)">Předobjednat</p-box-button>
+							</p-box>
+							<p class="smallest dimm">Do 30. června se slevou 16 %</p>
+						</div>
+						<div class="_pofn">
+							<p-box-ticker background="var(--blue)" color="var(--white)">- 16 %</p-box-ticker>
+						</div>
+					</p-offset>
+				</p-area>
 
 				<!-- <p-line height=".25"></p-line> -->
 				<!-- <p class="lead">Na tomto webu najdete podrobné informace o <router-link to="/prehled">všech stranách</router-link> a <router-link to="/kandidati">kandidátech</router-link>, volební programy nebo <router-link to="/otazky">odpovědi kandidátů</router-link>. Zkuste také <router-link to="/kalkulacka" class="strong">volební kalkulačku</router-link> nebo <router-link to="/aktivity/kviz-pro-eurovolby">kvíz</router-link>.</p> -->
-				<p-gap height="1"></p-gap>
-				<p-grid>
-					<div>
-						<p-area icon="evropske-volby" background="var(--blue11)">
-							<router-link to="/prehled" class="strong">Přehled stran</router-link>
-							<div class="smallest">Strany, kandidáti, programy, odkazy...</div>
-						</p-area>
-					</div>
-					<div>
-						<p-area icon="icon-party" background="var(--blue11)">
-							<router-link to="/pruvodce" class="strong">Průvodce na míru</router-link>
-							<div class="smallest">Porovnejte si až 3 strany najednou</div>
-						</p-area>
-					</div>
-					<div>
-						<p-area icon="icon-check" background="var(--blue11)">
-							<router-link to="/kalkulacka" class="strong">Volební kalkulačka</router-link>
-							<div class="smallest">Napoví, ke komu máte blíž</div>
-						</p-area>
-					</div>
-				</p-grid>
 				<p-gap height="2"></p-gap>
 			</p-block>
 			<p-block headline="Hlavní témata ve volebních programech" :hide="true" class="_up">
@@ -121,21 +119,6 @@
 						</p-collapsible>
 					</div>
 				</p-loader>
-				<p-gap height="2"></p-gap>
-				<p-grid>
-					<div>
-						<p-area icon="answers-mini">
-							<router-link to="/otazky" class="strong">Chcete také odpovědět?</router-link>
-							<div class="smallest">Zobrazit otázky a instrukce</div>
-						</p-area>
-					</div>
-					<div>
-						<p-area icon="people-symbol">
-							<router-link to="/kandidati" class="strong">Seznam kandidátů</router-link>
-							<div class="smallest">Abecední seznam všech kandidátů</div>
-						</p-area>
-					</div>
-				</p-grid>
 			</p-block>
 			<p-block anchor="Aktivity" headline="Aktivity">
 				<p-grid>
@@ -194,7 +177,7 @@
 					</div>
 				</p-loader>
 			</p-block>
-			<p-block headline="V médiích" reserve="450px">
+			<p-block-expandable headline="V médiích" reserve="450px">
 				<p-loader :rule="news">
 					<div v-if="news" class="smaller">
 						<div class="columns _gap">
@@ -220,22 +203,10 @@
 									</p-area>
 								</div>
 							</template>
-							<div>
-								<p-area icon="plus-green" background="var(--greyish)">
-									<p-modal>
-										<template #init> <button class="inline green strong">Poslat tip na novinku</button> </template>
-										<template #content>
-											<div class="strong">Odkaz na článek</div>
-											<report-form part="Přidat novinku"></report-form>
-										</template>
-									</p-modal>
-									<div class="smallest dimm">Stačí poslat odkaz</div>
-								</p-area>
-							</div>
 						</div>
 					</div>
 				</p-loader>
-			</p-block>
+			</p-block-expandable>
 			<p-block-expandable headline="Debata s kandidáty Zavolíme!" anchor="Zavolíme!">
 				<iframe class="_hd" src="https://www.youtube.com/embed/r262TDMmQ3U?si=tMVnqsW4yU3tNHOY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 				<p class="strong">
@@ -459,27 +430,14 @@
 		<template #aside>
 			<p-list height="1.25">
 				<div>
-					<p-area borderColor="var(--yellow)" background="var(--blue11)" padding=".85em 1em 1em 1.5em">
-						<div class="smaller"><strong>Novinka!</strong> Unikátní volební průvodce, ve kterém si můžete snadno porovnat až tři strany najednou.</div>
-						<div class="p-gap"></div>
-						<p-box to="/pruvodce">
-							<p-box-button color="var(--blue)">Průvodce &rarr;</p-box-button>
-						</p-box>
-					</p-area>
-				</div>
-				<div>
-					<p-list class="smaller invisible">
-						<div>
-							<p-area icon="icon-check" background="var(--blue11)">
-								<router-link to="/kalkulacka" class="strong">Volební<br>kalkulačka</router-link>
-							</p-area>
-						</div>
-						<div>
-							<p-area icon="euroquiz" background="var(--blue11)">
-								<router-link to="/aktivity/kviz-pro-eurovolby" class="strong">Volební<br>eurokvíz</router-link>
-							</p-area>
-						</div>
-					</p-list>
+					<p-image src="https://static.programydovoleb.cz/img/2024/plakat-161-a2.jpg" width="100%" :border="true" :rounded="true"></p-image>
+					<div class="p-gap"></div>
+					<strong class="blue">Předobjednejte si plakát s výsledky eurovoleb '24</strong>
+					<p class="small">Koupí plakátu pomůžete lepší informovanosti u příštích voleb. Výnos z prodeje jde hlavně na reklamu, aby se o projektu před volbami dozvědělo co nejvíc lidí.</p>
+					<p-box href="https://eshop.programydovoleb.cz/plakat-a2-evropske-volby-2024/">
+						<p-box-button color="var(--blue)">Předobjednat</p-box-button>
+					</p-box>
+					<p class="smallest dimm">Do 30. června se slevou 16 %</p>
 				</div>
 				<div>
 					<div class="smaller">

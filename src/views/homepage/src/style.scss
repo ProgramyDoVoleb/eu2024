@@ -178,3 +178,26 @@
 	object-fit: cover;
 	border-radius: 4px;
 }
+
+._h3 {
+	margin: .5em 0 0 0;
+	padding: 0;
+
+	+ p {
+		margin-top: .5em;
+	}
+}
+
+._pofn {
+	width: 5em;
+	flex: none !important;
+
+	@media (max-width: 640px) {
+		display: none;
+	}
+}
+
+._poff {
+	flex: 1;
+	margin: 0 1em;
+}
